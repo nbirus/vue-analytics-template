@@ -1,55 +1,22 @@
-/*
-  main source styled of truth
-*/
+@import './app-config.less';
+@import './app-helper.less';
 
-// import
-@import './config.less';
+ // root page element
+ #app {
+   display: flex;
+   min-height: @page-min-height;
 
-// ----------- page -----------
-.page {
-  width: 100%; height: @page-min-height;
-  background-color: @page-bg-color;
+   // page nav bar
+   & > .nav-bar {
+     flex: 0 0 230px;
+   }
 
-  & .page-header {
-    width: 100%; height: 80px;
-    background: white;
-    border-bottom: solid thin @grey4;
-  }
+   & > .content {
+     flex: 0 1 100%;
+     height: 100%;
 
-  & .page-body {
-    .page-max-width;
-    padding: @page-padding;
-  }
-}
-
-// ----------- components -----------
-
-
-
-// panel
-.panel {
-  width: auto; height: auto;
-
-  background: white;
-  border: solid 1px @grey4;
-  border-radius: @br;
-
-  .bottom-shadow;
-}
-
-// well
-.well {
-
-}
-
-// ----------- elements -----------
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  .f-b;
-  color: @grey9;
-}
+     display: flex;
+     flex-direction: column;
+     justify-items: stretch;
+   }
+ }

@@ -75,7 +75,7 @@
 
 <style lang="less" scoped>
 
-  @import '../../styles/config.less';
+  @import (less) '../../styles/component-helper.less';
 
   // default
   .btn {
@@ -97,22 +97,22 @@
   // .createThemeClasses();
 
   // generator theme options
-  .createThemeClasses({
-
-    .btn.btn-@{name} {
-      color: white !important;
-      background-color: @color !important;
-      border-color: @color-dark !important;
-      .vertical-gradient(@color, darken(@color, 6%));
-
-      .btn-shadow(@color-dark);
-
-      &:hover {
-        border-color: @color-dark !important;
-      }
-    }
-
-  });
+  // .createThemeClasses({
+  //
+  //   .btn.btn-@{name} {
+  //     color: white !important;
+  //     background-color: @color !important;
+  //     border-color: @color-dark !important;
+  //     .vertical-gradient(@color, darken(@color, 6%));
+  //
+  //     .btn-shadow(@color-dark);
+  //
+  //     &:hover {
+  //       border-color: @color-dark !important;
+  //     }
+  //   }
+  //
+  // });
 
   // helpers
   .btn-shadow(@color) {

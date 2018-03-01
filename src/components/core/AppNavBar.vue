@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="nav-bar">
 
   </div>
 </template>
@@ -12,6 +12,10 @@
 
 <style lang="less" scoped>
 
-  @import '../../styles/config.less';
-  
+  @import '../../styles/component-helper.less';
+
+  .nav-bar {
+    background-color: @nav-bg-color;
+  }
+
 </style>

@@ -1,0 +1,38 @@
+/*
+  classes that are used to construct the App
+*/
+
+// fonts
+.f-r { font-weight: 400; }
+.f-b { font-weight: 900; }
+.f-i { font-style: italic; }
+
+// box shadow generator
+.box-shadow(@shadow) {
+  -webkit-box-shadow: @shadow;
+  -moz-box-shadow: @shadow;
+  box-shadow: @shadow;
+}
+
+// generate graidents
+.horizontal-gradient(@color, @color-dark) {
+  background: @color; /* Old browsers */
+  background: -moz-linear-gradient(left,  @color 0%, @color-dark 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left,  @color 0%, @color-dark 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right,  @color 0%, @color-dark 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@color', endColorstr='@color-dark',GradientType=1 ); /* IE6-9 */}
+
+.vertical-gradient(@color, @color-dark) {
+  background: @color; /* Old browsers */
+  background: -moz-linear-gradient(top,  @color 0%, @color-dark 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  @color 0%,@color-dark 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  @color 0%, @color-dark 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@color', endColorstr='@color-dark',GradientType=0 ); /* IE6-9 */
+}
+
+// test borders
+.b { border: solid thin black };
+.p { border: solid thin purple };
+.g { border: solid thin green };
+.r { border: solid thin red };
+.o { border: solid thin orange };
