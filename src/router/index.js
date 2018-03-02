@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // pages
-import Home from '@/pages/Home'
+import StyleGuide from '@/pages/StyleGuide'
 import NotFound from '@/pages/NotFound'
 import Unauthorized from '@/pages/Unauthorized'
 
@@ -13,13 +13,13 @@ const routes = [
   // catch all
   {
     path: '*',
-    redirect: '/not-found'
+    redirect: '/style-guide'
   },
 
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '/style-guide',
+    name: 'StyleGuide',
+    component: StyleGuide
   },
   {
     path: '/not-found',

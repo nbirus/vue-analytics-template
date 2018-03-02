@@ -38,7 +38,7 @@
         // style
         theme: {
           type: String,
-          default: 'default'
+          default: ''
         },
         block: {
           type: Boolean,
@@ -47,21 +47,21 @@
         icon: {
           type: Boolean,
           default: false
-        },
-        large: {
-          type: Boolean,
-          default: false
         }
       },
       computed: {
 
         // build class to be applyed to the button
         classConstructor () {
-          return 'btn-' + this.theme
+          return [
+            (this.theme) ? 'btn-' + this.theme : null,
+            (this.icon) ? 'btn-icon' : null,
+            (this.block) ? 'btn-block' : null
+          ]
         },
 
         ripple () {
-          return 'rgba(0, 0, 0, 0.05)'
+          return 'rgba(0, 0, 0, 0.1)'
         }
       },
       methods: {
@@ -75,46 +75,73 @@
 
 <style lang="less" scoped>
 
-  @import (less) '../../styles/component-helper.less';
+  @import '../../styles/component-helper.less';
 
-  // default
+  // ------------- default -------------
   .btn {
-    padding: 10px 15px;
+    height: @btn-height;
+    padding: 0 15px;
 
-    border: solid thin @grey1;
+    border: solid thin @grey4;
     .vertical-gradient(@grey2, @grey3);
+    .btn-shadow(@grey6);
 
-    color: @grey9;
+    color: fadeout(@grey9, 15%);
     font-size: 11pt;
     .f-b;
 
     cursor: pointer;
 
-    &:hover { border-color: @grey3; }
-    .btn-shadow(@grey6);
+    &:hover {
+      color: @grey9;
+      border-color: @grey3;
+   }
   }
 
-  // .createThemeClasses();
+  // ------------- icon -------------
+  .btn.btn-icon {
+    width: @btn-height;
+    border-radius: 50%;
+    padding: 0;
 
-  // generator theme options
-  // .createThemeClasses({
-  //
-  //   .btn.btn-@{name} {
-  //     color: white !important;
-  //     background-color: @color !important;
-  //     border-color: @color-dark !important;
-  //     .vertical-gradient(@color, darken(@color, 6%));
-  //
-  //     .btn-shadow(@color-dark);
-  //
-  //     &:hover {
-  //       border-color: @color-dark !important;
-  //     }
-  //   }
-  //
-  // });
+    line-height: 43px;
+    text-align: center;
+    vertical-align: bottom;
 
-  // helpers
+    &:focus {
+      outline: none!important;
+      .box-shadow(0px 0px 2px 1px #32a1ce);
+    }
+  }
+
+  /// ------------- block -------------
+  .btn.btn-block {
+    width: 100%;
+  }
+
+  // ------------- generator theme classes -------------
+  @scope: {
+    .generateThemeClasses({
+
+      .btn.btn-@{name} {
+        color: fadeout(white, 15%);
+        background-color: @color !important;
+        border-color: @color-dark !important;
+        .vertical-gradient(@color, darken(@color, 6%));
+
+        .btn-shadow(@color-dark);
+
+        &:hover {
+          color: white;
+          border-color: @color-dark !important;
+        }
+      }
+
+    });
+  };
+  @scope();
+
+  // ------------- helpers -------------
   .btn-shadow(@color) {
     &:active {
       -webkit-box-shadow: inset 0px 1px 3px 1px fadeout(@color, 95%);

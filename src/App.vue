@@ -7,6 +7,9 @@
     <!-- page content -->
     <div class="content">
 
+      <!-- nav bar -->
+      <!-- <app-header></app-header> -->
+
       <!-- page -->
       <router-view/>
 
@@ -37,6 +40,7 @@
 
 <style lang="less">
 
+  // import global styles
   @import './styles/app-overrides.less';
   @import './styles/app.less';
 

@@ -1,6 +1,37 @@
 /*
   classes that are used to construct the App
 */
+@import './component-helper.less';
+@import './app-config.less';
+
+// ------------ colors --------------------
+// bg and text theme colors
+@scope: {
+  .generateThemeClasses({
+
+    // ------------- background -------------
+    .bg-@{name} { background-color: @color; }
+    .bg-@{name}-dark { background-color: @color-dark; }
+    .bg-@{name}-light { background-color: @color-light; }
+
+    // ------------- text -------------
+    .text-@{name} { color: @color!important; }
+    .text-@{name}-light { color: @color-light; }
+    .text-@{name}-dark { color: @color-dark; }
+
+    .panel.bar-@{name}:before {
+      background-color: @color;
+    }
+
+  });
+};
+@scope();
+
+
+.max-page-width {
+  max-width: @page-min-width;
+  margin: 0 auto;
+}
 
 // fonts
 .f-r { font-weight: 400; }
@@ -28,6 +59,11 @@
   background: -webkit-linear-gradient(top,  @color 0%,@color-dark 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom,  @color 0%, @color-dark 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@color', endColorstr='@color-dark',GradientType=0 ); /* IE6-9 */
+}
+
+// margins
+.m-r-5 {
+  margin-right: 5px;
 }
 
 // test borders

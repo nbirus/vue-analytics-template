@@ -1,0 +1,47 @@
+/*
+  loop through each color in the theme and create classes for each style block
+  define the theme by name, color, shade %, lightness %
+  to use this function, you must give it it's own scope:
+
+  @scope: {
+    .generateThemeClasses({
+
+      // some css
+      // has access to @name, @color, @color-dark, and @color-light
+
+    });
+  }
+  @scope();
+
+*/
+
+@import './app-config.less';
+
+@array: red @c-red 25% 25%,
+        green @c-green 25% 25%,
+        blue @c-blue 25% 25%,
+        cyan @c-cyan 25% 25%,
+        purple @c-purple 25% 25%,
+        yellow @c-yellow 25% 25%,
+
+        first @c-first 25% 15%,
+        second @c-second 25% 25%,
+        third @c-third 25% 25%,
+        fourth @c-fourth 25% 25%,
+        fifth @c-fifth 25% 25%,
+        inverse @c-inverse 25% 25%;
+
+.generateThemeClasses(@body, @i: length(@array)) when (@i > 0)
+{
+
+  @theme-item: extract(@array, @i);
+
+  @name: extract(@theme-item, 1);
+  @color: extract(@theme-item, 2);
+  @color-dark: shade(@color, extract(@theme-item, 3));
+  @color-light: lighten(@color, extract(@theme-item, 4));
+
+  @body(); // call passed in style block
+
+  .generateThemeClasses(@body, @i - 1); // loop over themes
+}

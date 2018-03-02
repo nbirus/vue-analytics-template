@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="header">
 
   </header>
 </template>
@@ -13,5 +13,15 @@
 <style lang="less" scoped>
 
   @import '../../styles/component-helper.less';
+
+  .header {
+    width: 100%; height: 50px;
+
+    border-bottom: solid thin @grey3;
+
+    background: white;
+
+  }
+
 
 </style>
