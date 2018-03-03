@@ -4,25 +4,53 @@
   <div class="tabs" :class="generateTabClasses()">
 
     <!--tab list-->
-    <ul role="tablist" class="tabs-list">
-      <li
-        v-for="(tab, i) in tabs"
-        :key="i"
-        :class="{ 'active': tab.isActive, 'disabled': tab.isDisabled }"
-        class="tabs-list-item"
-        role="presentation"
-        v-show="tab.isVisible"
-      >
-        <a v-html="tab.header"
-           :aria-controls="tab.hash"
-           :aria-selected="tab.isActive"
-           @click="selectTab(tab.hash, $event)"
-           :href="(useHash) ? tab.hash : 'javascript:void(0);'"
-           class="tabs-list-item-name"
-           role="tab"
-        ></a>
-      </li>
-    </ul>
+    <div class="tabs-list" :class="{ 'collapse': !isSidebarOpen }">
+
+      <!-- list actions -->
+      <div class="tab-actions">
+
+        <!-- search input -->
+        <text-input
+          :inputValue.sync="searchText"
+          class="tab-search"
+          placeholder="Type to filter.."
+          v-if="isSidebarOpen" />
+
+        <!-- collapse button -->
+        <btn
+          icon
+          flat
+          small
+          class="tab-collapser"
+          :onClick="() => { isSidebarOpen = !isSidebarOpen }"
+        >
+          <i class="fa" :class="(isSidebarOpen) ? 'fa-chevron-left' : 'fa-chevron-right'"></i>
+        </btn>
+
+      </div>
+
+      <!-- list -->
+      <ul role="tablist" v-if="isSidebarOpen">
+        <li
+          v-for="(tab, i) in filteredTabs"
+          :key="i"
+          :class="{ 'active': tab.isActive, 'disabled': tab.isDisabled }"
+          class="tabs-list-item"
+          role="presentation"
+          v-show="tab.isVisible"
+        >
+          <a v-html="tab.header"
+             :aria-controls="tab.hash"
+             :aria-selected="tab.isActive"
+             @click="selectTab(tab.hash, $event)"
+             :href="(useHash) ? tab.hash : 'javascript:void(0);'"
+             class="tabs-list-item-name"
+             role="tab"
+          ></a>
+        </li>
+      </ul>
+
+    </div>
 
     <!--tab panels-->
     <div class="tabs-panels">
@@ -42,6 +70,14 @@
         type: Boolean,
         default: false
       },
+      searchable: {
+        type: Boolean,
+        default: false
+      },
+      collapsible: {
+        type: Boolean,
+        default: false
+      },
       useHash: {
         type: Boolean,
         default: true
@@ -53,8 +89,21 @@
     },
     data: () => ({
       tabs: [],
-      activeTabHash: ''
+      activeTabHash: '',
+      searchText: '',
+      isSidebarOpen: true
     }),
+    computed: {
+      filteredTabs () {
+        // return this.tabs
+        return this.tabs.filter(tab => {
+          return (tab.name) &&
+                 (tab.name.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1) ||
+                 (tab.isActive)
+
+        })
+      }
+    },
     created () {
       this.tabs = this.$children
     },
@@ -109,7 +158,6 @@
         tab.isVisible = visible
 
         if (tab.isActive) {
-
           tab.isActive = visible
           this.tabs.every(tab => {
             if (tab.isVisible) {
@@ -172,39 +220,76 @@
     // --- side bar ---
     &.sidebar {
       flex-direction: row;
+      justify-content: strech;
 
       // list
       & > .tabs-list {
         flex: 0 0 230px;
 
-        background-color: @grey3;
+        background-color: fadeout(black, 95%);
+        border-right: solid thin fadeout(black, 95%);
 
+        // if collapsed
+        &.collapse {
+          flex: 0 0 10px;
+
+          .tab-actions {
+            padding: 0 5px;
+            & > .tab-collapser {
+              padding: 0;
+              margin: 0;
+            }
+          }
+        }
+
+        // actions
+        .tab-actions {
+          height: 60px; width: 100%;
+
+          display: flex;
+          align-items: center;
+
+          padding: 0 15px;
+
+          .tab-search {
+            flex: 0 1 100%;
+          }
+
+          .tab-collapser {
+            flex: 0 0 auto;
+            margin-left: 10px;
+          }
+        }
+
+        // list items
         .tabs-list-item {
-          width: 100%; height: 45px;
+          width: 100%; height: 40px;
           position: relative;
 
-          border-bottom: solid thin @grey4;
-
+          // list name
           .tabs-list-item-name {
             width: 100%; height: 100%;
             display: block;
 
             padding: 0 15px;
 
-            line-height: 45px;
+            line-height: 40px;
             vertical-align: middle;
 
             font-size: 12pt;
-            color: fadeout(black, 75%);
+            color: fadeout(black, 65%);
             text-decoration: none;
             font-weight: bold;
-
           }
 
+          // item disabled
           &.disabled {
 
           }
 
+          &:hover {
+            background-color: fadeout(black, 95%);
+          }
         }
       }
 
@@ -213,15 +298,14 @@
         flex: 1 0 auto;
       }
     }
-
   }
 
   // generate active classes
   @scope: {
     .generateThemeClasses({
 
-
-      .topbar.tabs-@{name} > .tabs-list > .tabs-list-item.active {
+      // tobar
+      .topbar.tabs-@{name} > .tabs-list > ul > .tabs-list-item.active {
         border-bottom: solid 2px @color;
 
         .tabs-list-item-name {
@@ -229,8 +313,9 @@
         }
       }
 
-      .sidebar.tabs-@{name} > .tabs-list > .tabs-list-item.active {
-        border-left: solid 6px @color;
+      // sidebar
+      .sidebar.tabs-@{name} > .tabs-list > ul > .tabs-list-item.active {
+        border-left: solid 4px @color;
         background-color: fadeout(black, 97%);
         .tabs-list-item-name {
           color: @color;
@@ -240,6 +325,5 @@
     });
   };
   @scope();
-
 
 </style>

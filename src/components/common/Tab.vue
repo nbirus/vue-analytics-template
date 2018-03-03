@@ -15,7 +15,7 @@
     props: {
       id: { default: null },
       name: { required: true },
-      icon: {required: false },
+      icon: { required: false },
       prefix: { default: '' },
       suffix: { default: '' },
       isDisabled: { default: false }
@@ -29,7 +29,7 @@
     computed: {
       header () {
         let name = this.prefix + this.name + this.suffix
-        let icon = (this.icon) ? '<i class="fas fa-' + this.icon + '"></i>' : ''
+        let icon = (this.icon) ? '<i class="icon-margin fa fa-' + this.icon + '"></i>' : ''
 
         return icon + name
       },

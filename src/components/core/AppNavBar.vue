@@ -7,15 +7,15 @@
 
       </div>
 
-      <div class="links">
-        <a>Home</a>
-        <a>Dashboards</a>
-        <a class="active">Style Guide</a>
-        <a>Search</a>
+      <div class="nav-items">
+        <router-link id="home-navbar" to="/home" tag="a">Home</router-link>
+        <router-link id="home-navbar" to="/search" tag="a">Search</router-link>
+        <router-link id="home-navbar" to="/style-guide" tag="a">Style Guide</router-link>
       </div>
 
       <div class="user">
-
+        <span class="username-text">Nathan Birus</span>
+        <i class="fa fa-caret-down"></i>
       </div>
 
     </div>
@@ -35,14 +35,13 @@
 
 
   .nav-bar {
-    // background-color: @nav-bg-color;
-    .vertical-gradient(@nav-bg-color, darken(@nav-bg-color, 7%));
+    .vertical-gradient(@nav-bg-color, darken(@nav-bg-color, 3%));
 
     .fluid-container {
       .max-page-width;
 
       display: flex;
-      padding: 0 35px;
+      padding: 0 25px;
 
       .identity {
         flex: 0 0 200px; height: @nav-header-height;
@@ -50,7 +49,7 @@
         background-color: lighten(@c-inverse, 5%);
       }
 
-      .links {
+      .nav-items {
         flex: 0 1 100%;
         padding: 0 10px;
 
@@ -58,13 +57,15 @@
         vertical-align: middle;
 
         a {
-          color: fadeout(white, 35%);
           margin: 0 15px;
-          cursor: pointer;
           font-size: 11pt;
           .f-b;
 
-          &.active {
+          color: fadeout(white, 35%);
+          cursor: pointer;
+          text-decoration: none;
+
+          &.is-active {
             color: white;
             cursor: default;
           }
@@ -76,9 +77,25 @@
       }
 
       .user {
-        flex: 0 0 @nav-header-height; height: @nav-header-height;
+        flex: 0 0 auto; height: @nav-header-height;
+        // background: lighten(@c-inverse, 5%);
+        padding: 0 15px;
 
-        background: lighten(@c-inverse, 5%);
+        display: flex;
+        align-items: center;
+        color: lighten(@nav-bg-color, 65%);
+        font-size: 11pt;
+
+        cursor: pointer;
+
+        i {
+          font-size: 9pt;
+          margin-left: 10px;
+        }
+
+        &:hover {
+          background-color: lighten(@c-inverse, 8%);
+        }
       }
     }
   }

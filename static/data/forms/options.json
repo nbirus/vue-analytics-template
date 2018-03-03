@@ -1,0 +1,8 @@
+{
+  "test": [
+    { "label": "Label 1", "value": "label-1" },
+    { "label": "Label 2", "value": "label-2" },
+    { "label": "Label 3", "value": "label-3" },
+    { "label": "Label 4", "value": "label-4" }
+  ]
+}

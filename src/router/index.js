@@ -2,9 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // pages
-import StyleGuide from '@/pages/StyleGuide'
-import NotFound from '@/pages/NotFound'
-import Unauthorized from '@/pages/Unauthorized'
+import Home from '@/pages/HomePage'
+import Search from '@/pages/SearchPage'
+import StyleGuide from '@/pages/StyleGuidePage'
+import NotFound from '@/pages/NotFoundPage'
+import Unauthorized from '@/pages/UnauthorizedPage'
 
 Vue.use(Router)
 
@@ -15,7 +17,16 @@ const routes = [
     path: '*',
     redirect: '/style-guide'
   },
-
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search
+  },
   {
     path: '/style-guide',
     name: 'StyleGuide',

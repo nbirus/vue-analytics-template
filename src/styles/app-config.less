@@ -24,6 +24,11 @@
 @c-fifth: @c-red;
 @c-default: @grey9;
 
+// special Colors
+@c-danger: @c-red;
+@c-warning: @c-yellow;
+@c-success: @c-lime;
+
 // greyscale
 @grey1: darken(white, 2%);
 @grey2: darken(white, 5%);
@@ -43,7 +48,7 @@
 
 // header
 @nav-bg-color: @c-inverse;
-@nav-header-height: 55px;
+@nav-header-height: 50px;
 
 // footer
 
@@ -54,4 +59,18 @@
 @page-padding: 25px;
 
 // Buttons
-@btn-height: 42px;
+@btn-height: 35px;
+
+// panel
+@panel-padding: 15px;
+
+// inputs
+@input-height: 30px;
+
+@input-bg-color: @grey1;
+@input-border: solid 1px @grey6;
+
+
+@input-focus-bg-color: white;
+@input-focus-border: solid 1px @c-blue;
+@input-focus-shadow: inset 0 1px 3px fadeout(black, 90%), inset 0 1px 4px fadeout(black, 85%);

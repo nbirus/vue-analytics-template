@@ -4,6 +4,7 @@
     :id="id"
     :name="name"
     class="btn" :class="classConstructor"
+    @click="onClick"
 
     v-ripple="ripple"
     :disabled="disabled"
@@ -18,6 +19,12 @@
   export default {
       name: 'btn',
       props: {
+
+        onClick: {
+          type: Function,
+          required: false,
+          default: () => {}
+        },
 
         // common
         id: {
@@ -47,6 +54,14 @@
         icon: {
           type: Boolean,
           default: false
+        },
+        flat: {
+          type: Boolean,
+          default: false
+        },
+        small: {
+          type: Boolean,
+          default: false
         }
       },
       computed: {
@@ -56,7 +71,9 @@
           return [
             (this.theme) ? 'btn-' + this.theme : null,
             (this.icon) ? 'btn-icon' : null,
-            (this.block) ? 'btn-block' : null
+            (this.block) ? 'btn-block' : null,
+            (this.flat) ? 'btn-flat' : null,
+            (this.small) ? 'btn-small' : null
           ]
         },
 
@@ -86,7 +103,7 @@
     .vertical-gradient(@grey2, @grey3);
     .btn-shadow(@grey6);
 
-    color: fadeout(@grey9, 15%);
+    color: fadeout(@grey9, 20%);
     font-size: 11pt;
     .f-b;
 
@@ -101,6 +118,12 @@
   // ------------- icon -------------
   .btn.btn-icon {
     width: @btn-height;
+
+    &.btn-small {
+      width: 30px;
+      line-height: 33px;
+    }
+
     border-radius: 50%;
     padding: 0;
 
@@ -114,9 +137,22 @@
     }
   }
 
-  /// ------------- block -------------
+  // ------------- block -------------
   .btn.btn-block {
     width: 100%;
+  }
+
+  // ------------- flat -------------
+  .btn.btn-flat {
+    background: none;
+    border: none;
+    font-size: 14pt;
+    border-radius: 0;
+  }
+
+  // ------------- small -------------
+  .btn.btn-small {
+    height: 30px;
   }
 
   // ------------- generator theme classes -------------

@@ -1,0 +1,41 @@
+[
+  {
+    "type": "text",
+    "id": "text",
+    "label": "Text Input",
+    "placeholder": "Enter some input..",
+    "required": true
+  },
+  {
+    "type": "checkbox",
+    "id": "checkbox",
+    "label": "Checkbox Input",
+    "inline": true,
+    "optionSource": "test",
+    "required": true
+  },
+  {
+    "type": "form-list",
+    "id": "form-list",
+    "label": "Form List Input",
+    "itemName": "list",
+    "form": [
+      {
+        "type": "text",
+        "id": "text",
+        "label": "Text Input",
+        "placeholder": "Enter some input..",
+        "required": true
+      },
+      {
+        "type": "checkbox",
+        "id": "checkbox",
+        "label": "Checkbox Input",
+        "inline": true,
+        "optionSource": "test",
+        "required": true
+      }
+    ],
+    "required": true
+  }
+]
