@@ -40,7 +40,6 @@
               </div>
 
             </div>
-
           </tab>
 
           <!-- panels -->
@@ -76,7 +75,36 @@
 
           <!-- buttons -->
           <tab name="Buttons">
+            <div class="panel-header">
+              <h2>Colors</h2>
+            </div>
 
+            <div class="panel-body">
+
+              <div class="panel-section">
+                <h4>Default Buttons</h4>
+                <btn v-for="color in colors" :key="'b' + color" :theme="color" style="margin: 10px 10px 0 0">{{color}}</btn>
+              </div>
+
+              <div class="panel-block">
+                <h4>Icon Buttons</h4>
+                <btn
+                  style="margin: 10px 10px 0 0"
+                  v-for="color in colors"
+                  :key="color"
+                  :theme="color"
+                  icon>
+                  <i class="fa fa-magic"></i>
+                </btn>
+              </div>
+
+              <div class="panel-section">
+                <h4>Block Buttons</h4>
+                <btn block style="margin: 10px 10px 0 0">Default button block</btn>
+              </div>
+
+
+            </div>
           </tab>
 
           <!-- tabs -->
@@ -118,7 +146,7 @@
               <div class="panel-section">
 
                 <div class="panel-block">
-                  <form-generator style="width: 400px"
+                  <form-generator
                     :inputs="testForm"
                     :initialValues="initialValues"
                     :breakFormIndex="2"
@@ -142,31 +170,34 @@
             </div>
           </tab>
 
+          <tab name="Dashboard">
+            <div class="panel-header">
+              <h2>Dashboard</h2>
+            </div>
+
+            <div class="panel-body darken">
+
+              <div class="panel-block">
+
+                <div class="panel" style="width: 400px; height: 300px;">
+
+                  <div class="panel-body">
+
+                  </div>
+
+                  <div class="panel-footer">
+                    Trials by Primary Purpose
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+          </tab>
+
         </tabs>
       </div>
-
-
-
-      <!-- <div class="panel bar-left bar-first btns-panel">
-        <div class="panel-body"><h2>Buttons</h2></div>
-        <hr />
-        <div class="panel-drawer">
-          <h4>Default Buttons</h4>
-          <btn block>block</btn>
-          <btn v-for="color in colors" :key="'b' + color" :theme="color">{{color}}</btn>
-
-          <hr />
-          <br />
-          <h4>Icon Buttons</h4>
-          <btn
-            v-for="color in colors"
-            :key="color"
-            :theme="color"
-            icon>
-            <i class="fa fa-magic"></i>
-          </btn>
-        </div>
-      </div> -->
     </div>
 
   </div>
@@ -201,8 +232,8 @@
       },
       formChanged (obj) {},
       formSubmited (obj) {
-        console.log('formSubmited')
-        console.log(obj)
+        // console.log('formSubmited')
+        // console.log(obj)
         this.initialValues = JSON.parse(JSON.stringify(obj))
       }
     }

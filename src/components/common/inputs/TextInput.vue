@@ -1,12 +1,12 @@
 <template>
 
-  <div class="form-group">
+  <div class="form-group" :class="{'error': error, 'required': required}">
 
     <!-- label -->
     <label
       v-if="label"
       :for="id + '-input'"
-      :class="{'required': required}"
+      class="form-label"
     >
       {{label}}
     </label>
@@ -24,6 +24,8 @@
       @input="event => $updateValue(event.target.value)"
     />
 
+    <p class="form-error-text">{{errorText}}</p>
+
   </div>
 
 </template>
@@ -40,19 +42,27 @@
 
   @import '../../../styles/component-helper.less';
 
-  .form-control {
-    line-height: @input-height;
-    background-color: @input-bg-color;
-    border: @input-border;
+  .form-group {
 
-    padding: 0 8px;
+    .form-control {
+      line-height: @input-height;
+      background-color: @input-bg-color;
+      border: @input-border;
 
-    &:focus {
-      outline: 0;
-      border: @input-focus-border;
-      background-color: @input-focus-bg-color;
-      .box-shadow(@input-focus-shadow);
+      padding: 0 8px;
+
+      &:focus {
+        outline: 0;
+        border: @input-focus-border;
+        background-color: @input-focus-bg-color;
+        .box-shadow(@input-focus-shadow);
+      }
     }
 
+    &.error > .form-control {
+      border-color: @input-error-border-color ;
+      background-color: @input-error-bg-color;
+    }
   }
+
 </style>

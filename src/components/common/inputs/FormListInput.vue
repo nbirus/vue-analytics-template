@@ -32,6 +32,7 @@
     <label
       v-if="label"
       :for="id + '-input'"
+      class="form-label"
       :class="{'required': required}"
     >
       {{label}}
@@ -49,7 +50,7 @@
             <!-- each value as key value pair -->
             <div class="value" v-for="(subvalue, subkey, index) in value" :key="index">
               <span class="subkey">{{subkey}}</span>
-              <span class="subvalue">{{subvalue}}</span>
+              <span class="subvalue">{{subvalue.toString()}}</span>
             </div>
 
           </div>

@@ -1,12 +1,13 @@
 <template>
 
-  <div class="form-group" :class="{'error': error, 'required': required, 'inline': inline}">
+  <div class="form-group" :class="{'inline': inline}">
 
     <!-- label -->
     <label
       class="form-label"
       v-if="label"
       :for="id + '-input'"
+      :class="{'required': required}"
     >
       {{label}}
     </label>
@@ -16,12 +17,10 @@
        :key="index"
        @click="optionClicked(option.value)">
 
-      <input type="checkbox" :name="option.value" :checked="inputValue.includes(option.value)">
+      <input type="radio" :name="option.value" :checked="inputValue === option.value" />
       {{option.label}}
 
     </label>
-
-    <p class="form-error-text">{{errorText}}</p>
 
   </div>
 
@@ -53,15 +52,7 @@
     },
     methods: {
       optionClicked (value) {
-
-        let activeList = JSON.parse(JSON.stringify(this.inputValue))
-
-        if (activeList) {
-          if (activeList.includes(value)) { activeList.splice(activeList.indexOf(value), 1) }
-          else { activeList.push(value) }
-
-          this.$updateValue(activeList)
-        }
+        this.$updateValue(value)
       }
     }
   }
@@ -75,7 +66,9 @@
 
     .checkbox {
       cursor: pointer;
+
       .f-r;
+
     }
 
     &.inline {
@@ -94,11 +87,6 @@
           margin-right: 0;
         }
       }
-
-    }
-
-    &.error > .checkbox {
-      color: @input-error-border-color;
     }
   }
 

@@ -30,6 +30,10 @@ export default {
     error: {
       required: false,
       default: false
+    },
+    errorText: {
+      type: String,
+      default: ''
     }
   },
   methods: {

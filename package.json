@@ -14,7 +14,9 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "ag-grid-vue": "^16.0.0",
     "typicons.font": "^2.0.9",
+    "uiv": "^0.19.1",
     "vue": "^2.5.2",
     "vue-ripple-directive": "^2.0.1",
     "vue-router": "^3.0.1"

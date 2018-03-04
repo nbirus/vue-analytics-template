@@ -15,10 +15,29 @@
     "required": true
   },
   {
+    "type": "radio",
+    "id": "radio",
+    "label": "Radio Input",
+    "inline": true,
+    "optionSource": "test",
+    "required": true
+  },
+  {
+    "type": "pill",
+    "id": "pill",
+    "label": "Pill Input",
+    "options": [
+      {"label": "One", "value": "one"},
+      {"label": "Two", "value": "two"},
+      {"label": "Three", "value": "three"}
+    ],
+    "required": true
+  },
+  {
     "type": "form-list",
     "id": "form-list",
     "label": "Form List Input",
-    "itemName": "list",
+    "itemName": "form group",
     "form": [
       {
         "type": "text",
@@ -37,5 +56,10 @@
       }
     ],
     "required": true
+  },
+  {
+    "type": "date-range",
+    "id": "date-range",
+    "label": "Date Range Input"
   }
 ]

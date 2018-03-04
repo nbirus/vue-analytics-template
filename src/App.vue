@@ -44,4 +44,9 @@
   @import './styles/app-overrides.less';
   @import './styles/app.less';
 
+  // import uiv styles
+  @import './styles/uiv/app-dropdown.less';
+  @import './styles/uiv/app-modal.less';
+  @import './styles/uiv/app-datepicker.less';
+
 </style>

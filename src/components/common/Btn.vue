@@ -118,6 +118,7 @@
   // ------------- icon -------------
   .btn.btn-icon {
     width: @btn-height;
+    line-height: 36px;
 
     &.btn-small {
       width: 30px;
@@ -127,7 +128,6 @@
     border-radius: 50%;
     padding: 0;
 
-    line-height: 43px;
     text-align: center;
     vertical-align: bottom;
 

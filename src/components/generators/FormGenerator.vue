@@ -19,9 +19,11 @@
         :label="input.label"
         :placeholder="input.placeholder"
         :inputValue="inputValues[input.id]"
+        :required="input.required"
+        :error="true"
+        :errorText="'This field is required'"
         @changed="value => updateValue(input.id, value)"
-      >
-      </text-input>
+      />
 
       <!-- checkbox input -->
       <checkbox-input
@@ -31,10 +33,36 @@
         :inline="input.inline"
         :optionSource="input.optionSource"
         :inputValue="inputValues[input.id]"
+        :required="input.required"
+        :error="true"
+        :errorText="'This field is required'"
         @changed="value => updateValue(input.id, value)"
-      >
-      </checkbox-input>
+      />
 
+      <!-- checkbox input -->
+      <radio-input
+        v-if="input.type === 'radio'"
+        :id="input.id"
+        :label="input.label"
+        :inline="input.inline"
+        :optionSource="input.optionSource"
+        :inputValue="inputValues[input.id]"
+        :required="input.required"
+        @changed="value => updateValue(input.id, value)"
+      />
+
+      <!-- pill input -->
+      <pill-input
+        v-if="input.type === 'pill'"
+        :id="input.id"
+        :label="input.label"
+        :options="input.options"
+        :inputValue="inputValues[input.id]"
+        :required="input.required"
+        @changed="value => updateValue(input.id, value)"
+      />
+
+      <!-- form list input -->
       <form-list-input
         v-if="input.type === 'form-list'"
         :id="input.id"
@@ -43,9 +71,19 @@
         :itemName="input.itemName"
         :primaryKey="input.primaryKey"
         :inputValue="inputValues[input.id]"
+        :required="input.required"
         @changed="value => updateValue(input.id, value)"
-      >
-      </form-list-input>
+      />
+
+      <!-- date range input -->
+      <date-range-input
+        v-if="input.type === 'date-range'"
+        :id="input.id"
+        :label="input.label"
+        :inputValue="inputValues[input.id]"
+        :required="input.required"
+        @changed="value => updateValue(input.id, value)"
+      />
 
     </div>
 
@@ -83,6 +121,7 @@
         defaultValues: {
           'text': '',
           'checkbox': [],
+          'radio': '',
           'form-list': []
         }
       }
@@ -139,7 +178,7 @@
   .form {
 
     .form-input-row {
-      margin-bottom: 25px;
+      margin-bottom: 15px;
     }
 
     .form-actions-row {

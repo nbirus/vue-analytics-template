@@ -229,6 +229,7 @@
         background-color: fadeout(black, 95%);
         border-right: solid thin fadeout(black, 95%);
 
+
         // if collapsed
         &.collapse {
           flex: 0 0 10px;
@@ -265,6 +266,7 @@
         .tabs-list-item {
           width: 100%; height: 40px;
           position: relative;
+          transition: @transition;
 
           // list name
           .tabs-list-item-name {
@@ -316,7 +318,8 @@
       // sidebar
       .sidebar.tabs-@{name} > .tabs-list > ul > .tabs-list-item.active {
         border-left: solid 4px @color;
-        background-color: fadeout(black, 97%);
+        // background-color: fadeout(black, 97%);
+        .horizontal-gradient(fadeout(black, 96%), fadeout(black, 1000%));
         .tabs-list-item-name {
           color: @color;
         }
