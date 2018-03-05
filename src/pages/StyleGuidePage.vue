@@ -163,10 +163,28 @@
 
           <tab name="Grid">
             <div class="panel-header">
-              <h2>Grid</h2>
+              <h2>Static Data Grid</h2>
             </div>
 
             <div class="panel-body">
+
+              <grid style="height: 500px"
+                id="test-grid"
+                :data="data"
+                :columns="columns"
+
+                :canSort="true"
+                :canResizeColumns="true"
+                :canMoveColumns="true"
+
+                :paginate="true"
+                :initialPageSize="20"
+
+                :canSearch="true"
+                :canToggleColumns="false"
+              />
+
+
             </div>
           </tab>
 
@@ -205,11 +223,15 @@
 
 <script>
   import FormGenerator from '../components/generators/FormGenerator'
+  import Grid from '../components/reporting/Grid'
   import TestForm from '../../static/data/forms/test-form.json'
+
+  import TestData from '../../static/data/grid-headers/test-data2.json'
+  import TestColumns from '../../static/data/grid-headers/test-headers2.json'
 
   export default {
     name: 'style-guide',
-    components: { FormGenerator },
+    components: { FormGenerator, Grid },
     data () {
       return {
         colors: [
@@ -223,7 +245,10 @@
 
         textInput: '',
         testForm: TestForm,
-        initialValues: {}
+        initialValues: {},
+
+        data: TestData,
+        columns: TestColumns
       }
     },
     methods: {
