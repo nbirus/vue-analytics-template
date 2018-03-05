@@ -14,7 +14,11 @@ export default {
 
     // value
     inputValue: {
-      required: true
+      required: false,
+      default () {
+        // TODO: change to dynaic value based on input
+        return []
+      }
     },
     placeholder: {
       type: String,
@@ -28,11 +32,8 @@ export default {
       default: false
     },
     error: {
-      required: false,
-      default: false
-    },
-    errorText: {
       type: String,
+      required: false,
       default: ''
     }
   },

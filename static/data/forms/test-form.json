@@ -60,6 +60,7 @@
   {
     "type": "date-range",
     "id": "date-range",
+    "initialValue": ["2018-03-14", "2018-04-12"],
     "label": "Date Range Input"
   }
 ]

@@ -120,16 +120,89 @@
             <div class="panel-body darken">
 
               <div class="panel-block">
-                <text-input
 
-                  id="text-input"
-                  label="Text Input"
-
-                  :inputValue="textInput"
+                <!-- text input -->
+                <text-input class="form-space"
+                  :id="'text-input'"
+                  :label="'Text Input'"
+                  :placeholder="'Default input'"
+                  :required="inputsRequired"
+                  :error="inputsError"
                   @changed="alert"
+                />
 
-                >
-                </text-input>
+                <!-- checkbox input -->
+                <checkbox-input class="form-space"
+                  :id="'checkbox'"
+                  :label="'Checkbox Input'"
+                  :inline="true"
+                  :optionSource="'test'"
+                  :required="inputsRequired"
+                  :error="inputsError"
+                  @changed="alert"
+                />
+
+                <!-- radio input -->
+                <radio-input class="form-space"
+                  :id="'radio-input'"
+                  :label="'radio-input'"
+                  :inline="false"
+                  :optionSource="'test'"
+                  :required="inputsRequired"
+                  :error="inputsError"
+                  @changed="alert"
+                />
+
+                <!-- pill input -->
+                <pill-input class="form-space"
+                  :id="'pills'"
+                  :label="'Pill Input'"
+                  :options="[
+                    {'label': 'One', 'value': 'one'},
+                    {'label': 'Two', 'value': 'Two'},
+                    {'label': 'Three', 'value': 'three'}
+                  ]"
+                  :required="inputsRequired"
+                  :error="inputsError"
+                  @changed="alert"
+                />
+
+                <!-- form list input -->
+                <form-list-input class="form-space"
+                  :id="'form-input'"
+                  :label="'Form List Input'"
+                  :form="[
+                    {
+                      'type': 'text',
+                      'id': 'text',
+                      'label': 'Text Input',
+                      'placeholder': 'Enter some input..',
+                      'required': true
+                    },
+                    {
+                      'type': 'checkbox',
+                      'id': 'checkbox',
+                      'label': 'Checkbox Input',
+                      'inline': true,
+                      'optionSource': 'test',
+                      'required': true
+                    }
+                  ]"
+                  :itemName="'form item'"
+                  :required="inputsRequired"
+                  :error="inputsError"
+                  @changed="alert"
+                />
+
+                <!-- date range input -->
+                <date-range-input class="form-space"
+                  :id="'date-range'"
+                  :label="'Date Range Input'"
+                  :initialValue="['2018-03-14', '2018-04-12']"
+                  :required="inputsRequired"
+                  :error="inputsError"
+                  @changed="alert"
+                />
 
               </div>
 
@@ -221,6 +294,9 @@
           'fifth'
         ],
 
+        inputsRequired: false,
+        inputsError: '',
+
         textInput: '',
         testForm: TestForm,
         initialValues: {}
@@ -243,6 +319,10 @@
 <style lang="less" scoped>
 
   @import '../styles/component-helper.less';
+
+  .form-space {
+    margin-bottom: 20px;
+  }
 
   .style-panel {
     height: 80vh;

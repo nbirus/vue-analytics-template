@@ -15,19 +15,15 @@
 
     <div class="form-control">
 
-      <dropdown class="form-group">
-        <div class="input-group">
-          <input class="form-control" type="text" v-model="date">
-          <div class="input-group-btn">
-            <btn class="dropdown-toggle"><i class="fa fa-calender"></i></btn>
-          </div>
-        </div>
-        <template slot="dropdown">
-          <li>
-            <date-picker v-model="date"/>
-          </li>
-        </template>
-      </dropdown>
+      <div class="from-date">
+        <input type="date" :value="inputValue[0]" @input="event => $updateValue([event.target.value, inputValue[1]])">
+      </div>
+
+      <div class="to">to</div>
+
+      <div class="to-date">
+        <input type="date" :value="inputValue[1]" @input="event => $updateValue([inputValue[0], event.target.value])">
+      </div>
 
     </div>
 
@@ -57,8 +53,10 @@
     mixins: [InputMixin],
     data () {
       return {
-        date: 'date'
       }
+    },
+    updateDate () {
+
     }
   }
 </script>
@@ -68,18 +66,29 @@
   @import '../../../styles/component-helper.less';
 
   .form-control {
-    // line-height: @input-height;
-    // background-color: @input-bg-color;
-    // border: @input-border;
-    //
-    // padding: 0 8px;
-    //
-    // &:focus {
-    //   outline: 0;
-    //   border: @input-focus-border;
-    //   background-color: @input-focus-bg-color;
-    //   .box-shadow(@input-focus-shadow);
-    // }
+    display: flex;
+
+    .to {
+      padding: 0 10px;
+      line-height: @input-height;
+      vertical-align: middle;
+    }
+
+    input {
+      line-height: @input-height;
+      background-color: @input-bg-color;
+      border: @input-border;
+
+      padding: 0 8px;
+
+      &:focus {
+        outline: 0;
+        border: @input-focus-border;
+        background-color: @input-focus-bg-color;
+        .box-shadow(@input-focus-shadow);
+      }
+    }
+
 
   }
 </style>

@@ -48,9 +48,7 @@
       border: @input-border;
       border-right: none;
 
-      -webkit-box-shadow: inset 2px 2px 2px 0 fadeout(@grey8, 85%);
-      -moz-box-shadow: inset 2px 2px 2px 0 fadeout(@grey8, 85%);
-      box-shadow: inset 2px 2px 2px 0 fadeout(@grey8, 85%);
+      .box-shadow(inset 2px 2px 2px 0 fadeout(@grey8, 85%));
 
       .f-b;
       color: @grey6;

@@ -20,8 +20,7 @@
         :placeholder="input.placeholder"
         :inputValue="inputValues[input.id]"
         :required="input.required"
-        :error="true"
-        :errorText="'This field is required'"
+        :error="'This field is required'"
         @changed="value => updateValue(input.id, value)"
       />
 
@@ -34,12 +33,10 @@
         :optionSource="input.optionSource"
         :inputValue="inputValues[input.id]"
         :required="input.required"
-        :error="true"
-        :errorText="'This field is required'"
         @changed="value => updateValue(input.id, value)"
       />
 
-      <!-- checkbox input -->
+      <!-- radio input -->
       <radio-input
         v-if="input.type === 'radio'"
         :id="input.id"

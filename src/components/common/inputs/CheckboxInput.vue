@@ -21,7 +21,7 @@
 
     </label>
 
-    <p class="form-error-text">{{errorText}}</p>
+    <p class="form-error-text">{{error}}</p>
 
   </div>
 
@@ -73,33 +73,43 @@
 
   .form-group {
 
+    display: flex;
+    flex-wrap: wrap;
+
+    .form-label {
+      flex: 0 0 100%;
+    }
+
     .checkbox {
+      flex: 0 0 100%;
       cursor: pointer;
       .f-r;
+      margin-right: 15px;
+      margin-bottom: 0;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    .form-error-text {
+      flex: 0 0 100%;
     }
 
     &.inline {
-      display: flex;
-      flex-wrap: wrap;
-
-      .form-label {
-        flex: 0 0 100%;
-      }
-
       .checkbox {
-        margin-right: 15px;
-        margin-bottom: 0;
-
-        &:last-child {
-          margin-right: 0;
-        }
+        flex: 0 0 auto;
       }
-
     }
+
+
+
 
     &.error > .checkbox {
       color: @input-error-border-color;
     }
+
+
   }
 
 </style>

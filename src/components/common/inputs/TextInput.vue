@@ -24,7 +24,7 @@
       @input="event => $updateValue(event.target.value)"
     />
 
-    <p class="form-error-text">{{errorText}}</p>
+    <p class="form-error-text">{{error}}</p>
 
   </div>
 

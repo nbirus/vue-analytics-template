@@ -233,6 +233,7 @@
         // if collapsed
         &.collapse {
           flex: 0 0 10px;
+          transition: @transition;
 
           .tab-actions {
             padding: 0 5px;
@@ -266,7 +267,7 @@
         .tabs-list-item {
           width: 100%; height: 40px;
           position: relative;
-          transition: @transition;
+          transition: border .1s ease-in-out;
 
           // list name
           .tabs-list-item-name {
@@ -318,8 +319,8 @@
       // sidebar
       .sidebar.tabs-@{name} > .tabs-list > ul > .tabs-list-item.active {
         border-left: solid 4px @color;
-        // background-color: fadeout(black, 97%);
-        .horizontal-gradient(fadeout(black, 96%), fadeout(black, 1000%));
+        background-color: fadeout(black, 97%);
+        // .horizontal-gradient(fadeout(black, 96%), fadeout(black, 1000%));
         .tabs-list-item-name {
           color: @color;
         }
