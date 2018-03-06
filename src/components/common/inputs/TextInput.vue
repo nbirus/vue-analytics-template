@@ -48,6 +48,7 @@
       line-height: @input-height;
       background-color: @input-bg-color;
       border: @input-border;
+      font-size: 11pt;
 
       padding: 0 8px;
 

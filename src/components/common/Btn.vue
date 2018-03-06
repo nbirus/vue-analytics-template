@@ -7,9 +7,7 @@
     v-ripple="ripple"
     @click="onClick"
   >
-    <span class="btn-content" tabindex="-1">
-      <slot></slot>
-    </span>
+    <slot></slot>
   </button>
 
 </template>
@@ -94,15 +92,15 @@
 
   @import '../../styles/component-helper.less';
 
-  .btn:focus,
-  .btn-content:focus {
-    outline: none;
-  }
-
-  /* keyboard-only focus styles */
-  .btn:focus > .btn-content  {
-    box-shadow: 0 0 2px 2px #51a7e8;
-  }
+  // .btn:focus,
+  // .btn-content:focus {
+  //   outline: none;
+  // }
+  //
+  // /* keyboard-only focus styles */
+  // .btn:focus > .btn-content  {
+  //   box-shadow: 0 0 2px 2px #51a7e8;
+  // }
 
   // ------------- default -------------
   .btn {

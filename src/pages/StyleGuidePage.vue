@@ -119,7 +119,7 @@
 
             <div class="panel-body darken">
 
-              <div class="panel-block">
+              <div class="panel-block" style="width: 400px;">
 
                 <!-- text input -->
                 <text-input class="form-space"

@@ -2,13 +2,23 @@
   set document level css properties
 */
 
+@font-face {
+    font-family: Proximo;
+    src: url("../../static/fonts/proxima-nova.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Title;
+    src: url("../../static/fonts/title-font.woff");
+}
+
 html {
-  box-sizing: border-box; /* 1 */
-  font-family: sans-serif; /* 2 */
+  box-sizing: border-box;
+  font-family: sans-serif; 
 }
 
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Proximo', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -22,12 +32,9 @@ body {
 *::after {
   box-sizing: inherit;
   font-family: 'Nunito', sans-serif;
-  // font-family: 'Didact Gothic', sans-serif;
-  // font-family: 'Hind Guntur', sans-serif;
-  // font-family: 'Rambla', sans-serif;
-  // font-family: 'Pontano Sans', sans-serif;
-  // font-family: 'Assistant', sans-serif;
 }
+
+
 
 /**
  * Removes the default spacing and border for appropriate elements.
