@@ -220,15 +220,15 @@
     // --- side bar ---
     &.sidebar {
       flex-direction: row;
-      justify-content: strech;
+      justify-content: stretch;
 
       // list
       & > .tabs-list {
-        flex: 0 0 230px;
+        flex: 0 0 210px;
+        flex-direction: row;
 
         background-color: fadeout(black, 95%);
         border-right: solid thin fadeout(black, 95%);
-
 
         // if collapsed
         &.collapse {
@@ -298,7 +298,8 @@
 
       // body
       .tabs-panels {
-        flex: 1 0 auto;
+        flex: 1 1 100%;
+        overflow: hidden;
       }
     }
   }

@@ -7,6 +7,7 @@ import RadioInput from './inputs/RadioInput'
 import FormListInput from './inputs/FormListInput'
 import PillInput from './inputs/PillInput'
 import DateRangeInput from './inputs/DateRangeInput'
+import SelectInput from './inputs/SelectInput'
 
 export default {
   Tabs,
@@ -17,5 +18,6 @@ export default {
   RadioInput,
   FormListInput,
   PillInput,
-  DateRangeInput
+  DateRangeInput,
+  SelectInput
 }

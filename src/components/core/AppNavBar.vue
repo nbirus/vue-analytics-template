@@ -12,13 +12,13 @@
 
       <div class="identity">
         <img src="../../assets/strap-logo.png" alt="Paris">
-        ctrp
+        analytics
       </div>
 
       <div class="nav-items">
         <router-link id="home-navbar" to="/home" tag="a">Home</router-link>
-        <router-link id="home-navbar" to="/search" tag="a">Search</router-link>
-        <router-link id="home-navbar" to="/style-guide" tag="a">Style Guide</router-link>
+        <router-link id="search-navbar" to="/search" tag="a">Search</router-link>
+        <router-link id="style-guide-navbar" to="/style-guide" tag="a">Style Guide</router-link>
       </div>
 
       <div class="search" @click="searchOpen = true">
@@ -55,6 +55,7 @@
   .nav-bar {
     // .vertical-gradient(@nav-bg-color, darken(@nav-bg-color, 5%));
     background-color: @nav-bg-color;
+    // border-bottom: solid 3px darken(@nav-bg-color, 15%);
 
     .search-container {
       position: fixed;
@@ -108,7 +109,7 @@
       .identity {
         flex: 0 0 auto; height: @nav-header-height;
 
-        background-color: darken(@c-inverse, 5%);
+        background-color: darken(@nav-bg-color, 5%);
         font-family: 'Roboto';
         color: white;
         font-size: 20pt;
@@ -167,7 +168,7 @@
 
       .user {
         flex: 0 0 auto; height: @nav-header-height;
-        background: darken(@c-inverse, 5%);
+        background: darken(@nav-bg-color, 3%);
         padding: 0 15px;
 
         display: flex;
@@ -183,11 +184,11 @@
         }
 
         &:hover {
-          background-color: darken(@c-inverse, 3%);
+          background-color: darken(@nav-bg-color, 3%);
         }
 
         &:active {
-          background-color: darken(@c-inverse, 5%);
+          background-color: darken(@nav-bg-color, 5%);
         }
       }
     }

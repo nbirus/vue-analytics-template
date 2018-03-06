@@ -243,18 +243,25 @@
 
               <grid style="height: 500px"
                 id="test-grid"
+
                 :data="data"
                 :columns="columns"
 
-                :canSort="true"
+                :canSort="false"
                 :canResizeColumns="true"
-                :canMoveColumns="true"
+                :canMoveColumns="false"
 
                 :paginate="true"
                 :initialPageSize="20"
 
                 :canSearch="true"
-                :canToggleColumns="false"
+                :canToggleColumns="true"
+
+                :canSelect="true"
+                :canSelectMultiple="true"
+
+                :showRowDetail="false"
+
               />
 
 
