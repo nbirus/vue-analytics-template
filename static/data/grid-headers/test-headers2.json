@@ -1,0 +1,114 @@
+[
+  {
+    "field": "first_name",
+    "headerName": "First Name",
+    "show": true,
+    "sortable": true,
+    "source": true,
+    "width": 200
+  },
+  {
+    "field": "last_name",
+    "headerName": "Last Name",
+    "show": true,
+    "sortable": true,
+    "source": true,
+    "width": 200
+  },
+  {
+    "field": "email",
+    "headerName": "Email Address",
+    "show": true,
+    "sortable": true,
+    "source": "raw",
+    "width": 250
+  },
+  {
+    "field": "phone",
+    "headerName": "Phone",
+    "show": true,
+    "sortable": true,
+    "source": "raw",
+    "width": 120
+  },
+  {
+    "field": "status",
+    "headerName": "Status",
+    "show": true,
+    "sortable": true,
+    "source": true,
+    "width": 120
+  },
+  {
+    "field": "date_created",
+    "headerName": "Activation Date",
+    "show": true,
+    "sortable": true,
+    "source": true,
+    "width": 120
+  },
+  {
+    "field": "date_inactivated",
+    "headerName": "Inactivation Date",
+    "show": true,
+    "sortable": true,
+    "source": true,
+    "width": 120
+  },
+  {
+    "field": "roles",
+    "headerName": "Roles",
+    "show": true,
+    "sortable": true,
+    "source": "raw",
+    "width": 120
+  },
+  {
+    "field": "issiteadmin",
+    "headerName": "Is Site Admin?",
+    "show": true,
+    "sortable": true,
+    "source": "raw",
+    "width": 120
+  },
+  {
+    "field": "prs_organization",
+    "headerName": "PRS Organization Name",
+    "show": true,
+    "sortable": true,
+    "source": "raw",
+    "width": 300
+  },
+  {
+    "field": "login_name",
+    "headerName": "Login Name",
+    "show": true,
+    "sortable": true,
+    "source": "raw",
+    "width": 120
+  },
+  {
+    "field": "affiliated_organization",
+    "headerName": "Affiliated Organization Family Name",
+    "show": true,
+    "sortable": true,
+    "source": "raw",
+    "width": 300
+  },
+  {
+    "field": "po_id",
+    "headerName": "Affiliated Organization PO ID",
+    "show": true,
+    "sortable": true,
+    "source": "raw",
+    "width": 200
+  },
+  {
+    "field": "ctep_id",
+    "headerName": "Affiliated Organization CTEP ID",
+    "show": true,
+    "sortable": true,
+    "source": "raw",
+    "width": 200
+  }
+]

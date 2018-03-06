@@ -1,15 +1,15 @@
 <template>
   <button
-
+    class="btn" :class="classConstructor"
     :id="id"
     :name="name"
-    class="btn" :class="classConstructor"
-    @click="onClick"
-
-    v-ripple="ripple"
     :disabled="disabled"
+    v-ripple="ripple"
+    @click="onClick"
   >
-    <slot></slot>
+    <span class="btn-content" tabindex="-1">
+      <slot></slot>
+    </span>
   </button>
 
 </template>
@@ -94,6 +94,16 @@
 
   @import '../../styles/component-helper.less';
 
+  .btn:focus,
+  .btn-content:focus {
+    outline: none;
+  }
+
+  /* keyboard-only focus styles */
+  .btn:focus > .btn-content  {
+    box-shadow: 0 0 2px 2px #51a7e8;
+  }
+
   // ------------- default -------------
   .btn {
     height: @btn-height;
@@ -113,6 +123,8 @@
       color: @grey9;
       border-color: @grey3;
    }
+
+    &:hover, &:active { outline: none; }
   }
 
   // ------------- icon -------------
@@ -180,9 +192,7 @@
   // ------------- helpers -------------
   .btn-shadow(@color) {
     &:active {
-      -webkit-box-shadow: inset 0px 1px 3px 1px fadeout(@color, 95%);
-      -moz-box-shadow: inset 0px 1px 3px 1px fadeout(@color, 95%);
-      box-shadow: inset 0px 1px 3px 1px fadeout(@color, 65%);
+      .box-shadow(inset 0px 1px 3px 1px fadeout(@color, 65%))
     }
   }
 
