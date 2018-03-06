@@ -69,7 +69,7 @@
 
 <style lang="less" scoped>
 
-  @import '../../../styles/component-helper.less';
+  @import '../../../../static/styles/component-helper.less';
 
   .form-group {
 
@@ -85,7 +85,8 @@
       cursor: pointer;
       .f-r;
       margin-right: 15px;
-      margin-bottom: 0;
+      margin-bottom: 3px;
+      font-size: @input-font-size;;
 
       &:last-child {
         margin-right: 0;
@@ -102,14 +103,9 @@
       }
     }
 
-
-
-
     &.error > .checkbox {
       color: @input-error-border-color;
     }
-
-
   }
 
 </style>

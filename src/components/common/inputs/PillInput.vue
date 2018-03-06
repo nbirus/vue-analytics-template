@@ -36,7 +36,7 @@
 
 <style lang="less" scoped>
 
-  @import '../../../styles/component-helper.less';
+  @import '../../../../static/styles/component-helper.less';
 
   .form-group {
 
@@ -48,10 +48,11 @@
       border: @input-border;
       border-right: none;
 
-      .box-shadow(inset 2px 2px 2px 0 fadeout(@grey8, 85%));
+      .box-shadow(inset 1px 2px 4px 0 fadeout(@grey8, 90%));
 
       .f-b;
       color: @grey6;
+      font-size: @input-font-size;
 
       padding: 0 10px;
       cursor: pointer;

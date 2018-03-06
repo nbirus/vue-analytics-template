@@ -164,7 +164,7 @@
 
 <style lang="less" scoped>
 
-  @import '../../../styles/component-helper.less';
+  @import '../../../../static/styles/component-helper.less';
 
   .form-control {
     width: 100%; height: auto;
@@ -255,6 +255,7 @@
     .value-adder {
       .btn {
         border-top: none;
+        height: @input-height;
       }
     }
 

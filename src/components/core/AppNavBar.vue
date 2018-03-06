@@ -50,7 +50,7 @@
 
 <style lang="less" scoped>
 
-  @import '../../styles/component-helper.less';
+  @import '../../../static/styles/component-helper.less';
 
   .nav-bar {
     // .vertical-gradient(@nav-bg-color, darken(@nav-bg-color, 5%));

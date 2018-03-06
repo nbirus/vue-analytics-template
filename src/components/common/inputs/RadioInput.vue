@@ -1,13 +1,12 @@
 <template>
 
-  <div class="form-group" :class="{'inline': inline}">
+  <div class="form-group" :class="{'error': error, 'required': required, 'inline': inline}">
 
     <!-- label -->
     <label
       class="form-label"
       v-if="label"
       :for="id + '-input'"
-      :class="{'required': required}"
     >
       {{label}}
     </label>
@@ -21,6 +20,8 @@
       {{option.label}}
 
     </label>
+
+    <p class="form-error-text">{{error}}</p>
 
   </div>
 
@@ -60,33 +61,42 @@
 
 <style lang="less" scoped>
 
-  @import '../../../styles/component-helper.less';
+  @import '../../../../static/styles/component-helper.less';
 
   .form-group {
 
+    display: flex;
+    flex-wrap: wrap;
+
+    .form-label {
+      flex: 0 0 100%;
+    }
+
     .checkbox {
+      flex: 0 0 100%;
       cursor: pointer;
-
       .f-r;
+      margin-right: 15px;
+      margin-bottom: 3px;
+      font-size: @input-font-size;;
 
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    .form-error-text {
+      flex: 0 0 100%;
     }
 
     &.inline {
-      display: flex;
-      flex-wrap: wrap;
-
-      .form-label {
-        flex: 0 0 100%;
-      }
-
       .checkbox {
-        margin-right: 15px;
-        margin-bottom: 0;
-
-        &:last-child {
-          margin-right: 0;
-        }
+        flex: 0 0 auto;
       }
+    }
+
+    &.error > .checkbox {
+      color: @input-error-border-color;
     }
   }
 

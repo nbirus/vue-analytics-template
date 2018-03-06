@@ -37,7 +37,7 @@
 
 <style lang="less" scoped>
 
-  @import '../styles/component-helper.less';
+  @import '../../static/styles/component-helper.less';
 
   .panel-1 {
     width: 400px; height: 300px;

@@ -129,7 +129,7 @@
                   :required="inputsRequired"
                   :error="inputsError"
                   @changed="alert"
-                />
+                ></text-input>
 
                 <!-- checkbox input -->
                 <checkbox-input class="form-space"
@@ -140,18 +140,18 @@
                   :required="inputsRequired"
                   :error="inputsError"
                   @changed="alert"
-                />
+                ></checkbox-input>
 
                 <!-- radio input -->
                 <radio-input class="form-space"
                   :id="'radio-input'"
-                  :label="'radio-input'"
-                  :inline="false"
+                  :label="'Radio Input'"
+                  :inline="true"
                   :optionSource="'test'"
                   :required="inputsRequired"
                   :error="inputsError"
                   @changed="alert"
-                />
+                ></radio-input>
 
                 <!-- pill input -->
                 <pill-input class="form-space"
@@ -165,7 +165,7 @@
                   :required="inputsRequired"
                   :error="inputsError"
                   @changed="alert"
-                />
+                ></pill-input>
 
                 <!-- form list input -->
                 <form-list-input class="form-space"
@@ -192,7 +192,7 @@
                   :required="inputsRequired"
                   :error="inputsError"
                   @changed="alert"
-                />
+                ></form-list-input>
 
                 <!-- date range input -->
                 <date-range-input class="form-space"
@@ -202,7 +202,30 @@
                   :required="inputsRequired"
                   :error="inputsError"
                   @changed="alert"
-                />
+                ></date-range-input>
+
+                <!-- select input -->
+                <select-input class="form-space"
+                  id="select-id"
+                  label="Select Input"
+                  :options="[
+                    {'label': 'One', 'value': 'one'},
+                    {'label': 'Two', 'value': 'Two'},
+                    {'label': 'Three', 'value': 'three'}
+                  ]"
+                  :required="inputsRequired"
+                  :error="inputsError"
+                  @changed="alert"
+                ></select-input>
+
+                <!--color selector input-->
+                <color-input class="form-space"
+                  id="color-id"
+                  label="Color Input"
+                  :required="inputsRequired"
+                  :error="inputsError"
+                  @changed="alert"
+                ></color-input>
 
               </div>
 
@@ -311,7 +334,10 @@
 
   export default {
     name: 'style-guide',
-    components: { FormGenerator, Grid },
+    components: {
+      FormGenerator,
+      Grid
+    },
     data () {
       return {
         colors: [
@@ -350,14 +376,14 @@
 
 <style lang="less" scoped>
 
-  @import '../styles/component-helper.less';
+  @import '../../static/styles/component-helper.less';
 
   .form-space {
     margin-bottom: 20px;
   }
 
   .style-panel {
-    height: 80vh;
+    height: auto;
 
     .tabs {
       height: 100%;

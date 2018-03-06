@@ -12,17 +12,17 @@
     </label>
 
     <!-- input -->
-    <input
-      class="form-control"
-      :type="type"
+    <!--<input-->
+      <!--class="form-control"-->
+      <!--:type="type"-->
 
-      :id="id + '-input'"
-      :name="id"
-      :placeholder="placeholder"
+      <!--:id="id + '-input'"-->
+      <!--:name="id"-->
+      <!--:placeholder="placeholder"-->
 
-      :value="inputValue"
-      @input="event => $updateValue(event.target.value)"
-    />
+      <!--:value="inputValue"-->
+      <!--@input="event => $updateValue(event.target.value)"-->
+    <!--/>-->
 
     <p class="form-error-text">{{error}}</p>
 
@@ -35,11 +35,7 @@
 
   export default {
     mixins: [InputMixin],
-    props: {
-      type: {
-        type: String,
-        default: 'text'
-      }
+    mounted () {
     }
   }
 </script>

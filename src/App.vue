@@ -41,12 +41,12 @@
 <style lang="less">
 
   // import global styles
-  @import './styles/app-overrides.less';
-  @import './styles/app.less';
+  /*@import '../static/styles/app-overrides.less';*/
+  /*@import '../static/styles/app.less';*/
 
-  // import uiv styles
-  @import './styles/uiv/app-dropdown.less';
-  @import './styles/uiv/app-modal.less';
-  @import './styles/uiv/app-datepicker.less';
+  /*// import uiv styles*/
+  /*@import '../static/styles/uiv/app-dropdown.less';*/
+  /*@import '../static/styles/uiv/app-modal.less';*/
+  /*@import '../static/styles/uiv/app-datepicker.less';*/
 
 </style>

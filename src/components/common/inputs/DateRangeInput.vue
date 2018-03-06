@@ -63,7 +63,7 @@
 
 <style lang="less" scoped>
 
-  @import '../../../styles/component-helper.less';
+  @import '../../../../static/styles/component-helper.less';
 
   .form-control {
     display: flex;
@@ -78,6 +78,7 @@
       line-height: @input-height;
       background-color: @input-bg-color;
       border: @input-border;
+      font-size: @input-font-size;
 
       padding: 0 8px;
 

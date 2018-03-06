@@ -15,7 +15,7 @@
     <div class="page-body">
 
       <div class="panel">
-        
+
       </div>
 
     </div>
@@ -31,7 +31,7 @@
 
 <style lang="less" scoped>
 
-  @import '../styles/component-helper.less';
+  @import '../../static/styles/component-helper.less';
 
 
 </style>
