@@ -1,47 +1,49 @@
 <template>
   <div class="grid-container">
 
-
-
     <div class="grid-action-bar">
 
-      <!--search-->
-      <text-input
-        style="margin: 15px; width: 400px"
-        v-if="canSearch"
-        :inputValue.sync="searchText"
-        placeholder="Type to filer.."
-      ></text-input>
-
       <!--page size-->
-      <select-input
-        style="margin: 15px;"
-        :inputValue="pageSize"
-        :options="[
-          {value: 10, label: '10'},
-          {value: 20, label: '20'},
-          {value: 50, label: '50'},
-          {value: 100, label: '100'},
-          {value: -1, label: 'All'}
-        ]"
-        @changed="setPageSize"
-      >
-      </select-input>
+      <div class="page-size">
+        <select-input
+          :inputValue="pageSize"
+          :options="[
+            {value: 10, label: '10'},
+            {value: 20, label: '20'},
+            {value: 50, label: '50'},
+            {value: 100, label: '100'},
+            {value: -1, label: 'All'}
+          ]"
+          @changed="setPageSize"
+        >
+        </select-input>
+      </div>
 
-      <!--pagination-->
-      <div class="pagination" style="margin: 15px;">
-        <btn small :onClick="firstPage">First</btn>
-        <btn small :onClick="prevPage">Previous</btn>
-        <span>Page {{pageNumber + 1}}</span>
-        <btn small :onClick="nextPage">Next</btn>
-        <btn small :onClick="lastPage">Last</btn>
+
+      <!--search-->
+      <div class="search">
+        <text-input
+          class="search-input"
+          v-if="canSearch"
+          :inputValue.sync="searchText"
+          placeholder="Type to filer.."
+        ></text-input>
       </div>
 
 
       <!--toggle columns-->
-      <btn style="margin: 15px;"
+      <div class="actions">
+        <btn><i class="fa fa-sync-alt"></i></btn>
+        <btn
            v-if="canToggleColumns"
-           :onClick="() => { toggleColumnsOpen = true }">Toggle Columns</btn>
+           :onClick="() => { toggleColumnsOpen = true }">
+           Toggle Columns
+         </btn>
+
+         <btn>Export Table</btn>
+
+      </div>
+
 
     </div>
 
@@ -76,18 +78,28 @@
         <div class="column-toggle-container" v-if="toggleColumnsOpen">
 
           <div class="header">
-            <h2>Toggle Columns</h2>
-            <btn :onClick="() => { toggleColumnsOpen = false }">x</btn>
+            <h3>Toggle Columns</h3>
+            <btn
+              icon flat small
+              :onClick="() => { toggleColumnsOpen = false }"><i class="icons icon-arrow-right"></i>
+            </btn>
           </div>
 
           <div class="body">
-            <ul>
-              <li v-for="(column, index) in gridColumns"
+            <div class="input-row">
+              <input class="select-all" type="checkbox" />
+              <text-input class="filter-input" placeholder="Type to filter.."></text-input>
+            </div>
+            <ul class="header-list">
+              <li class="list-item"
+                  v-for="(column, index) in gridColumns"
                   :key="index"
                   v-if="column.field !== 'checkbox'"
                   @click="toggleColumn(column)">
-                <span><i class="fa" :class="(column.show) ? 'fa-check-square' : 'fa-square'"></i></span>
+
+                <input type="checkbox" :checked="column.show"/>
                 <span>{{column.headerName}}</span>
+
               </li>
             </ul>
           </div>
@@ -100,6 +112,14 @@
     </div>
 
     <div class="grid-footer">
+      <!--pagination-->
+      <div class="pagination" style="margin: 15px;">
+        <btn small theme="white" :onClick="firstPage">First</btn>
+        <btn small :onClick="prevPage">Previous</btn>
+        <span>Page {{pageNumber + 1}}</span>
+        <btn small :onClick="nextPage">Next</btn>
+        <btn small :onClick="lastPage">Last</btn>
+      </div>
 
     </div>
 
@@ -124,10 +144,10 @@
     showRowGroup: true,
     width: 30,
     cellRendererFramework: Vue.extend({
-      template: '<i :class="isSelected()"></i>',
+      template: '<input type="checkbox" :checked="isSelected()" />',
       methods: {
         isSelected () {
-          return !this.params.node.selected ? 'far fa-square' : 'fa fa-check-square'
+          return this.params.node.selected
         }
       }
     })
@@ -271,6 +291,8 @@
       // set row data
       this.setRowData()
 
+      this.gridOptions.api.sizeColumnsToFit()
+
     },
     methods: {
 
@@ -366,16 +388,39 @@
 
     .grid-action-bar {
       flex: 0 0 auto;
+      padding: 10px;
 
-      .pagination {
+      display: flex;
 
+      .page-size {
+        flex: 0 0 auto;
       }
+
+      .search {
+        flex: 0 1 100%;
+        padding: 0 10px;
+
+        text-align: right;
+
+        .search-input {
+          width: 350px;
+          display: inline-block;
+        }
+      }
+
+      .actions {
+        flex: 0 0 auto;
+      }
+
+
     }
 
     .grid-body {
       width: 100%;
       flex: 0 1 100%;
       position: relative;
+
+
 
       .grid-mask {
         width: 100%; height: 100%;
@@ -385,20 +430,76 @@
 
         .column-toggle-container {
           width: 33%; height: 100%;
-          max-width: 300px;
+          max-width: 400px;
           min-width: 250px;
           background-color: white;
           position: absolute;
           right: 0;
-          border: solid thin @grey6;
+          border: solid thin @grey5;
           pointer-events: auto;
+
+          display: flex;
+          flex-direction: column;
+
+          .header {
+            flex: 0 0 auto;
+
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+
+            h3 {
+              font-size: 14pt;
+            }
+
+            .icons {
+              font-size: 10pt;
+            }
+          }
+
+          .body {
+            flex: 0 1 100%;
+
+            overflow-y: auto;
+
+            .input-row {
+              padding: 0 15px 10px;
+              display: flex;
+
+              .select-all {
+                flex: 0 0 auto;
+                margin: 10px 15px 0 5px;
+              }
+
+              .filter-input {
+                flex: 0 1 100%;
+              }
+            }
+
+            .header-list {
+
+              .list-item {
+                font-size: 11pt;
+                padding: 5px 15px;
+                cursor: pointer;
+
+                &:nth-child(odd) {
+                  background-color: @grey2;
+                }
+
+                &:hover {
+                  background-color: @grey3;
+                }
+              }
+            }
+          }
         }
 
         .overlay {
           width: 100%; height: 100%;
           position: absolute;
           top: 0; left: 0;
-          background-color: fadeout(black, 85%);
+          background-color: fadeout(black, 75%);
         }
       }
 
@@ -409,6 +510,8 @@
 
     .grid-footer {
       flex: 0 0 auto;
+      display: flex;
+      justify-content: flex-end;
     }
 
   }

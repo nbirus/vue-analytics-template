@@ -37,14 +37,13 @@
   min-height: @page-min-height;
 
   & >.page-header {
-    display: none;
-    height: 80px;
+    height: 70px;
     top: 0;
 
     padding: 0; margin: 0;
 
-    background-color: white;
-    border-bottom: solid 1px @grey4;
+    background-color: lighten(@page-bg-color, 5%);
+    border-bottom: solid 1px darken(@page-bg-color, 5%);
 
     .page-header-content {
       width: 100%; height: 100%;
@@ -68,9 +67,6 @@
           font-weight: 100;
           font-size: 20pt;
         }
-
-
-        border-top: solid 4px @c-first;
 
         // if icon exists
         i { .icon-margin  }
@@ -99,6 +95,7 @@
   // input
   .form-control {
     width: 100%; height: @input-height;
+    transition: @transition;
   }
 
   // error text
@@ -128,7 +125,7 @@
   position: relative;
 
   background-color: white;
-  border: solid thin @grey3;
+  border: solid thin @grey4;
   border-radius: @br;
 
   display: flex;
@@ -238,3 +235,12 @@
 
 // ----- well -----
 .well {}
+
+.ag-fresh .ag-header {
+  background: none;
+  background-color: @grey2!important;
+  border-top: solid 3px @c-first;
+}
+.ag-header-cell {
+  background-color: @grey2!important;
+}

@@ -42,7 +42,7 @@
 
   // import global styles
   /*@import '../static/styles/app-overrides.less';*/
-  /*@import '../static/styles/app.less';*/
+  @import '../static/styles/app.less';
 
   /*// import uiv styles*/
   /*@import '../static/styles/uiv/app-dropdown.less';*/

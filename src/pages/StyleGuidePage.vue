@@ -264,7 +264,7 @@
 
             <div class="panel-body">
 
-              <grid style="height: 500px"
+              <grid style="height: 750px; padding-bottom: 10px;"
                 id="test-grid"
 
                 :data="data"

@@ -20,7 +20,10 @@ const routes = [
   {
     path: '/home',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {
+      breadcrumb: 'Home Page'
+    }
   },
   {
     path: '/search',

@@ -24,7 +24,8 @@
           class="tab-collapser"
           :onClick="() => { isSidebarOpen = !isSidebarOpen }"
         >
-          <i class="fa" :class="(isSidebarOpen) ? 'fa-chevron-left' : 'fa-chevron-right'"></i>
+          <!-- <i class="fa" :class="(isSidebarOpen) ? 'fa-chevron-left' : 'fa-chevron-right'"></i> -->
+          <i class="icons" :class="(isSidebarOpen) ? 'icon-arrow-left' : 'icon-arrow-right'"></i>
         </btn>
 
       </div>
@@ -227,7 +228,7 @@
         flex: 0 0 210px;
         flex-direction: row;
 
-        background-color: fadeout(black, 95%);
+        background-color: fadeout(black, 97%);
         border-right: solid thin fadeout(black, 95%);
 
         // if collapsed
@@ -318,6 +319,10 @@
       }
 
       // sidebar
+      .sidebar.tabs-@{name} > .tabs-list > ul > .tabs-list-item {
+        border-color: @color;
+      }
+
       .sidebar.tabs-@{name} > .tabs-list > ul > .tabs-list-item.active {
         border-left: solid 4px @color;
         background-color: fadeout(black, 97%);

@@ -13,15 +13,16 @@
     </div>
 
     <div class="page-body">
+
       <div class="panel panel-1">
 
         <div class="panel-body">
 
         </div>
 
-        <div class="panel-footer">
+        <!-- <div class="panel-footer">
           Trials by Primary Purpose
-        </div>
+        </div> -->
 
       </div>
     </div>
