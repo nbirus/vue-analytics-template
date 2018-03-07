@@ -35,6 +35,7 @@
       },
 
       hash () {
+
         if (this.isDisabled) {
           return '#'
         }

@@ -25,7 +25,7 @@
 
   });
 };
-@scope();
+@scope ();
 
 // greys
 .bg-grey1 { background-color: @grey1 }
@@ -73,10 +73,17 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@color', endColorstr='@color-dark',GradientType=0 ); /* IE6-9 */
 }
 
+// functions
+.foreach(@body, @i) when (@i>0)
+{
+  .foreach(@body, @i - 1);
+
+  @value: @i;
+  @body();
+}
+
 // margins
 .icon-margin { margin-right: 6px; }
-
-
 
 // test borders
 .b { border: solid thin black };
@@ -84,3 +91,4 @@
 .g { border: solid thin green };
 .r { border: solid thin red };
 .o { border: solid thin orange };
+

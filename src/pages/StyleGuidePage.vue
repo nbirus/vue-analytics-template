@@ -270,20 +270,19 @@
                 :data="data"
                 :columns="columns"
 
-                :canSort="false"
+                :canSort="true"
                 :canResizeColumns="true"
                 :canMoveColumns="false"
-
                 :paginate="true"
                 :initialPageSize="20"
-
                 :canSearch="true"
                 :canToggleColumns="true"
-
                 :canSelect="true"
-                :canSelectMultiple="true"
+                :canSelectMultiple="false"
 
                 :showRowDetail="false"
+
+                @rowSelected="rowSelected"
 
               />
 
@@ -364,6 +363,9 @@
       alert (text) {
         console.log(text)
       },
+      rowSelected (rowSelected) {
+        console.log(rowSelected)
+      },
       formChanged (obj) {},
       formSubmited (obj) {
         // console.log('formSubmited')
@@ -376,7 +378,7 @@
 
 <style lang="less" scoped>
 
-  @import '../../static/styles/component-helper.less';
+  @import '../styles/component-helper.less';
 
   .form-space {
     margin-bottom: 20px;

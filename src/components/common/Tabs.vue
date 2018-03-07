@@ -96,7 +96,6 @@
     }),
     computed: {
       filteredTabs () {
-        // return this.tabs
         return this.tabs.filter(tab => {
           return (tab.name) &&
                  (tab.name.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1) ||
@@ -110,19 +109,22 @@
     },
     mounted () {
 
+      // register event handler
       if (this.useHash) {
         window.addEventListener('hashchange', () => this.selectTab(window.location.hash))
       }
 
-
+      // on nav with hash in url
       if (this.useHash && this.findTab(window.location.hash)) {
         this.selectTab(window.location.hash)
         return
       }
 
-      if (this.tabs.length) {
-        this.selectTab(this.tabs[0].hash)
+      // default
+      if (this.filteredTabs.length) {
+        this.selectTab(this.filteredTabs[0].hash)
       }
+
     },
     methods: {
       generateTabClasses () {
@@ -177,7 +179,7 @@
 
 <style lang="less" scoped>
 
-  @import '../../../static/styles/component-helper.less';
+  @import '../../styles/component-helper.less';
 
   .tabs {
     display: flex;

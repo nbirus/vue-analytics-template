@@ -14,7 +14,7 @@
 
 <style lang="less" scoped>
 
-  @import '../../../static/styles/component-helper.less';
+  @import '../../styles/component-helper.less';
 
   .footer {
     width:100%; height:60px;

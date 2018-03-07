@@ -14,31 +14,34 @@
 
     <div class="page-body">
 
-      <div class="panel panel-1">
+      <dashboard :dashboard="dashboard"></dashboard>
 
-        <div class="panel-body">
-
-        </div>
-
-        <!-- <div class="panel-footer">
-          Trials by Primary Purpose
-        </div> -->
-
-      </div>
     </div>
 
   </div>
 </template>
 
 <script>
+  import Dashboard from '../components/generators/Dashboard'
+
+  import DashboardJSON from '../../static/data/dashboards/test-dashboard.json'
+
   export default {
-    name: 'home'
+    name: 'home',
+    components: {
+      Dashboard
+    },
+    data () {
+      return {
+        dashboard: DashboardJSON
+      }
+    }
   }
 </script>
 
 <style lang="less" scoped>
 
-  @import '../../static/styles/component-helper.less';
+  @import '../styles/component-helper.less';
 
   .panel-1 {
     width: 400px; height: 300px;

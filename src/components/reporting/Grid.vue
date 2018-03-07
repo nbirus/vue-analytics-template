@@ -1,6 +1,43 @@
 <template>
   <div class="grid-container">
 
+    <!-- ------export modal------ -->
+    <modal v-model="exportModal"
+           class="grid-export-modal"
+           :size="'sm'"
+           :keyboard="false"
+           :title="'Export Table'"
+           :footer="false"
+           :backdrop="true">
+
+      <div slot="default">
+
+        <!--file name-->
+        <text-input
+          label="Name"
+          placeholder="Enter a file name"
+          :inputValue.sync="exportFileName">
+        </text-input>
+
+        <!-- select input -->
+        <select-input
+          style="margin: 15px 0"
+          label="Type"
+          :options="exportFileTypes.filter(type => exportTypes.includes(type.value))"
+          :inputValue.sync="exportFileType">
+        </select-input>
+
+        <div class="export-buttons">
+          <btn theme="warning" :onClick="() => { exportModal = false }">Cancel</btn>
+          <btn theme="success" :onClick="() => { exportModal = false }">Download</btn>
+        </div>
+
+      </div>
+
+    </modal>
+
+
+    <!-- ------actions bar------ -->
     <div class="grid-action-bar">
 
       <!--page size-->
@@ -19,7 +56,6 @@
         </select-input>
       </div>
 
-
       <!--search-->
       <div class="search">
         <text-input
@@ -30,25 +66,38 @@
         ></text-input>
       </div>
 
-
       <!--toggle columns-->
-      <div class="actions">
-        <btn><i class="fa fa-sync-alt"></i></btn>
+      <div class="action-buttons">
+
+        <!--refresh-->
+        <btn
+          v-if="canToggleColumns"
+          :onClick="() => {}">
+          <i class="fa fa-sync-alt"></i>
+        </btn>
+
+        <!--toggle columns-->
         <btn
            v-if="canToggleColumns"
-           :onClick="() => { toggleColumnsOpen = true }">
+           :onClick="() => { toggleColumnsOpen = !toggleColumnsOpen }">
            Toggle Columns
-         </btn>
+       </btn>
 
-         <btn>Export Table</btn>
+        <!--export-->
+        <btn
+          v-if="canExport"
+          :onClick="() => { exportModal = true }">
+          Export Table
+        </btn>
 
       </div>
 
-
     </div>
 
+    <!-- ------body------ -->
     <div class="grid-body">
 
+      <!--grid-->
       <ag-grid-vue
         class="grid ag-fresh"
         :gridOptions="gridOptions"
@@ -71,6 +120,7 @@
         :rowClicked="rowSelected"
       />
 
+      <!--overlay-->
       <div class="grid-mask">
 
         <div class="overlay" v-if="overlayActive"></div>
@@ -86,13 +136,17 @@
           </div>
 
           <div class="body">
+
             <div class="input-row">
-              <input class="select-all" type="checkbox" />
-              <text-input class="filter-input" placeholder="Type to filter.."></text-input>
+
+              <input @click="toggleAllColumns" class="select-all" type="checkbox" :checked="allToggleColumnsSelected"/>
+
+              <text-input :inputValue.sync="toggleColumnSearchText" class="filter-input" placeholder="Type to filter.."></text-input>
+
             </div>
             <ul class="header-list">
               <li class="list-item"
-                  v-for="(column, index) in gridColumns"
+                  v-for="(column, index) in toggleColumns"
                   :key="index"
                   v-if="column.field !== 'checkbox'"
                   @click="toggleColumn(column)">
@@ -111,8 +165,8 @@
 
     </div>
 
+    <!-- ------footer------ -->
     <div class="grid-footer">
-      <!--pagination-->
       <div class="pagination" style="margin: 15px;">
         <btn small theme="white" :onClick="firstPage">First</btn>
         <btn small :onClick="prevPage">Previous</btn>
@@ -129,6 +183,7 @@
 <script>
   import Vue from 'vue'
   import { AgGridVue } from 'ag-grid-vue'
+  import { Modal } from 'uiv'
 
   import { remove, some } from 'lodash'
 
@@ -154,7 +209,10 @@
   }
 
   export default {
-    components: { AgGridVue },
+    components: {
+      AgGridVue,
+      Modal
+    },
     props: {
 
       // data
@@ -221,6 +279,10 @@
         type: Boolean,
         default: true
       },
+      exportTypes: {
+        type: Array,
+        default: () => ['csv', 'xlsx']
+      },
       canSelect: {
         type: Boolean,
         default: true
@@ -267,18 +329,42 @@
         pageSize: this.initialPageSize,
         pageNumber: 0,
         searchText: '',
+        toggleColumnSearchText: '',
         suppressedColumns: [],
         toggleColumnsOpen: false,
 
         // row selection
-        selectedRows: []
+        selectedRows: [],
+
+        exportModal: false,
+        exportFileTypes: [
+          {'label': 'CSV', 'value': 'csv'},
+          {'label': 'Excel', 'value': 'xlsx'},
+          {'label': 'PDF', 'value': 'pdf'}
+        ],
+        exportFileName: 'table',
+        exportFileType: 'csv'
 
       }
     },
     computed: {
+
+      // columns passed to the grid
       filteredGridColumns () {
-        return this.gridColumns.filter(header => !this.suppressedColumns.includes(header.field) && header.show)
+        return this.gridColumns.filter(column => !this.suppressedColumns.includes(column.field) && column.show)
       },
+
+      // items shown on the toggle panel
+      toggleColumns () {
+        return this.gridColumns.filter(column => {
+          return (column.headerName.toLowerCase().indexOf(this.toggleColumnSearchText.toLowerCase()) > -1)
+        })
+      },
+      allToggleColumnsSelected () {
+        return this.filteredGridColumns.length === this.gridColumns.filter(column => !this.suppressedColumns.includes(column.field)).length
+      },
+
+      // show overlay
       overlayActive () {
         return this.toggleColumnsOpen
       }
@@ -290,8 +376,6 @@
 
       // set row data
       this.setRowData()
-
-      this.gridOptions.api.sizeColumnsToFit()
 
     },
     methods: {
@@ -342,14 +426,26 @@
         this.pageNumber = this.gridOptions.api.paginationGetCurrentPage()
         this.reselectRows()
       },
+
       toggleColumn (column) {
         column.show = !column.show
+      },
+      toggleAllColumns () {
+        let flag = !this.allToggleColumnsSelected
+        this.gridColumns.forEach(column => {
+          column.show = flag
+        })
       },
 
       // row selection
       rowSelected (row) {
 
         if (this.canSelect) {
+
+          // reset selected rows
+          if (!this.canSelectMultiple) {
+            this.selectedRows = []
+          }
 
           // toggle the item from the list
           (!row.node.selected) ? this.selectedRows.push(row.data) : remove(this.selectedRows, row.data)
@@ -378,13 +474,25 @@
 
 <style lang="less" scoped>
 
-  @import '../../../static/styles/component-helper.less';
+  @import '../../styles/component-helper.less';
 
   .grid-container {
     height: 100%;
 
     display: flex;
     flex-direction: column;
+
+    .grid-export-modal {
+      .export-buttons {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+          margin-left: 10px;
+        }
+      }
+    }
 
     .grid-action-bar {
       flex: 0 0 auto;
@@ -408,10 +516,9 @@
         }
       }
 
-      .actions {
+      .action-buttons {
         flex: 0 0 auto;
       }
-
 
     }
 
@@ -419,8 +526,6 @@
       width: 100%;
       flex: 0 1 100%;
       position: relative;
-
-
 
       .grid-mask {
         width: 100%; height: 100%;

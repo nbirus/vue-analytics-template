@@ -1,0 +1,61 @@
+{
+  "dashboards": [
+    {
+      "title": "Home Dashboard",
+      "settings": [],
+      "reportContainers": [
+        {
+
+          "id": "test-item",
+          "display": [
+            {
+              "order": 1,
+              "row": 6,
+              "col": 5
+            },
+            {
+              "order": 1,
+              "row": 1,
+              "col": 4
+            },
+            {
+              "order": 1,
+              "row": 1,
+              "col": 12
+            }
+          ],
+
+          "reportType": "chart-report",
+          "reportProps": {
+
+            "title": "Test Pie Chart",
+            "countType": "items",
+            "settings": [],
+            "showTotal": true,
+            "hasHeader": true,
+            "hasActionBar": true,
+            "canExpand": false,
+            "hasLegend": true,
+            "canExport": true,
+            "canScreenshot": true,
+
+            "chartType": "bar",
+            "chartProps": {
+              "id": "monthlyaccrual",
+              "apiConfig": {
+                "headers": {},
+                "endpoint": "analytic/trials",
+                "baseURL": "mockserver",
+                "params": {
+                  "chart": "accrualsbymonth"
+                }
+              }
+            }
+
+          }
+
+        }
+      ]
+    }
+  ]
+}

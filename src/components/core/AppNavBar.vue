@@ -1,19 +1,6 @@
 <template>
   <div class="nav-bar">
 
-    <div class="search-container" :class="{'active': searchOpen}">
-
-      <div class="search-input-wrapper">
-
-        <input class="search-input" placeholder="Search on anything..."/>
-
-        <div class="close" @click="searchOpen = false">
-          <i class="icons icon-close"></i>
-        </div>
-      </div>
-
-    </div>
-
     <div class="fluid-container">
 
       <div class="identity">
@@ -27,18 +14,27 @@
       </div>
 
       <div class="search">
-        <!-- <i class="fa fa-search"></i> -->
         <i class="icon-magnifier icons"></i>
         <input class="search-input" placeholder="Search on anything.."/>
       </div>
 
-      <div class="user" v-ripple>
-        <!-- <span class="username-text">Nathan Birus</span> -->
-        <!-- <i class="fa fa-sign-out-alt"></i> -->
-        <!-- <i class="icon-user icons"></i> -->
+
+      <dropdown menu-right>
+
+        <div class="user" v-ripple>
+          <i class="icons icon-user"></i>
+          <i class="icons icon-arrow-down" style="font-size: 5pt; margin: 0 0 0 5px"></i>
+        </div>
+
+        <template slot="dropdown">
+          <li>Nathan Birus</li>
+          <li><a role="button">User Settings</a></li>
+        </template>
+      </dropdown>
+
+      <div class="logout" v-ripple>
         <i class="icon-logout icons"></i>
         Logout
-
       </div>
 
     </div>
@@ -47,69 +43,21 @@
 </template>
 
 <script>
+  import { Dropdown } from 'uiv'
+
   export default {
     name: 'navbar',
-    data () {
-      return {
-        searchOpen: false
-      }
-    }
+    components: { Dropdown }
   }
 </script>
 
 <style lang="less" scoped>
 
-  @import '../../../static/styles/component-helper.less';
+  @import '../../styles/component-helper.less';
 
   .nav-bar {
     // .vertical-gradient(@nav-bg-color, darken(@nav-bg-color, 10%));
     background-color: @nav-bg-color;
-
-    .search-container {
-      position: absolute;
-      width: 100vw; height: auto;
-      top: calc((@nav-header-height - 10px) * -1); left: 0; right: 0;
-      transition: @transition;
-      padding: 5px 105px 10px 0;
-      .max-page-width;
-      text-align: right;
-      z-index: -1;
-
-      .search-input-wrapper {
-        width: 100%; height: auto;
-        max-width: 600px;
-        display: inline-block;
-        background-color: darken(@nav-bg-color, 5%);
-        padding: 5px;
-
-        .search-input {
-          width: 100%; height: 40px;
-          background-color: lighten(@nav-bg-color, 85%);
-          border: none;
-          // color: white;
-
-          padding: 0 15px;
-
-          &::placeholder {
-            // color: white;
-          }
-        }
-
-        .close {
-          flex: 0 0 auto;
-          padding: 15px;
-          color: white;
-          cursor: pointer;
-          display: none;
-
-        }
-      }
-
-      &.active {
-        top: @nav-header-height;
-      }
-
-    }
 
     .fluid-container {
       display: flex;
@@ -146,10 +94,10 @@
           flex:  0 0 auto;
           line-height: @nav-header-height;
           vertical-align: middle;
-          // transition: @transition;
 
           margin: 0; padding: 0 15px;
           font-size: 11pt;
+          .f-b;
 
           color: fadeout(white, 55%);
           cursor: pointer !important;
@@ -161,15 +109,9 @@
             display: none;
           }
 
-          &:active {
-            background-color: darken(@nav-bg-color, 5%);
-          }
-
           &.is-active {
             color: white;
             cursor: default;
-            // background-color: darken(@nav-bg-color, 2%);
-            // text-decoration: underline;
             &:hover {
               color: white;
             }
@@ -190,16 +132,19 @@
 
         .search-input {
           width: 200px; height: 35px;
-          background-color: darken(@nav-bg-color, 5%);
-          border: none;
-          color: fadeout(white, 25%);
-          transition: width .04s ease-in-out;
-
           padding: 1px 0 0 40px;
           border-radius: 5px;
 
+          color: fadeout(white, 25%);
+          font-size: 11pt;
+
+          background-color: darken(@nav-bg-color, 5%);
+          border: none;
+
+          transition: width .04s ease-in-out;
+
           &::placeholder {
-            color: fadeout(white, 25%);
+            color: fadeout(white, 35%);
           }
 
           &:focus {
@@ -209,10 +154,6 @@
             background-color: darken(@nav-bg-color, 10%);
             color: white;
             .box-shadow(@input-focus-shadow);
-
-            &::placeholder {
-              color: white;
-            }
           }
         }
 
@@ -233,7 +174,26 @@
 
       .user {
         flex: 0 0 auto; height: @nav-header-height;
-        // background: darken(@nav-bg-color, 3%);
+        padding: 0 15px;
+
+        display: flex;
+        align-items: center;
+        color: white;
+        font-size: 11pt;
+
+        cursor: pointer;
+
+        &:hover {
+          background-color: darken(@nav-bg-color, 1%);
+        }
+
+        &:active {
+          background-color: darken(@nav-bg-color, 5%);
+        }
+      }
+
+      .logout {
+        flex: 0 0 auto; height: @nav-header-height;
         padding: 0 15px;
 
         display: flex;

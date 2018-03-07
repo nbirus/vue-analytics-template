@@ -78,11 +78,6 @@
         ripple () {
           return 'rgba(0, 0, 0, 0.1)'
         }
-      },
-      methods: {
-        handleClick (e) {
-          this.$emit('click', e)
-        }
       }
   }
 
@@ -90,7 +85,7 @@
 
 <style lang="less" scoped>
 
-  @import '../../../static/styles/component-helper.less';
+  @import '../../styles/component-helper.less';
 
   // ------------- default -------------
   .btn {
@@ -110,9 +105,14 @@
     &:hover {
       color: @grey9;
       border-color: @grey5;
-   }
+    }
 
-    &:hover, &:active { outline: none; }
+    &:focus {
+      /*border-color: #32a1ce;*/
+      .box-shadow(0 0 0 1px #32a1ce);
+    }
+
+    &:hover, &:focus { outline: none; }
   }
 
   // ------------- icon -------------
@@ -133,7 +133,7 @@
 
     &:focus {
       outline: none!important;
-      .box-shadow(0px 0px 2px 1px #32a1ce);
+      .box-shadow(0 0 0 1px #32a1ce);
     }
   }
 
