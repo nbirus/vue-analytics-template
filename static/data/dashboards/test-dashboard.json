@@ -41,13 +41,12 @@
 
             "chartType": "bar",
             "chartProps": {
-              "id": "monthlyaccrual",
+              "id": "phase",
               "apiConfig": {
                 "headers": {},
                 "endpoint": "analytic/trials",
-                "baseURL": "mockserver",
                 "params": {
-                  "chart": "accrualsbymonth"
+                  "chart": "phase"
                 }
               }
             }
@@ -78,61 +77,17 @@
 
           "reportType": "number-widget",
           "reportProps": {
-            "theme": "inverse"
-          }
-
-        },
-        {
-
-          "id": "test-item",
-          "display": [
-            {
-              "order": 3,
-              "row": 2,
-              "col": 3
-            },
-            {
-              "order": 1,
-              "row": 1,
-              "col": 4
-            },
-            {
-              "order": 1,
-              "row": 1,
-              "col": 12
+            "title": "Total Trials",
+            "theme": "inverse",
+            "icon": "user",
+            "size": "large",
+            "apiConfig": {
+              "headers": {},
+              "endpoint": "analytic/trials",
+              "params": {
+                "chart": "person_total"
+              }
             }
-          ],
-
-          "reportType": "number-widget",
-          "reportProps": {
-            "theme": "first"
-          }
-
-        },
-        {
-
-          "id": "test-item",
-          "display": [
-            {
-              "order": 3,
-              "row": 2,
-              "col": 3
-            },
-            {
-              "order": 1,
-              "row": 1,
-              "col": 4
-            },
-            {
-              "order": 1,
-              "row": 1,
-              "col": 12
-            }
-          ],
-
-          "reportType": "number-widget",
-          "reportProps": {
-            "theme": "second"
           }
 
         }

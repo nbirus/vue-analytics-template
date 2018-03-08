@@ -5,7 +5,7 @@
     <chart-report
       v-if="reportType === 'chart-report'"
 
-      :chartType="reportProps.v"
+      :chartType="reportProps.chartType"
       :chartProps="reportProps.chartProps"
 
       :title="reportProps.title"
@@ -22,15 +22,16 @@
     >
     </chart-report>
 
+    <!-- ------- number widget ------- -->
     <number-widget
       v-else-if="reportType === 'number-widget'"
 
-      :id="'count'"
-      :title="'total trials'"
+      :title="reportProps.title"
       :theme="reportProps.theme"
-      :bordered="'left'"
-      :icon="'user'">
-
+      :size="reportProps.size"
+      :apiConfig="reportProps.apiConfig"
+      :icon="reportProps.icon"
+    >
     </number-widget>
 
   </div>

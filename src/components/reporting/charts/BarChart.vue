@@ -1,76 +1,101 @@
 <template>
-  <e-charts class="chart" :options="polar"></e-charts>
+  <e-charts class="chart" :options="activeOptions" :autoResize="true"></e-charts>
 </template>
 
 <script>
-  import ECharts from 'vue-echarts/components/ECharts'
-
-  // import ECharts modules manually to reduce bundle size
+  import ChartMixin from '../../../mixins/ChartMixin'
+  import DataMixin from '../../../mixins/DataMixin'
   import 'echarts/lib/chart/bar'
-  import 'echarts/lib/component/tooltip'
+
+  import { merge, isEmpty } from 'lodash'
 
   export default {
-    name: 'test-chart',
-    components: { ECharts },
+    name: 'bar-chart',
+    mixins: [ChartMixin, DataMixin],
     data () {
-
-      var dataAxis = ['点', '击', '柱', '子', '或', '者', '两', '指', '在', '触', '屏', '上', '滑', '动', '能', '够', '自', '动', '缩', '放']
-      var data = [220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90, 149, 210, 122, 133, 334, 198, 123, 125, 220]
-      var yMax = 500
-      var dataShadow = []
-
-      for (var i = 0; i < data.length; i++) {
-        dataShadow.push(yMax)
-      }
-
       return {
-        polar: {
-          title: {
-            text: '特性示例：渐变色 阴影 点击缩放',
-            subtext: 'Feature Sample: Gradient Color, Shadow, Click Zoom'
-          },
+        defaultChartOptions: {
           xAxis: {
-            data: dataAxis,
-            axisLabel: {
-              inside: false,
-              textStyle: {
-                color: '#000'
-              }
-            },
-            axisTick: {
-              show: false
-            },
-            axisLine: {
-              show: false
-            },
-            z: 10
+            type: 'category'
           },
           yAxis: {
-            axisLine: {
-              show: false
-            },
-            axisTick: {
-              show: false
-            },
-            axisLabel: {
-              textStyle: {
-                color: '#999'
-              }
-            }
+            type: 'value'
           },
-          dataZoom: [
-            {
-              type: 'inside'
+          series: [{
+            type: 'bar'
+          }]
+        },
+        expandedChartOptions: {}
+      }
+    },
+    computed: {
+
+      // visible chart object
+      activeOptions () {
+        return merge({},
+          this.defaultChartOptions,
+          this.dataModifiers, // insert data
+          this.customModifiers, // insert custom properties
+          this.isExpanded ? this.expandedChartOptions : {} // if expanded
+        )
+      },
+
+      // fill the data elements of the chart options object
+      dataModifiers () {
+        return (isEmpty(this.filteredChartData)) ? {}
+          : {
+            xAxis: {
+              data: this.filteredChartData.map(item => item.label)
+            },
+            series: [{
+              data: this.filteredChartData.map(item => {
+                return {
+                  ...item,
+                  itemStyle: { normal: { color: item.color } } // merge color object
+                }
+              })
+            }]
+          }
+      },
+
+
+      // filter out suppressed headers and null fields
+      filteredChartData () {
+        return this.chartData.filter(item => item && item.label && !this.suppressedHeaders.includes(item.label))
+      }
+
+    },
+    mounted () {
+      this.buildChart()
+    },
+    methods: {
+
+      async buildChart () {
+
+        try {
+
+          // get data
+          let result = await this.$get(this.apiConfig)
+
+          // get colors
+          this.colors = this.$generateColors(result.analytics.length)
+
+          // format data
+          this.chartData = result.analytics.map((item, index) => {
+            return {
+              label: item[this.id],
+              value: item.count,
+              color: this.colors[index]
             }
-          ],
-          series: [
-            {
-              type: 'bar',
-              data: data
-            }
-          ]
+          })
+
+          this.$chartRendered()
+        }
+        catch (error) {
+          this.$throwError(error)
         }
       }
+
     }
   }
 </script>

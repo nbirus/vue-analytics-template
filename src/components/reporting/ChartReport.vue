@@ -4,8 +4,8 @@
 
     <div class="panel-header">
       <div class="chart-title">
-        <h4>Trials by Phase</h4>
-        <h5>12,902 trials</h5>
+        <h4>{{title}}</h4>
+        <h5>12,902 {{countType}}</h5>
       </div>
 
       <div class="chart-actions">
@@ -33,14 +33,15 @@
       <div class="panel-block" style="height: 100%">
 
         <!--bar chart-->
-        <bar-chart v-if="chartType === 'bars'"
+        <bar-chart v-if="chartType === 'bar'"
+
+          :id="chartProps.id"
+          :apiConfig="chartProps.apiConfig"
+
+          :isExpanded="true"
+          :suppressedHeaders="[]"
         >
         </bar-chart>
-
-        <!--pie chart-->
-        <pie-chart v-else-if="chartType === 'pie'"
-        >
-        </pie-chart>
 
       </div>
     </div>
@@ -50,14 +51,14 @@
 </template>
 
 <script>
-  import Charts from './Charts'
+  import BarChart from './charts/BarChart'
   import { Dropdown } from 'uiv'
 
   export default {
     name: 'chart-report',
     components: {
       Dropdown,
-      ...Charts
+      BarChart
     },
     props: {
 

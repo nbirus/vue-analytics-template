@@ -16,6 +16,11 @@
   "dependencies": {
     "ag-grid": "^16.0.1",
     "ag-grid-vue": "^16.0.0",
+    "axios": "^0.18.0",
+    "axios-extensions": "^1.2.0",
+    "cache-js": "0.0.7",
+    "cachejs": "^0.1.24",
+    "chroma-js": "^1.3.6",
     "typicons.font": "^2.0.9",
     "uiv": "^0.19.1",
     "vue": "^2.5.2",
