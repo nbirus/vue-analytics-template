@@ -5,7 +5,7 @@
     <chart-report
       v-if="reportType === 'chart-report'"
 
-      :chartType="reportProps.chartType"
+      :chartType="reportProps.v"
       :chartProps="reportProps.chartProps"
 
       :title="reportProps.title"
@@ -22,16 +22,29 @@
     >
     </chart-report>
 
+    <number-widget
+      v-else-if="reportType === 'number-widget'"
+
+      :id="'count'"
+      :title="'total trials'"
+      :theme="reportProps.theme"
+      :bordered="'left'"
+      :icon="'user'">
+
+    </number-widget>
+
   </div>
 </template>
 
 <script>
   import ChartReport from './ChartReport'
+  import NumberWidget from './widgets/NumberWidget'
 
   export default {
     name: 'report-container',
     components: {
-      ChartReport
+      ChartReport,
+      NumberWidget
     },
     props: {
       reportType: {

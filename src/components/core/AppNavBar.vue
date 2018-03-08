@@ -30,6 +30,7 @@
           <li>Nathan Birus</li>
           <li><a role="button">User Settings</a></li>
         </template>
+
       </dropdown>
 
       <div class="logout" v-ripple>

@@ -6,26 +6,24 @@
 
 // ------------ colors --------------------
 // bg and text theme colors
-@scope: {
-  .generateThemeClasses({
+.generateThemeClasses({
 
-    // ------------- background -------------
-    .bg-@{name} { background-color: @color; }
-    .bg-@{name}-dark { background-color: @color-dark; }
-    .bg-@{name}-light { background-color: @color-light; }
+  // ------------- background -------------
+  .bg-@{name} { background-color: @color!important; }
+  .bg-@{name}-dark { background-color: @color-dark; }
+  .bg-@{name}-light { background-color: @color-light; }
 
-    // ------------- text -------------
-    .text-@{name} { color: @color!important; }
-    .text-@{name}-light { color: @color-light; }
-    .text-@{name}-dark { color: @color-dark; }
+  // ------------- text -------------
+  .text-@{name} { color: @color!important; }
+  .text-@{name}-light { color: @color-light; }
+  .text-@{name}-dark { color: @color-dark; }
 
-    .panel.bar-@{name}:before {
-      background-color: @color;
-    }
+  // ------------- panel -------------
+  .panel.bar-@{name}:before {
+    background-color: @color;
+  }
 
-  });
-};
-@scope ();
+});
 
 // greys
 .bg-grey1 { background-color: @grey1 }
@@ -91,4 +89,3 @@
 .g { border: solid thin green };
 .r { border: solid thin red };
 .o { border: solid thin orange };
-

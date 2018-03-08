@@ -2,15 +2,48 @@
 
   <div class="panel chart-report-panel">
 
-    <!--bar chart-->
-    <bar-chart v-if="chartType === 'bar'"
-    >
-    </bar-chart>
+    <div class="panel-header">
+      <div class="chart-title">
+        <h4>Trials by Phase</h4>
+        <h5>12,902 trials</h5>
+      </div>
 
-    <!--pie chart-->
-    <pie-chart v-else-if="chartType === 'pie'"
-    >
-    </pie-chart>
+      <div class="chart-actions">
+        <!-- <i class="icons icon-settings"></i> -->
+        <!-- <i class="icons icon-refresh"></i> -->
+
+        <dropdown menu-right>
+
+          <div data-role="trigger">
+            <i class="icons icon-options-vertical"></i>
+          </div>
+
+          <template slot="dropdown">
+            <li><a role="button">Chart Settings</a></li>
+            <li><a role="button">Refresh</a></li>
+            <li><a role="button">Export</a></li>
+            <li><a role="button">Screenshot</a></li>
+          </template>
+
+        </dropdown>
+      </div>
+    </div>
+
+    <div class="panel-body">
+      <div class="panel-block" style="height: 100%">
+
+        <!--bar chart-->
+        <bar-chart v-if="chartType === 'bars'"
+        >
+        </bar-chart>
+
+        <!--pie chart-->
+        <pie-chart v-else-if="chartType === 'pie'"
+        >
+        </pie-chart>
+
+      </div>
+    </div>
 
   </div>
 
@@ -18,10 +51,12 @@
 
 <script>
   import Charts from './Charts'
+  import { Dropdown } from 'uiv'
 
   export default {
     name: 'chart-report',
     components: {
+      Dropdown,
       ...Charts
     },
     props: {
@@ -95,8 +130,43 @@
 
 </script>
 
-<style>
+<style lang="less" scoped>
+
+  @import '../../styles/component-helper.less';
+
   .chart-report-panel {
     height: 100%;
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+
+      .chart-title {
+        flex: 0 1 100%;
+        h4 { color: @c-inverse; }
+        h5 {
+          color: @grey6;
+          .f-r;
+        }
+      }
+
+      .chart-actions {
+        flex: 0 0 auto;
+
+        i {
+          margin-left: 5px;
+          cursor: pointer;
+          color: @c-inverse;
+
+          &:hover {
+            color: black;
+          }
+
+          &:first-child {
+            margin: 0;
+          }
+        }
+      }
+    }
   }
 </style>

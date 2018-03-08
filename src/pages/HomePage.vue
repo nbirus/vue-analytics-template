@@ -4,18 +4,20 @@
     <div class="page-header">
 
       <div class="page-header-content">
+
         <div class="page-title-container">
-          <h2>Home</h2>
+          <h2>Dashboard</h2>
+        </div>
+
+        <div class="page-actions">
+          <btn class="dashboard-settings-btn" large><i class="fa fa-cog icon-margin"></i>Dashboard Settings</btn>
         </div>
       </div>
-
 
     </div>
 
     <div class="page-body">
-
       <dashboard :dashboard="dashboard"></dashboard>
-
     </div>
 
   </div>
@@ -43,14 +45,9 @@
 
   @import '../styles/component-helper.less';
 
-  .panel-1 {
-    width: 400px; height: 300px;
-
-    .panel-footer {
-      // background-color: @grey1;
-      color: @c-inverse;
-      font-size: 11pt;
-    }
+  .dashboard-settings-btn {
+    .vertical-gradient(lighten(@c-light, 10%), transparent)!important;
+    border-color: darken(@c-light, 5%)!important;
   }
 
 

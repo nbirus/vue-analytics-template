@@ -60,6 +60,14 @@
         small: {
           type: Boolean,
           default: false
+        },
+        large: {
+          type: Boolean,
+          default: false
+        },
+        rounded: {
+          type: Boolean,
+          default: false
         }
       },
       computed: {
@@ -71,7 +79,9 @@
             (this.icon) ? 'btn-icon' : null,
             (this.block) ? 'btn-block' : null,
             (this.flat) ? 'btn-flat' : null,
-            (this.small) ? 'btn-small' : null
+            (this.small) ? 'btn-small' : null,
+            (this.large) ? 'btn-large' : null,
+            (this.rounded) ? 'btn-rounded' : null
           ]
         },
 
@@ -104,7 +114,7 @@
 
     &:hover {
       color: @grey9;
-      border-color: @grey5;
+      border-color: darken(@grey4, 5%);
     }
 
     &:focus {
@@ -152,7 +162,16 @@
 
   // ------------- small -------------
   .btn.btn-small {
-    height: 30px;
+    height: @btn-height-sm!important;
+  }
+
+  // ------------- large -------------
+  .btn.btn-large {
+    height: @btn-height-lg!important;
+  }
+
+  .btn.btn-rounded {
+    border-radius: @btn-height;
   }
 
   // ------------- generator theme classes -------------
@@ -169,7 +188,7 @@
 
         &:hover {
           color: white;
-          border-color: @color-dark !important;
+          border-color: darken(@grey4, 5%)!important;
         }
       }
 

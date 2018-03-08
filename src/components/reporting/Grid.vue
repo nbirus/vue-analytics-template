@@ -33,7 +33,6 @@
         </div>
 
       </div>
-
     </modal>
 
 
@@ -128,22 +127,19 @@
         <div class="column-toggle-container" v-if="toggleColumnsOpen">
 
           <div class="header">
-            <h3>Toggle Columns</h3>
-            <btn
-              icon flat small
-              :onClick="() => { toggleColumnsOpen = false }"><i class="icons icon-arrow-right"></i>
+
+            <div class="input-row">
+              <input @click="toggleAllColumns" class="select-all" type="checkbox" :checked="allToggleColumnsSelected"/>
+              <text-input :inputValue.sync="toggleColumnSearchText" class="filter-input" placeholder="Type to filter.."></text-input>
+            </div>
+
+            <btn class="close-icon" icon flat small
+              :onClick="() => { toggleColumnsOpen = false }"><i class="fa fa-chevron-right"></i>
             </btn>
+
           </div>
 
           <div class="body">
-
-            <div class="input-row">
-
-              <input @click="toggleAllColumns" class="select-all" type="checkbox" :checked="allToggleColumnsSelected"/>
-
-              <text-input :inputValue.sync="toggleColumnSearchText" class="filter-input" placeholder="Type to filter.."></text-input>
-
-            </div>
             <ul class="header-list">
               <li class="list-item"
                   v-for="(column, index) in toggleColumns"
@@ -541,6 +537,8 @@
           position: absolute;
           right: 0;
           border: solid thin @grey5;
+          border-left: solid thin @grey6;
+          border-right: none;
           pointer-events: auto;
 
           display: flex;
@@ -551,14 +549,30 @@
 
             display: flex;
             justify-content: space-between;
-            padding: 15px;
+            align-items: center;
 
-            h3 {
-              font-size: 14pt;
+            padding: 15px 10px;
+            background: @grey2;
+            border-bottom: solid thin @grey4;
+
+            .close-icon {
+              flex: 0 0 auto;
             }
 
-            .icons {
-              font-size: 10pt;
+            .input-row {
+              flex: 0 1 100%;
+              display: flex;
+              padding-right: 10px;
+
+              .select-all {
+                flex: 0 0 auto;
+                margin: 10px 15px 0 5px;
+                cursor: pointer;
+              }
+
+              .filter-input {
+                flex: 0 1 100%;
+              }
             }
           }
 
@@ -567,33 +581,20 @@
 
             overflow-y: auto;
 
-            .input-row {
-              padding: 0 15px 10px;
-              display: flex;
-
-              .select-all {
-                flex: 0 0 auto;
-                margin: 10px 15px 0 5px;
-              }
-
-              .filter-input {
-                flex: 0 1 100%;
-              }
-            }
-
             .header-list {
 
               .list-item {
                 font-size: 11pt;
-                padding: 5px 15px;
+                padding: 5px 10px;
                 cursor: pointer;
+                color: @grey8;
 
                 &:nth-child(odd) {
-                  background-color: @grey2;
+                  background-color: @grey1;
                 }
 
                 &:hover {
-                  background-color: @grey3;
+                  background-color: @grey2;
                 }
               }
             }
@@ -604,7 +605,7 @@
           width: 100%; height: 100%;
           position: absolute;
           top: 0; left: 0;
-          background-color: fadeout(black, 75%);
+          background-color: fadeout(black, 65%);
         }
       }
 
