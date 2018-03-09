@@ -10,6 +10,7 @@
 
       :title="reportProps.title"
       :countType="reportProps.countType"
+      :theme="reportProps.theme"
       :settings="reportProps.settings"
 
       :showTotal="reportProps.showTotal"

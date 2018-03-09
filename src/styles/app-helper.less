@@ -6,24 +6,30 @@
 
 // ------------ colors --------------------
 // bg and text theme colors
-.generateThemeClasses({
+@scope: {
+  .generateThemeClasses({
 
-  // ------------- background -------------
-  .bg-@{name} { background-color: @color!important; }
-  .bg-@{name}-dark { background-color: @color-dark; }
-  .bg-@{name}-light { background-color: @color-light; }
+    // ------------- background -------------
+    .bg-@{name} { background-color: @color!important; }
+    .bg-@{name}-dark { background-color: @color-dark; }
+    .bg-@{name}-light { background-color: @color-light; }
 
-  // ------------- text -------------
-  .text-@{name} { color: @color!important; }
-  .text-@{name}-light { color: @color-light; }
-  .text-@{name}-dark { color: @color-dark; }
+    // ------------- text -------------
+    .text-@{name} { color: @color!important; }
+    .text-@{name}-light { color: @color-light; }
+    .text-@{name}-dark { color: @color-dark; }
 
-  // ------------- panel -------------
-  .panel.bar-@{name}:before {
-    background-color: @color;
-  }
+    // ------------- panel -------------
+    .panel.bar-@{name}:before {
+      background-color: @color;
+    }
 
-});
+    .widget.theme-@{name} {
+      .vertical-gradient(darken(@color, 4%), @color);
+    }
+  });
+};
+@scope();
 
 // greys
 .bg-grey1 { background-color: @grey1 }

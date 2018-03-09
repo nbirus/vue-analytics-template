@@ -16,10 +16,33 @@
       return {
         defaultChartOptions: {
           xAxis: {
-            type: 'category'
+            type: 'category',
+            axisLabel: {
+              textStyle: {
+                  color: this.axisTextColor
+              }
+            },
+            axisLine: { show: false },
+            axisTick: { show: false }
           },
           yAxis: {
-            type: 'value'
+            type: 'value',
+            axisLabel: {
+              textStyle: {
+                  color: this.axisTextColor
+              }
+            },
+            axisLine: { show: false },
+            axisTick: { show: false },
+            splitLine: {
+              lineStyle: {
+                color: ['#e7e7e7']
+              }
+            }
+          },
+          grid: {
+            top: '5px', left: '0', right: '5px', bottom: '0',
+            containLabel: true
           },
           series: [{
             type: 'bar'

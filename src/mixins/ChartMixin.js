@@ -3,7 +3,8 @@ import chroma from 'chroma-js'
 
 // define color, darken value, brighten
 const colorObject = {
-  inverse: ['#333c48', 2, 2]
+  inverse: ['#333c48', 2, 2],
+  first: ['#4ac2ff', 1, .4]
 }
 
 export default {
@@ -35,7 +36,9 @@ export default {
   data () {
     return {
       chartData: [],
-      colors: []
+      colors: [],
+      axisTextColor: '#000',
+      splitLineColor: '#e7e7e7'
     }
   },
   methods: {

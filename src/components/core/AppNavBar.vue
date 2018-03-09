@@ -4,18 +4,35 @@
     <div class="fluid-container">
 
       <div class="identity">
-        <span class="identity-text">analytics</span>
+        <!-- <img src="../../assets/strap-logo.png" height="20" width="20" /> -->
+        <span class="identity-text">strap</span>
       </div>
 
       <div class="nav-items">
-        <router-link class="nav-item" id="home-navbar" to="/home" tag="a"><i class="icon-home icons"></i>Home</router-link>
-        <router-link class="nav-item" id="search-navbar" to="/search" tag="a"><i class="icon-magnifier icons"></i>Search</router-link>
-        <router-link class="nav-item" id="style-guide-navbar" to="/style-guide" tag="a"><i class="icon-screen-desktop icons"></i>Style Guide</router-link>
+        <router-link class="nav-item" id="home-navbar" to="/home" tag="a">Home</router-link>
+        <router-link class="nav-item" id="search-navbar" to="/style-guide" tag="a">Automated Reports</router-link>
+        <router-link class="nav-item" id="style-guide-navbar" to="/search" tag="a">Search</router-link>
       </div>
 
       <div class="search">
         <i class="icon-magnifier icons"></i>
-        <input class="search-input" placeholder="Search on anything.."/>
+        <input class="search-input" placeholder="Search.."/>
+
+        <dropdown menu-right>
+
+          <div class="temp-dropdown" v-ripple>
+            {{searchEntity}}
+            <i class="icons icon-arrow-down"></i>
+          </div>
+
+          <template slot="dropdown">
+            <li @click="searchEntity = 'Trials'"><a role="button">Trials</a></li>
+            <li @click="searchEntity = 'Persons'"><a role="button">Persons</a></li>
+            <li @click="searchEntity = 'Organizations'"><a role="button">Organizations</a></li>
+          </template>
+
+        </dropdown>
+
       </div>
 
 
@@ -23,20 +40,21 @@
 
         <div class="user" v-ripple>
           <i class="icons icon-user"></i>
-          <i class="icons icon-arrow-down" style="font-size: 5pt; margin: 0 0 0 5px"></i>
+          <i class="icons icon-arrow-down"></i>
         </div>
 
         <template slot="dropdown">
-          <li>Nathan Birus</li>
-          <li><a role="button">User Settings</a></li>
+          <li class="user-id">Nathan Birus</li>
+          <li><a role="button"><i class="icon-settings icons icon-margin"></i>User Settings</a></li>
+          <li><a role="button"><i class="icon-logout icons icon-margin"></i>Logout</a></li>
         </template>
 
       </dropdown>
 
-      <div class="logout" v-ripple>
+      <!-- <div class="logout" v-ripple>
         <i class="icon-logout icons"></i>
         Logout
-      </div>
+      </div> -->
 
     </div>
 
@@ -48,7 +66,12 @@
 
   export default {
     name: 'navbar',
-    components: { Dropdown }
+    components: { Dropdown },
+    data () {
+      return {
+        searchEntity: 'Trials'
+      }
+    }
   }
 </script>
 
@@ -57,7 +80,6 @@
   @import '../../styles/component-helper.less';
 
   .nav-bar {
-    // .vertical-gradient(@nav-bg-color, darken(@nav-bg-color, 10%));
     background-color: @nav-bg-color;
 
     .fluid-container {
@@ -75,12 +97,11 @@
         line-height: @nav-header-height;
         vertical-align: middle;
 
-
         .identity-text {
           font-family: 'Title', sans-serif;
           display: block;
           color: white;
-          font-size: 16pt;
+          font-size: 17pt;
           margin-top: -3px;
         }
       }
@@ -97,25 +118,18 @@
           vertical-align: middle;
 
           margin: 0; padding: 0 15px;
+
           font-size: 11pt;
           .f-b;
-
           color: fadeout(white, 55%);
-          cursor: pointer !important;
           text-decoration: none;
 
-          .icons {
-            font-size: 8pt;
-            margin-right: 5px;
-            display: none;
-          }
+          cursor: pointer;
 
           &.is-active {
             color: white;
             cursor: default;
-            &:hover {
-              color: white;
-            }
+            &:hover { color: white; }
           }
 
           &:hover {
@@ -131,10 +145,19 @@
         display: flex;
         align-items: center;
 
+        .icon-magnifier {
+          color: white;
+          font-size: 11pt;
+          font-weight: 100;
+          position: absolute;
+          margin-left: 12px;
+          margin-top: 1px;
+        }
+
         .search-input {
           width: 200px; height: 35px;
           padding: 1px 0 0 40px;
-          border-radius: 5px;
+          border-radius: 5px 0 0 5px;
 
           color: fadeout(white, 25%);
           font-size: 11pt;
@@ -158,13 +181,30 @@
           }
         }
 
-        .icon-magnifier {
-          color: white;
-          font-size: 11pt;
-          font-weight: 100;
-          position: absolute;
-          margin-left: 12px;
-          margin-top: 1px;
+        .temp-dropdown {
+          height: 35px;
+          .vertical-gradient(lighten(@nav-bg-color, 5%), @nav-bg-color);
+          // background-color: lighten(@nav-bg-color, 1%);
+          border: solid thin darken(@nav-bg-color, 5%);
+          color: fadeout(white, 10%);
+          line-height: 35px;
+          vertical-align: middle;
+          padding: 0 8px;
+          font-size: 10pt;
+          margin-left: 0;
+
+          border-radius: 0 5px 5px 0;
+
+          cursor: pointer;
+
+          .icon-arrow-down {
+            font-size: 5pt;
+          }
+
+          &:hover {
+            background: none;
+            background-color: lighten(@nav-bg-color, 5%);
+          }
         }
 
         &.active {
@@ -184,6 +224,11 @@
 
         cursor: pointer;
 
+        .icon-arrow-down {
+          font-size: 5pt;
+          margin: 0 0 0 5px;
+        }
+
         &:hover {
           background-color: darken(@nav-bg-color, 1%);
         }
@@ -193,12 +238,18 @@
         }
       }
 
+      .user-id {
+        margin: 5px 20px;
+        .f-b;
+      }
+
       .logout {
         flex: 0 0 auto; height: @nav-header-height;
         padding: 0 15px;
 
         display: flex;
         align-items: center;
+
         color: white;
         font-size: 11pt;
 

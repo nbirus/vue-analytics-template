@@ -5,13 +5,12 @@
       "settings": [],
       "reportContainers": [
         {
-
           "id": "test-item",
           "display": [
             {
               "order": 1,
-              "row": 6,
-              "col": 5
+              "row": 7,
+              "col": 7
             },
             {
               "order": 1,
@@ -30,6 +29,7 @@
 
             "title": "Test Pie Chart",
             "countType": "items",
+            "theme": "inverse",
             "settings": [],
             "showTotal": true,
             "hasHeader": true,
@@ -55,7 +55,6 @@
 
         },
         {
-
           "id": "test-item",
           "display": [
             {
@@ -79,7 +78,79 @@
           "reportProps": {
             "title": "Total Trials",
             "theme": "inverse",
+            "icon": "book-open",
+            "size": "large",
+            "apiConfig": {
+              "headers": {},
+              "endpoint": "analytic/trials",
+              "params": {
+                "chart": "person_total"
+              }
+            }
+          }
+
+        },
+        {
+          "id": "test-item",
+          "display": [
+            {
+              "order": 2,
+              "row": 2,
+              "col": 3
+            },
+            {
+              "order": 1,
+              "row": 1,
+              "col": 4
+            },
+            {
+              "order": 1,
+              "row": 1,
+              "col": 12
+            }
+          ],
+
+          "reportType": "number-widget",
+          "reportProps": {
+            "title": "Total Persons",
+            "theme": "first",
             "icon": "user",
+            "size": "large",
+            "apiConfig": {
+              "headers": {},
+              "endpoint": "analytic/trials",
+              "params": {
+                "chart": "person_total"
+              }
+            }
+          }
+
+        },
+        {
+          "id": "test-item",
+          "display": [
+            {
+              "order": 2,
+              "row": 2,
+              "col": 3
+            },
+            {
+              "order": 1,
+              "row": 1,
+              "col": 4
+            },
+            {
+              "order": 1,
+              "row": 1,
+              "col": 12
+            }
+          ],
+
+          "reportType": "number-widget",
+          "reportProps": {
+            "title": "Total Organizations",
+            "theme": "second",
+            "icon": "briefcase",
             "size": "large",
             "apiConfig": {
               "headers": {},

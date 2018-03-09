@@ -41,7 +41,9 @@
 
       <!--page size-->
       <div class="page-size">
+        <span>Show</span>
         <select-input
+          class="page-size-input"
           :inputValue="pageSize"
           :options="[
             {value: 10, label: '10'},
@@ -53,6 +55,7 @@
           @changed="setPageSize"
         >
         </select-input>
+        <span>of 21,245 entries</span>
       </div>
 
       <!--search-->
@@ -70,6 +73,7 @@
 
         <!--refresh-->
         <btn
+          class="refresh-btn"
           v-if="canToggleColumns"
           :onClick="() => {}">
           <i class="fa fa-sync-alt"></i>
@@ -236,6 +240,10 @@
         type: Array,
         required: false,
         default: () => []
+      },
+      theme: {
+        type: String,
+        default: 'inverse'
       },
 
       // grid actions
@@ -498,6 +506,21 @@
 
       .page-size {
         flex: 0 0 auto;
+
+        display: flex;
+        align-items: center;
+
+        padding-left: 5px;
+
+        span {
+          display: block;
+          font-size: 11pt;
+          color: @grey8;
+        }
+
+        .page-size-input {
+          margin: 0 5px;
+        }
       }
 
       .search {
@@ -514,6 +537,10 @@
 
       .action-buttons {
         flex: 0 0 auto;
+
+        .refresh-btn {
+          padding: 0 11px;
+        }
       }
 
     }
@@ -522,6 +549,7 @@
       width: 100%;
       flex: 0 1 100%;
       position: relative;
+      border-bottom: solid thin @grey3;
 
       .grid-mask {
         width: 100%; height: 100%;
@@ -580,6 +608,7 @@
             flex: 0 1 100%;
 
             overflow-y: auto;
+
 
             .header-list {
 

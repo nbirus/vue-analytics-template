@@ -1,9 +1,18 @@
 <template>
+  <!-- rename to count -->
   <div class="panel widget" :class="[createWidgetClass(), widgetStateClass]">
 
-    {{title}}
-    {{(analytic) ? analytic.toLocaleString() : '...'}}
-    <i class="fa" :class="(isLoading || error) ? iconClass : 'fa-' + icon" ></i>
+    <div class="body">
+      <div class="count">
+        {{count ? count.toLocaleString() : ''}}
+      </div>
+
+      <label class="title">{{title}}</label>
+    </div>
+
+    <div class="icon">
+      <i class="icons" :class="'icon-' + this.icon"></i>
+    </div>
 
   </div>
 </template>
@@ -47,7 +56,7 @@
     },
     data () {
       return {
-        analytic: ''
+        count: ''
       }
     },
     mounted () {
@@ -59,7 +68,7 @@
 
         try {
           let result = await this.$get(this.apiConfig)
-          this.analytic = result.count
+          this.count = result.count
           this.loading = false
         }
         catch (error) {
@@ -70,7 +79,7 @@
       createWidgetClass () {
         return [
           'widget-' + this.size,
-          'bg-' + this.theme
+          'theme-' + this.theme
         ]
       }
     }
@@ -85,8 +94,45 @@
     width: 100%; height: 100%;
     color: white;
 
-    display: flex;
+    // .vertical-gradient(@c-inverse, darken(@c-inverse, 5%));
 
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+
+    .body {
+      flex: 0 0 auto;
+
+      .count {
+        font-size: 26pt;
+        .f-r;
+      }
+
+      .title {
+        color: fadeout(white, 25%);
+        font-weight: 100;
+      }
+    }
+
+    .icon {
+      flex: 0 1 100%;
+      font-size: 26pt;
+      text-align: right;
+      color: fadeout(white, 85%);
+    }
   }
+
+  @scope: {
+    .generateThemeClasses({
+      // has access to @name, @color, @color-dark, and @color-light
+      .widget.theme-@{name} {
+        .vertical-gradient(@color, @color-dark);
+      }
+
+    });
+  }
+  @scope();
+
+
 
 </style>
