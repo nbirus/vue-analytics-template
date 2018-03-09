@@ -6,17 +6,14 @@
 
       <div class="chart-title">
         <h4 :class="'text-' + theme">{{title}}</h4>
-        <h5><i class="icons icon-book-open icon-margin"></i>12,902 {{countType}}</h5>
+        <h5>12,902 {{countType}}</h5>
       </div>
 
       <div class="chart-actions">
 
         <dropdown menu-right>
 
-          <div >
-            <i :class="'text-' + theme" class="icons icon-options-vertical" data-role="trigger"></i>
-            <!-- <i :class="'text-' + theme" @click="sidebar = true" class="fa fa-check"></i> -->
-          </div>
+          <i :class="'text-' + theme" class="icons icon-options-vertical" data-role="trigger"></i>
 
           <template slot="dropdown">
             <li><a role="button"><i class="icons icon-settings"></i>Chart Settings</a></li>
@@ -27,8 +24,6 @@
           </template>
 
         </dropdown>
-
-
 
       </div>
 
@@ -56,7 +51,7 @@
 
       <div class="overlay" v-if="sidebar"></div>
 
-      <transition name="slide-in-out">
+      <transition name="slide-in-from-left">
         <div class="sidebar" v-if="sidebar">
           <i class="icons icon-close" @click="sidebar = false"></i>
         </div>
@@ -156,25 +151,16 @@
 
 <style lang="less" scoped>
 
-  @import '../../styles/component-helper.less';
-
-  .slide-in-out-enter-active {
-    transition: transform .05s;
-  }
-  .slide-in-out-leave-active {
-    transition: transform .05s;
-  }
-  .slide-in-out-enter, .slide-in-out-leave-to {
-    transform: translateX(430px);
-  }
+  @import (reference) '../../styles/component-helper.less';
 
   .chart-report-panel {
     height: 100%;
-    transition: transform .3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: transform .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     &.open {
-      transform: scale(1.08);
+      transform: scale(1.03);
       z-index: 99;
+      .box-shadow(0 0 50px 0 fadeout(black, 85%));
     }
 
     .chart-sidebar-mask {
@@ -237,6 +223,7 @@
 
     .chart-body {
       height: 100%;
+      padding: 0 20px 20px;
     }
 
   }

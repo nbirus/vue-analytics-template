@@ -1,5 +1,4 @@
 <template>
-
   <form
     autocomplete="off"
     class="form"
@@ -89,7 +88,6 @@
       <btn type="submit" theme="success">Ok</btn>
     </div>
   </form>
-
 </template>
 
 <script>

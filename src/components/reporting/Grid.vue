@@ -478,7 +478,7 @@
 
 <style lang="less" scoped>
 
-  @import '../../styles/component-helper.less';
+  @import (reference) '../../styles/component-helper.less';
 
   .grid-container {
     height: 100%;

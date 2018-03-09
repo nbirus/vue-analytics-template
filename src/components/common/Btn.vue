@@ -95,7 +95,7 @@
 
 <style lang="less" scoped>
 
-  @import '../../styles/component-helper.less';
+  @import (reference) '../../styles/component-helper.less';
 
   // ------------- default -------------
   .btn {
@@ -188,7 +188,7 @@
 
         &:hover {
           color: white;
-          border-color: darken(@grey4, 5%)!important;
+          border-color: darken(@color, 5%)!important;
         }
       }
 

@@ -9,8 +9,8 @@
           "display": [
             {
               "order": 1,
-              "row": 7,
-              "col": 7
+              "row": 6,
+              "col": 5
             },
             {
               "order": 1,
@@ -27,9 +27,9 @@
           "reportType": "chart-report",
           "reportProps": {
 
-            "title": "Test Pie Chart",
+            "title": "Test Bar Chart",
             "countType": "items",
-            "theme": "inverse",
+            "theme": "first",
             "settings": [],
             "showTotal": true,
             "hasHeader": true,

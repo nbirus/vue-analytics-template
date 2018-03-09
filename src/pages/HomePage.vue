@@ -43,7 +43,7 @@
 
 <style lang="less" scoped>
 
-  @import '../styles/component-helper.less';
+  @import (reference) '../styles/component-helper.less';
 
   .dashboard-settings-btn {
     .vertical-gradient(lighten(@c-light, 10%), transparent)!important;

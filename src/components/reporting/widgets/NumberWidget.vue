@@ -88,7 +88,7 @@
 
 <style lang="less" scoped>
 
-  @import '../../../styles/component-helper.less';
+  @import (reference) '../../../styles/component-helper.less';
 
   .widget {
     width: 100%; height: 100%;

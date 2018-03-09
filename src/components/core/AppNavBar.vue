@@ -77,7 +77,7 @@
 
 <style lang="less" scoped>
 
-  @import '../../styles/component-helper.less';
+  @import (reference) '../../styles/component-helper.less';
 
   .nav-bar {
     background-color: @nav-bg-color;
@@ -184,7 +184,6 @@
         .temp-dropdown {
           height: 35px;
           .vertical-gradient(lighten(@nav-bg-color, 5%), @nav-bg-color);
-          // background-color: lighten(@nav-bg-color, 1%);
           border: solid thin darken(@nav-bg-color, 5%);
           color: fadeout(white, 10%);
           line-height: 35px;

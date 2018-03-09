@@ -41,7 +41,10 @@
             }
           },
           grid: {
-            top: '5px', left: '0', right: '5px', bottom: '0',
+            top: '5px',
+            left: '0',
+            right: '5px',
+            bottom: '0',
             containLabel: true
           },
           series: [{

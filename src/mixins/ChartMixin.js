@@ -1,10 +1,13 @@
 import ECharts from 'vue-echarts/components/ECharts'
 import chroma from 'chroma-js'
+import Colors from '../services/ColorService'
+
+console.log(Colors)
 
 // define color, darken value, brighten
 const colorObject = {
   inverse: ['#333c48', 2, 2],
-  first: ['#4ac2ff', 1, .4]
+  first: ['#4ac2ff', 1, 0.4]
 }
 
 export default {
