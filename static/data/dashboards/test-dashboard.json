@@ -5,7 +5,7 @@
       "settings": [],
       "reportContainers": [
         {
-          "id": "test-item",
+          "id": "test-pie-chart",
           "display": [
             {
               "order": 1,
@@ -27,7 +27,7 @@
           "reportType": "chart-report",
           "reportProps": {
 
-            "title": "Test Bar Chart",
+            "title": "Test Pie",
             "countType": "items",
             "theme": "first",
             "settings": [],
@@ -39,7 +39,107 @@
             "canExport": true,
             "canScreenshot": true,
 
-            "chartType": "bar",
+            "chartType": "pie",
+            "chartProps": {
+              "id": "phase",
+              "apiConfig": {
+                "headers": {},
+                "endpoint": "analytic/trials",
+                "params": {
+                  "chart": "phase"
+                }
+              }
+            }
+
+          }
+
+        },
+        {
+          "id": "test-bar-chart-v",
+          "display": [
+            {
+              "order": 1,
+              "row": 6,
+              "col": 5
+            },
+            {
+              "order": 1,
+              "row": 1,
+              "col": 4
+            },
+            {
+              "order": 1,
+              "row": 1,
+              "col": 12
+            }
+          ],
+
+          "reportType": "chart-report",
+          "reportProps": {
+
+            "title": "Test Vertical Bar Chart",
+            "countType": "items",
+            "theme": "first",
+            "settings": [],
+            "showTotal": true,
+            "hasHeader": true,
+            "hasActionBar": true,
+            "canExpand": false,
+            "hasLegend": true,
+            "canExport": true,
+            "canScreenshot": true,
+
+            "chartType": "vertical-bar",
+            "chartProps": {
+              "id": "phase",
+              "apiConfig": {
+                "headers": {},
+                "endpoint": "analytic/trials",
+                "params": {
+                  "chart": "phase"
+                }
+              }
+            }
+
+          }
+
+        },
+        {
+          "id": "test-bar-chart-h",
+          "display": [
+            {
+              "order": 1,
+              "row": 6,
+              "col": 5
+            },
+            {
+              "order": 1,
+              "row": 1,
+              "col": 4
+            },
+            {
+              "order": 1,
+              "row": 1,
+              "col": 12
+            }
+          ],
+
+          "reportType": "chart-report",
+          "reportProps": {
+
+            "title": "Test Horizontal Bar Chart",
+            "countType": "items",
+            "theme": "first",
+            "settings": [],
+            "showTotal": true,
+            "hasHeader": true,
+            "hasActionBar": true,
+            "canExpand": false,
+            "hasLegend": true,
+            "canExport": true,
+            "canScreenshot": true,
+
+            "chartType": "horizontal-bar",
             "chartProps": {
               "id": "phase",
               "apiConfig": {

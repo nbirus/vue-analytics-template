@@ -5,50 +5,37 @@
 <script>
   import ChartMixin from '../../../mixins/ChartMixin'
   import DataMixin from '../../../mixins/DataMixin'
-  import 'echarts/lib/chart/bar'
+  import 'echarts/lib/chart/pie'
 
   import { merge, isEmpty } from 'lodash'
 
   export default {
-    name: 'bar-chart',
+    name: 'pie-chart',
     mixins: [ChartMixin, DataMixin],
     data () {
       return {
         defaultChartOptions: {
-          xAxis: {
-            type: 'category',
-            axisLabel: {
-              textStyle: {
-                  color: this.axisTextColor
-              }
-            },
-            axisLine: { show: false },
-            axisTick: { show: false }
+          textStyle: {
+            fontSize: 12
           },
-          yAxis: {
-            type: 'value',
-            axisLabel: {
-              textStyle: {
-                  color: this.axisTextColor
-              }
-            },
-            axisLine: { show: false },
-            axisTick: { show: false },
-            splitLine: {
-              lineStyle: {
-                color: ['#e7e7e7']
+          legend: {
+            show: false
+          },
+          label: {
+            confine: true,
+            normal: {
+              formatter: (label) => {
+                console.log(label)
+                return label.data.name
               }
             }
           },
-          grid: {
-            top: '5px',
-            left: '0',
-            right: '5px',
-            bottom: '0',
-            containLabel: true
-          },
           series: [{
-            type: 'bar'
+            name: '',
+            type: 'pie',
+            radius: '75%',
+            center: ['50%', '50%'],
+            data: []
           }]
         },
         expandedChartOptions: {}
@@ -70,9 +57,6 @@
       dataModifiers () {
         return (isEmpty(this.filteredChartData)) ? {}
           : {
-            xAxis: {
-              data: this.filteredChartData.map(item => item.label)
-            },
             series: [{
               data: this.filteredChartData.map(item => {
                 return {
@@ -82,12 +66,6 @@
               })
             }]
           }
-      },
-
-
-      // filter out suppressed headers and null fields
-      filteredChartData () {
-        return this.chartData.filter(item => item && item.label && !this.suppressedHeaders.includes(item.label))
       }
 
     },
@@ -109,7 +87,7 @@
           // format data
           this.chartData = result.analytics.map((item, index) => {
             return {
-              label: item[this.id],
+              name: item[this.id],
               value: item.count,
               color: this.colors[index]
             }
