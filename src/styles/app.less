@@ -136,7 +136,7 @@
   position: relative;
 
   background-color: white;
-  border: solid thin @grey4;
+  border: solid thin darken(@c-light, 7%);
   border-radius: @panel-border-radius;
 
   display: flex;
@@ -260,16 +260,24 @@
   transition: transform .2s;
 }
 .slide-in-from-left-enter, .slide-in-from-left-leave-to {
-  transform: translateX(100%);
+  transform: translateX(-400px);
 }
 
 .dashboard-list-enter {
   opacity: 0;
-  transform: translateY(30px) rotateY(35deg);
+  transform: translateY(40px) rotateY(45deg);
 }
 
 .dashboard-list-enter-active {
   transition: all .65s;
+  .foreach ({
+    &:nth-child(@{value}) {
+      @speed: .1;
+      @delay: @value * @speed;
+
+      transition-delay:  ~'@{delay}s';
+    }
+  }, 12);
 }
 
 .dashboard-list-enter-to {
@@ -286,6 +294,13 @@
 
 .dashboard-list-leave-to {
   opacity: 0;
+}
+
+.foreach(@body, @i) when (@i>0) {
+  .foreach(@body, @i - 1);
+
+  @value: @i;
+  @body();
 }
 
 // ---- grid overrides, need to do something with these ----

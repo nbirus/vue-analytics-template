@@ -14,11 +14,12 @@
         <dropdown menu-right>
 
           <i :class="'text-' + theme" class="icons icon-options-vertical" data-role="trigger"></i>
+          <i :class="'text-' + theme" @click="sidebar = true" class="fa fa-chevron-left"></i>
 
           <template slot="dropdown">
             <li><a role="button"><i class="icons icon-settings"></i>Chart Settings</a></li>
             <li><a role="button"><i class="icons icon-refresh"></i>Refresh</a></li>
-            <li><a role="button" @click="sidebar = true"><i class="fa fa-check"></i>Hide Columns</a></li>
+            <!-- <li><a role="button" @click="sidebar = true"><i class="fa fa-check"></i>Hide Columns</a></li> -->
             <li><a role="button"><i class="icons icon-share-alt"></i>Export</a></li>
             <li><a role="button"><i class="icons icon-camera"></i>Screenshot</a></li>
           </template>
@@ -250,12 +251,14 @@
 
   .chart-report-panel {
     height: 100%;
-    transition: transform .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: transform .4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    overflow: hidden;
 
     &.open {
       transform: scale(1.03);
       z-index: 99;
       .box-shadow(0 0 50px 0 fadeout(black, 85%));
+      border: solid thin @grey6;
     }
 
     .chart-sidebar-mask {
@@ -279,19 +282,20 @@
         pointer-events: auto;
 
         .checkbox-list {
-          width: 33%; height: 100%;
-          max-width: 400px;
-          min-width: 250px;
+          width: 300px;
           background-color: white;
           position: absolute;
-          right: 0;
+          top: 0; bottom: 0; right: 0;
           border: solid thin @grey5;
+          border: none;
           border-left: solid thin @grey6;
-          border-right: none;
+
           pointer-events: auto;
 
           display: flex;
           flex-direction: column;
+
+          overflow: hidden;
 
           .header {
             flex: 0 0 auto;
@@ -300,7 +304,7 @@
             justify-content: space-between;
             align-items: center;
 
-            padding: 15px 10px;
+            padding: 10px;
             background: @grey2;
             border-bottom: solid thin @grey4;
 
@@ -327,9 +331,7 @@
 
           .body {
             flex: 0 1 100%;
-
             overflow-y: auto;
-
 
             .header-list {
 

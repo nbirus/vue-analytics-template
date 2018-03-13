@@ -7,6 +7,8 @@ import router from './router'
 import components from './components/common'
 import Ripple from 'vue-ripple-directive'
 
+
+
 // register all global components
 for (let component in components) {
   Vue.component(component, components[component])

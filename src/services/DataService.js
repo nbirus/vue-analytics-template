@@ -97,8 +97,23 @@ function filterParams (paramObj) {
   return paramObj
 }
 
+// get a local file and return it's contents
+let getLocalFile = (path) => {
+  return new Promise((resolve, reject) => {
+    axios.get(path)
+    .then(response => {
+      resolve(response.data)
+    })
+    .catch(error => {
+      console.log(error)
+      reject(new Error('Error getting file'))
+    })
+  })
+}
+
 
 export default {
   get,
-  cancelPendingAPIRequests
+  cancelPendingAPIRequests,
+  getLocalFile
 }

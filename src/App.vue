@@ -22,7 +22,6 @@
 </template>
 
 <script>
-
   import AppHeader from '@/components/core/AppHeader'
   import AppNavBar from '@/components/core/AppNavBar'
   import AppFooter from '@/components/core/AppFooter'

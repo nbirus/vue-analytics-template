@@ -1,7 +1,6 @@
-// import lessToJs from 'less-vars-to-js'
-
-let palette = {}
-
 export default {
-  ...palette
+  colors: {
+    inverse: ['#333c48', 2, 2],
+    first: ['#4ac2ff', 1, 0.4]
+  }
 }

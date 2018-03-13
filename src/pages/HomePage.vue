@@ -6,7 +6,7 @@
       <div class="page-header-content">
 
         <div class="page-title-container">
-          <h2>Dashboard</h2>
+          <h2 class="text-white">Dashboard</h2>
         </div>
 
         <div class="page-actions">

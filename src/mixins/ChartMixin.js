@@ -1,14 +1,6 @@
 import ECharts from 'vue-echarts/components/ECharts'
 import chroma from 'chroma-js'
-import Colors from '../services/ColorService'
-
-console.log(Colors)
-
-// define color, darken value, brighten
-const colorObject = {
-  inverse: ['#333c48', 2, 2],
-  first: ['#4ac2ff', 1, 0.4]
-}
+import ColorService from '../services/ColorService'
 
 export default {
   components: { ECharts },
@@ -39,7 +31,7 @@ export default {
   data () {
     return {
       chartData: [],
-      colors: [],
+      colors: ColorService.colors,
       axisTextColor: '#999999',
       splitLineColor: '#e7e7e7'
     }
@@ -56,9 +48,9 @@ export default {
   methods: {
     $generateColors (steps = 10) {
 
-      let color = chroma(colorObject[this.theme][0])
-      let darken = colorObject[this.theme][1]
-      let brighten = colorObject[this.theme][2]
+      let color = chroma(this.colors[this.theme][0])
+      let darken = this.colors[this.theme][1]
+      let brighten = this.colors[this.theme][2]
 
       return chroma.scale([color.darken(darken), color, color.brighten(brighten)]).mode('lch').colors(steps)
     },

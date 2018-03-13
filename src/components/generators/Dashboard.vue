@@ -67,7 +67,6 @@
     grid-auto-rows: 40px;
 
     .dashboard-item {
-      transition-delay: .2s;
 
       // create span classes
       .foreach ({
