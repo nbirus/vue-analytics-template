@@ -44,6 +44,15 @@ export default {
       splitLineColor: '#e7e7e7'
     }
   },
+  computed: {
+    // filter out suppressed headers and null fields
+    filteredChartData () {
+      return this.chartData.filter(item =>
+        item &&
+        item.name &&
+        !this.suppressedHeaders.includes(item.name))
+    }
+  },
   methods: {
     $generateColors (steps = 10) {
 
@@ -55,7 +64,7 @@ export default {
     },
     $chartRendered () {
       this.loading = false
-      this.$emit('chartRendered', this.chartData)
+      this.$emit('chartRendered', this.filteredChartData)
     }
   }
 }

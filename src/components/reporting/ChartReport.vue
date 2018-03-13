@@ -32,17 +32,47 @@
     <div class="panel-body">
       <div class="panel-block chart-body">
 
-        <!--bar chart-->
-        <bar-chart v-if="chartType === 'bar'"
+        <!--vertical bar chart-->
+        <vertical-bar-chart v-if="chartType === 'vertical-bar'"
 
           :id="chartProps.id"
           :apiConfig="chartProps.apiConfig"
           :theme="theme"
 
           :isExpanded="true"
-          :suppressedHeaders="[]"
+          :suppressedHeaders="suppressedHeaders"
+          @chartRendered="chartRendered"
         >
-        </bar-chart>
+        </vertical-bar-chart>
+
+        <!--horizontal bar chart-->
+        <horizontal-bar-chart
+          v-if="chartType === 'horizontal-bar'"
+
+          :id="chartProps.id"
+          :apiConfig="chartProps.apiConfig"
+          :theme="theme"
+
+          :isExpanded="true"
+          :suppressedHeaders="suppressedHeaders"
+          @chartRendered="chartRendered"
+        >
+        </horizontal-bar-chart>
+
+        <!--pie chart-->
+        <pie-chart
+          v-if="chartType === 'pie'"
+
+          :id="chartProps.id"
+          :apiConfig="chartProps.apiConfig"
+          :theme="theme"
+
+          :isExpanded="true"
+          :suppressedHeaders="suppressedHeaders"
+          @chartRendered="chartRendered"
+        >
+        </pie-chart>
+
 
       </div>
     </div>
@@ -53,7 +83,38 @@
 
       <transition name="slide-in-from-left">
         <div class="sidebar" v-if="sidebar">
-          <i class="icons icon-close" @click="sidebar = false"></i>
+          <div class="checkbox-list">
+
+            <div class="header">
+
+              <div class="input-row">
+                <input @click="toggleAllHeaders" class="select-all" type="checkbox" :checked="!suppressedHeaders.length"/>
+                <text-input :inputValue.sync="toggleColumnSearchText" class="filter-input" placeholder="Type to filter.."></text-input>
+              </div>
+
+              <btn class="close-icon" icon flat small
+                   :onClick="() => { sidebar = false }"><i class="fa fa-chevron-right"></i>
+              </btn>
+
+            </div>
+
+            <div class="body">
+              <ul class="header-list">
+                <li class="list-item"
+                    v-for="(header, index) in filteredHeaders"
+                    :key="index"
+                    v-if="header.name"
+                    @click="toggleHeader(header.name)">
+
+                  <input type="checkbox" :checked="!suppressedHeaders.includes(header.name)"/>
+                  <span>{{header.name}}</span>
+
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
         </div>
       </transition>
 
@@ -64,14 +125,18 @@
 </template>
 
 <script>
-  import BarChart from './charts/BarChart'
+  import HorizontalBarChart from './charts/HorizontalBarChart'
+  import VerticalBarChart from './charts/VerticalBarChart'
+  import PieChart from './charts/PieChart'
   import { Dropdown } from 'uiv'
 
   export default {
     name: 'chart-report',
     components: {
       Dropdown,
-      BarChart
+      VerticalBarChart,
+      HorizontalBarChart,
+      PieChart
     },
     props: {
 
@@ -142,7 +207,37 @@
     },
     data () {
       return {
-        sidebar: false
+        sidebar: false,
+        toggleColumnSearchText: '',
+        chartHeaders: [],
+        suppressedHeaders: []
+      }
+    },
+    computed: {
+      filteredHeaders () {
+        return this.chartHeaders.filter(column => {
+          return (column.name.toLowerCase().indexOf(this.toggleColumnSearchText.toLowerCase()) > -1)
+        })
+      }
+    },
+    methods: {
+      chartRendered (headers) {
+        this.chartHeaders = headers
+      },
+      toggleHeader (header) {
+        let index = this.suppressedHeaders.indexOf(header)
+
+        if (index === -1) {
+          this.suppressedHeaders.push(header)
+        }
+        else {
+          this.suppressedHeaders.splice(index, 1)
+        }
+      },
+      toggleAllHeaders () {
+        (this.suppressedHeaders.length)
+          ? this.suppressedHeaders = []
+          : this.suppressedHeaders = this.chartHeaders.map(header => header.name)
       }
     }
   }
@@ -176,12 +271,86 @@
       }
 
       .sidebar {
-        width: 80%; height: 100%;
+        width: auto; height: 100%;
         right: 0;
         position: absolute;
         background: @grey1;
         border-left: solid thin @grey3;
         pointer-events: auto;
+
+        .checkbox-list {
+          width: 33%; height: 100%;
+          max-width: 400px;
+          min-width: 250px;
+          background-color: white;
+          position: absolute;
+          right: 0;
+          border: solid thin @grey5;
+          border-left: solid thin @grey6;
+          border-right: none;
+          pointer-events: auto;
+
+          display: flex;
+          flex-direction: column;
+
+          .header {
+            flex: 0 0 auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 15px 10px;
+            background: @grey2;
+            border-bottom: solid thin @grey4;
+
+            .close-icon {
+              flex: 0 0 auto;
+            }
+
+            .input-row {
+              flex: 0 1 100%;
+              display: flex;
+              padding-right: 10px;
+
+              .select-all {
+                flex: 0 0 auto;
+                margin: 10px 15px 0 5px;
+                cursor: pointer;
+              }
+
+              .filter-input {
+                flex: 0 1 100%;
+              }
+            }
+          }
+
+          .body {
+            flex: 0 1 100%;
+
+            overflow-y: auto;
+
+
+            .header-list {
+
+              .list-item {
+                font-size: 11pt;
+                padding: 5px 10px;
+                cursor: pointer;
+                color: @grey8;
+
+                &:nth-child(odd) {
+                  background-color: @grey1;
+                }
+
+                &:hover {
+                  background-color: @grey2;
+                }
+              }
+            }
+          }
+        }
+
       }
     }
 
