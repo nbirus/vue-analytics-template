@@ -5,11 +5,13 @@
 
       <div class="page-header-content">
         <div class="page-title-container">
-          <h2>Search</h2>
+          <h2>Create Search</h2>
         </div>
 
         <div class="page-actions">
-          <btn class="dashboard-settings-btn" large><i class="fa fa-cog icon-margin"></i>Edit this Search</btn>
+          <!-- <btn class="dashboard-settings-btn" large><i class="fa fa-star text-yellow icon-margin"></i>Pinned Searches</btn> -->
+          <btn class="dashboard-settings-btn" theme="third" large><i class="fa fa-check icon-margin"></i>Execute Search</btn>
+
         </div>
       </div>
 
@@ -18,26 +20,18 @@
 
     <div class="page-body">
 
-      <div class="panel">
-        <grid style="height: 750px; padding-bottom: 10px;"
-          id="test-grid"
+      <div class="adder">
+        <div class="panel input-list">
 
-          :data="data"
-          :columns="columns"
+        </div>
+      </div>
 
-          :canSort="true"
-          :canResizeColumns="true"
-          :canMoveColumns="false"
-          :paginate="true"
-          :initialPageSize="20"
-          :canSearch="false"
-          :canToggleColumns="true"
-          :canSelect="false"
-          :canSelectMultiple="false"
-
-          :showRowDetail="false"
-
-        />
+      <div class="query-builder-body">
+        <div class="query-item panel no-shadow">
+          <div class="name">
+            Disease
+          </div>
+        </div>
       </div>
 
     </div>
@@ -66,6 +60,30 @@
 <style lang="less" scoped>
 
   @import (reference) '../styles/component-helper.less';
+
+  .page-body {
+    display: flex;
+
+    .adder {
+      flex: 0 0 auto;
+      min-width: 300px;
+
+      .input-list {
+        height: 40vh;
+      }
+    }
+
+    .query-builder-body {
+      flex: 0 1 100%;
+      padding: 0 25px 0;
+
+      .query-item {
+        width: 100%;
+        min-height: 70px;
+      }
+    }
+  }
+
 
 
 </style>

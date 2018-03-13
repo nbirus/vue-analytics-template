@@ -137,12 +137,16 @@
 
   background-color: white;
   border: solid thin @grey4;
-  border-radius: @br;
+  border-radius: @panel-border-radius;
 
   display: flex;
   flex-direction: column;
 
   .box-shadow(@panel-shadow);
+
+  &.no-shadow {
+    box-shadow: none!important;
+  }
 
   // ------ features ------
   hr {
@@ -257,6 +261,31 @@
 }
 .slide-in-from-left-enter, .slide-in-from-left-leave-to {
   transform: translateX(100%);
+}
+
+.dashboard-list-enter {
+  opacity: 0;
+  transform: translateY(30px) rotateY(35deg);
+}
+
+.dashboard-list-enter-active {
+  transition: all .65s;
+}
+
+.dashboard-list-enter-to {
+  opacity: 1;
+}
+
+.dashboard-list-leave {
+  opacity: 0;
+}
+
+.dashboard-list-leave-active {
+  transition: opacity 0s; // make charts exit instantly
+}
+
+.dashboard-list-leave-to {
+  opacity: 0;
 }
 
 // ---- grid overrides, need to do something with these ----

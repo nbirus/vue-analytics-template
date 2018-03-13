@@ -40,7 +40,7 @@ export default {
     return {
       chartData: [],
       colors: [],
-      axisTextColor: '#000',
+      axisTextColor: '#999999',
       splitLineColor: '#e7e7e7'
     }
   },

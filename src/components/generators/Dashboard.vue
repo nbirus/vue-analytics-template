@@ -1,22 +1,22 @@
 <template>
-  <div class="dashboard">
 
-    <report-container
+    <transition-group name="dashboard-list" appear mode="out-in" class="dashboard" tag="div">
+      <report-container
 
-      v-for="(report, index) in activeDashboard.reportContainers"
-      :key="index"
+        v-for="(report, index) in activeDashboard.reportContainers"
+        :key="index"
 
-      class="dashboard-item"
-      :class="buildReportClass(report.display)"
-      :id="'report-' + report.id"
+        class="dashboard-item"
+        :class="buildReportClass(report.display)"
+        :id="'report-' + report.id"
 
-      :reportType="report.reportType"
-      :reportProps="report.reportProps"
+        :reportType="report.reportType"
+        :reportProps="report.reportProps"
 
-    >
-    </report-container>
+      >
+      </report-container>
+    </transition-group>
 
-  </div>
 </template>
 
 <script>
@@ -67,6 +67,7 @@
     grid-auto-rows: 40px;
 
     .dashboard-item {
+      transition-delay: .2s;
 
       // create span classes
       .foreach ({
@@ -95,7 +96,10 @@
       }, 20);
 
     }
+
   }
+
+  // ----- dashboard items -----
 
   .foreach(@body, @i) when (@i>0) {
     .foreach(@body, @i - 1);
