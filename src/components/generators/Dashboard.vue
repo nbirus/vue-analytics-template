@@ -73,9 +73,9 @@
 
         // > 1100px
         @media screen and (min-width: 1100px) {
-          &.sc-lg-@{value} { grid-column: span @value } // span columns
-          &.sr-lg-@{value} { grid-row: span @value }    // span row
-          &.order-lg-@{value} { order: @value }         // order
+          &.sc-lg-@{value} { grid-column: span @value }
+          &.sr-lg-@{value} { grid-row: span @value }
+          &.order-lg-@{value} { order: @value }
         }
 
         // < 1100px

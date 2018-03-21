@@ -28,15 +28,29 @@
 
               <div class="panel-block">
                 <h4>Theme Colors</h4>
+                <span v-for="color in colors" :key="color" :class="'bg-' + color + '-dark'" class="color-box"></span>
+                <br />
+                <span v-for="color in colors" :key="color" :class="'bg-' + color" class="color-box"></span>
+                <br />
+                <span v-for="color in colors" :key="color" :class="'bg-' + color + '-light'" class="color-box"></span>
               </div>
 
               <div class="panel-block">
                 <h4>Special Colors</h4>
-
+                <span v-for="color in specialColors" :key="color" :class="'bg-' + color + '-dark'" class="color-box"></span>
+                <br />
+                <span v-for="color in specialColors" :key="color" :class="'bg-' + color" class="color-box"></span>
+                <br />
+                <span v-for="color in specialColors" :key="color" :class="'bg-' + color + '-light'" class="color-box"></span>
               </div>
 
               <div class="panel-block">
                 <h4>All Colors</h4>
+                <span v-for="color in baseColors" :key="color" :class="'bg-' + color + '-dark'" class="color-box"></span>
+                <br />
+                <span v-for="color in baseColors" :key="color" :class="'bg-' + color" class="color-box"></span>
+                <br />
+                <span v-for="color in baseColors" :key="color" :class="'bg-' + color + '-light'" class="color-box"></span>
               </div>
 
             </div>
@@ -76,7 +90,7 @@
           <!-- buttons -->
           <tab name="Buttons">
             <div class="panel-header">
-              <h2>Colors</h2>
+              <h2>Buttons</h2>
             </div>
 
             <div class="panel-body">
@@ -84,16 +98,36 @@
               <div class="panel-section">
                 <h4>Default Buttons</h4>
                 <btn v-for="color in colors" :key="'b' + color" :theme="color" style="margin: 10px 10px 0 0">{{color}}</btn>
+                <br />
+                <btn large v-for="color in colors" :key="'b' + color" :theme="color" style="margin: 10px 10px 0 0">Large</btn>
+                <br />
+                <btn small v-for="color in colors" :key="'b' + color" :theme="color" style="margin: 10px 10px 0 0">Small</btn>
               </div>
 
               <div class="panel-block">
                 <h4>Icon Buttons</h4>
                 <btn
-                  style="margin: 10px 10px 0 0"
+                style="margin: 10px 10px 0 0"
                   v-for="color in colors"
                   :key="color"
                   :theme="color"
                   icon>
+                  <i class="fa fa-magic"></i>
+                </btn>
+                <br />
+                <btn icon large
+                  style="margin: 10px 10px 0 0"
+                  v-for="color in colors"
+                  :key="color"
+                  :theme="color">
+                  <i class="fa fa-magic"></i>
+                </btn>
+                <br />
+                <btn icon small
+                  style="margin: 10px 10px 0 0"
+                  v-for="color in colors"
+                  :key="color"
+                  :theme="color">
                   <i class="fa fa-magic"></i>
                 </btn>
               </div>
@@ -103,13 +137,21 @@
                 <btn block style="margin: 10px 10px 0 0">Default button block</btn>
               </div>
 
+              <div class="panel-block">
+                <h4>Rounded Buttons</h4>
+                <btn rounded v-for="color in colors" :key="'b' + color" :theme="color" style="margin: 10px 10px 0 0">{{color}}</btn>
+                <br />
+                <btn rounded large v-for="color in colors" :key="'b' + color" :theme="color" style="margin: 10px 10px 0 0">{{color}}</btn>
+                <br />
+                <btn rounded small v-for="color in colors" :key="'b' + color" :theme="color" style="margin: 10px 10px 0 0">{{color}}</btn>
+              </div>
+
+              <div class="panel-block">
+                <h4>Flat Buttons</h4>
+                <btn flatIcon v-for="color in colors" :key="'b' + color" :theme="color" style="margin: 10px 10px 0 0"><i class="fa fa-magic"></i></btn>
+              </div>
 
             </div>
-          </tab>
-
-          <!-- tabs -->
-          <tab name="Tabs">
-
           </tab>
 
           <tab name="Inputs">
@@ -348,6 +390,24 @@
           'fifth'
         ],
 
+        baseColors: [
+          'green',
+          'blue',
+          'yellow',
+          'lime',
+          'cyan',
+          'purple',
+          'red',
+          'inverse',
+          'light'
+        ],
+
+        specialColors: [
+          'danger',
+          'warning',
+          'success'
+        ],
+
         inputsRequired: false,
         inputsError: '',
 
@@ -379,6 +439,14 @@
 <style lang="less" scoped>
 
   @import (reference) '../styles/component-helper.less';
+
+  .color-box {
+    display: inline-block;
+    width: 30px; height: 30px;
+    position: relative;
+    margin: 0 5px 0;
+    border: solid thin @grey2;
+  }
 
   .form-space {
     margin-bottom: 20px;

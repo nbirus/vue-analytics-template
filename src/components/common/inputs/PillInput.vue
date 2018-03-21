@@ -38,14 +38,16 @@
 
   @import (reference) '../../../styles/component-helper.less';
 
+  @border: solid thin fadeout(black, 90%);
+
   .form-group {
 
     .form-control {
-      width: auto; height: @input-height;
+      width: auto; height: 40px;
       display: inline-block;
 
-      background-color: fadeout(@grey8, 95%);
-      border: @input-border;
+      background-color: fadeout(black, 97%);
+      border: @border;
       border-right: none;
 
       .box-shadow(inset 1px 2px 4px 0 fadeout(@grey8, 90%));
@@ -54,11 +56,11 @@
       color: @grey6;
       font-size: @input-font-size;
 
-      padding: 0 10px;
+      padding: 0 15px;
       cursor: pointer;
 
       &:last-child {
-        border-right: solid 1px @grey6;
+        border-right: @border;
       }
 
       &:hover {
@@ -67,8 +69,8 @@
       }
 
       &.active {
-        background-color: white;
-        color: @grey9;
+        background-color: inherit;
+        color: @grey8;
 
         -webkit-box-shadow: none;
         -moz-box-shadow: none;

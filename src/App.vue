@@ -2,7 +2,7 @@
   <div id="app">
 
     <!-- nav bar -->
-    <app-nav-bar></app-nav-bar>
+    <app-nav-bar v-if="!hideHeader"></app-nav-bar>
 
     <!-- page content -->
     <div class="content">
@@ -32,6 +32,11 @@
       AppHeader,
       AppNavBar,
       AppFooter
+    },
+    computed: {
+      hideHeader () {
+        return (this.$route.path === '/login')
+      }
     }
   }
 

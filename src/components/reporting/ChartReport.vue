@@ -82,7 +82,7 @@
 
       <div class="overlay" v-if="sidebar"></div>
 
-      <transition name="slide-in-from-left">
+      <transition name="slide-in-from-right">
         <div class="sidebar" v-if="sidebar">
           <div class="checkbox-list">
 
@@ -93,7 +93,7 @@
                 <text-input :inputValue.sync="toggleColumnSearchText" class="filter-input" placeholder="Type to filter.."></text-input>
               </div>
 
-              <btn class="close-icon" icon flat small
+              <btn class="close-icon" flatIcon
                    :onClick="() => { sidebar = false }"><i class="fa fa-chevron-right"></i>
               </btn>
 

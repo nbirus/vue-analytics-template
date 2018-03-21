@@ -7,7 +7,7 @@
     <div class="tabs-list" :class="{ 'collapse': !isSidebarOpen }">
 
       <!-- list actions -->
-      <div class="tab-actions">
+      <div class="tab-actions" v-if="searchable">
 
         <!-- search input -->
         <text-input
@@ -18,14 +18,12 @@
 
         <!-- collapse button -->
         <btn
-          icon
-          flat
-          small
+          flatIcon
           class="tab-collapser"
+          theme="first"
           :onClick="() => { isSidebarOpen = !isSidebarOpen }"
         >
-          <!-- <i class="fa" :class="(isSidebarOpen) ? 'fa-chevron-left' : 'fa-chevron-right'"></i> -->
-          <i class="icons" :class="(isSidebarOpen) ? 'icon-arrow-left' : 'icon-arrow-right'"></i>
+          <i class="fa" :class="(isSidebarOpen) ? 'fa-chevron-left' : 'fa-chevron-right'"></i>
         </btn>
 
       </div>
@@ -40,13 +38,14 @@
           role="presentation"
           v-show="tab.isVisible"
         >
-          <a v-html="tab.header"
-             :aria-controls="tab.hash"
-             :aria-selected="tab.isActive"
-             @click="selectTab(tab.hash, $event)"
-             :href="(useHash) ? tab.hash : 'javascript:void(0);'"
-             class="tabs-list-item-name"
-             role="tab"
+          <a
+            v-html="tab.header"
+            :aria-controls="tab.hash"
+            :aria-selected="tab.isActive"
+            @click="selectTab(tab.hash, $event)"
+            :href="(useHash) ? tab.hash : 'javascript:void(0);'"
+            class="tabs-list-item-name"
+            role="tab"
           ></a>
         </li>
       </ul>
@@ -189,13 +188,12 @@
       flex-direction: column;
 
       // list
-      & > .tabs-list {
+      & > .tabs-list > ul {
         flex: 0 0 auto;
 
         display: flex;
 
         .tabs-list-item {
-
           margin-left: 20px;
           padding-bottom: 10px;
 

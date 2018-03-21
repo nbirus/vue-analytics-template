@@ -9,9 +9,12 @@
       </div>
 
       <div class="nav-items">
-        <router-link class="nav-item" id="home-navbar" to="/home" tag="a">Home</router-link>
-        <router-link class="nav-item" id="search-navbar" to="/style-guide" tag="a">Automated Reports</router-link>
-        <router-link class="nav-item" id="style-guide-navbar" to="/search" tag="a">Search</router-link>
+        <!-- <router-link class="nav-item" id="home-navbar" to="/home" tag="a">Home</router-link> -->
+        <router-link class="nav-item" id="style-guide-navbar" to="/search" tag="a">Trials</router-link>
+        <router-link class="nav-item" to="/org" tag="a">Organizations</router-link>
+        <router-link class="nav-item" to="/Persons" tag="a">Persons</router-link>
+        <!-- <router-link class="nav-item" id="search-navbar" to="/style-guide" tag="a">Data Table 4 Reports</router-link> -->
+
       </div>
 
       <div class="search">

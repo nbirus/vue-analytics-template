@@ -5,14 +5,24 @@
 
       <div class="page-header-content">
         <div class="page-title-container">
-          <h2>Trial Search</h2>
+          <h2><i class="icons icon-book-open" style="font-size: 16pt;"></i> Trials</h2>
         </div>
 
         <div class="page-actions">
           <!-- <btn class="dashboard-settings-btn icon-margin" large><i class="fa fa-history icon-margin"></i>Recent</btn> -->
-          <btn class="dashboard-settings-btn icon-margin" large><i class="fa fa-star text-yellow icon-margin"></i>Save</btn>
-          <btn class="dashboard-settings-btn" large><i class="fa fa-plus icon-margin"></i>Create New Search</btn>
+          <!-- <btn class="dashboard-settings-btn icon-margin" large><i class="fa fa-star text-yellow"></i></btn> -->
+          <!-- <btn class="dashboard-settings-btn icon-margin" large><i class="fa fa-history"></i></btn> -->
 
+          <pill-input class="icon-margin"
+            id="pill"
+            :inputValue.sync="value"
+            :options="[
+              {label: 'Grid', value: 'grid'},
+              {label: 'Analytics', value: 'charts'}
+            ]"
+          ></pill-input>
+
+          <btn class="dashboard-settings-btn" large><i class="fa fa-cog"></i></btn>
 
         </div>
       </div>
@@ -20,87 +30,40 @@
 
     </div>
 
-    <div class="page-body">
-
-      <div class="adder">
-        <div class="panel input-list bar-top bar-first">
-
-          <div class="panel-header">
-            <h4 class="text-first"><i class="fa fa-check icon-margin"></i> Add a search field</h4>
-            <text-input placeholder="Type to filter.."></text-input>
-          </div>
-
-          <div class="panel-body">
-            <ul class="panel-section input-list">
-              <li v-for="(input, index) in inputList" :key="index">
-                <div class="label">{{input.name}}</div>
-                <div class="icon"><i class="fa fa-plus"></i></div>
-              </li>
-            </ul>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="query-builder-body">
-
-        <div class="query-item panel no-shadow">
-          <div class="name">
-            <text-input label="Disease" placeholder="Type to filter.."></text-input>
-          </div>
-        </div>
-
-        <div class="query-item panel no-shadow">
-          <div class="name">
-            <text-input label="NCI ID" placeholder="Type to filter.."></text-input>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="left-actions">
-
-        <div class="panel header-builder bar-top bar-second">
-          <div class="panel-body">
-
-            <div class="checkbox-list">
-
-                <h4 class="text-second">Add Headers</h4>
-
-                <div class="header">
-                  <div class="input-row">
-                    <!-- <input @click="toggleAllHeaders" class="select-all" type="checkbox" :checked="!suppressedHeaders.length"/> -->
-                    <text-input :inputValue.sync="toggleColumnSearchText" class="filter-input" placeholder="Type to filter.."></text-input>
-                  </div>
-
-                </div>
-
-                <div class="body">
-                  <ul class="header-list">
-                    <li class="list-item"
-                        v-for="(header, index) in headerList"
-                        :key="index">
-
-                      <input type="checkbox"/>
-                      <span>{{header}}</span>
-
-                    </li>
-                  </ul>
-                </div>
-
-              </div>
-
-          </div>
-        </div>
-
-        <div class="panel search-btn">
-          <btn theme="third" large><i class="fa fa-check icon-margin"></i>Execute Search</btn>
-        </div>
-      </div>
-
-
-
+    <div class="page-body analytics" v-if="value === 'charts'">
+      <dashboard :dashboard="dashboard"></dashboard>
     </div>
+
+    <transition name="dashboard-list" appear mode="out-in">
+      <div class="page-body grid" v-if="value === 'grid'">
+
+        <div class="panel" style="height: 80vh; width: 100%">
+          <div class="panel-body">
+
+            <grid
+              id="test-grid"
+
+              :data="data"
+              :columns="columns"
+
+              :canSort="true"
+              :canResizeColumns="true"
+              :canMoveColumns="false"
+              :paginate="true"
+              :initialPageSize="20"
+              :canSearch="false"
+              :canToggleColumns="true"
+              :canSelect="true"
+              :canSelectMultiple="false"
+              :showRowDetail="false"
+            >
+              <btn slot="extra-action">Change Columns</btn>
+            </grid>
+
+          </div>
+        </div>
+      </div>
+    </transition>
 
   </div>
 </template>
@@ -111,13 +74,17 @@
   import TestColumns from '../../static/data/grid-headers/test-headers2.json'
   import Grid from '../components/reporting/Grid'
 
+  import Dashboard from '../components/generators/Dashboard'
+  import DashboardJSON from '../../static/data/dashboards/test-dashboard.json'
+
   export default {
     name: 'search',
-    components: { Grid },
+    components: { Grid, Dashboard },
     data () {
       return {
         data: TestData,
         columns: TestColumns,
+        value: 'grid',
         inputList: [
           { name: 'Key Word' },
           { name: 'Disease' },
@@ -133,7 +100,8 @@
           'Phase',
           'Primary Purpose',
           'Study Source'
-        ]
+        ],
+        dashboard: DashboardJSON
       }
     }
   }

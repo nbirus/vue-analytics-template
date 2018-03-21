@@ -1,6 +1,8 @@
 <template>
   <div class="grid-container">
 
+
+
     <!-- ------export modal------ -->
     <modal v-model="exportModal"
            class="grid-export-modal"
@@ -55,7 +57,7 @@
           @changed="setPageSize"
         >
         </select-input>
-        <span>of 21,245 entries</span>
+        <span>of {{gridData.length}} entries</span>
       </div>
 
       <!--search-->
@@ -93,6 +95,9 @@
           Export Table
         </btn>
 
+        <!-- extra buttons -->
+        <slot name="extra-action"></slot>
+
       </div>
 
     </div>
@@ -128,7 +133,8 @@
 
         <div class="overlay" v-if="overlayActive"></div>
 
-        <div class="column-toggle-container" v-if="toggleColumnsOpen">
+        <transition name="slide-in-from-right">
+          <div class="column-toggle-container" v-if="toggleColumnsOpen">
 
           <div class="header">
 
@@ -137,7 +143,7 @@
               <text-input :inputValue.sync="toggleColumnSearchText" class="filter-input" placeholder="Type to filter.."></text-input>
             </div>
 
-            <btn class="close-icon" icon flat small
+            <btn class="close-icon" flatIcon theme="first"
               :onClick="() => { toggleColumnsOpen = false }"><i class="fa fa-chevron-right"></i>
             </btn>
 
@@ -159,6 +165,7 @@
           </div>
 
         </div>
+        </transition>
 
       </div>
 
@@ -168,11 +175,11 @@
     <!-- ------footer------ -->
     <div class="grid-footer">
       <div class="pagination" style="margin: 15px;">
-        <btn small theme="white" :onClick="firstPage">First</btn>
-        <btn small :onClick="prevPage">Previous</btn>
-        <span>Page {{pageNumber + 1}}</span>
-        <btn small :onClick="nextPage">Next</btn>
-        <btn small :onClick="lastPage">Last</btn>
+        <btn theme="white" :onClick="firstPage">First</btn>
+        <btn :onClick="prevPage">Previous</btn>
+        <span style="margin: 0 10px">Page {{pageNumber + 1}}</span>
+        <btn :onClick="nextPage">Next</btn>
+        <btn :onClick="lastPage">Last</btn>
       </div>
 
     </div>
@@ -535,8 +542,14 @@
         }
       }
 
+      .extra-buttons-slot {
+        .b;
+      }
+
       .action-buttons {
         flex: 0 0 auto;
+
+
 
         .refresh-btn {
           padding: 0 11px;
@@ -556,6 +569,7 @@
         position: absolute;
         top: 0; left: 0;
         pointer-events: none;
+        overflow: hidden;
 
         .column-toggle-container {
           width: 33%; height: 100%;

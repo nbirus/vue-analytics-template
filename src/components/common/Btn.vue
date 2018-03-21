@@ -4,7 +4,7 @@
     :id="id"
     :name="name"
     :disabled="disabled"
-    v-ripple="ripple"
+    v-ripple="rippleColor"
     @click="onClick"
   >
     <slot></slot>
@@ -42,18 +42,13 @@
 
         // style
         theme: {
-          type: String,
-          default: ''
+          default: false
         },
         block: {
           type: Boolean,
           default: false
         },
         icon: {
-          type: Boolean,
-          default: false
-        },
-        flat: {
           type: Boolean,
           default: false
         },
@@ -65,9 +60,17 @@
           type: Boolean,
           default: false
         },
+        flatIcon: {
+          type: Boolean,
+          default: false
+        },
         rounded: {
           type: Boolean,
           default: false
+        },
+        ripple: {
+          type: Boolean,
+          default: true
         }
       },
       computed: {
@@ -78,15 +81,15 @@
             (this.theme) ? 'btn-' + this.theme : null,
             (this.icon) ? 'btn-icon' : null,
             (this.block) ? 'btn-block' : null,
-            (this.flat) ? 'btn-flat' : null,
+            (this.flatIcon) ? 'btn-flat-icon' : null,
             (this.small) ? 'btn-small' : null,
             (this.large) ? 'btn-large' : null,
             (this.rounded) ? 'btn-rounded' : null
           ]
         },
 
-        ripple () {
-          return 'rgba(0, 0, 0, 0.1)'
+        rippleColor () {
+          return (this.ripple) ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0)'
         }
       }
   }
@@ -104,7 +107,6 @@
 
     border: solid thin @grey4;
     .vertical-gradient(white, @grey2);
-    .btn-shadow(@grey6);
 
     color: fadeout(@grey9, 20%);
     font-size: 11pt;
@@ -117,9 +119,12 @@
       border-color: darken(@grey4, 5%);
     }
 
+    &:active {
+      .box-shadow(inset 0px 1px 3px 1px fadeout(@grey7, 65%))
+    }
+
     &:focus {
-      /*border-color: #32a1ce;*/
-      .box-shadow(0 0 0 1px #32a1ce);
+      // outline: 0 0 0 1px @btn-focus-color;
     }
 
     &:hover, &:focus { outline: none; }
@@ -128,36 +133,36 @@
   // ------------- icon -------------
   .btn.btn-icon {
     width: @btn-height;
-    line-height: 36px;
+    line-height: @btn-height;
+    font-size: 11pt;
+
+    &.btn-large {
+      width: @btn-height-lg;
+      line-height: @btn-height-lg;
+      font-size: 12pt;
+    }
 
     &.btn-small {
-      width: 30px;
-      line-height: 33px;
+      width: @btn-height-sm;
+      line-height: @btn-height-sm;
+      font-size: 8pt;
     }
 
     border-radius: 50%;
     padding: 0;
 
     text-align: center;
-    vertical-align: bottom;
+    vertical-align: middle;
 
     &:focus {
-      outline: none!important;
-      .box-shadow(0 0 0 1px #32a1ce);
+      // outline: none!important;
+      // .box-shadow(0 0 0 1px @btn-focus-color);
     }
   }
 
   // ------------- block -------------
   .btn.btn-block {
     width: 100%;
-  }
-
-  // ------------- flat -------------
-  .btn.btn-flat {
-    background: none;
-    border: none;
-    font-size: 14pt;
-    border-radius: 0;
   }
 
   // ------------- small -------------
@@ -170,8 +175,29 @@
     height: @btn-height-lg!important;
   }
 
+  // ------------- large -------------
+  .btn.btn-flat-icon {
+    background: none!important;
+    background-color: transparent!important;
+    border: none!important;
+    color: @grey8!important;
+
+    width: @btn-height;
+    padding: 0;
+  }
+
+  // ------------- rounded -------------
   .btn.btn-rounded {
     border-radius: @btn-height;
+
+    &.btn-large {
+      border-radius: @btn-height-lg;
+    }
+
+    &.btn-small {
+      border-radius: @btn-height-sm;
+    }
+
   }
 
   // ------------- generator theme classes -------------
@@ -180,8 +206,8 @@
 
       .btn.btn-@{name} {
         color: fadeout(white, 15%);
-        background-color: @color !important;
-        border-color: @color-dark !important;
+        background-color: @color;
+        border-color: @color-dark;
         .vertical-gradient(@color, darken(@color, 6%));
 
         .btn-shadow(@color-dark);
@@ -189,6 +215,13 @@
         &:hover {
           color: white;
           border-color: darken(@color, 5%)!important;
+        }
+
+        &.btn-flat-icon {
+          &:hover {
+            background-color: fadeout(black, 97%)!important;
+            color: @grey9!important;
+          }
         }
       }
 

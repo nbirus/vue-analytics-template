@@ -4,7 +4,12 @@
 
     <div class="body">
       <div class="count">
-        {{count ? count.toLocaleString() : ''}}
+        <!-- {{count ? count.toLocaleString() : ''}} -->
+        <ICountUp
+          :startVal="0"
+          :endVal="count"
+          :duration=".7"
+        />
       </div>
 
       <label class="title">{{title}}</label>
@@ -19,9 +24,11 @@
 
 <script>
   import DataMixin from '../../../mixins/DataMixin'
+  import ICountUp from 'vue-countup-v2'
 
   export default {
     mixins: [DataMixin],
+    components: { ICountUp },
     props: {
       title: {
         type: String,
@@ -94,8 +101,6 @@
     width: 100%; height: 100%;
     color: white;
 
-    // .vertical-gradient(@c-inverse, darken(@c-inverse, 5%));
-
     display: flex;
     flex-wrap: wrap;
     padding: 15px;
@@ -126,7 +131,7 @@
     .generateThemeClasses({
       // has access to @name, @color, @color-dark, and @color-light
       .widget.theme-@{name} {
-        .vertical-gradient(@color, @color-dark);
+        .vertical-gradient(@color, darken(@color-dark, 2%));
       }
 
     });

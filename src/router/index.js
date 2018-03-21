@@ -7,6 +7,7 @@ import Search from '@/pages/SearchPage'
 import StyleGuide from '@/pages/StyleGuidePage'
 import NotFound from '@/pages/NotFoundPage'
 import Unauthorized from '@/pages/UnauthorizedPage'
+import Login from '@/pages/Login'
 
 Vue.use(Router)
 
@@ -42,6 +43,10 @@ const routes = [
   {
     path: '/unauthorized',
     component: Unauthorized
+  },
+  {
+    path: '/login',
+    component: Login
   }
 ]
 

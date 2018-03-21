@@ -4,15 +4,14 @@
 
 // base colors
 
-// TODO: update
-@c-green: #4dbec4;
+@c-red: #fa4258;
+@c-green: #4dbec4; // TODO: not green
 @c-blue: #16a9fa;
-@c-yellow: #ffd708;
-
 @c-lime: #27c649;
 @c-cyan: #4ac2ff;
 @c-purple: #c89be7;
-@c-red: #fa4258;
+@c-yellow: #fcaf41;
+
 @c-inverse: darken(#333c48, 2%);
 @c-light: #e6eaf0;
 
@@ -28,6 +27,7 @@
 @c-danger: @c-red;
 @c-warning: @c-yellow;
 @c-success: @c-lime;
+@c-info: @c-cyan;
 
 // greyscale
 @grey1: darken(white, 2%);
@@ -40,6 +40,11 @@
 @grey8: darken(white, 70%);
 @grey9: darken(white, 90%);
 
+// sizes
+@height-lg: 40px;
+@height-md: 35px;
+@height-sm: 25px;
+
 // ------ page settings ------
 
 // global
@@ -48,7 +53,6 @@
 @transition: all .1s ease-in;
 
 // header
-// @nav-bg-color: @c-inverse;
 @nav-bg-color: @c-inverse;
 @nav-header-height: 50px;
 
@@ -61,9 +65,10 @@
 @page-padding: 25px;
 
 // Buttons
-@btn-height: 35px;
-@btn-height-sm: 30px;
-@btn-height-lg: 40px;
+@btn-height: @height-md;
+@btn-height-sm: @height-sm;
+@btn-height-lg: @height-lg;
+@btn-focus-color: #32a1ce;
 
 // panel
 @panel-padding: 15px;
