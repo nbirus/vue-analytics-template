@@ -1,14 +1,21 @@
 import ECharts from 'vue-echarts/components/ECharts'
-import chroma from 'chroma-js'
 import ColorService from '../services/ColorService'
+import chroma from 'chroma-js'
 
 export default {
   components: { ECharts },
   props: {
+
     id: {
       type: String,
       required: true
     },
+
+    chartData: {
+      type: Array,
+      required: true
+    },
+
     isExpanded: {
       type: Boolean,
       default: false
@@ -30,7 +37,8 @@ export default {
   },
   data () {
     return {
-      chartData: [],
+      formattedChartData: [],
+
       colors: ColorService.colors,
       axisTextColor: '#999999',
       splitLineColor: '#e7e7e7'
@@ -39,13 +47,24 @@ export default {
   computed: {
     // filter out suppressed headers and null fields
     filteredChartData () {
-      return this.chartData.filter(item =>
+      return this.formattedChartData.filter(item =>
         item &&
         item.name &&
         !this.suppressedHeaders.includes(item.name))
     }
   },
+  mounted () {
+    this.$buildChart()
+  },
   methods: {
+
+    $buildChart () {
+      this.colors = this.$generateColors(this.chartData.length)
+      this.formattedChartData = this.handleDataReturn(this.chartData)
+      this.$emit('chartRendered', this.filteredChartData)
+    },
+
+    // helper functions
     $generateColors (steps = 10) {
 
       let color = chroma(this.colors[this.theme][0])
@@ -53,10 +72,6 @@ export default {
       let brighten = this.colors[this.theme][2]
 
       return chroma.scale([color.darken(darken), color, color.brighten(brighten)]).mode('lch').colors(steps)
-    },
-    $chartRendered () {
-      this.loading = false
-      this.$emit('chartRendered', this.filteredChartData)
     }
   }
 }

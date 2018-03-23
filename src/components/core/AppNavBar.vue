@@ -10,33 +10,32 @@
 
       <div class="nav-items">
         <!-- <router-link class="nav-item" id="home-navbar" to="/home" tag="a">Home</router-link> -->
-        <router-link class="nav-item" id="style-guide-navbar" to="/search" tag="a">Trials</router-link>
-        <router-link class="nav-item" to="/org" tag="a">Organizations</router-link>
-        <router-link class="nav-item" to="/Persons" tag="a">Persons</router-link>
+        <router-link class="nav-item" id="style-guide-navbar" to="/dashboard" tag="a">Dashboard</router-link>
+        <router-link class="nav-item" to="/style-guide" tag="a">Style Guide</router-link>
         <!-- <router-link class="nav-item" id="search-navbar" to="/style-guide" tag="a">Data Table 4 Reports</router-link> -->
 
       </div>
 
-      <div class="search">
-        <i class="icon-magnifier icons"></i>
-        <input class="search-input" placeholder="Search.."/>
+      <!--<div class="search">-->
+        <!--<i class="icon-magnifier icons"></i>-->
+        <!--<input class="search-input" placeholder="Search.."/>-->
 
-        <dropdown menu-right>
+        <!--<dropdown menu-right>-->
 
-          <div class="temp-dropdown" v-ripple>
-            {{searchEntity}}
-            <i class="icons icon-arrow-down"></i>
-          </div>
+          <!--<div class="temp-dropdown" v-ripple>-->
+            <!--{{searchEntity}}-->
+            <!--<i class="icons icon-arrow-down"></i>-->
+          <!--</div>-->
 
-          <template slot="dropdown">
-            <li @click="searchEntity = 'Trials'"><a role="button">Trials</a></li>
-            <li @click="searchEntity = 'Persons'"><a role="button">Persons</a></li>
-            <li @click="searchEntity = 'Organizations'"><a role="button">Organizations</a></li>
-          </template>
+          <!--<template slot="dropdown">-->
+            <!--<li @click="searchEntity = 'Trials'"><a role="button">Trials</a></li>-->
+            <!--<li @click="searchEntity = 'Persons'"><a role="button">Persons</a></li>-->
+            <!--<li @click="searchEntity = 'Organizations'"><a role="button">Organizations</a></li>-->
+          <!--</template>-->
 
-        </dropdown>
+        <!--</dropdown>-->
 
-      </div>
+      <!--</div>-->
 
 
       <dropdown menu-right>
@@ -53,11 +52,6 @@
         </template>
 
       </dropdown>
-
-      <!-- <div class="logout" v-ripple>
-        <i class="icon-logout icons"></i>
-        Logout
-      </div> -->
 
     </div>
 

@@ -2,7 +2,8 @@
 
   <div class="panel chart-report-panel" :class="{'open': sidebar}">
 
-    <div class="panel-header">
+    <!--chart header-->
+    <div class="panel-header chart-header">
 
       <div class="chart-title">
         <h4 :class="'text-' + theme">{{title}}</h4>
@@ -30,54 +31,76 @@
 
     </div>
 
-    <div class="panel-body">
-      <div class="panel-block chart-body">
+    <!--chart-->
+    <div class="panel-body chart-body" v-if="isChartReady">
+      <div class="panel-block">
 
         <!--vertical bar chart-->
-        <vertical-bar-chart v-if="chartType === 'vertical-bar'"
+        <!--<vertical-bar-chart v-if="chartType === 'vertical-bar'"-->
 
-          :id="chartProps.id"
-          :apiConfig="chartProps.apiConfig"
-          :theme="theme"
+          <!--:id="chartProps.id"-->
+          <!--:apiConfig="chartProps.apiConfig"-->
+          <!--:theme="theme"-->
 
-          :isExpanded="true"
-          :suppressedHeaders="suppressedHeaders"
-          @chartRendered="chartRendered"
-        >
-        </vertical-bar-chart>
+          <!--:isExpanded="true"-->
+          <!--:suppressedHeaders="suppressedHeaders"-->
+          <!--@chartLoading="chartLoading"-->
+          <!--@chartRendered="chartRendered"-->
+          <!--@chartError="chartError"-->
+        <!--&gt;-->
+        <!--</vertical-bar-chart>-->
 
-        <!--horizontal bar chart-->
-        <horizontal-bar-chart
-          v-if="chartType === 'horizontal-bar'"
+        <!--&lt;!&ndash;horizontal bar chart&ndash;&gt;-->
+        <!--<horizontal-bar-chart-->
+          <!--v-if="chartType === 'horizontal-bar'"-->
 
-          :id="chartProps.id"
-          :apiConfig="chartProps.apiConfig"
-          :theme="theme"
+          <!--:id="chartProps.id"-->
+          <!--:apiConfig="chartProps.apiConfig"-->
+          <!--:theme="theme"-->
 
-          :isExpanded="true"
-          :suppressedHeaders="suppressedHeaders"
-          @chartRendered="chartRendered"
-        >
-        </horizontal-bar-chart>
+          <!--:isExpanded="true"-->
+          <!--:suppressedHeaders="suppressedHeaders"-->
+          <!--@chartRendered="chartRendered"-->
+        <!--&gt;-->
+        <!--</horizontal-bar-chart>-->
 
         <!--pie chart-->
         <pie-chart
           v-if="chartType === 'pie'"
 
           :id="chartProps.id"
-          :apiConfig="chartProps.apiConfig"
+          :chartData="chartData"
           :theme="theme"
 
-          :isExpanded="true"
+          :isExpanded="isExpanded"
           :suppressedHeaders="suppressedHeaders"
-          @chartRendered="chartRendered"
+          @chartRendered="setHeaders"
         >
         </pie-chart>
-
 
       </div>
     </div>
 
+    <!--api states-->
+    <div class="panel-body chart-api-states" v-else>
+
+      <!-- loading -->
+      <div class="loading" v-if="loading">
+        <div class="icon-circle">
+          <i class="fa fa-sync-alt fa-spin"></i>
+        </div>
+      </div>
+
+      <!-- error -->
+      <div class="error" v-if="error">
+        <div class="icon-circle">
+          <i class="fa fa-exclamation"></i>
+        </div>
+        {{errorMessage}}
+      </div>
+    </div>
+
+    <!--sidebar-->
     <div class="chart-sidebar-mask">
 
       <div class="overlay" v-if="sidebar"></div>
@@ -126,13 +149,16 @@
 </template>
 
 <script>
-  import HorizontalBarChart from './charts/HorizontalBarChart'
-  import VerticalBarChart from './charts/VerticalBarChart'
-  import PieChart from './charts/PieChart'
+  import HorizontalBarChart from '@/components/reporting/charts/HorizontalBarChart'
+  import VerticalBarChart from '@/components/reporting/charts/VerticalBarChart'
+  import PieChart from '@/components/reporting/charts/PieChart'
+
   import { Dropdown } from 'uiv'
+  import DataMixin from '@/mixins/DataMixin'
 
   export default {
     name: 'chart-report',
+    mixins: [DataMixin],
     components: {
       Dropdown,
       VerticalBarChart,
@@ -149,6 +175,12 @@
       chartProps: {
         type: Object,
         required: true
+      },
+
+      // ------ data ------
+      apiConfig: {
+        type: Object,
+        default: () => { return {} }
       },
 
       title: {
@@ -208,21 +240,53 @@
     },
     data () {
       return {
+
+        // header data
         sidebar: false,
         toggleColumnSearchText: '',
         chartHeaders: [],
-        suppressedHeaders: []
+
+        // chart props
+        chartData: [],
+        suppressedHeaders: [],
+        isExpanded: false
+
       }
     },
     computed: {
+
+      isChartReady () {
+        return !this.loading && !this.error
+      },
+
       filteredHeaders () {
         return this.chartHeaders.filter(column => {
           return (column.name.toLowerCase().indexOf(this.toggleColumnSearchText.toLowerCase()) > -1)
         })
       }
+
+    },
+    mounted () {
+      this.getData()
     },
     methods: {
-      chartRendered (headers) {
+
+      // data
+      async getData () {
+
+        try {
+          let result = await this.$get(this.apiConfig)
+          this.chartData = result.analytics
+          this.loading = false
+        }
+        catch (error) {
+          this.$throwError(error)
+        }
+
+      },
+
+      // headers
+      setHeaders (headers) {
         this.chartHeaders = headers
       },
       toggleHeader (header) {
@@ -240,6 +304,7 @@
           ? this.suppressedHeaders = []
           : this.suppressedHeaders = this.chartHeaders.map(header => header.name)
       }
+
     }
   }
 
@@ -259,6 +324,61 @@
       z-index: 99;
       .box-shadow(0 0 50px 0 fadeout(black, 85%));
       border: solid thin @grey6;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+
+      .chart-title {
+        flex: 0 1 100%;
+        h4 {
+          color: @c-inverse;
+          font-size: 13pt;
+        }
+        h5 {
+          color: @grey6;
+          font-size: 9pt;
+          .f-r;
+        }
+      }
+
+      .chart-actions {
+        flex: 0 0 auto;
+
+        i {
+          margin-left: 5px;
+          cursor: pointer;
+          color: @c-inverse;
+
+          &:hover {
+            color: black;
+          }
+
+          &:first-child {
+            margin: 0;
+          }
+        }
+      }
+    }
+
+    .chart-body {
+      & > .panel-block {
+        height: 100%;
+        padding: 0 20px 20px;
+      }
+    }
+
+    .chart-api-states {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .icon-circle {
+        background-color: fadeout(black, 97%);
+        border-color: fadeout(black, 95%);
+        margin-top: -40px;
+      }
     }
 
     .chart-sidebar-mask {
@@ -354,47 +474,6 @@
         }
 
       }
-    }
-
-    .panel-header {
-      display: flex;
-      justify-content: space-between;
-
-      .chart-title {
-        flex: 0 1 100%;
-        h4 {
-          color: @c-inverse;
-          font-size: 13pt;
-        }
-        h5 {
-          color: @grey6;
-          font-size: 9pt;
-          .f-r;
-        }
-      }
-
-      .chart-actions {
-        flex: 0 0 auto;
-
-        i {
-          margin-left: 5px;
-          cursor: pointer;
-          color: @c-inverse;
-
-          &:hover {
-            color: black;
-          }
-
-          &:first-child {
-            margin: 0;
-          }
-        }
-      }
-    }
-
-    .chart-body {
-      height: 100%;
-      padding: 0 20px 20px;
     }
 
   }

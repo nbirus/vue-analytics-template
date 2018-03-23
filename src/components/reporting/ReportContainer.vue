@@ -40,7 +40,7 @@
 
 <script>
   import ChartReport from './ChartReport'
-  import NumberWidget from './widgets/NumberWidget'
+  import NumberWidget from './widgets/CountWidget'
 
   export default {
     name: 'report-container',

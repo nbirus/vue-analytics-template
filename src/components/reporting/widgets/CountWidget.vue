@@ -1,8 +1,24 @@
 <template>
-  <!-- rename to count -->
+
   <div class="panel widget" :class="[createWidgetClass(), widgetStateClass]">
 
-    <div class="body">
+    <!-- loading -->
+    <div class="loading" v-if="loading">
+      <div class="icon-circle">
+        <i class="fa fa-sync-alt fa-spin"></i>
+      </div>
+    </div>
+
+    <!-- error -->
+    <div class="error" v-if="error">
+      <div class="icon-circle">
+        <i class="fa fa-exclamation"></i>
+      </div>
+    </div>
+
+    <!-- body -->
+    <transition name="slide-in-from-left">
+      <div class="body" v-if="isReady">
       <div class="count">
         <!-- {{count ? count.toLocaleString() : ''}} -->
         <ICountUp
@@ -14,10 +30,14 @@
 
       <label class="title">{{title}}</label>
     </div>
+    </transition>
 
-    <div class="icon">
+    <!-- icon -->
+    <transition name="slide-in-from-left">
+      <div class="icon" v-if="isReady">
       <i class="icons" :class="'icon-' + this.icon"></i>
     </div>
+    </transition>
 
   </div>
 </template>
@@ -50,20 +70,17 @@
     computed: {
       widgetStateClass () {
         return {
-          'loading': this.isLoading,
+          'loading': this.loading,
           'error': this.error
         }
       },
-      iconClass () {
-        return {
-          'fa-refresh fa-spin': this.isLoading,
-          'fa-exclamation': this.error
-        }
+      isReady () {
+        return !this.loading && !this.error
       }
     },
     data () {
       return {
-        count: ''
+        count: 0
       }
     },
     mounted () {
@@ -75,7 +92,7 @@
 
         try {
           let result = await this.$get(this.apiConfig)
-          this.count = result.count
+          this.count = parseInt(result.count, 10)
           this.loading = false
         }
         catch (error) {
@@ -99,11 +116,13 @@
 
   .widget {
     width: 100%; height: 100%;
+    padding: 15px;
+    overflow: hidden;
+
     color: white;
 
     display: flex;
     flex-wrap: wrap;
-    padding: 15px;
 
     .body {
       flex: 0 0 auto;
@@ -125,15 +144,31 @@
       text-align: right;
       color: fadeout(white, 85%);
     }
+
+    .loading, .error {
+      height: 100%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    &.loading {
+
+    }
+
+    &.error {
+
+    }
+
   }
 
   @scope: {
     .generateThemeClasses({
-      // has access to @name, @color, @color-dark, and @color-light
       .widget.theme-@{name} {
         .vertical-gradient(@color, darken(@color-dark, 2%));
       }
-
     });
   }
   @scope();

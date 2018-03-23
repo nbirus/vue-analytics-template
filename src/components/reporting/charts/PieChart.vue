@@ -3,15 +3,14 @@
 </template>
 
 <script>
-  import ChartMixin from '../../../mixins/ChartMixin'
-  import DataMixin from '../../../mixins/DataMixin'
+  import ChartMixin from '@/mixins/ChartMixin'
   import 'echarts/lib/chart/pie'
 
   import { merge, isEmpty } from 'lodash'
 
   export default {
     name: 'pie-chart',
-    mixins: [ChartMixin, DataMixin],
+    mixins: [ChartMixin],
     data () {
       return {
         defaultChartOptions: {
@@ -25,7 +24,6 @@
             confine: true,
             normal: {
               formatter: (label) => {
-                console.log(label)
                 return label.data.name
               }
             }
@@ -69,35 +67,18 @@
       }
 
     },
-    mounted () {
-      this.buildChart()
-    },
+
     methods: {
 
-      async buildChart () {
-
-        try {
-
-          // get data
-          let result = await this.$get(this.apiConfig)
-
-          // get colors
-          this.colors = this.$generateColors(result.analytics.length)
-
-          // format data
-          this.chartData = result.analytics.map((item, index) => {
-            return {
-              name: item[this.id],
-              value: item.count,
-              color: this.colors[index]
-            }
-          })
-
-          this.$chartRendered()
-        }
-        catch (error) {
-          this.$throwError(error)
-        }
+      // format data specific for this chart
+      handleDataReturn (data) {
+        return data.map((item, index) => {
+          return {
+            name: item[this.id],
+            value: item.count,
+            color: this.colors[index]
+          }
+        })
       }
 
     }

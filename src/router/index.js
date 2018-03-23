@@ -19,11 +19,11 @@ const routes = [
     redirect: '/style-guide'
   },
   {
-    path: '/home',
-    name: 'Home',
+    path: '/dashboard',
+    name: 'Dashboard',
     component: Home,
     meta: {
-      breadcrumb: 'Home Page'
+      breadcrumb: 'Dashboard'
     }
   },
   {

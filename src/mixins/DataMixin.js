@@ -9,22 +9,16 @@ export default {
   },
   data () {
     return {
-      apiLoading: false,
-      minLoading: false,
+      loading: false,
       error: false,
       errorMessage: ''
-    }
-  },
-  computed: {
-    isLoading () {
-      return this.apiLoading || this.minLoading
     }
   },
   methods: {
 
     // get data from the api
     $get (config) {
-      this.startLoadingTimer() // set to loading state
+      this.loading = true // set to loading state
       return DataService.get(config) // return request
     },
 
@@ -34,13 +28,7 @@ export default {
 
       this.error = true
       this.loading = false
-      this.errorMessage = error
-    },
-
-    startLoadingTimer () {
-      this.minLoading = true
-      this.loading = true
-      setTimeout(() => { this.minLoading = false }, 1000)
+      this.errorMessage = error.toString()
     }
   }
 }
