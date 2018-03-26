@@ -102,14 +102,13 @@
 
   // ------------- default -------------
   .btn {
-    height: @btn-height;
-    padding: 0 15px;
+    font-size: 1rem;
+    padding: .5em 1em;
 
     border: solid thin @grey4;
     .vertical-gradient(white, @grey2);
 
     color: fadeout(@grey9, 20%);
-    font-size: 11pt;
     .f-b;
 
     cursor: pointer;
@@ -132,32 +131,13 @@
 
   // ------------- icon -------------
   .btn.btn-icon {
-    width: @btn-height;
-    line-height: @btn-height;
-    font-size: 11pt;
-
-    &.btn-large {
-      width: @btn-height-lg;
-      line-height: @btn-height-lg;
-      font-size: 12pt;
-    }
-
-    &.btn-small {
-      width: @btn-height-sm;
-      line-height: @btn-height-sm;
-      font-size: 8pt;
-    }
+    line-height: 1em;
 
     border-radius: 50%;
-    padding: 0;
+    padding: .6em .6em;
 
     text-align: center;
     vertical-align: middle;
-
-    &:focus {
-      // outline: none!important;
-      // .box-shadow(0 0 0 1px @btn-focus-color);
-    }
   }
 
   // ------------- block -------------
@@ -167,12 +147,12 @@
 
   // ------------- small -------------
   .btn.btn-small {
-    height: @btn-height-sm!important;
+    font-size: .8em!important;
   }
 
   // ------------- large -------------
   .btn.btn-large {
-    height: @btn-height-lg!important;
+    font-size: 1.1em;
   }
 
   // ------------- large -------------
@@ -182,26 +162,19 @@
     border: none!important;
     color: @grey8!important;
 
-    width: @btn-height;
+    height: 2.4em; width: 2.4em;
     padding: 0;
+
+    // padding: .6em .8em;
   }
 
   // ------------- rounded -------------
   .btn.btn-rounded {
-    border-radius: @btn-height;
-
-    &.btn-large {
-      border-radius: @btn-height-lg;
-    }
-
-    &.btn-small {
-      border-radius: @btn-height-sm;
-    }
-
+    border-radius: 2em;
   }
 
   // ------------- generator theme classes -------------
-  @scope: {
+  @btn-scope: {
     .generateThemeClasses({
 
       .btn.btn-@{name} {
@@ -220,14 +193,14 @@
         &.btn-flat-icon {
           &:hover {
             background-color: fadeout(black, 97%)!important;
-            color: @grey9!important;
+            color: @color!important;
           }
         }
       }
 
     });
   };
-  @scope();
+  @btn-scope();
 
   // ------------- helpers -------------
   .btn-shadow(@color) {

@@ -6,7 +6,7 @@
 
 // ------------ colors --------------------
 // bg and text theme colors
-@scope: {
+@global-scope: {
   .generateThemeClasses({
 
     // ------------- background -------------
@@ -25,12 +25,22 @@
     }
 
     .widget.theme-@{name} {
-      .vertical-gradient(darken(@color, 4%), @color);
+      .vertical-gradient(darken(@color, 8%), @color);
       border-color: @color-dark!important;
+
+      &.error {
+        .stripe-gradient(@color) !important;
+
+        .icon-circle {
+          background-color: darken(@color, 4%);
+        }
+      }
     }
+
+
   });
 };
-@scope();
+@global-scope();
 
 // greys
 .bg-grey1 { background-color: @grey1 }
@@ -76,6 +86,16 @@
   background: -webkit-linear-gradient(top,  @color 0%,@color-dark 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom,  @color 0%, @color-dark 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@color', endColorstr='@color-dark',GradientType=0 ); /* IE6-9 */
+}
+
+.stripe-gradient (@color: white, @darken: 2%) {
+  background: repeating-linear-gradient(
+    45deg,
+    @color,
+    @color 40px,
+    darken(@color, @darken) 40px,
+    darken(@color, @darken) 80px
+  );
 }
 
 // functions

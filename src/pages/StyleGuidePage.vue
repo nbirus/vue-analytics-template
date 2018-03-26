@@ -428,8 +428,6 @@
       },
       formChanged (obj) {},
       formSubmited (obj) {
-        // console.log('formSubmited')
-        // console.log(obj)
         this.initialValues = JSON.parse(JSON.stringify(obj))
       }
     }

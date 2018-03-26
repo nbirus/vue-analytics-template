@@ -32,7 +32,7 @@
             "size": "large",
             "apiConfig": {
               "headers": {},
-              "endpoint": "analytic/trials",
+              "endpoint": "~analytic/trials",
               "params": {
                 "chart": "person_total"
               }
@@ -159,6 +159,42 @@
               "id": "phase"
             }
 
+          }
+
+        },
+        {
+          "id": "test-item",
+          "display": [
+            {
+              "order": 1,
+              "row": 2,
+              "col": 3
+            },
+            {
+              "order": 1,
+              "row": 1,
+              "col": 4
+            },
+            {
+              "order": 1,
+              "row": 1,
+              "col": 12
+            }
+          ],
+
+          "reportType": "progress-widget",
+          "reportProps": {
+            "title": "Total Trials",
+            "theme": "inverse",
+            "icon": "book-open",
+            "size": "large",
+            "apiConfig": {
+              "headers": {},
+              "endpoint": "~analytic/trials",
+              "params": {
+                "chart": "person_total"
+              }
+            }
           }
 
         }

@@ -8,6 +8,8 @@
       :chartType="reportProps.chartType"
       :chartProps="reportProps.chartProps"
 
+      :apiConfig="reportProps.apiConfig"
+
       :title="reportProps.title"
       :countType="reportProps.countType"
       :theme="reportProps.theme"
@@ -35,18 +37,32 @@
     >
     </number-widget>
 
+    <!-- ------- progress widget ------- -->
+    <progress-widget
+      v-else-if="reportType === 'progress-widget'"
+
+      :title="reportProps.title"
+      :theme="reportProps.theme"
+      :size="reportProps.size"
+      :apiConfig="reportProps.apiConfig"
+      :icon="reportProps.icon"
+    >
+    </progress-widget>
+
   </div>
 </template>
 
 <script>
-  import ChartReport from './ChartReport'
-  import NumberWidget from './widgets/CountWidget'
+  import ChartReport from '@/components/reporting/ChartReport'
+  import NumberWidget from '@/components/reporting/widgets/CountWidget'
+  import ProgressWidget from '@/components/reporting/widgets/ProgressWidget'
 
   export default {
     name: 'report-container',
     components: {
       ChartReport,
-      NumberWidget
+      NumberWidget,
+      ProgressWidget
     },
     props: {
       reportType: {

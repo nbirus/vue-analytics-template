@@ -2,6 +2,10 @@
 @import 'app-helper.less';
 
 // -----------  root layout -----------
+:root {
+  font-size: 14px;
+}
+
  #app {
   display: flex;
   flex-direction: column;
@@ -12,9 +16,8 @@
 
   // page nav bar
   & > .nav-bar {
-    // flex: 0 0 @nav-header-height;
     position: fixed;
-    width: 100vw; height: @nav-header-height;
+    width: 100%; height: @nav-header-height;
     top: 0; left: 0;
     z-index: 99;
   }
@@ -37,12 +40,11 @@
   min-height: @page-min-height;
 
   & >.page-header {
-    height: 70px;
     top: 0;
 
-    padding: 0; margin: 0;
+    padding: 1rem 0; margin: 0;
 
-    background-color: lighten(@page-bg-color, 5%);
+    background-color: @page-header-color;
     border-bottom: solid 1px darken(@page-bg-color, 8%);
 
     .page-header-content {
@@ -57,7 +59,7 @@
         flex: 0 0 auto;
         height: 100%;
 
-        padding: 0 0; margin-left: 25px;
+        padding: 0 @pad; margin: 0;
 
         display: flex;
         justify-content: center;
@@ -66,7 +68,7 @@
         h2 {
           color: @c-inverse;
           font-weight: 100;
-          font-size: 20pt;
+          font-size: 1.9rem;
         }
 
         // if icon exists
@@ -79,7 +81,7 @@
         display: flex;
         align-items: center;
 
-        margin-right: 25px;
+        margin-right: @pad;
       }
     }
 
@@ -87,7 +89,7 @@
 
   & >.page-body {
     .max-page-width;
-    padding: @pad;
+    padding: 1.2rem @pad;
   }
 
 }
@@ -97,28 +99,22 @@
 
   // label
   .form-label {
+    font-size: 1rem;
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: .5em;
     .f-b;
-    font-size: 11pt;
   }
 
   // input
   .form-control {
-    width: 100%; height: @input-height;
+    width: 100%;
     transition: @transition;
   }
 
   // error text
   .form-error-text {
     color: @input-error-color;
-    font-size: 11pt;
-
-    i {
-      font-size: 7pt;
-      margin: -3px 5px 0 0;
-      line-height: 10px;
-    }
+    font-size: 1rem;
   }
 
   // required
@@ -216,9 +212,9 @@
 
   // left
   &.bar-left:before {
-    width: 5px; max-width: 5px;
-    top: 2px; bottom: 2px; left: -5px;
-    border-radius: 2px 0 0 2px;
+    width: 4px; max-width: 4px;
+    top: 2px; bottom: 2px; left: -4px;
+    border-radius: @br 0 0 @br;
     background-color: @c-inverse;
   }
 
@@ -226,15 +222,15 @@
   &.bar-top:before {
     height: 4px; max-height: 4px;
     top: -4px; left: 1px; right: 1px;
-    border-radius: 2px 2px 0 0;
+    border-radius: @br @br 0 0;
     background-color: @c-inverse;
   }
 
   // right
   &.bar-right:before {
-    width: 5px; max-width: 5px;
-    top: 2px; bottom: 2px; right: -5px;
-    border-radius: 0 2px 2px 0;
+    width: 4px; max-width: 4px;
+    top: 2px; bottom: 2px; right: -4px;
+    border-radius: 0 @br @br 0;
     background-color: @c-inverse;
   }
 
@@ -242,7 +238,7 @@
   &.bar-bottom:before {
     height: 4px; max-height: 4px;
     bottom: -4px; left: 1px; right: 1px;
-    border-radius: 0 0 2px 2px;
+    border-radius: 0 0 @br @br;
     background-color: @c-inverse;
   }
 
@@ -252,13 +248,13 @@
 .well {}
 
 // ----- icon circle -----
-@icon-circle-w-h: 55px;
 .icon-circle {
-  width: @icon-circle-w-h; height: @icon-circle-w-h;
+  font-size: 1.2rem;
+  padding: 1.2em;
   border-radius: 50%;
 
-  background-color: fadeout(black, 90%);
-  border: solid thin fadeout(black, 85%);
+  background-color: fadeout(black, 96%);
+  border: solid thin fadeout(black, 94%);
 
   display: flex;
   align-items: center;

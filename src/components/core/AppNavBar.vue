@@ -81,13 +81,15 @@
 
     .fluid-container {
       display: flex;
-      padding: 0 18px;
+      padding: 0 @pad;
       .max-page-width;
       background-color: @nav-bg-color;
 
       .identity {
+        font-size: 1.9rem;
+
         flex: 0 0 auto; height: @nav-header-height;
-        padding: 0 15px;
+        padding: 0 .5em;
         background-color: darken(@nav-bg-color, 5%);
         border-top: solid 3px @c-first;
 
@@ -98,7 +100,6 @@
           font-family: 'Title', sans-serif;
           display: block;
           color: white;
-          font-size: 17pt;
           margin-top: -3px;
         }
       }
@@ -110,13 +111,14 @@
         display: flex;
 
         .nav-item {
-          flex:  0 0 auto;
+          font-size: 1.1rem;
+
+          flex: 0 0 auto;
           line-height: @nav-header-height;
           vertical-align: middle;
 
-          margin: 0; padding: 0 15px;
+          margin: 0; padding: 0 1em;
 
-          font-size: 11pt;
           .f-b;
           color: fadeout(white, 55%);
           text-decoration: none;
@@ -264,6 +266,7 @@
           background-color: darken(@nav-bg-color, 5%);
         }
       }
+
     }
   }
 

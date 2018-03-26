@@ -35,8 +35,8 @@
     <!-- icon -->
     <transition name="slide-in-from-left">
       <div class="icon" v-if="isReady">
-      <i class="icons" :class="'icon-' + this.icon"></i>
-    </div>
+        <i class="icons" :class="'icon-' + this.icon"></i>
+      </div>
     </transition>
 
   </div>
@@ -116,7 +116,7 @@
 
   .widget {
     width: 100%; height: 100%;
-    padding: 15px;
+    padding: @pad;
     overflow: hidden;
 
     color: white;
@@ -128,13 +128,14 @@
       flex: 0 0 auto;
 
       .count {
-        font-size: 26pt;
+        font-size: 2.4rem;
         .f-r;
       }
 
       .title {
         color: fadeout(white, 25%);
         font-weight: 100;
+        font-size: 1rem;
       }
     }
 
@@ -154,24 +155,32 @@
 
     }
 
+    .error {
+      .icon-circle {
+        padding: 1.2em 1.8rem;
+      }
+    }
+
     &.loading {
 
     }
 
-    &.error {
 
-    }
 
   }
 
-  @scope: {
-    .generateThemeClasses({
-      .widget.theme-@{name} {
-        .vertical-gradient(@color, darken(@color-dark, 2%));
-      }
-    });
-  }
-  @scope();
+  // @scope: {
+  //   .generateThemeClasses({
+  //     .widget.theme-@{name} {
+  //       // .vertical-gradient(@color, darken(@color-dark, 2%));
+  //     }
+  //
+  //     .widget.error {
+  //       .stripe-gradient(@color) !important;
+  //     }
+  //   });
+  // }
+  // @scope();
 
 
 

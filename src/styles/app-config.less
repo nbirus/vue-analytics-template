@@ -2,6 +2,8 @@
   this file sets up the adjustable properties of the theme
 */
 
+@root-size: 12px;
+
 // base colors
 
 @c-red: #fa4258;
@@ -11,9 +13,18 @@
 @c-cyan: #4ac2ff;
 @c-purple: #c89be7;
 @c-yellow: #fcaf41;
-
-@c-inverse: darken(#333c48, 2%);
+@c-inverse: #333c48;
 @c-light: #e6eaf0;
+
+// @c-red: #D7757C;
+// @c-green: #30C6C8;
+// @c-blue: #59B0EE;
+// @c-lime: #30C6C8;
+// @c-cyan: #5AAFEE;
+// @c-purple: #B5A1DD;
+// @c-yellow: #F3994D;
+// @c-inverse: #34425A;
+// @c-light: #F1F4F9;
 
 // theme colors
 @c-first: @c-cyan;
@@ -40,16 +51,11 @@
 @grey8: darken(white, 70%);
 @grey9: darken(white, 90%);
 
-// sizes
-@height-lg: 40px;
-@height-md: 35px;
-@height-sm: 25px;
-
 // ------ page settings ------
 
 // global
-@br: 3px;
-@pad: 25px;
+@br: .3rem;
+@pad: .8rem;
 @transition: all .1s ease-in;
 
 // header
@@ -62,22 +68,20 @@
 @page-min-height: 100vh; // size of screen minus footer height
 @page-min-width: 1400px;
 @page-bg-color: @c-light;
-@page-padding: 25px;
+@page-header-color: white;
+@page-padding: 1rem;
 
 // Buttons
-@btn-height: @height-md;
-@btn-height-sm: @height-sm;
-@btn-height-lg: @height-lg;
 @btn-focus-color: #32a1ce;
 
 // panel
-@panel-padding: 15px;
-@panel-border-radius: 3px;
+@panel-padding: 1rem;
+@panel-border-radius: @br;
 @panel-shadow: 0 1px 3px 0 fadeout(black, 90%);
 
 // inputs
 @input-height: 35px;
-@input-font-size: 11pt;
+@input-font-size: 1rem;
 @input-bg-color: @grey1;
 @input-border: solid 1px @grey6;
 

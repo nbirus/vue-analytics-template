@@ -549,8 +549,6 @@
       .action-buttons {
         flex: 0 0 auto;
 
-
-
         .refresh-btn {
           padding: 0 11px;
         }

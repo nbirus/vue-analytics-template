@@ -1,26 +1,25 @@
 <template>
 
-  <div class="panel chart-report-panel" :class="{'open': sidebar}">
+  <div class="panel chart-report-panel" :class="chartStateClass">
 
     <!--chart header-->
     <div class="panel-header chart-header">
 
       <div class="chart-title">
-        <h4 :class="'text-' + theme">{{title}}</h4>
-        <h5>12,902 {{countType}}</h5>
+        <h4 :class="textColor">{{title}}</h4>
+        <h5 v-if="!error">12,902 {{countType}}</h5>
       </div>
 
       <div class="chart-actions">
 
         <dropdown menu-right>
 
-          <i :class="'text-' + theme" class="icons icon-options-vertical" data-role="trigger"></i>
-          <i :class="'text-' + theme" @click="sidebar = true" class="fa fa-chevron-left"></i>
+          <i :class="textColor" class="icons icon-options-vertical" data-role="trigger"></i>
+          <i :class="textColor" @click="sidebar = true" class="fa fa-chevron-left"></i>
 
           <template slot="dropdown">
             <li><a role="button"><i class="icons icon-settings"></i>Chart Settings</a></li>
             <li><a role="button"><i class="icons icon-refresh"></i>Refresh</a></li>
-            <!-- <li><a role="button" @click="sidebar = true"><i class="fa fa-check"></i>Hide Columns</a></li> -->
             <li><a role="button"><i class="icons icon-share-alt"></i>Export</a></li>
             <li><a role="button"><i class="icons icon-camera"></i>Screenshot</a></li>
           </template>
@@ -86,17 +85,13 @@
 
       <!-- loading -->
       <div class="loading" v-if="loading">
-        <div class="icon-circle">
-          <i class="fa fa-sync-alt fa-spin"></i>
-        </div>
+        <div class="icon-circle"><i class="fa fa-sync-alt fa-spin" :class="'text-' + theme"></i></div>
       </div>
 
       <!-- error -->
       <div class="error" v-if="error">
-        <div class="icon-circle">
-          <i class="fa fa-exclamation"></i>
-        </div>
-        {{errorMessage}}
+        <div class="icon-circle"><i class="fa fa-exclamation"></i></div>
+        <h4 class="error-message">{{errorMessage}}</h4>
       </div>
     </div>
 
@@ -108,6 +103,10 @@
       <transition name="slide-in-from-right">
         <div class="sidebar" v-if="sidebar">
           <div class="checkbox-list">
+
+            <!-- <div class="header-total">
+              12,245 total trial
+            </div> -->
 
             <div class="header">
 
@@ -123,6 +122,7 @@
             </div>
 
             <div class="body">
+
               <ul class="header-list">
                 <li class="list-item"
                     v-for="(header, index) in filteredHeaders"
@@ -131,8 +131,8 @@
                     @click="toggleHeader(header.name)">
 
                   <input type="checkbox" :checked="!suppressedHeaders.includes(header.name)"/>
-                  <span>{{header.name}}</span>
-
+                  <div class="label">{{header.name}}</div>
+                  <div class="value">{{(header.value) ? header.value.toLocaleString() : null}}</div>
                 </li>
               </ul>
             </div>
@@ -263,6 +263,21 @@
         return this.chartHeaders.filter(column => {
           return (column.name.toLowerCase().indexOf(this.toggleColumnSearchText.toLowerCase()) > -1)
         })
+      },
+
+      chartStateClass () {
+        return {
+          'loading': this.loading,
+          'error': this.error,
+          'open': this.sidebar
+        }
+      },
+
+      textColor () {
+        return [
+          (!this.error) ? 'text-' + this.theme : null,
+          (this.error) ? 'text-danger' : null
+        ]
       }
 
     },
@@ -326,20 +341,26 @@
       border: solid thin @grey6;
     }
 
+    &.error {
+      .stripe-gradient;
+      background-color: white;
+    }
+
     .chart-header {
       display: flex;
       justify-content: space-between;
 
       .chart-title {
         flex: 0 1 100%;
+
         h4 {
           color: @c-inverse;
-          font-size: 13pt;
+          font-size: 1.2rem;
         }
         h5 {
           color: @grey6;
-          font-size: 9pt;
           .f-r;
+          font-size: .8rem;
         }
       }
 
@@ -374,10 +395,35 @@
       justify-content: center;
       align-items: center;
 
-      .icon-circle {
-        background-color: fadeout(black, 97%);
-        border-color: fadeout(black, 95%);
+      .error {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
         margin-top: -40px;
+
+        .icon-circle {
+          background-color: transparent;
+          border: none;
+          font-size: 25pt;
+          color: @c-danger;
+        }
+
+        .error-message {
+          font-weight: normal;
+          color: @c-danger;
+          font-size: 10pt;
+          margin-top: 5px;
+        }
+      }
+
+      .loading {
+        .icon-circle {
+          background-color: fadeout(black, 98%);
+          margin-top: -40px;
+          font-size: 1.2rem;
+
+        }
       }
     }
 
@@ -417,6 +463,17 @@
 
           overflow: hidden;
 
+          .header-total {
+            width: 100%;
+            text-align: center;
+            font-size: 11pt;
+            color: @grey8;
+            padding: 5px 0;
+            background-color: @grey2;
+            border-bottom: solid thin @grey4;
+            font-weight: bold;
+          }
+
           .header {
             flex: 0 0 auto;
 
@@ -453,6 +510,8 @@
             flex: 0 1 100%;
             overflow-y: auto;
 
+
+
             .header-list {
 
               .list-item {
@@ -460,6 +519,24 @@
                 padding: 5px 10px;
                 cursor: pointer;
                 color: @grey8;
+
+                display: flex;
+
+                .checkbox {
+                  flex: 0 0 auto;
+                }
+
+                .label {
+                  flex: 0 1 100%;
+                  padding-left: 5px;
+                  color: @grey9;
+                }
+
+                .value {
+                  flex: 0 0 auto;
+                  font-size: 10pt;
+                  color: @grey6;
+                }
 
                 &:nth-child(odd) {
                   background-color: @grey1;
