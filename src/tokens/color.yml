@@ -1,0 +1,93 @@
+#
+# COLOR TOKENS
+# Use these tokens to set a color.
+# http://hslpicker.com/
+#
+
+aliases:
+  red:
+    value: "7, 93%"
+  green:
+    value: "112, 100%"
+  blue:
+    value: "217, 100%"
+  cyan:
+    value: "186, 100%"
+  lime:
+    value: "93, 100%"
+  purple:
+    value: "309, 90%"
+  yellow:
+    value: "55, 100%"
+  inverse:
+    value: "214, 17%"
+  light:
+    value: "218, 35%"
+
+props:
+  c-red:
+    value: "hsla({!red}, 53%, 1)"
+  c-red-dark:
+    value: "hsla({!red}, 43%, 1)"
+  c-red-light:
+    value: "hsla({!red}, 63%, 1)"
+
+  c-green:
+    value: "hsla({!green}, 53%, 1)"
+  c-green-dark:
+    value: "hsla({!green}, 43%, 1)"
+  c-green-light:
+    value: "hsla({!green}, 63%, 1)"
+
+  c-blue:
+    value: "hsla({!blue}, 53%, 1)"
+  c-blue-dark:
+    value: "hsla({!blue}, 43%, 1)"
+  c-blue-light:
+    value: "hsla({!blue}, 63%, 1)"
+
+  c-cyan:
+    value: "hsla({!cyan}, 53%, 1)"
+  c-cyan-dark:
+    value: "hsla({!cyan}, 43%, 1)"
+  c-cyan-light:
+    value: "hsla({!cyan}, 63%, 1)"
+
+  c-lime:
+    value: "hsla({!lime}, 53%, 1)"
+  c-lime-dark:
+    value: "hsla({!lime}, 43%, 1)"
+  c-lime-light:
+    value: "hsla({!lime}, 63%, 1)"
+
+  c-purple:
+    value: "hsla({!purple}, 53%, 1)"
+  c-purple-dark:
+    value: "hsla({!purple}, 43%, 1)"
+  c-purple-light:
+    value: "hsla({!purple}, 63%, 1)"
+
+  c-yellow:
+    value: "hsla({!yellow}, 53%, 1)"
+  c-yellow-dark:
+    value: "hsla({!yellow}, 43%, 1)"
+  c-yellow-light:
+    value: "hsla({!yellow}, 63%, 1)"
+
+  c-inverse:
+    value: "hsla({!inverse}, 24%, 1)"
+  c-inverse-dark:
+    value: "hsla({!inverse}, 13%, 1)"
+  c-inverse-light:
+    value: "hsla({!inverse}, 33%, 1)"
+
+  c-light:
+    value: "hsla({!light}, 94%, 1)"
+  c-light-dark:
+    value: "hsla({!light}, 83%, 1)"
+  c-light-light:
+    value: "hsla({!light}, 100%, 1)"
+
+global:
+  type: color
+  category: color

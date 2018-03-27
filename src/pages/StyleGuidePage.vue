@@ -9,7 +9,6 @@
         </div>
       </div>
 
-
     </div>
 
     <div class="page-body">
@@ -18,7 +17,7 @@
         <tabs sidebar searchable theme="first">
 
           <!-- colors -->
-          <tab name="Colors" v-if="false">
+          <tab name="Colors">
 
             <div class="panel-header">
               <h2>Colors</h2>
@@ -26,31 +25,31 @@
 
             <div class="panel-body darken">
 
-              <div class="panel-block">
-                <h4>Theme Colors</h4>
-                <span v-for="color in colors" :key="color" :class="'bg-' + color + '-dark'" class="color-box"></span>
-                <br />
-                <span v-for="color in colors" :key="color" :class="'bg-' + color" class="color-box"></span>
-                <br />
-                <span v-for="color in colors" :key="color" :class="'bg-' + color + '-light'" class="color-box"></span>
-              </div>
+              <!--<div class="panel-block">-->
+                <!--<h4>Theme Colors</h4>-->
+                <!--<span v-for="color in colors" :key="'1-' + color" :class="'bg-' + color + '-dark'" class="color-box"></span>-->
+                <!--<br />-->
+                <!--<span v-for="color in colors" :key="'2-' + color" :class="'bg-' + color" class="color-box"></span>-->
+                <!--<br />-->
+                <!--<span v-for="color in colors" :key="'123-' + color" :class="'bg-' + color + '-light'" class="color-box"></span>-->
+              <!--</div>-->
 
-              <div class="panel-block">
-                <h4>Special Colors</h4>
-                <span v-for="color in specialColors" :key="color" :class="'bg-' + color + '-dark'" class="color-box"></span>
-                <br />
-                <span v-for="color in specialColors" :key="color" :class="'bg-' + color" class="color-box"></span>
-                <br />
-                <span v-for="color in specialColors" :key="color" :class="'bg-' + color + '-light'" class="color-box"></span>
-              </div>
+              <!--<div class="panel-block">-->
+                <!--<h4>Special Colors</h4>-->
+                <!--<span v-for="color in specialColors" :key="'1a-' + color" :class="'bg-' + color + '-dark'" class="color-box"></span>-->
+                <!--<br />-->
+                <!--<span v-for="color in specialColors" :key="'1s-' + color" :class="'bg-' + color" class="color-box"></span>-->
+                <!--<br />-->
+                <!--<span v-for="color in specialColors" :key="'1-s' + color" :class="'bg-' + color + '-light'" class="color-box"></span>-->
+              <!--</div>-->
 
               <div class="panel-block">
                 <h4>All Colors</h4>
-                <span v-for="color in baseColors" :key="color" :class="'bg-' + color + '-dark'" class="color-box"></span>
+                <span v-for="color in baseColors" :key="'1sd-' + color" :class="'bg-' + color + '-dark'" class="color-box"></span>
                 <br />
-                <span v-for="color in baseColors" :key="color" :class="'bg-' + color" class="color-box"></span>
+                <span v-for="color in baseColors" :key="'1-bd' + color" :class="'bg-' + color" class="color-box">{{color}}</span>
                 <br />
-                <span v-for="color in baseColors" :key="color" :class="'bg-' + color + '-light'" class="color-box"></span>
+                <span v-for="color in baseColors" :key="'1-asdf' + color" :class="'bg-' + color + '-light'" class="color-box"></span>
               </div>
 
             </div>
@@ -394,6 +393,7 @@
     },
     data () {
       return {
+
         test1: undefined,
         test2: undefined,
 
