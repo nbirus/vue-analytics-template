@@ -49,6 +49,7 @@
   import { Dropdown, DatePicker } from 'uiv'
 
   export default {
+    name: 'datepicker-input',
     components: { Dropdown, DatePicker },
     mixins: [InputMixin],
     data () {

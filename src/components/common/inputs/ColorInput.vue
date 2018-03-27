@@ -34,6 +34,7 @@
   import InputMixin from '../../../mixins/InputMixin'
 
   export default {
+    name: 'color-input',
     mixins: [InputMixin],
     mounted () {
     }

@@ -3,10 +3,10 @@
 
     <div class="fluid-container">
 
-      <div class="identity">
+      <!-- <div class="identity"> -->
         <!-- <img src="../../assets/strap-logo.png" height="20" width="20" /> -->
-        <span class="identity-text">strap</span>
-      </div>
+        <!-- <span class="identity-text">strap</span> -->
+      <!-- </div> -->
 
       <div class="nav-items">
         <!-- <router-link class="nav-item" id="home-navbar" to="/home" tag="a">Home</router-link> -->
@@ -81,7 +81,7 @@
 
     .fluid-container {
       display: flex;
-      padding: 0 @pad;
+      padding: 0 @page-padding;
       .max-page-width;
       background-color: @nav-bg-color;
 

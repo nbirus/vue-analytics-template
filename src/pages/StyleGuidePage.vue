@@ -18,7 +18,7 @@
         <tabs sidebar searchable theme="first">
 
           <!-- colors -->
-          <tab name="Colors">
+          <tab name="Colors" v-if="false">
 
             <div class="panel-header">
               <h2>Colors</h2>
@@ -57,7 +57,7 @@
           </tab>
 
           <!-- panels -->
-          <tab name="Panels">
+          <tab name="Panels" v-if="false">
 
             <div class="panel-header">
               <h2>Panels</h2>
@@ -88,7 +88,7 @@
           </tab>
 
           <!-- buttons -->
-          <tab name="Buttons">
+          <tab name="Buttons" v-if="false">
             <div class="panel-header">
               <h2>Buttons</h2>
             </div>
@@ -248,6 +248,7 @@
 
                 <!-- select input -->
                 <select-input class="form-space"
+                  :inputValue.sync="test1"
                   id="select-id"
                   label="Select Input"
                   :options="[
@@ -255,6 +256,18 @@
                     {'label': 'Two', 'value': 'Two'},
                     {'label': 'Three', 'value': 'three'}
                   ]"
+                  :required="inputsRequired"
+                  :hasLabel="true"
+                  :error="inputsError"
+                  @changed="alert"
+                ></select-input>
+
+                <select-input class="form-space"
+                  :inputValue.sync="test2"
+                  id="select-id"
+                  label="Select Input Array"
+                  :options="['one', 'two', 'three']"
+                  :multiselect="true"
                   :required="inputsRequired"
                   :error="inputsError"
                   @changed="alert"
@@ -299,7 +312,7 @@
             </div>
           </tab>
 
-          <tab name="Grid">
+          <tab name="Grid" v-if="false">
             <div class="panel-header">
               <h2>Static Data Grid</h2>
             </div>
@@ -332,7 +345,7 @@
             </div>
           </tab>
 
-          <tab name="Dashboard">
+          <tab name="Dashboard" v-if="false">
             <div class="panel-header">
               <h2>Dashboard</h2>
             </div>
@@ -381,6 +394,9 @@
     },
     data () {
       return {
+        test1: undefined,
+        test2: undefined,
+
         colors: [
           'default',
           'first',
@@ -421,7 +437,7 @@
     },
     methods: {
       alert (text) {
-        console.log(text)
+        // console.log(text)
       },
       rowSelected (rowSelected) {
         console.log(rowSelected)

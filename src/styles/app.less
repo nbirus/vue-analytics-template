@@ -44,7 +44,8 @@
 
     padding: 1rem 0; margin: 0;
 
-    background-color: @page-header-color;
+    // background-color: @page-header-color;
+    background-color: lighten(@page-bg-color, 5%);
     border-bottom: solid 1px darken(@page-bg-color, 8%);
 
     .page-header-content {
@@ -54,12 +55,14 @@
       display: flex;
       justify-content: space-between;
 
+      padding: 0 @page-padding;
+
       // features
       .page-title-container {
         flex: 0 0 auto;
         height: 100%;
 
-        padding: 0 @pad; margin: 0;
+        padding: 0; margin: 0;
 
         display: flex;
         justify-content: center;
@@ -69,10 +72,15 @@
           color: @c-inverse;
           font-weight: 100;
           font-size: 1.9rem;
+
+          // if icon exists
+          i {
+            margin-right: 8px;
+            font-size: 1.5rem;
+          }
         }
 
-        // if icon exists
-        i { .icon-margin  }
+
       }
 
       .page-actions {
@@ -80,8 +88,6 @@
 
         display: flex;
         align-items: center;
-
-        margin-right: @pad;
       }
     }
 
@@ -89,7 +95,7 @@
 
   & >.page-body {
     .max-page-width;
-    padding: 1.2rem @pad;
+    padding: 1.2rem @page-padding;
   }
 
 }

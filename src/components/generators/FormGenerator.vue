@@ -19,9 +19,31 @@
         :placeholder="input.placeholder"
         :inputValue="inputValues[input.id]"
         :required="input.required"
-        :error="'This field is required'"
+        :error="undefined"
         @changed="value => updateValue(input.id, value)"
       />
+
+      <!-- select input -->
+      <select-input
+        v-if="input.type === 'select'"
+        :id="input.id"
+        :label="input.label"
+        :placeholder="input.placeholder"
+
+        :optionSource="input.optionSource"
+        :options="input.options"
+        :optionPath="input.optionPath"
+        :optionAPIConfig="input.optionAPIConfig"
+
+        :multiselect="input.multiselect"
+        :hasLabel="input.hasLabel"
+
+        :required="input.required"
+        :error="undefined"
+
+        :inputValue="inputValues[input.id]"
+        @changed="value => updateValue(input.id, value)"
+      ></select-input>
 
       <!-- checkbox input -->
       <checkbox-input
@@ -112,13 +134,7 @@
     },
     data () {
       return {
-        inputValues: {},
-        defaultValues: {
-          'text': '',
-          'checkbox': [],
-          'radio': '',
-          'form-list': []
-        }
+        inputValues: {}
       }
     },
     mounted () {
@@ -141,8 +157,7 @@
 
       getInitialValue (input) {
 
-        // input specific initial value
-        let initialValue = this.defaultValues[input.type]
+        let initialValue
 
         // initial value from JSON
         if (input.initialValue) {

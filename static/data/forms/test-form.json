@@ -1,5 +1,41 @@
 [
   {
+    "type": "select",
+    "id": "select-wow",
+    "label": "Select Input Inline No Label",
+
+    "hasLabel": true,
+    "multiselect": true,
+    "optionSource": "inline",
+    "options": [
+      {"label": "One", "value": "one"},
+      {"label": "Two", "value": "two"},
+      {"label": "Three", "value": "three"}
+    ],
+    "required": true
+  },
+  {
+    "type": "select",
+    "id": "select",
+    "label": "Select Input Inline",
+
+    "multiselect": false,
+    "hasLabel": false,
+    "optionSource": "inline",
+    "options": ["one", "two", "three"],
+    "required": true
+  },
+  {
+    "type": "select",
+    "id": "select-2",
+    "label": "Select Input From File",
+    "optionSource": "local",
+    "optionPath": "test",
+    "hasLabel": true,
+    "multiselect": true,
+    "required": true
+  },
+  {
     "type": "text",
     "id": "text",
     "label": "Text Input",

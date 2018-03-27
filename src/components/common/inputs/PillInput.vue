@@ -24,6 +24,7 @@
   import InputMixin from '../../../mixins/InputMixin'
 
   export default {
+    name: 'pill-input',
     mixins: [InputMixin],
     props: {
       options: {

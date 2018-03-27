@@ -61,10 +61,10 @@
   .dashboard {
 
     display: grid;
-    grid-gap: 20px;
+    grid-gap: 1.2rem;
 
     grid-template-columns: repeat(16, 1fr);
-    grid-auto-rows: 40px;
+    grid-auto-rows: 2.6rem;
 
     .dashboard-item {
 

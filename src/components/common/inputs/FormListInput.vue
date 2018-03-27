@@ -10,8 +10,6 @@
            :footer="false"
            :backdrop="true">
 
-
-
       <div slot="default">
 
         <form-generator
@@ -44,13 +42,12 @@
       <ul class="value-list">
         <li v-for="(value, index) in inputValue" :key="index">
 
-
           <div class="value-items">
 
             <!-- each value as key value pair -->
-            <div class="value" v-for="(subvalue, subkey, index) in value" :key="index">
+            <div class="value" v-for="(subvalue, subkey) in value" :key="subkey">
               <span class="subkey">{{subkey}}</span>
-              <span class="subvalue">{{subvalue.toString()}}</span>
+              <span class="subvalue">{{(subvalue) ? subvalue.toString() : subvalue}}</span>
             </div>
 
           </div>
@@ -68,7 +65,7 @@
 
       <!-- add values to the list button -->
       <div class="value-adder">
-        <btn type="button" small block :onClick="() => { formModal = true }">
+        <btn type="button" block :onClick="() => { formModal = true }">
           <i class="fa fa-plus icon-margin"></i>Add a {{itemName}}
         </btn>
       </div>
@@ -86,6 +83,7 @@
   import { cloneDeep } from 'lodash'
 
   export default {
+    name: 'form-list-input',
     beforeCreate () {
       this.$options.components.FormGenerator = require('../../generators/FormGenerator.vue').default
     },
@@ -109,8 +107,8 @@
     },
     data () {
       return {
-        formModal: false,
         initialFormValues: {},
+        formModal: false,
         isEditing: false,
         editingValueIndex: null
       }

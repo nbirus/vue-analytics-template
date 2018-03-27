@@ -32,6 +32,7 @@
   import OptionsJSON from '../../../../static/data/forms/options.json'
 
   export default {
+    name: 'radio-input',
     mixins: [InputMixin],
     props: {
       optionSource: {

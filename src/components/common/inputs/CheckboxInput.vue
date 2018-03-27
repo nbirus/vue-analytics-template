@@ -32,6 +32,7 @@
   import OptionsJSON from '../../../../static/data/forms/options.json'
 
   export default {
+    name: 'checkbox-input',
     mixins: [InputMixin],
     props: {
       optionSource: {

@@ -1,3 +1,14 @@
+const defaultValues = {
+  'text-input': '',
+  'checkbox-input': [],
+  'radio-input': '',
+  'pill-input': '',
+  'form-list-input': [],
+  'datepicker-input': [],
+  'select-input': undefined, // depends on props, defined in the component
+  'color-input': ''
+}
+
 export default {
   props: {
 
@@ -16,8 +27,8 @@ export default {
     inputValue: {
       required: false,
       default () {
-        // TODO: change to dynaic value based on input
-        return []
+        // pull default value from list above
+        return defaultValues[this.$options.name]
       }
     },
     placeholder: {

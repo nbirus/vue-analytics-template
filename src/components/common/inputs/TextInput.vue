@@ -34,6 +34,7 @@
   import InputMixin from '../../../mixins/InputMixin'
 
   export default {
+    name: 'text-input',
     mixins: [InputMixin],
     props: {
       type: {
