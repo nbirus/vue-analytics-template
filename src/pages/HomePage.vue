@@ -1,20 +1,27 @@
 <template>
   <div class="page">
 
-    <div class="page-header">
+    <!-- <div class="page-header"> -->
 
-      <div class="page-header-content">
+      <!-- <div class="page-header-content">
 
         <div class="page-title-container">
-          <h2><i class="icons icon-grid"></i>Dashboard</h2>
+          <div class="icon">
+            <i class="icons icon-grid"></i>
+          </div>
+
+          <transition name="page-header" mode="out-in">
+            <h2 v-if="rendered">Dashboard</h2>
+          </transition>
+
         </div>
 
         <div class="page-actions">
           <btn class="dashboard-settings-btn" large><i class="fa fa-cog icon-margin"></i>Dashboard Settings</btn>
         </div>
-      </div>
+      </div> -->
 
-    </div>
+    <!-- </div> -->
 
     <div class="page-body">
       <dashboard :dashboard="dashboard"></dashboard>
@@ -35,8 +42,12 @@
     },
     data () {
       return {
-        dashboard: DashboardJSON
+        dashboard: DashboardJSON,
+        rendered: false
       }
+    },
+    mounted () {
+      this.rendered = true
     }
   }
 </script>

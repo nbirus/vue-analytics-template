@@ -39,7 +39,7 @@ export default {
     return {
       formattedChartData: [],
 
-      colors: ColorService.colors,
+      colors: ColorService.getColors(),
       axisTextColor: '#999999',
       splitLineColor: '#e7e7e7'
     }
@@ -68,10 +68,10 @@ export default {
     $generateColors (steps = 10) {
 
       let color = chroma(this.colors[this.theme][0])
-      let darken = this.colors[this.theme][1]
-      let brighten = this.colors[this.theme][2]
+      let colorDark = this.colors[this.theme][1]
+      let colorLight = this.colors[this.theme][2]
 
-      return chroma.scale([color.darken(darken), color, color.brighten(brighten)]).mode('lch').colors(steps)
+      return chroma.scale([colorLight, color, colorDark]).mode('lch').colors(steps)
     }
   }
 }

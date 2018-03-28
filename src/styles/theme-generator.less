@@ -15,39 +15,36 @@
 
 */
 
-@import 'app-config.less';
+@import '../assets/tokens/tokens.less';
 
-// name, color, darken%, lighten%
-@theme-array: red @c-red 25% 25%,
-        green @c-green 25% 25%,
-        blue @c-blue 35% 15%,
+@theme-array:
+  red,
+  green,
+  blue,
+  lime,
+  cyan,
+  purple,
+  yellow,
+  inverse,
+  light,
 
-        lime @c-lime 30% 20%,
-        cyan @c-cyan 25% 15%,
-        purple @c-purple 25% 10%,
-        yellow @c-yellow 20% 15%,
-
-        first @c-first 25% 15%,
-        second @c-second 25% 25%,
-        third @c-third 25% 25%,
-        fourth @c-fourth 25% 25%,
-        fifth @c-fifth 25% 25%,
-        inverse @c-inverse 25% 25%,
-        light @c-light 25% 25%,
-
-        danger @c-danger 25% 25%,
-        warning @c-warning 25% 25%,
-        success @c-success 25% 25%;
+  danger,
+  warning,
+  success,
+  info;
 
 .generateThemeClasses(@body, @i: length(@theme-array)) when (@i > 0)
 {
 
-  @theme-item: extract(@theme-array, @i);
+  @name: extract(@theme-array, @i);
 
-  @name: extract(@theme-item, 1);
-  @color: extract(@theme-item, 2);
-  @color-dark: shade(@color, extract(@theme-item, 3));
-  @color-light: lighten(@color, extract(@theme-item, 4));
+  @string-name: 'c-@{name}';
+  @string-name-light: 'c-@{name}-light';
+  @string-name-dark: 'c-@{name}-dark';
+
+  @color: @@string-name;
+  @color-dark: @@string-name-light;
+  @color-light: @@string-name-dark;
 
   @body(); // call passed in style block
 

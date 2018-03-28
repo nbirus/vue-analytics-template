@@ -8,10 +8,13 @@
     <div class="content">
 
       <!-- nav bar -->
-      <!-- <app-header></app-header> -->
+      <app-header></app-header>
 
       <!-- page -->
-      <router-view/>
+      <transition name="default-page-transition" mode="out-in">
+        <router-view :key="$route.fullPath"/>
+      </transition>
+
 
       <!-- footer -->
       <app-footer></app-footer>
@@ -49,8 +52,6 @@
 
   @import 'styles/app.less';
   @import 'styles/app-overrides.less';
-
-
 
   // import uiv styles
   @import 'styles/uiv/app-dropdown.less';

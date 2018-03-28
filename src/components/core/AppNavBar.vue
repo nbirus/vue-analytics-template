@@ -3,10 +3,10 @@
 
     <div class="fluid-container">
 
-      <!-- <div class="identity"> -->
+      <div class="identity">
         <!-- <img src="../../assets/strap-logo.png" height="20" width="20" /> -->
-        <!-- <span class="identity-text">strap</span> -->
-      <!-- </div> -->
+        <span class="identity-text">analytics</span>
+      </div>
 
       <div class="nav-items">
         <!-- <router-link class="nav-item" id="home-navbar" to="/home" tag="a">Home</router-link> -->
@@ -90,8 +90,9 @@
 
         flex: 0 0 auto; height: @nav-header-height;
         padding: 0 .5em;
-        background-color: darken(@nav-bg-color, 5%);
-        border-top: solid 3px @c-first;
+        // background-color: darken(@nav-bg-color, 2%);
+        .vertical-gradient(darken(@nav-bg-color, 6%), darken(@nav-bg-color, 1%));
+        // border-top: solid 2px @c-lime;
 
         line-height: @nav-header-height;
         vertical-align: middle;
@@ -206,7 +207,7 @@
         }
 
         &.active {
-          border-top: solid 3px @c-first;
+          border-top: solid 3px @c-cyan;
           background-color: darken(@nav-bg-color, 5%);
         }
       }

@@ -27,12 +27,12 @@
           "reportType": "number-widget",
           "reportProps": {
             "title": "Total Trials",
-            "theme": "inverse",
+            "theme": "lime",
             "icon": "book-open",
             "size": "large",
             "apiConfig": {
               "headers": {},
-              "endpoint": "~analytic/trials",
+              "endpoint": "analytic/trials",
               "params": {
                 "chart": "person_total"
               }
@@ -63,7 +63,7 @@
           "reportType": "number-widget",
           "reportProps": {
             "title": "Total Persons",
-            "theme": "first",
+            "theme": "cyan",
             "icon": "user",
             "size": "large",
             "apiConfig": {
@@ -99,7 +99,7 @@
           "reportType": "number-widget",
           "reportProps": {
             "title": "Total Organizations",
-            "theme": "second",
+            "theme": "purple",
             "icon": "briefcase",
             "size": "large",
             "apiConfig": {
@@ -117,7 +117,7 @@
           "display": [
             {
               "order": 5,
-              "row": 5,
+              "row": 6,
               "col": 4
             },
             {
@@ -144,7 +144,7 @@
                 "chart": "phase"
               }
             },
-            "theme": "first",
+            "theme": "cyan",
             "settings": [],
             "showTotal": true,
             "hasHeader": true,
@@ -158,15 +158,13 @@
             "chartProps": {
               "id": "phase"
             }
-
           }
-
         },
         {
           "id": "test-item",
           "display": [
             {
-              "order": 1,
+              "order": 6,
               "row": 2,
               "col": 3
             },

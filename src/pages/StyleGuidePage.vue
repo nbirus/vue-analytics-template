@@ -1,7 +1,7 @@
 <template>
   <div class="page">
 
-    <div class="page-header">
+    <!-- <div class="page-header">
 
       <div class="page-header-content">
         <div class="page-title-container">
@@ -9,12 +9,12 @@
         </div>
       </div>
 
-    </div>
+    </div> -->
 
     <div class="page-body">
 
       <div class="panel style-panel">
-        <tabs sidebar searchable theme="first">
+        <tabs sidebar searchable theme="inverse">
 
           <!-- colors -->
           <tab name="Colors">
@@ -25,31 +25,22 @@
 
             <div class="panel-body darken">
 
-              <!--<div class="panel-block">-->
-                <!--<h4>Theme Colors</h4>-->
-                <!--<span v-for="color in colors" :key="'1-' + color" :class="'bg-' + color + '-dark'" class="color-box"></span>-->
-                <!--<br />-->
-                <!--<span v-for="color in colors" :key="'2-' + color" :class="'bg-' + color" class="color-box"></span>-->
-                <!--<br />-->
-                <!--<span v-for="color in colors" :key="'123-' + color" :class="'bg-' + color + '-light'" class="color-box"></span>-->
-              <!--</div>-->
-
-              <!--<div class="panel-block">-->
-                <!--<h4>Special Colors</h4>-->
-                <!--<span v-for="color in specialColors" :key="'1a-' + color" :class="'bg-' + color + '-dark'" class="color-box"></span>-->
-                <!--<br />-->
-                <!--<span v-for="color in specialColors" :key="'1s-' + color" :class="'bg-' + color" class="color-box"></span>-->
-                <!--<br />-->
-                <!--<span v-for="color in specialColors" :key="'1-s' + color" :class="'bg-' + color + '-light'" class="color-box"></span>-->
-              <!--</div>-->
+              <div class="panel-block">
+                <h4>Special Colors</h4>
+                <span v-for="color in specialColors" :key="'1a-' + color" :class="'bg-' + color + '-dark'" class="color-box"></span>
+                <br />
+                <span v-for="color in specialColors" :key="'1s-' + color" :class="'bg-' + color" class="color-box"></span>
+                <br />
+                <span v-for="color in specialColors" :key="'1-s' + color" :class="'bg-' + color + '-light'" class="color-box"></span>
+              </div>
 
               <div class="panel-block">
                 <h4>All Colors</h4>
-                <span v-for="color in baseColors" :key="'1sd-' + color" :class="'bg-' + color + '-dark'" class="color-box"></span>
+                <span v-for="color in baseColors" :key="'1sd-' + color" :class="'bg-' + color + '-dark'" class="color-box">{{color}}</span>
                 <br />
                 <span v-for="color in baseColors" :key="'1-bd' + color" :class="'bg-' + color" class="color-box">{{color}}</span>
                 <br />
-                <span v-for="color in baseColors" :key="'1-asdf' + color" :class="'bg-' + color + '-light'" class="color-box"></span>
+                <span v-for="color in baseColors" :key="'1-asdf' + color" :class="'bg-' + color + '-light'" class="color-box">{{color}}</span>
               </div>
 
             </div>
@@ -397,15 +388,6 @@
         test1: undefined,
         test2: undefined,
 
-        colors: [
-          'default',
-          'first',
-          'second',
-          'third',
-          'fourth',
-          'fifth'
-        ],
-
         baseColors: [
           'green',
           'blue',
@@ -421,7 +403,8 @@
         specialColors: [
           'danger',
           'warning',
-          'success'
+          'success',
+          'info'
         ],
 
         inputsRequired: false,
@@ -456,8 +439,9 @@
 
   .color-box {
     display: inline-block;
-    width: 30px; height: 30px;
+    width: auto; height: auto;
     position: relative;
+    padding: 10px;
     margin: 0 5px 0;
     border: solid thin @grey2;
   }
