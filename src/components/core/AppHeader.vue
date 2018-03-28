@@ -22,13 +22,13 @@
 
 <script>
   export default {
-    name: 'base-header'
+    name: 'app-header'
   }
 </script>
 
 <style lang="less" scoped>
 
-  @import (reference) '../../styles/component-helper.less';
+  @import (reference) '../../styles/app-helper.less';
 
   .header {
     width: 100%;

@@ -1,46 +1,9 @@
 /*
   classes that are used to construct the App
 */
-@import 'component-helper.less';
-@import 'app-config.less';
 
-// ------------ colors --------------------
-// bg and text theme colors
-@global-scope: {
-  .generateThemeClasses({
+@import (reference) 'app-config.less';
 
-    // ------------- background -------------
-    .bg-@{name} { background-color: @color!important; }
-    .bg-@{name}-dark { background-color: @color-dark; }
-    .bg-@{name}-light { background-color: @color-light; }
-
-    // ------------- text -------------
-    .text-@{name} { color: @color!important; }
-    .text-@{name}-light { color: @color-light; }
-    .text-@{name}-dark { color: @color-dark; }
-
-    // ------------- panel -------------
-    .panel.bar-@{name}:before {
-      background-color: @color;
-    }
-
-    .widget.theme-@{name} {
-      .vertical-gradient(darken(@color, 3%), @color);
-      border-color: @color-dark!important;
-
-      &.error {
-        .stripe-gradient(@color) !important;
-
-        .icon-circle {
-          background-color: darken(@color, 4%);
-        }
-      }
-    }
-
-
-  });
-};
-@global-scope();
 
 // greys
 .bg-grey1 { background-color: @grey1 }
@@ -52,7 +15,6 @@
 .bg-grey7 { background-color: @grey7 }
 .bg-grey8 { background-color: @grey8 }
 .bg-grey9 { background-color: @grey9 }
-
 
 
 .max-page-width {

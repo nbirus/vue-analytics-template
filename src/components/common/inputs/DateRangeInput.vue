@@ -64,7 +64,7 @@
 
 <style lang="less" scoped>
 
-  @import (reference) '../../../styles/component-helper.less';
+  @import (reference) '../../../styles/app-helper.less';
 
   .form-control {
     display: flex;

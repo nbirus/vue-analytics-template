@@ -98,18 +98,21 @@
 
 <style lang="less" scoped>
 
-  @import (reference) '../../styles/component-helper.less';
+  @import (reference) '../../styles/app-helper.less';
+  @import (reference) '../../styles/theme-generator.less';
 
   // ------------- default -------------
   .btn {
-    font-size: 1rem;
+    font-size: @btn-font-size;
     padding: .5em 1em;
 
-    border: solid thin @grey4;
+    border: solid @btn-border-weight @grey4;
+    border-radius: @btn-border-radius;
+
     .vertical-gradient(white, @grey2);
 
     color: fadeout(@grey9, 20%);
-    .f-b;
+    font-weight: @btn-font-weight;
 
     cursor: pointer;
 
@@ -119,7 +122,7 @@
     }
 
     &:active {
-      .box-shadow(inset 0px 1px 3px 1px fadeout(@grey7, 65%))
+      .box-shadow(inset 0px 1px 3px 1px fadeout(black, 90%))
     }
 
     &:focus {
@@ -208,5 +211,7 @@
       .box-shadow(inset 0px 1px 3px 1px fadeout(@color, 65%))
     }
   }
+
+  // ------------- edge cases -------------
 
 </style>

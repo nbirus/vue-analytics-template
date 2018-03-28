@@ -1,6 +1,33 @@
-@import 'app-config.less';
-@import '../assets/tokens/tokens.less';
-@import 'app-helper.less';
+/*
+  root classes and components
+*/
+
+@import (reference) 'app-helper.less';
+@import (reference) 'theme-generator.less';
+
+// ------------ colors --------------------
+// bg and text theme colors
+@global-scope: {
+  .generateThemeClasses({
+
+    // ------------- background -------------
+    .bg-@{name} { background-color: @color!important; }
+    .bg-@{name}-dark { background-color: @color-dark; }
+    .bg-@{name}-light { background-color: @color-light; }
+
+    // ------------- text -------------
+    .text-@{name} { color: @color!important; }
+    .text-@{name}-light { color: @color-light; }
+    .text-@{name}-dark { color: @color-dark; }
+
+    // ------------- panel -------------
+    .panel.bar-@{name}:before {
+      background-color: @color;
+    }
+
+  });
+};
+@global-scope();
 
 // -----------  root layout -----------
 :root {
@@ -10,7 +37,7 @@
  #app {
   display: flex;
   flex-direction: column;
-  background-color: @page-bg-color;
+   background-color: @page-bg-color;
 
   & > .header {
     flex: 0 0 60px;

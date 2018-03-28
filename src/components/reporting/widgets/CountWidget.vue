@@ -112,7 +112,8 @@
 
 <style lang="less" scoped>
 
-  @import (reference) '../../../styles/component-helper.less';
+  @import (reference) '../../../styles/app-helper.less';
+  @import (reference) '../../../styles/theme-generator.less';
 
   .widget {
     width: 100%; height: 100%;
@@ -164,24 +165,28 @@
     &.loading {
 
     }
-
-
-
   }
 
-  // @scope: {
-  //   .generateThemeClasses({
-  //     .widget.theme-@{name} {
-  //       // .vertical-gradient(@color, darken(@color-dark, 2%));
-  //     }
-  //
-  //     .widget.error {
-  //       .stripe-gradient(@color) !important;
-  //     }
-  //   });
-  // }
-  // @scope();
 
+  @count-widget-scope: {
+    .generateThemeClasses({
+
+      .widget.theme-@{name} {
+        .vertical-gradient(darken(@color, 3%), @color);
+        border-color: @color-dark!important;
+
+        &.error {
+          .stripe-gradient(@color) !important;
+
+          .icon-circle {
+            background-color: darken(@color, 4%);
+          }
+        }
+      }
+
+    });
+  };
+  @count-widget-scope();
 
 
 </style>

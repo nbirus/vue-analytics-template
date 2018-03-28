@@ -15,7 +15,6 @@
         <router-view :key="$route.fullPath"/>
       </transition>
 
-
       <!-- footer -->
       <app-footer></app-footer>
 
@@ -47,16 +46,15 @@
 
 <style lang="less">
 
-  // import global styles
-  @import 'assets/tokens/tokens.less';
-
-  @import 'styles/app.less';
+  // import default page overrides
   @import 'styles/app-overrides.less';
+
+  // import global styles
+  @import 'styles/app.less';
 
   // import uiv styles
   @import 'styles/uiv/app-dropdown.less';
   @import 'styles/uiv/app-modal.less';
-  @import 'styles/uiv/app-datepicker.less';
 
 
 </style>

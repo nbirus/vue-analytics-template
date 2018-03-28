@@ -178,7 +178,8 @@
 
 <style lang="less" scoped>
 
-  @import (reference) '../../styles/component-helper.less';
+  @import (reference) '../../styles/app-helper.less';
+  @import (reference) '../../styles/theme-generator.less';
 
   .tabs {
     display: flex;
@@ -306,7 +307,7 @@
   }
 
   // generate active classes
-  @scope: {
+  @scope-tabs: {
     .generateThemeClasses({
 
       // tobar
@@ -334,6 +335,6 @@
 
     });
   };
-  @scope();
+  @scope-tabs();
 
 </style>

@@ -13,6 +13,8 @@
 
     <div class="page-body">
 
+
+
       <div class="panel style-panel">
         <tabs sidebar searchable theme="inverse">
 
@@ -435,7 +437,7 @@
 
 <style lang="less" scoped>
 
-  @import (reference) '../styles/component-helper.less';
+  @import (reference) '../styles/app-helper.less';
 
   .color-box {
     display: inline-block;
