@@ -10,5 +10,4 @@ A base set of components for an analytics website..
 # Quick start
 - `npm install`
 - `npm run mac`
-
-(on mac the local url is `http://0.0.0.0:8080/`)
+- open `http://0.0.0.0:8080/`
