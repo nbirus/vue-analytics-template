@@ -1,11 +1,14 @@
 <template>
   <div class="page">
 
-    <div class="page-header">
+    <div class="page-header" v-if="false">
 
       <div class="page-header-content">
         <div class="page-title-container">
-          <h2><i class="icons icon-book-open" style="font-size: 16pt;"></i> Trials</h2>
+          <h2>
+            <i class="icons icon-book-open" style="font-size: 16pt;"></i>
+            Trials
+          </h2>
         </div>
 
         <div class="page-actions">
@@ -78,7 +81,7 @@
   import DashboardJSON from '../../static/data/dashboards/test-dashboard.json'
 
   export default {
-    name: 'search',
+    name: 'trials',
     components: { Grid, Dashboard },
     data () {
       return {
@@ -114,6 +117,10 @@
   .dashboard-settings-btn {
     .vertical-gradient(lighten(@c-light, 10%), transparent)!important;
     border-color: darken(@c-light, 5%)!important;
+  }
+
+  .page-header {
+    background-color: @page-bg-color;
   }
 
   .page-body {

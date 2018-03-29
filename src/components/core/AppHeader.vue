@@ -4,7 +4,9 @@
 
       <div class="page-title-container">
         <div class="icon">
-          <i class="icons icon-grid"></i>
+          <transition name="page-header-icon" mode="out-in" >
+            <i class="icons" :class="'icon-' + icons[$route.name]" :key="icons[$route.name]"></i>
+          </transition>
         </div>
 
         <transition name="page-header" mode="out-in" >
@@ -14,7 +16,11 @@
       </div>
 
       <div class="page-actions">
-
+        <text-input placeholder="Search.." style="width: 300px; margin-right: 10px"></text-input>
+        <btn class="settings-btn" large>
+          <i class="fa fa-cogs"></i>
+          Settings
+        </btn>
       </div>
     </div>
   </header>
@@ -22,13 +28,28 @@
 
 <script>
   export default {
-    name: 'app-header'
+    name: 'app-header',
+    data () {
+      return {
+        icons: {
+          'Dashboard': 'grid',
+          'Style Guide': 'directions',
+          'Trial Search': 'book-open'
+        }
+      }
+    }
   }
 </script>
 
 <style lang="less" scoped>
 
   @import (reference) '../../styles/app-helper.less';
+
+  .settings-btn {
+    .vertical-gradient(lighten(@c-light, 10%), transparent)!important;
+    border-color: darken(@c-light, 5%)!important;
+  }
+
 
   .header {
     width: 100%;
@@ -60,11 +81,11 @@
 
 
         .icon {
-          margin-right: 8px;
-          padding: 3px 8px 0 0;
+          margin-right: 1rem;
+          padding: 3px 0 0;
 
           // background-color: fadeout(black, 96%);
-          border-right: solid 1px fadeout(black, 90%);
+          // border-right: solid 2px fadeout(black, 97%);
           // color: fadeout(black, 75%);
           color: @c-inverse;
           // color: fadeout(black, 5%);

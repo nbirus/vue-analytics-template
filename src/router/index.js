@@ -28,12 +28,12 @@ const routes = [
   },
   {
     path: '/search',
-    name: 'Search',
+    name: 'Trial Search',
     component: Search
   },
   {
     path: '/style-guide',
-    name: 'StyleGuide',
+    name: 'Style Guide',
     component: StyleGuide
   },
   {

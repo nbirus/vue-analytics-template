@@ -9,7 +9,7 @@
       </div>
 
       <div class="nav-items">
-        <!-- <router-link class="nav-item" id="home-navbar" to="/home" tag="a">Home</router-link> -->
+        <router-link class="nav-item" id="home-navbar" to="/search" tag="a">Home</router-link>
         <router-link class="nav-item" id="style-guide-navbar" to="/dashboard" tag="a">Dashboard</router-link>
         <router-link class="nav-item" to="/style-guide" tag="a">Style Guide</router-link>
         <!-- <router-link class="nav-item" id="search-navbar" to="/style-guide" tag="a">Data Table 4 Reports</router-link> -->

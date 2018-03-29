@@ -130,6 +130,10 @@
     }
 
     &:hover, &:focus { outline: none; }
+
+    i {
+      margin-right: .2em;
+    }
   }
 
   // ------------- icon -------------
