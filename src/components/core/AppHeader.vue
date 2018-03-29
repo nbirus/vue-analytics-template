@@ -9,8 +9,8 @@
           </transition>
         </div>
 
-        <transition name="page-header" mode="out-in" >
-          <h2 :key="$route.fullPath">{{$route.name}}</h2>
+        <transition name="page-header" mode="out-in">
+          <h2 :key="pageKey">{{$route.name}}</h2>
         </transition>
 
       </div>
@@ -29,6 +29,11 @@
 <script>
   export default {
     name: 'app-header',
+    computed: {
+      pageKey () {
+        return this.$route.name
+      }
+    },
     data () {
       return {
         icons: {

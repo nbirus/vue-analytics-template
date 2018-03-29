@@ -12,7 +12,7 @@
 
       <!-- page -->
       <transition name="default-page-transition" mode="out-in">
-        <router-view :key="$route.fullPath"/>
+        <router-view :key="$route.name"/>
       </transition>
 
       <!-- footer -->

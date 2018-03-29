@@ -49,7 +49,7 @@
           </tab>
 
           <!-- panels -->
-          <tab name="Panels" v-if="false">
+          <tab name="Panels" >
 
             <div class="panel-header">
               <h2>Panels</h2>
@@ -80,7 +80,7 @@
           </tab>
 
           <!-- buttons -->
-          <tab name="Buttons" v-if="false">
+          <tab name="Buttons">
             <div class="panel-header">
               <h2>Buttons</h2>
             </div>
@@ -89,19 +89,19 @@
 
               <div class="panel-section">
                 <h4>Default Buttons</h4>
-                <btn v-for="color in colors" :key="'b' + color" :theme="color" style="margin: 10px 10px 0 0">{{color}}</btn>
+                <btn v-for="color in baseColors" :key="'b12' + color" :theme="color" style="margin: 10px 10px 0 0">{{color}}</btn>
                 <br />
-                <btn large v-for="color in colors" :key="'b' + color" :theme="color" style="margin: 10px 10px 0 0">Large</btn>
+                <btn large v-for="color in baseColors" :key="'baasda' + color" :theme="color" style="margin: 10px 10px 0 0">Large</btn>
                 <br />
-                <btn small v-for="color in colors" :key="'b' + color" :theme="color" style="margin: 10px 10px 0 0">Small</btn>
+                <btn small v-for="color in baseColors" :key="'b3rwe' + color" :theme="color" style="margin: 10px 10px 0 0">Small</btn>
               </div>
 
               <div class="panel-block">
                 <h4>Icon Buttons</h4>
                 <btn
                 style="margin: 10px 10px 0 0"
-                  v-for="color in colors"
-                  :key="color"
+                  v-for="color in baseColors"
+                  :key="'icons-' + color"
                   :theme="color"
                   icon>
                   <i class="fa fa-magic"></i>
@@ -109,16 +109,16 @@
                 <br />
                 <btn icon large
                   style="margin: 10px 10px 0 0"
-                  v-for="color in colors"
-                  :key="color"
+                  v-for="color in baseColors"
+                  :key="'iconssm-' + color"
                   :theme="color">
                   <i class="fa fa-magic"></i>
                 </btn>
                 <br />
                 <btn icon small
                   style="margin: 10px 10px 0 0"
-                  v-for="color in colors"
-                  :key="color"
+                  v-for="color in baseColors"
+                  :key="'iconslg-' + color"
                   :theme="color">
                   <i class="fa fa-magic"></i>
                 </btn>
@@ -131,16 +131,16 @@
 
               <div class="panel-block">
                 <h4>Rounded Buttons</h4>
-                <btn rounded v-for="color in colors" :key="'b' + color" :theme="color" style="margin: 10px 10px 0 0">{{color}}</btn>
+                <btn rounded v-for="color in baseColors" :key="'bhtr' + color" :theme="color" style="margin: 10px 10px 0 0">{{color}}</btn>
                 <br />
-                <btn rounded large v-for="color in colors" :key="'b' + color" :theme="color" style="margin: 10px 10px 0 0">{{color}}</btn>
+                <btn rounded large v-for="color in baseColors" :key="'berther' + color" :theme="color" style="margin: 10px 10px 0 0">{{color}}</btn>
                 <br />
-                <btn rounded small v-for="color in colors" :key="'b' + color" :theme="color" style="margin: 10px 10px 0 0">{{color}}</btn>
+                <btn rounded small v-for="color in baseColors" :key="'bqwerqwe' + color" :theme="color" style="margin: 10px 10px 0 0">{{color}}</btn>
               </div>
 
               <div class="panel-block">
                 <h4>Flat Buttons</h4>
-                <btn flatIcon v-for="color in colors" :key="'b' + color" :theme="color" style="margin: 10px 10px 0 0"><i class="fa fa-magic"></i></btn>
+                <btn flatIcon v-for="color in baseColors" :key="'badvasd' + color" :theme="color" style="margin: 10px 10px 0 0"><i class="fa fa-magic"></i></btn>
               </div>
 
             </div>
@@ -391,6 +391,7 @@
         test2: undefined,
 
         baseColors: [
+          'default',
           'green',
           'blue',
           'yellow',

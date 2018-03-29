@@ -86,13 +86,14 @@
       background-color: @nav-bg-color;
 
       .identity {
-        font-size: 1.9rem;
+        font-size: 1.7rem;
 
         flex: 0 0 auto; height: @nav-header-height;
-        padding: 0 .5em;
-        // background-color: darken(@nav-bg-color, 2%);
-        .vertical-gradient(darken(@nav-bg-color, 6%), darken(@nav-bg-color, 1%));
-        // border-top: solid 2px @c-lime;
+        padding: 3px .5em;
+        background-color: darken(@nav-bg-color, 2%);
+
+        // .vertical-gradient(darken(@nav-bg-color, 6%), darken(@nav-bg-color, 1%));
+        // border-bottom: solid 2px @c-cyan;
 
         line-height: @nav-header-height;
         vertical-align: middle;
