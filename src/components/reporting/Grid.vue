@@ -54,6 +54,8 @@
             {value: 100, label: '100'},
             {value: -1, label: 'All'}
           ]"
+          optionSource="inline"
+          :hasLabel="true"
           @changed="setPageSize"
         >
         </select-input>
@@ -75,7 +77,6 @@
 
         <!--refresh-->
         <btn
-          class="refresh-btn"
           v-if="canToggleColumns"
           :onClick="() => {}">
           <i class="fa fa-sync-alt"></i>
@@ -411,6 +412,7 @@
 
       // grid actions
       setPageSize (pageSize) {
+        this.pageSize = pageSize
         this.gridOptions.api.paginationSetPageSize(pageSize)
       },
       goToPage (pageNumber) {

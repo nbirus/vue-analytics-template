@@ -304,7 +304,7 @@
             </div>
           </tab>
 
-          <tab name="Grid" v-if="false">
+          <tab name="Grid">
             <div class="panel-header">
               <h2>Static Data Grid</h2>
             </div>

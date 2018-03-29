@@ -21,7 +21,6 @@
       :label="(hasLabel) ? optionLabel : undefined"
 
       :multiple="multiselect"
-
     >
     </multiselect>
 

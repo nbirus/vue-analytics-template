@@ -8,7 +8,7 @@
     <div class="content">
 
       <!-- nav bar -->
-      <app-header></app-header>
+      <app-header v-if="!hideHeader"></app-header>
 
       <!-- page -->
       <transition name="default-page-transition" mode="out-in">
