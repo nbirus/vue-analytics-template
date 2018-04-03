@@ -17,10 +17,11 @@
 
       <div class="page-actions">
         <text-input placeholder="Search.." style="width: 300px; margin-right: 10px"></text-input>
+        <!--
         <btn class="settings-btn" large>
           <i class="fa fa-cogs"></i>
           Settings
-        </btn>
+        </btn> -->
       </div>
     </div>
   </header>

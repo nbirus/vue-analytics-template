@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
+  <div id="app" class="">
 
     <!-- nav bar -->
-    <app-nav-bar v-if="!hideHeader"></app-nav-bar>
+    <app-nav-bar v-if="!hideHeader" :sidebar="true"></app-nav-bar>
 
     <!-- page content -->
     <div class="content">

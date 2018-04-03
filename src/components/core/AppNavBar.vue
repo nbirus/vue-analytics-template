@@ -4,7 +4,6 @@
     <div class="fluid-container">
 
       <div class="identity">
-        <!-- <img src="../../assets/strap-logo.png" height="20" width="20" /> -->
         <span class="identity-text">analytics</span>
       </div>
 
@@ -12,8 +11,6 @@
         <router-link class="nav-item" id="home-navbar" to="/search" tag="a">Home</router-link>
         <router-link class="nav-item" id="style-guide-navbar" to="/dashboard" tag="a">Dashboard</router-link>
         <router-link class="nav-item" to="/style-guide" tag="a">Style Guide</router-link>
-        <!-- <router-link class="nav-item" id="search-navbar" to="/style-guide" tag="a">Data Table 4 Reports</router-link> -->
-
       </div>
 
       <!--<div class="search">-->
@@ -39,7 +36,6 @@
 
 
       <dropdown menu-right>
-
         <div class="user" v-ripple>
           <i class="icons icon-user"></i>
           <i class="icons icon-arrow-down"></i>
@@ -50,7 +46,6 @@
           <li><a role="button"><i class="icon-settings icons icon-margin"></i>User Settings</a></li>
           <li><a role="button"><i class="icon-logout icons icon-margin"></i>Logout</a></li>
         </template>
-
       </dropdown>
 
     </div>
@@ -76,6 +71,8 @@
 
   @import (reference) '../../styles/app-helper.less';
 
+  // @nav-bar-width: 200px;
+
   .nav-bar {
     background-color: @nav-bg-color;
 
@@ -90,10 +87,8 @@
 
         flex: 0 0 auto; height: @nav-header-height;
         padding: 3px .5em;
-        background-color: darken(@nav-bg-color, 2%);
 
-        // .vertical-gradient(darken(@nav-bg-color, 6%), darken(@nav-bg-color, 1%));
-        // border-bottom: solid 2px @c-cyan;
+        .vertical-gradient(lighten(@nav-bg-color, 1%), darken(@nav-bg-color, 2%));
 
         line-height: @nav-header-height;
         vertical-align: middle;
@@ -270,6 +265,43 @@
       }
 
     }
+
+    &.sidebar > .fluid-container {
+      flex-direction: column;
+      max-width: inherit;
+      width: 200px;
+      padding: 0;
+
+      .identity {
+        width: 100%; height: auto;
+        flex: 0 0 auto;
+        padding: .57rem 1rem;
+
+        border-top: solid 3px @c-cyan;
+      }
+
+      .nav-items {
+        flex: 0 1 100%;
+
+        flex-direction: column;
+
+      }
+
+      .user {
+        flex: 0 0 auto; height: @nav-header-height;
+        display: none;
+      }
+
+      .user-id {
+        margin: 5px 20px;
+        .f-b;
+      }
+
+      .logout {
+        flex: 0 0 auto; height: @nav-header-height;
+      }
+    }
+
   }
 
 </style>

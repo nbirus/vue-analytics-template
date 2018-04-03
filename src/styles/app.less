@@ -37,13 +37,8 @@
  #app {
   display: flex;
   flex-direction: column;
-   background-color: @page-bg-color;
+  background-color: @page-bg-color;
 
-  & > .header {
-    flex: 0 0 60px;
-  }
-
-  // page nav bar
   & > .nav-bar {
     position: fixed;
     width: 100%; height: @nav-header-height;
@@ -60,6 +55,26 @@
     flex-direction: column;
     justify-items: stretch;
   }
+
+  &.sidebar {
+    flex-direction: row!important;
+
+    & > .nav-bar {
+      flex: 0 0 auto;
+      position: block;
+
+      width: inherit; height: 100%;
+      top: inherit; left: inherit;
+    }
+
+    & > .content {
+      padding-top: 0!important;
+      padding-left: 200px;
+    }
+  }
+
+
+
 }
 
 // -----------  page styles -----------
