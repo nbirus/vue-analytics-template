@@ -5,7 +5,7 @@
       <div class="page-title-container">
         <div class="icon">
           <transition name="page-header-icon" mode="out-in" >
-            <i class="icons" :class="'icon-' + icons[$route.name]" :key="icons[$route.name]"></i>
+            <i class="icons" :class="'icon-' + $route.meta.icon" :key="$route.meta.icon"></i>
           </transition>
         </div>
 
@@ -16,7 +16,7 @@
       </div>
 
       <div class="page-actions">
-        <text-input placeholder="Search.." style="width: 300px; margin-right: 10px"></text-input>
+        <!--<text-input placeholder="Search.." style="width: 300px; margin-right: 10px"></text-input>-->
         <!--
         <btn class="settings-btn" large>
           <i class="fa fa-cogs"></i>
@@ -33,15 +33,6 @@
     computed: {
       pageKey () {
         return this.$route.name
-      }
-    },
-    data () {
-      return {
-        icons: {
-          'Dashboard': 'grid',
-          'Style Guide': 'directions',
-          'Trial Search': 'book-open'
-        }
       }
     }
   }

@@ -27,19 +27,6 @@
 
     </div>
 
-    <!-- input -->
-    <!-- <input
-      class="form-control"
-      type="text"
-
-      :id="id + '-input'"
-      :name="id"
-      :placeholder="placeholder"
-
-      :value="inputValue"
-      @input="event => $updateValue(event.target.value)"
-    /> -->
-
   </div>
 
 </template>
@@ -51,14 +38,7 @@
   export default {
     name: 'datepicker-input',
     components: { Dropdown, DatePicker },
-    mixins: [InputMixin],
-    data () {
-      return {
-      }
-    },
-    updateDate () {
-
-    }
+    mixins: [InputMixin]
   }
 </script>
 
@@ -70,18 +50,19 @@
     display: flex;
 
     .to {
-      padding: 0 10px;
-      line-height: @input-height;
+      font-size: @input-font-size;
+
+      padding: .6em 1em 0;
       vertical-align: middle;
     }
 
     input {
-      line-height: @input-height;
-      background-color: @input-bg-color;
-      border: @input-border;
       font-size: @input-font-size;
 
-      padding: 0 8px;
+      background-color: @input-bg-color;
+      border: @input-border;
+
+      padding: @input-padding;
 
       &:focus {
         outline: 0;

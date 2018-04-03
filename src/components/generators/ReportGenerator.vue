@@ -1,22 +1,19 @@
 <template>
+  <transition-group name="dashboard-list" appear mode="out-in" class="dashboard" tag="div">
+    <report-container
 
-    <transition-group name="dashboard-list" appear mode="out-in" class="dashboard" tag="div">
-      <report-container
+      v-for="(report, index) in activeDashboard.reportContainers" :key="index"
 
-        v-for="(report, index) in activeDashboard.reportContainers"
-        :key="index"
+      class="dashboard-item"
+      :class="buildReportClass(report.display)"
+      :id="'report-' + report.id"
 
-        class="dashboard-item"
-        :class="buildReportClass(report.display)"
-        :id="'report-' + report.id"
-
-        :reportApiConfig="report.reportApiConfig"
-        :reportType="report.reportType"
-        :reportProps="report.reportProps"
-      >
-      </report-container>
-    </transition-group>
-
+      :reportApiConfig="report.reportApiConfig"
+      :reportType="report.reportType"
+      :reportProps="report.reportProps"
+    >
+    </report-container>
+  </transition-group>
 </template>
 
 <script>

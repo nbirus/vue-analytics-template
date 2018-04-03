@@ -1,18 +1,18 @@
 // -----------  page -----------
-@transition-speed: .3s;
+
 .page-header-icon-enter {
   transform: rotate(120deg);
   opacity: 0;
 }
 .page-header-icon-enter-active {
-  transition: all @transition-speed cubic-bezier(.02,.66,.37,.99);
+  transition: all @transition-speed @transition-curve-in;
 }
 .page-header-icon-enter-to {
   opacity: 1;
   transform: rotate(0);
 }
 .page-header-icon-leave-active {
-  transition: all @transition-speed cubic-bezier(.97,.04,1,.51);
+  transition: all @transition-speed @transition-curve-out;
 }
 .page-header-icon-leave-to {
   transform: rotate(-120deg);
@@ -25,14 +25,14 @@
   opacity: 0;
 }
 .page-header-enter-active {
-  transition: all @transition-speed cubic-bezier(.02,.66,.37,.99);
+  transition: all @transition-speed @transition-curve-in;
 }
 .page-header-enter-to {
   opacity: 1;
   transform: translateY(0);
 }
 .page-header-leave-active {
-  transition: all @transition-speed cubic-bezier(.97,.04,1,.51);
+  transition: all @transition-speed @transition-curve-out;
 }
 .page-header-leave-to {
   transform: translateY(20px);
@@ -45,14 +45,14 @@
   opacity: 0;
 }
 .default-page-transition-enter-active {
-  transition: transform @transition-speed cubic-bezier(.02,.66,.37,.99);
+  transition: transform @transition-speed @transition-curve-in;
 }
 .default-page-transition-enter-to {
   opacity: 1;
 }
 .default-page-transition-leave {}
 .default-page-transition-leave-active {
-  transition: transform @transition-speed cubic-bezier(.97,.04,1,.51);
+  transition: transform @transition-speed @transition-curve-out;
 }
 .default-page-transition-leave-to {
   transform: translateX(25px);

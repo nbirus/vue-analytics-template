@@ -167,7 +167,6 @@
   .form-control {
     width: 100%; height: auto;
 
-    line-height: @input-height;
     background-color: @input-bg-color;
     border: @input-border;
 
@@ -253,7 +252,6 @@
     .value-adder {
       .btn {
         border-top: none;
-        height: @input-height;
       }
     }
 

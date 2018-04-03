@@ -64,14 +64,19 @@
 
             <data-wrapper :apiConfig="config">
               <template slot-scope="{ _response, _state }">
+
                 <count-widget
+                  style="height: 100px"
+
                   :loading="_state.loading"
                   :error="_state.error"
 
                   :count="_response.count"
                   title="TEST"
+                  icon="grid"
                 >
                 </count-widget>
+
               </template>
             </data-wrapper>
 

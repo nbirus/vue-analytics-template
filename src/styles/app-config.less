@@ -3,64 +3,32 @@
 */
 @import (reference) '../assets/tokens/tokens.less';
 
-@root-size: 14px;
-
-// base colors
-
-//@c-red: #fa4258;
-//@c-green: #4dbec4;
-//@c-blue: #16a9fa;
-//@c-lime: #27c649;
-//@c-cyan: #4ac2ff;
-//@c-purple: #c89be7;
-//@c-yellow: #fcaf41;
-//@c-inverse: #333c48;
-//@c-light: #e6eaf0;
-
-// @c-red: #D7757C;
-// @c-green: #30C6C8;
-// @c-blue: #59B0EE;
-// @c-lime: #30C6C8;
-// @c-cyan: #5AAFEE;
-// @c-purple: #B5A1DD;
-// @c-yellow: #F3994D;
-// @c-inverse: #34425A;
-// @c-light: #F1F4F9;
-
-// greyscale
-// @grey1: darken(white, 2%);
-// @grey2: darken(white, 5%);
-// @grey3: darken(white, 10%);
-// @grey4: darken(white, 15%);
-// @grey5: darken(white, 25%);
-// @grey6: darken(white, 40%);
-// @grey7: darken(white, 50%);
-// @grey8: darken(white, 70%);
-// @grey9: darken(white, 90%);
-
 // ------ page settings ------
 
 // global
+@root-size: 14px;
+
 @br: .3rem;
 @pad: .8rem;
 @transition: all .05s ease-in;
+
+@font-size: 1rem;
+@font-size-sm: .8em;
+@font-size-lg: 1.1em;
 
 // header
 @nav-bg-color: @c-inverse;
 @nav-header-height: 50px;
 
-// footer
-
 // page
-@page-min-height: 100vh; // size of screen minus footer height
+@page-min-height: calc(~'100vh - 50px'); // size of screen minus footer height
 @page-min-width: 1400px;
 @page-bg-color: @c-light;
-@page-header-color: lighten(@page-bg-color, 2%);
+@page-header-color: lighten(@page-bg-color, 3%);
 @page-padding: 1.5rem;
 
 // Buttons
 @btn-focus-color: #32a1ce;
-@btn-font-size: 1rem;
 @btn-font-weight: 600;
 @btn-border-radius: 2px;
 @btn-border-weight: 1px;
@@ -71,9 +39,9 @@
 @panel-shadow: 0 1px 3px 0 fadeout(black, 90%);
 
 // inputs
-@input-height: 35px;
-@input-font-size: 1rem;
-@input-bg-color: @grey1;
+@input-font-size: @font-size;
+@input-padding: .5em .7em;
+@input-bg-color: transparent;
 @input-border: solid 1px @grey4;
 
 @input-focus-bg-color: white;
@@ -83,3 +51,8 @@
 @input-error-color: @c-danger;
 @input-error-bg-color: lighten(@c-danger, 37%);
 @input-error-border-color: @c-danger;
+
+// Transition
+@transition-speed: .3s;
+@transition-curve-in: cubic-bezier(.02,.66,.37,.99);
+@transition-curve-out: cubic-bezier(.97,.04,1,.51);

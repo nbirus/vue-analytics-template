@@ -1,6 +1,6 @@
 <template>
   <button
-    class="btn" :class="classConstructor"
+    class="btn" :class="[classConstructor, 'btn-' + this.theme]"
     :id="id"
     :name="name"
     :disabled="disabled"
@@ -37,7 +37,8 @@
       * The color for the button
       */
       theme: {
-        default: false
+        type: String,
+        default: '-default'
       },
       /**
       * If the button takes up all horizontal space
@@ -87,15 +88,14 @@
 
       // build class to be applyed to the button
       classConstructor () {
-        return [
-          (this.theme) ? 'btn-' + this.theme : null,
-          (this.icon) ? 'btn-icon' : null,
-          (this.block) ? 'btn-block' : null,
-          (this.flat) ? 'btn-flat-icon' : null,
-          (this.small) ? 'btn-small' : null,
-          (this.large) ? 'btn-large' : null,
-          (this.rounded) ? 'btn-rounded' : null
-        ]
+        return {
+          'btn-small': this.small,
+          'btn-large': this.large,
+          'btn-circle': this.icon,
+          'btn-rounded': this.rounded,
+          'btn-flat': this.flat,
+          'btn-block': this.block
+        }
       },
 
       rippleColor () {
@@ -113,7 +113,7 @@
 
   // ------------- default -------------
   .btn {
-    font-size: @btn-font-size;
+    font-size: @font-size;
     padding: .5em 1em;
 
     border: solid @btn-border-weight @grey4;
@@ -146,15 +146,18 @@
     }
   }
 
-  // ------------- icon -------------
-  .btn.btn-icon {
-    line-height: 1em;
+  // ------------- circle -------------
+  .btn.btn-circle {
+    height: 2.2em; width: 2.2em;
+    line-height: 2.2em;
 
     border-radius: 50%;
-    padding: .6em .6em;
-
+    padding: 0 .5em;
     text-align: center;
-    vertical-align: middle;
+
+    i {
+      vertical-align: middle;
+    }
   }
 
   // ------------- block -------------
@@ -164,16 +167,16 @@
 
   // ------------- small -------------
   .btn.btn-small {
-    font-size: .8em!important;
+    font-size: @font-size-sm;
   }
 
   // ------------- large -------------
   .btn.btn-large {
-    font-size: 1.1em;
+    font-size: @font-size-lg;
   }
 
-  // ------------- large -------------
-  .btn.btn-flat-icon {
+  // ------------- flat -------------
+  .btn.btn-flat {
     background: none!important;
     background-color: transparent!important;
     border: none!important;

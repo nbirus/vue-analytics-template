@@ -73,19 +73,24 @@
 }
 
 .modal.fade .modal-dialog {
-  -webkit-transition: -webkit-transform .3s ease-out;
-       -o-transition:      -o-transform .3s ease-out;
-          transition:         transform .2s ease-out;
-  -webkit-transform: translate(0, -25%);
-      -ms-transform: translate(0, -25%);
-       -o-transform: translate(0, -25%);
-          transform: translate(0, -30%);
+  //-webkit-transition: -webkit-transform .3s ease-out;
+  //     -o-transition:      -o-transform .3s ease-out;
+
+  -webkit-transform: scale(0.9) rotateY(30deg);
+      -ms-transform: scale(0.9) rotateY(30deg);
+       -o-transform: scale(0.9) rotateY(30deg);
+          transform: scale(0.9) rotateY(30deg);
+
+  transition: all .3s cubic-bezier(.92,.01,.22,.99);
+  opacity: 0;
 }
 .modal.in .modal-dialog {
-  -webkit-transform: translate(0, 0);
-      -ms-transform: translate(0, 0);
-       -o-transform: translate(0, 0);
-          transform: translate(0, 0);
+  -webkit-transform: scale(1) rotateY(0deg);
+      -ms-transform: scale(1) rotateY(0deg);
+       -o-transform: scale(1) rotateY(0deg);
+          transform: scale(1) rotateY(0deg);
+
+  opacity: 1;
 }
 
 .modal-open {
@@ -103,7 +108,7 @@
   left: 0;
   z-index: 1040;
   background-color: #000;
-  transition: opacity .2s ease-out;
+  transition: opacity .3s ease-out;
 }
 .modal-backdrop.fade {
   filter: alpha(opacity=0);

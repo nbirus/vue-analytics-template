@@ -55,12 +55,11 @@
   .form-group {
 
     .form-control {
-      line-height: @input-height;
+      font-size: @input-font-size;
+      padding: @input-padding;
+
       background-color: @input-bg-color;
       border: @input-border;
-      font-size: @input-font-size;
-
-      padding: 0 8px;
 
       &:focus {
         outline: 0;

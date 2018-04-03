@@ -2,13 +2,13 @@
   <div id="app" class="">
 
     <!-- nav bar -->
-    <app-nav-bar v-if="!hideHeader" :sidebar="true"></app-nav-bar>
+    <app-nav-bar v-if="showHeader"></app-nav-bar>
 
     <!-- page content -->
     <div class="content">
 
       <!-- nav bar -->
-      <app-header v-if="!hideHeader"></app-header>
+      <app-header v-if="showHeader"></app-header>
 
       <!-- page -->
       <transition name="default-page-transition" mode="out-in">
@@ -36,8 +36,10 @@
       AppFooter
     },
     computed: {
-      hideHeader () {
-        return (this.$route.path === '/login')
+      showHeader () {
+        return (this.$route.meta.showHeader === undefined)
+          ? true
+          : this.$route.meta.showHeader
       }
     }
   }

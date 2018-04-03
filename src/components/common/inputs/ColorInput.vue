@@ -48,7 +48,6 @@
   .form-group {
 
     .form-control {
-      line-height: @input-height;
       background-color: @input-bg-color;
       border: @input-border;
       font-size: @input-font-size;

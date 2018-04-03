@@ -34,7 +34,7 @@
   font-size: @root-size;
 }
 
- #app {
+#app {
   display: flex;
   flex-direction: column;
   background-color: @page-bg-color;
@@ -61,7 +61,7 @@
 
     & > .nav-bar {
       flex: 0 0 auto;
-      position: block;
+      // display: block;
 
       width: inherit; height: 100%;
       top: inherit; left: inherit;
@@ -72,9 +72,6 @@
       padding-left: 200px;
     }
   }
-
-
-
 }
 
 // -----------  page styles -----------
@@ -86,9 +83,8 @@
 
     padding: 1rem 0; margin: 0;
 
-    // background-color: @page-header-color;
-    background-color: lighten(@page-bg-color, 3%);
-    // background-color: lighten(@nav-bg-color, 15%);
+    background-color: @page-header-color;
+    //background-color: lighten(@page-bg-color, 3%);
     border-bottom: solid 2px darken(@page-bg-color, 7%);
 
     .page-header-content {

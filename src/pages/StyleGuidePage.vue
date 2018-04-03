@@ -140,7 +140,7 @@
 
               <div class="panel-block">
                 <h4>Flat Buttons</h4>
-                <btn flatIcon v-for="color in baseColors" :key="'badvasd' + color" :theme="color" style="margin: 10px 10px 0 0"><i class="fa fa-magic"></i></btn>
+                <btn flat v-for="color in baseColors" :key="'badvasd' + color" :theme="color" style="margin: 10px 10px 0 0"><i class="fa fa-magic"></i></btn>
               </div>
 
             </div>
