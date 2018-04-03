@@ -10,7 +10,7 @@
   import { merge, isEmpty } from 'lodash'
 
   export default {
-    name: 'bar-chart',
+    name: 'vertical-bar-chart',
     mixins: [ChartMixin, DataMixin],
     data () {
       return {

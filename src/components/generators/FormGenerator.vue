@@ -116,6 +116,7 @@
   import { isNil } from 'lodash'
 
   export default {
+    name: 'form-generator',
     props: {
       inputs: {
         type: Array,

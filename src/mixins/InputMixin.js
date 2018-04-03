@@ -9,10 +9,14 @@ const defaultValues = {
   'color-input': ''
 }
 
+/**
+ * @mixin
+ */
 export default {
   props: {
-
-    // identification
+    /**
+     * add an id attr to the input
+     */
     id: {
       type: String,
       required: false,

@@ -37,7 +37,7 @@
 
 <style lang="less" scoped>
 
-  @import (reference) '../styles/app-helper.less';
+  @import (reference) '../../styles/app-helper.less';
 
   .page {
     margin-top: -@nav-header-height;

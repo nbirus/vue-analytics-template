@@ -5,9 +5,9 @@ import Router from 'vue-router'
 import Home from '@/pages/HomePage'
 import Search from '@/pages/SearchPage'
 import StyleGuide from '@/pages/StyleGuidePage'
-import NotFound from '@/pages/NotFoundPage'
-import Unauthorized from '@/pages/UnauthorizedPage'
-import Login from '@/pages/Login'
+import NotFound from '@/pages/common/NotFoundPage'
+import Unauthorized from '@/pages/common/UnauthorizedPage'
+import Login from '@/pages/common/Login'
 
 Vue.use(Router)
 

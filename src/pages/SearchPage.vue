@@ -40,30 +40,42 @@
     <transition name="dashboard-list" appear mode="out-in">
       <div class="page-body grid" v-if="value === 'grid'">
 
-        <div class="panel" style="height: 80vh; width: 100%">
-          <div class="panel-body">
+        <div style="height: 100px; width: 300px">
 
-            <grid
-              id="test-grid"
+          <!-- <grid
+                id="test-grid"
 
-              :data="data"
-              :columns="columns"
+                :data="data"
+                :columns="columns"
 
-              :canSort="true"
-              :canResizeColumns="true"
-              :canMoveColumns="false"
-              :paginate="true"
-              :initialPageSize="20"
-              :canSearch="false"
-              :canToggleColumns="true"
-              :canSelect="true"
-              :canSelectMultiple="false"
-              :showRowDetail="false"
-            >
-              <btn slot="extra-action">Change Columns</btn>
-            </grid>
+                :canSort="true"
+                :canResizeColumns="true"
+                :canMoveColumns="false"
+                :paginate="true"
+                :initialPageSize="20"
+                :canSearch="false"
+                :canToggleColumns="true"
+                :canSelect="true"
+                :canSelectMultiple="false"
+                :showRowDetail="false"
+              >
+                <btn slot="extra-action">Change Columns</btn>
+              </grid> -->
 
-          </div>
+            <data-wrapper :apiConfig="config">
+              <template slot-scope="{ _response, _state }">
+                <count-widget
+                  :loading="_state.loading"
+                  :error="_state.error"
+
+                  :count="_response.count"
+                  title="TEST"
+                >
+                </count-widget>
+              </template>
+            </data-wrapper>
+
+
         </div>
       </div>
     </transition>
@@ -76,18 +88,28 @@
   import TestData from '../../static/data/grid-headers/test-data2.json'
   import TestColumns from '../../static/data/grid-headers/test-headers2.json'
   import Grid from '../components/reporting/Grid'
+  import ProgressWidget from '../components/reporting/widgets/ProgressWidget'
+  import CountWidget from '../components/reporting/widgets/CountWidget'
+  import DataWrapper from '../components/reporting/DataWrapper'
 
-  import Dashboard from '../components/generators/Dashboard'
+  import Dashboard from '../components/generators/ReportingGenerator'
   import DashboardJSON from '../../static/data/dashboards/test-dashboard.json'
 
   export default {
     name: 'trials',
-    components: { Grid, Dashboard },
+    components: { DataWrapper, Grid, Dashboard, ProgressWidget, CountWidget },
     data () {
       return {
         data: TestData,
         columns: TestColumns,
         value: 'grid',
+        config: {
+          headers: {},
+          endpoint: 'analytic/trials',
+          params: {
+            chart: 'person_total'
+          }
+        },
         inputList: [
           { name: 'Key Word' },
           { name: 'Disease' },

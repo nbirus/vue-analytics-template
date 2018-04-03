@@ -51,6 +51,7 @@
 
   // import global styles
   @import 'styles/app.less';
+  @import 'styles/app-transitions.less';
 
   // import uiv styles
   @import 'styles/uiv/app-dropdown.less';

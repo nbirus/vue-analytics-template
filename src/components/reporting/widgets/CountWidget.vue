@@ -19,17 +19,16 @@
     <!-- body -->
     <transition name="slide-in-from-left">
       <div class="body" v-if="isReady">
-      <div class="count">
-        <!-- {{count ? count.toLocaleString() : ''}} -->
-        <ICountUp
-          :startVal="0"
-          :endVal="count"
-          :duration=".7"
-        />
-      </div>
+        <div class="count">
+          <ICountUp
+            :startVal="0"
+            :endVal="formattedCount"
+            :duration=".7"
+          />
+        </div>
 
-      <label class="title">{{title}}</label>
-    </div>
+        <label class="title">{{title}}</label>
+      </div>
     </transition>
 
     <!-- icon -->
@@ -43,13 +42,15 @@
 </template>
 
 <script>
-  import DataMixin from '../../../mixins/DataMixin'
   import ICountUp from 'vue-countup-v2'
 
   export default {
-    mixins: [DataMixin],
+    name: 'count-widget',
     components: { ICountUp },
     props: {
+      count: {
+        required: true
+      },
       title: {
         type: String,
         required: true
@@ -65,9 +66,20 @@
       size: {
         type: String,
         default: 'large'
+      },
+      loading: {
+        type: Boolean,
+        default: false
+      },
+      error: {
+        type: String,
+        default: ''
       }
     },
     computed: {
+      formattedCount () {
+        return parseInt(this.count, 10)
+      },
       widgetStateClass () {
         return {
           'loading': this.loading,
@@ -78,28 +90,7 @@
         return !this.loading && !this.error
       }
     },
-    data () {
-      return {
-        count: 0
-      }
-    },
-    mounted () {
-      this.buildWidget()
-    },
     methods: {
-
-      async buildWidget () {
-
-        try {
-          let result = await this.$get(this.apiConfig)
-          this.count = parseInt(result.count, 10)
-          this.loading = false
-        }
-        catch (error) {
-          this.$throwError(error)
-        }
-      },
-
       createWidgetClass () {
         return [
           'widget-' + this.size,

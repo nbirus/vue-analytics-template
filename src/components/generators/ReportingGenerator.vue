@@ -23,6 +23,7 @@
   import ReportContainer from '../reporting/ReportContainer'
 
   export default {
+    name: 'reporting-generator',
     components: { ReportContainer },
     props: {
       dashboard: {

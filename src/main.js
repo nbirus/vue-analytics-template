@@ -4,14 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
-import components from './components/common'
+import commonComponents from './components/common'
 import Ripple from 'vue-ripple-directive'
 
-
-
-// register all global components
-for (let component in components) {
-  Vue.component(component, components[component])
+// register all common components to be used anywhere
+for (let component in commonComponents) {
+  Vue.component(component, commonComponents[component])
 }
 
 // ripple effect directive

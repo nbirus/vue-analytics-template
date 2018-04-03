@@ -1,5 +1,7 @@
 import DataService from '../services/DataService'
-
+/**
+ * @mixin
+ */
 export default {
   props: {
     apiConfig: {
@@ -9,26 +11,24 @@ export default {
   },
   data () {
     return {
-      loading: false,
-      error: false,
-      errorMessage: ''
+      state: {
+        loading: false,
+        error: ''
+      }
     }
   },
   methods: {
 
     // get data from the api
     $get (config) {
-      this.loading = true // set to loading state
       return DataService.get(config) // return request
     },
 
     // log error and set error variables
     $throwError (error) {
       console.log(error)
-
-      this.error = true
-      this.loading = false
-      this.errorMessage = error.toString()
+      this.state.error = error.toString()
+      this.state.loading = false
     }
   }
 }

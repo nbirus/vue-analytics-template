@@ -1,8 +1,6 @@
 <template>
   <div class="grid-container">
 
-
-
     <!-- ------export modal------ -->
     <modal v-model="exportModal"
            class="grid-export-modal"
@@ -30,8 +28,8 @@
         </select-input>
 
         <div class="export-buttons">
-          <btn theme="warning" :onClick="() => { exportModal = false }">Cancel</btn>
-          <btn theme="success" :onClick="() => { exportModal = false }">Download</btn>
+          <btn theme="warning" @onClick="exportModal = false">Cancel</btn>
+          <btn theme="success" @onClick="exportModal = false">Download</btn>
         </div>
 
       </div>
@@ -78,21 +76,21 @@
         <!--refresh-->
         <btn
           v-if="canToggleColumns"
-          :onClick="() => {}">
+          @onClick="() => {}">
           <i class="fa fa-sync-alt"></i>
         </btn>
 
         <!--toggle columns-->
         <btn
            v-if="canToggleColumns"
-           :onClick="() => { toggleColumnsOpen = !toggleColumnsOpen }">
+           @onClick="toggleColumnsOpen = !toggleColumnsOpen">
            Toggle Columns
        </btn>
 
         <!--export-->
         <btn
           v-if="canExport"
-          :onClick="() => { exportModal = true }">
+          @onClick="exportModal = true">
           Export Table
         </btn>
 
@@ -144,8 +142,8 @@
               <text-input :inputValue.sync="toggleColumnSearchText" class="filter-input" placeholder="Type to filter.."></text-input>
             </div>
 
-            <btn class="close-icon" flatIcon theme="first"
-              :onClick="() => { toggleColumnsOpen = false }"><i class="fa fa-chevron-right"></i>
+            <btn class="close-icon" flat theme="first"
+              @onClick="toggleColumnsOpen = false"><i class="fa fa-chevron-right"></i>
             </btn>
 
           </div>
@@ -175,14 +173,13 @@
 
     <!-- ------footer------ -->
     <div class="grid-footer">
-      <div class="pagination" style="margin: 15px;">
-        <btn theme="white" :onClick="firstPage">First</btn>
-        <btn :onClick="prevPage">Previous</btn>
-        <span style="margin: 0 10px">Page {{pageNumber + 1}}</span>
-        <btn :onClick="nextPage">Next</btn>
-        <btn :onClick="lastPage">Last</btn>
+      <div class="pagination">
+        <btn @onClick="goToPage(0)">First</btn>
+        <btn @onClick="goToPage(pageNumber - 1)">Previous</btn>
+        <span>Page {{pageNumber + 1}}</span>
+        <btn @onClick="goToPage(pageNumber + 1)">Next</btn>
+        <btn @onClick="goToPage(pageTotal)">Last</btn>
       </div>
-
     </div>
 
   </div>
@@ -217,10 +214,8 @@
   }
 
   export default {
-    components: {
-      AgGridVue,
-      Modal
-    },
+    name: 'grid',
+    components: { AgGridVue, Modal },
     props: {
 
       // data
@@ -339,6 +334,7 @@
 
         // actions
         pageSize: this.initialPageSize,
+        pageTotal: 2,
         pageNumber: 0,
         searchText: '',
         toggleColumnSearchText: '',
@@ -405,49 +401,44 @@
 
         this.gridColumns = columns
       },
-
       setRowData () {
         this.gridData = this.data
       },
 
       // grid actions
       setPageSize (pageSize) {
+        this.pageNumber = 0
         this.pageSize = pageSize
-        this.gridOptions.api.paginationSetPageSize(pageSize)
+        this.pageAction('pageSize', pageSize)
       },
       goToPage (pageNumber) {
-        this.gridOptions.api.paginationGoToPage(pageNumber)
-        this.setPageNumber()
+        this.pageNumber = pageNumber
+        this.pageAction('pageNumber', pageNumber)
       },
-      nextPage () {
-        this.gridOptions.api.paginationGoToNextPage()
-        this.setPageNumber()
-      },
-      prevPage () {
-        this.gridOptions.api.paginationGoToPreviousPage()
-        this.setPageNumber()
-      },
-      lastPage () {
-        this.gridOptions.api.paginationGoToLastPage()
-        this.setPageNumber()
-      },
-      firstPage () {
-        this.gridOptions.api.paginationGoToFirstPage()
-        this.setPageNumber()
-      },
-      setPageNumber () {
-        this.pageNumber = this.gridOptions.api.paginationGetCurrentPage()
+
+      pageAction (action, param) {
+
+        console.log(action, param)
+
+        switch (action) {
+          case 'pageSize':
+            this.gridOptions.api.paginationSetPageSize(param)
+            break
+          case 'pageNumber':
+            this.gridOptions.api.paginationGoToPage(param)
+            break
+        }
+
         this.reselectRows()
       },
 
+      // toggle coloumns
       toggleColumn (column) {
         column.show = !column.show
       },
       toggleAllColumns () {
         let flag = !this.allToggleColumnsSelected
-        this.gridColumns.forEach(column => {
-          column.show = flag
-        })
+        this.gridColumns.forEach(column => { column.show = flag })
       },
 
       // row selection
@@ -482,7 +473,6 @@
       }
     }
   }
-
 </script>
 
 <style lang="less" scoped>
@@ -661,6 +651,14 @@
       flex: 0 0 auto;
       display: flex;
       justify-content: flex-end;
+
+      .pagination {
+        margin: 15px;
+
+        span {
+          margin: 0 10px;
+        }
+      }
     }
 
   }

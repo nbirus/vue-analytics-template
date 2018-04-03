@@ -31,12 +31,15 @@
 </template>
 
 <script>
-  import InputMixin from '../../../mixins/InputMixin'
+  import InputMixin from '@/mixins/InputMixin'
 
   export default {
     name: 'text-input',
     mixins: [InputMixin],
     props: {
+      /**
+      * Type of input
+      **/
       type: {
         type: String,
         default: 'text'

@@ -5,7 +5,7 @@
     :name="name"
     :disabled="disabled"
     v-ripple="rippleColor"
-    @click="onClick"
+    @click="$emit('onClick')"
   >
     <slot></slot>
   </button>
@@ -13,85 +13,95 @@
 </template>
 
 <script>
-
+  /**
+   * Common button
+   *
+   * @example @/../docs/Btn.md
+   */
   export default {
-      name: 'btn',
-      props: {
-
-        onClick: {
-          type: Function,
-          required: false,
-          default: () => {}
-        },
-
-        // common
-        id: {
-          type: String,
-          default: null
-        },
-        name: {
-          type: String,
-          default: null
-        },
-
-        // action
-        disabled: {
-          type: Boolean,
-          default: false
-        },
-
-        // style
-        theme: {
-          default: false
-        },
-        block: {
-          type: Boolean,
-          default: false
-        },
-        icon: {
-          type: Boolean,
-          default: false
-        },
-        small: {
-          type: Boolean,
-          default: false
-        },
-        large: {
-          type: Boolean,
-          default: false
-        },
-        flatIcon: {
-          type: Boolean,
-          default: false
-        },
-        rounded: {
-          type: Boolean,
-          default: false
-        },
-        ripple: {
-          type: Boolean,
-          default: true
-        }
+    name: 'Button',
+    props: {
+      id: {
+        type: String,
+        default: null
       },
-      computed: {
-
-        // build class to be applyed to the button
-        classConstructor () {
-          return [
-            (this.theme) ? 'btn-' + this.theme : null,
-            (this.icon) ? 'btn-icon' : null,
-            (this.block) ? 'btn-block' : null,
-            (this.flatIcon) ? 'btn-flat-icon' : null,
-            (this.small) ? 'btn-small' : null,
-            (this.large) ? 'btn-large' : null,
-            (this.rounded) ? 'btn-rounded' : null
-          ]
-        },
-
-        rippleColor () {
-          return (this.ripple) ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0)'
-        }
+      name: {
+        type: String,
+        default: null
+      },
+      disabled: {
+        type: Boolean,
+        default: false
+      },
+      /**
+      * The color for the button
+      */
+      theme: {
+        default: false
+      },
+      /**
+      * If the button takes up all horizontal space
+      */
+      block: {
+        type: Boolean,
+        default: false
+      },
+      /**
+      * Will turn the button into a circle, use when the button only contains an icon
+      */
+      icon: {
+        type: Boolean,
+        default: false
+      },
+      small: {
+        type: Boolean,
+        default: false
+      },
+      large: {
+        type: Boolean,
+        default: false
+      },
+      /**
+      * Gets rid of background color and border
+      */
+      flat: {
+        type: Boolean,
+        default: false
+      },
+      /**
+      * Rounds the edges
+      */
+      rounded: {
+        type: Boolean,
+        default: false
+      },
+      /**
+      * If the button will ripple on click
+      */
+      ripple: {
+        type: Boolean,
+        default: true
       }
+    },
+    computed: {
+
+      // build class to be applyed to the button
+      classConstructor () {
+        return [
+          (this.theme) ? 'btn-' + this.theme : null,
+          (this.icon) ? 'btn-icon' : null,
+          (this.block) ? 'btn-block' : null,
+          (this.flat) ? 'btn-flat-icon' : null,
+          (this.small) ? 'btn-small' : null,
+          (this.large) ? 'btn-large' : null,
+          (this.rounded) ? 'btn-rounded' : null
+        ]
+      },
+
+      rippleColor () {
+        return (this.ripple) ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0)'
+      }
+    }
   }
 
 </script>
