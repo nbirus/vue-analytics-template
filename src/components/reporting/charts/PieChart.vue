@@ -6,7 +6,7 @@
   import ChartMixin from '@/mixins/ChartMixin'
   import 'echarts/lib/chart/pie'
 
-  import { merge, isEmpty } from 'lodash'
+  import { isEmpty } from 'lodash'
 
   export default {
     name: 'pie-chart',
@@ -41,16 +41,6 @@
     },
     computed: {
 
-      // visible chart object
-      activeOptions () {
-        return merge({},
-          this.defaultChartOptions,
-          this.dataModifiers, // insert data
-          this.customModifiers, // insert custom properties
-          this.isExpanded ? this.expandedChartOptions : {} // if expanded
-        )
-      },
-
       // fill the data elements of the chart options object
       dataModifiers () {
         return (isEmpty(this.filteredChartData)) ? {}
@@ -67,7 +57,6 @@
       }
 
     },
-
     methods: {
 
       // format data specific for this chart

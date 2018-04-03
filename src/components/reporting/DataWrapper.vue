@@ -1,5 +1,5 @@
 <template>
-  <div style="height: inherit; width: inherit">
+  <div>
     <slot :_response="response" :_state="state"/>
   </div>
 </template>

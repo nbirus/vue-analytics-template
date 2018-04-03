@@ -7,7 +7,7 @@
   import DataMixin from '../../../mixins/DataMixin'
   import 'echarts/lib/chart/bar'
 
-  import { merge, isEmpty } from 'lodash'
+  import { isEmpty } from 'lodash'
 
   export default {
     name: 'horizontal-bar-chart',
@@ -56,16 +56,6 @@
     },
     computed: {
 
-      // visible chart object
-      activeOptions () {
-        return merge({},
-          this.defaultChartOptions,
-          this.dataModifiers, // insert data
-          this.customModifiers, // insert custom properties
-          this.isExpanded ? this.expandedChartOptions : {} // if expanded
-        )
-      },
-
       // fill the data elements of the chart options object
       dataModifiers () {
         return (isEmpty(this.filteredChartData)) ? {}
@@ -82,46 +72,21 @@
               })
             }]
           }
-      },
-
-
-      // filter out suppressed headers and null fields
-      filteredChartData () {
-        return this.chartData.filter(item => item && item.name && !this.suppressedHeaders.includes(item.name))
       }
 
-    },
-    mounted () {
-      this.buildChart()
     },
     methods: {
 
-      async buildChart () {
-
-        try {
-
-          // get data
-          let result = await this.$get(this.apiConfig)
-
-          // get colors
-          this.colors = this.$generateColors(result.analytics.length)
-
-          // format data
-          this.chartData = result.analytics.map((item, index) => {
-            return {
-              name: item[this.id],
-              value: item.count,
-              color: this.colors[index]
-            }
-          })
-
-          this.$chartRendered()
-        }
-        catch (error) {
-          this.$throwError(error)
-        }
+      // format data specific for this chart
+      handleDataReturn (data) {
+        return data.map((item, index) => {
+          return {
+            name: item[this.id],
+            value: item.count,
+            color: this.colors[index]
+          }
+        })
       }
-
     }
   }
 </script>

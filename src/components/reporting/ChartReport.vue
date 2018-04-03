@@ -14,14 +14,15 @@
 
         <dropdown menu-right>
 
+          <i :class="textColor" @click="toggleExpand" class="fa fa-expand"></i>
           <i :class="textColor" class="icons icon-options-vertical" data-role="trigger"></i>
           <i :class="textColor" @click="sidebar = true" class="fa fa-chevron-left"></i>
 
           <template slot="dropdown">
             <li><a role="button"><i class="icons icon-settings"></i>Chart Settings</a></li>
-            <li><a role="button"><i class="icons icon-refresh"></i>Refresh</a></li>
             <li><a role="button"><i class="icons icon-share-alt"></i>Export</a></li>
             <li><a role="button"><i class="icons icon-camera"></i>Screenshot</a></li>
+            <li><a role="button"><i class="icons icon-lock"></i>Lock</a></li>
           </template>
 
         </dropdown>
@@ -34,45 +35,47 @@
     <div class="panel-body chart-body" v-if="isChartReady">
       <div class="panel-block">
 
-        <!--vertical bar chart-->
-        <!--<vertical-bar-chart v-if="chartType === 'vertical-bar'"-->
+        <!-- horizontal-bar chart -->
+        <horizontal-bar-chart
+          v-if="chartType === 'horizontal-bar'"
 
-          <!--:id="chartProps.id"-->
-          <!--:apiConfig="chartProps.apiConfig"-->
-          <!--:theme="theme"-->
+          :id="chartProps.id"
+          :chartData="chartData"
 
-          <!--:isExpanded="true"-->
-          <!--:suppressedHeaders="suppressedHeaders"-->
-          <!--@chartLoading="chartLoading"-->
-          <!--@chartRendered="chartRendered"-->
-          <!--@chartError="chartError"-->
-        <!--&gt;-->
-        <!--</vertical-bar-chart>-->
+          :theme="theme"
+          :expanded="expanded"
+          :suppressedHeaders="suppressedHeaders"
 
-        <!--&lt;!&ndash;horizontal bar chart&ndash;&gt;-->
-        <!--<horizontal-bar-chart-->
-          <!--v-if="chartType === 'horizontal-bar'"-->
+          @chartRendered="setHeaders"
+        >
+        </horizontal-bar-chart>
 
-          <!--:id="chartProps.id"-->
-          <!--:apiConfig="chartProps.apiConfig"-->
-          <!--:theme="theme"-->
+        <!-- vertical-bar chart -->
+        <vertical-bar-chart
+          v-if="chartType === 'vertical-bar'"
 
-          <!--:isExpanded="true"-->
-          <!--:suppressedHeaders="suppressedHeaders"-->
-          <!--@chartRendered="chartRendered"-->
-        <!--&gt;-->
-        <!--</horizontal-bar-chart>-->
+          :id="chartProps.id"
+          :chartData="chartData"
 
-        <!--pie chart-->
+          :theme="theme"
+          :expanded="expanded"
+          :suppressedHeaders="suppressedHeaders"
+
+          @chartRendered="setHeaders"
+        >
+        </vertical-bar-chart>
+
+        <!-- pie chart -->
         <pie-chart
           v-if="chartType === 'pie'"
 
           :id="chartProps.id"
           :chartData="chartData"
-          :theme="theme"
 
-          :isExpanded="isExpanded"
+          :theme="theme"
+          :expanded="expanded"
           :suppressedHeaders="suppressedHeaders"
+
           @chartRendered="setHeaders"
         >
         </pie-chart>
@@ -91,7 +94,7 @@
       <!-- error -->
       <div class="error" v-if="error">
         <div class="icon-circle"><i class="fa fa-exclamation"></i></div>
-        <h4 class="error-message">{{errorMessage}}</h4>
+        <h4 class="error-message">{{error}}</h4>
       </div>
     </div>
 
@@ -115,8 +118,10 @@
                 <text-input :inputValue.sync="toggleColumnSearchText" class="filter-input" placeholder="Type to filter.."></text-input>
               </div>
 
-              <btn class="close-icon" flatIcon
-                   :onClick="() => { sidebar = false }"><i class="fa fa-chevron-right"></i>
+              <btn class="close-icon"
+                   flat
+                   @onClick="sidebar = false">
+                <i class="fa fa-chevron-right"></i>
               </btn>
 
             </div>
@@ -154,11 +159,9 @@
   import PieChart from '@/components/reporting/charts/PieChart'
 
   import { Dropdown } from 'uiv'
-  import DataMixin from '@/mixins/DataMixin'
 
   export default {
     name: 'chart-report',
-    mixins: [DataMixin],
     components: {
       Dropdown,
       VerticalBarChart,
@@ -167,7 +170,21 @@
     },
     props: {
 
+      // ------ state ------
+      loading: {
+        type: Boolean,
+        default: false
+      },
+      error: {
+        type: String,
+        default: ''
+      },
+
       // ------ model ------
+      chartData: {
+        type: Array,
+        required: false
+      },
       chartType: {
         type: String,
         required: true
@@ -178,11 +195,6 @@
       },
 
       // ------ data ------
-      apiConfig: {
-        type: Object,
-        default: () => { return {} }
-      },
-
       title: {
         type: String,
         default: ''
@@ -247,16 +259,15 @@
         chartHeaders: [],
 
         // chart props
-        chartData: [],
         suppressedHeaders: [],
-        isExpanded: false
+        expanded: false
 
       }
     },
     computed: {
 
       isChartReady () {
-        return !this.loading && !this.error
+        return !this.loading && !this.error && !!this.chartData
       },
 
       filteredHeaders () {
@@ -269,7 +280,8 @@
         return {
           'loading': this.loading,
           'error': this.error,
-          'open': this.sidebar
+          'open': this.sidebar,
+          'expanded': this.expanded
         }
       },
 
@@ -281,23 +293,10 @@
       }
 
     },
-    mounted () {
-      this.getData()
-    },
     methods: {
 
-      // data
-      async getData () {
-
-        try {
-          let result = await this.$get(this.apiConfig)
-          this.chartData = result.analytics
-          this.loading = false
-        }
-        catch (error) {
-          this.$throwError(error)
-        }
-
+      toggleExpand () {
+        this.expanded = !this.expanded
       },
 
       // headers
@@ -339,6 +338,13 @@
       z-index: 99;
       .box-shadow(0 0 50px 0 fadeout(black, 85%));
       border: solid thin @grey6;
+    }
+
+    &.expanded {
+      position: absolute;
+      top: 2rem; left: 2rem; right: 2rem;
+      height: calc(~'100vh - 4rem');
+      z-index: 999;
     }
 
     &.error {

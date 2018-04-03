@@ -1,6 +1,7 @@
 import ECharts from 'vue-echarts/components/ECharts'
 import ColorService from '../services/ColorService'
 import chroma from 'chroma-js'
+import { merge } from 'lodash'
 
 export default {
   components: { ECharts },
@@ -16,7 +17,7 @@ export default {
       required: true
     },
 
-    isExpanded: {
+    expanded: {
       type: Boolean,
       default: false
     },
@@ -45,6 +46,17 @@ export default {
     }
   },
   computed: {
+
+    // visible chart object
+    activeOptions () {
+      return merge({},
+        this.defaultChartOptions,
+        this.dataModifiers, // insert data
+        this.customModifiers, // insert custom properties
+        this.isExpanded ? this.expandedChartOptions : {} // if expanded
+      )
+    },
+
     // filter out suppressed headers and null fields
     filteredChartData () {
       return this.formattedChartData.filter(item =>

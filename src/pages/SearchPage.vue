@@ -92,7 +92,7 @@
   import CountWidget from '../components/reporting/widgets/CountWidget'
   import DataWrapper from '../components/reporting/DataWrapper'
 
-  import Dashboard from '../components/generators/ReportingGenerator'
+  import Dashboard from '../components/generators/ReportGenerator'
   import DashboardJSON from '../../static/data/dashboards/test-dashboard.json'
 
   export default {

@@ -10,9 +10,9 @@
         :class="buildReportClass(report.display)"
         :id="'report-' + report.id"
 
+        :reportApiConfig="report.reportApiConfig"
         :reportType="report.reportType"
         :reportProps="report.reportProps"
-
       >
       </report-container>
     </transition-group>

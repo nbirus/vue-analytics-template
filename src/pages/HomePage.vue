@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import Dashboard from '../components/generators/ReportingGenerator'
+  import Dashboard from '../components/generators/ReportGenerator'
 
   import DashboardJSON from '../../static/data/dashboards/test-dashboard.json'
 

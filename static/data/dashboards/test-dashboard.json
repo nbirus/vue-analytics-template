@@ -24,93 +24,20 @@
             }
           ],
 
-          "reportType": "number-widget",
+          "reportApiConfig": {
+            "headers": {},
+            "endpoint": "analytic/trials",
+            "params": {
+              "chart": "person_total"
+            }
+          },
+          "reportType": "count-widget",
           "reportProps": {
             "title": "Total Trials",
             "theme": "lime",
             "icon": "book-open",
-            "size": "large",
-            "apiConfig": {
-              "headers": {},
-              "endpoint": "analytic/trials",
-              "params": {
-                "chart": "person_total"
-              }
-            }
+            "size": "large"
           }
-
-        },
-        {
-          "id": "test-item",
-          "display": [
-            {
-              "order": 2,
-              "row": 2,
-              "col": 3
-            },
-            {
-              "order": 1,
-              "row": 1,
-              "col": 4
-            },
-            {
-              "order": 1,
-              "row": 1,
-              "col": 12
-            }
-          ],
-
-          "reportType": "number-widget",
-          "reportProps": {
-            "title": "Total Persons",
-            "theme": "cyan",
-            "icon": "user",
-            "size": "large",
-            "apiConfig": {
-              "headers": {},
-              "endpoint": "analytic/trials",
-              "params": {
-                "chart": "person_total"
-              }
-            }
-          }
-
-        },
-        {
-          "id": "test-item",
-          "display": [
-            {
-              "order": 3,
-              "row": 2,
-              "col": 3
-            },
-            {
-              "order": 1,
-              "row": 1,
-              "col": 4
-            },
-            {
-              "order": 1,
-              "row": 1,
-              "col": 12
-            }
-          ],
-
-          "reportType": "number-widget",
-          "reportProps": {
-            "title": "Total Organizations",
-            "theme": "purple",
-            "icon": "briefcase",
-            "size": "large",
-            "apiConfig": {
-              "headers": {},
-              "endpoint": "analytic/trials",
-              "params": {
-                "chart": "person_total"
-              }
-            }
-          }
-
         },
         {
           "id": "test-pie-chart",
@@ -132,18 +59,23 @@
             }
           ],
 
+          "reportApiConfig": {
+            "headers": {},
+            "endpoint": "analytic/trials",
+            "params": {
+              "chart": "phase"
+            }
+          },
           "reportType": "chart-report",
           "reportProps": {
 
+            "chartType": "pie",
+            "chartProps": {
+              "id": "phase"
+            },
+
             "title": "Test Pie",
             "countType": "items",
-            "apiConfig": {
-              "headers": {},
-              "endpoint": "analytic/trials",
-              "params": {
-                "chart": "phase"
-              }
-            },
             "theme": "cyan",
             "settings": [],
             "showTotal": true,
@@ -152,21 +84,16 @@
             "canExpand": false,
             "hasLegend": true,
             "canExport": true,
-            "canScreenshot": true,
-
-            "chartType": "pie",
-            "chartProps": {
-              "id": "phase"
-            }
+            "canScreenshot": true
           }
         },
         {
-          "id": "test-item",
+          "id": "test-vertical-bar-chart",
           "display": [
             {
-              "order": 6,
-              "row": 2,
-              "col": 3
+              "order": 5,
+              "row": 6,
+              "col": 4
             },
             {
               "order": 1,
@@ -180,21 +107,81 @@
             }
           ],
 
-          "reportType": "progress-widget",
-          "reportProps": {
-            "title": "Total Trials",
-            "theme": "inverse",
-            "icon": "book-open",
-            "size": "large",
-            "apiConfig": {
-              "headers": {},
-              "endpoint": "~analytic/trials",
-              "params": {
-                "chart": "person_total"
-              }
+          "reportApiConfig": {
+            "headers": {},
+            "endpoint": "analytic/trials",
+            "params": {
+              "chart": "phase"
             }
-          }
+          },
+          "reportType": "chart-report",
+          "reportProps": {
 
+            "chartType": "vertical-bar",
+            "chartProps": {
+              "id": "phase"
+            },
+
+            "title": "Test Vertical Bar",
+            "countType": "items",
+            "theme": "inverse",
+            "settings": [],
+            "showTotal": true,
+            "hasHeader": true,
+            "hasActionBar": true,
+            "canExpand": false,
+            "hasLegend": true,
+            "canExport": true,
+            "canScreenshot": true
+          }
+        },
+        {
+          "id": "test-horizontal-bar-chart",
+          "display": [
+            {
+              "order": 5,
+              "row": 6,
+              "col": 5
+            },
+            {
+              "order": 1,
+              "row": 1,
+              "col": 4
+            },
+            {
+              "order": 1,
+              "row": 1,
+              "col": 12
+            }
+          ],
+
+          "reportApiConfig": {
+            "headers": {},
+            "endpoint": "analytic/trials",
+            "params": {
+              "chart": "phase"
+            }
+          },
+          "reportType": "chart-report",
+          "reportProps": {
+
+            "chartType": "horizontal-bar",
+            "chartProps": {
+              "id": "phase"
+            },
+
+            "title": "Test Horizontal Bar",
+            "countType": "items",
+            "theme": "purple",
+            "settings": [],
+            "showTotal": true,
+            "hasHeader": true,
+            "hasActionBar": true,
+            "canExpand": false,
+            "hasLegend": true,
+            "canExport": true,
+            "canScreenshot": true
+          }
         }
       ]
     }
