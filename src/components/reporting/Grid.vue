@@ -532,6 +532,8 @@
 
         .page-size-input {
           margin: 0 5px;
+          width: auto;
+          /*min-width: 100px;*/
         }
       }
 

@@ -207,7 +207,7 @@
 
         &:hover {
           color: white;
-          border-color: darken(@color, 5%)!important;
+          border-color: darken(@color-dark, 5%)!important;
         }
 
         &.btn-flat-icon {

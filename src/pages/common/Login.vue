@@ -40,7 +40,7 @@
   @import (reference) '../../styles/app-helper.less';
 
   .page {
-    margin-top: -@nav-header-height;
+    margin-top: -@nav-height;
 
     .login-panel {
       width: 300px;

@@ -44,52 +44,73 @@
     }
   },
   "props": {
+    "nav-bg-color": {
+      "type": "font",
+      "category": "font",
+      "value": "@c-inverse",
+      "originalValue": "@c-inverse",
+      "name": "nav-bg-color"
+    },
+    "nav-height": {
+      "type": "font",
+      "category": "font",
+      "value": "50px",
+      "originalValue": "50px",
+      "name": "nav-height"
+    },
+    "sidebar": {
+      "type": "Boolean",
+      "category": "font",
+      "value": false,
+      "originalValue": false,
+      "name": "sidebar"
+    },
     "root-size": {
-      "type": "no-sure",
-      "category": "all",
+      "type": "font",
+      "category": "font",
       "value": "14px",
       "comment": "This value controls all font and spacing sizes",
       "originalValue": "14px",
       "name": "root-size"
     },
     "font-size": {
-      "type": "no-sure",
-      "category": "all",
+      "type": "font",
+      "category": "font",
       "value": "1rem",
       "originalValue": "1rem",
       "name": "font-size"
     },
     "font-size-sm": {
-      "type": "no-sure",
-      "category": "all",
+      "type": "font",
+      "category": "font",
       "value": ".8rem",
       "originalValue": ".8rem",
       "name": "font-size-sm"
     },
     "font-size-lg": {
-      "type": "no-sure",
-      "category": "all",
+      "type": "font",
+      "category": "font",
       "value": "1.1rem",
       "originalValue": "1.1rem",
       "name": "font-size-lg"
     },
     "regular": {
-      "type": "no-sure",
-      "category": "all",
+      "type": "font",
+      "category": "font",
       "value": "500",
       "originalValue": "500",
       "name": "regular"
     },
     "thin": {
-      "type": "no-sure",
-      "category": "all",
+      "type": "font",
+      "category": "font",
       "value": "100",
       "originalValue": "100",
       "name": "thin"
     },
     "bold": {
-      "type": "no-sure",
-      "category": "all",
+      "type": "font",
+      "category": "font",
       "value": "900",
       "originalValue": "900",
       "name": "bold"

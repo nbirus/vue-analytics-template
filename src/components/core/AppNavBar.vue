@@ -75,8 +75,12 @@
 
   .nav-bar {
     background-color: @nav-bg-color;
+    border-top: solid 2px @c-first;
+    z-index: 100;
 
     .fluid-container {
+      height: calc(@nav-height - 2px);
+
       display: flex;
       padding: 0 @page-padding;
       .max-page-width;
@@ -85,14 +89,14 @@
       .identity {
         font-size: 1.7rem;
 
-        flex: 0 0 auto; height: @nav-header-height;
+        flex: 0 0 auto; height: 100%;
         padding: 3px .5em;
 
         // .vertical-gradient(lighten(@nav-bg-color, 1%), darken(@nav-bg-color, 2%));
         // .vertical-gradient(lighten(@c-cyan, 1%), darken(@c-cyan, 2%));
         background-color: lighten(@nav-bg-color, 5%);
 
-        line-height: @nav-header-height;
+        line-height: @nav-height;
         vertical-align: middle;
 
         .identity-text {
@@ -105,7 +109,7 @@
 
       .nav-items {
         flex: 0 1 100%;
-        padding: 0 20px;
+        padding: 0 1rem;
 
         display: flex;
 
@@ -113,12 +117,12 @@
           font-size: 1.1rem;
 
           flex: 0 0 auto;
-          line-height: @nav-header-height;
+          line-height: @nav-height;
           vertical-align: middle;
 
           margin: 0; padding: 0 1em;
 
-          .f-b;
+          font-weight: @bold;
           color: fadeout(white, 55%);
           text-decoration: none;
 
@@ -137,11 +141,13 @@
       }
 
       .search {
-        flex: 0 0 auto; height: @nav-header-height;
+        flex: 0 0 auto; height: @nav-height;
         padding: 0 10px 0 25px;
+
 
         display: flex;
         align-items: center;
+
 
         .icon-magnifier {
           color: white;
@@ -211,15 +217,15 @@
       }
 
       .user {
-        flex: 0 0 auto; height: @nav-header-height;
-        padding: 0 15px;
+        flex: 0 0 auto; height: @nav-height;
+        padding: 0 1rem;
 
         display: flex;
         align-items: center;
         color: white;
-        font-size: 11pt;
 
         cursor: pointer;
+
 
         .icon-arrow-down {
           font-size: 5pt;
@@ -241,7 +247,7 @@
       }
 
       .logout {
-        flex: 0 0 auto; height: @nav-header-height;
+        flex: 0 0 auto; height: @nav-height;
         padding: 0 15px;
 
         display: flex;
@@ -284,13 +290,11 @@
 
       .nav-items {
         flex: 0 1 100%;
-
         flex-direction: column;
-
       }
 
       .user {
-        flex: 0 0 auto; height: @nav-header-height;
+        flex: 0 0 auto; height: @nav-height;
         display: none;
       }
 
@@ -300,7 +304,7 @@
       }
 
       .logout {
-        flex: 0 0 auto; height: @nav-header-height;
+        flex: 0 0 auto; height: @nav-height;
       }
     }
 

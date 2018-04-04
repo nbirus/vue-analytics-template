@@ -1,6 +1,7 @@
 <template>
-
   <div class="panel chart-report-panel" :class="chartStateClass">
+
+    <!--<modal></modal>-->
 
     <!--chart header-->
     <div class="panel-header chart-header">
@@ -112,15 +113,11 @@
         <div class="sidebar" v-if="sidebar">
           <div class="checkbox-list">
 
-            <!-- <div class="header-total">
-              12,245 total trial
-            </div> -->
-
             <div class="header">
 
               <div class="input-row">
                 <input @click="toggleAllHeaders" class="select-all" type="checkbox" :checked="!suppressedHeaders.length"/>
-                <text-input :inputValue.sync="toggleColumnSearchText" class="filter-input" placeholder="Type to filter.."></text-input>
+                <text-input :inputValue.sync="toggleColumnSearchText" class="filter-input" placeholder="Filter.."></text-input>
               </div>
 
               <btn class="close-icon"
@@ -155,7 +152,6 @@
     </div>
 
   </div>
-
 </template>
 
 <script>
@@ -163,11 +159,12 @@
   import VerticalBarChart from '@/components/reporting/charts/VerticalBarChart'
   import PieChart from '@/components/reporting/charts/PieChart'
 
-  import { Dropdown } from 'uiv'
+  import { Modal, Dropdown } from 'uiv'
 
   export default {
     name: 'chart-report',
     components: {
+      Modal,
       Dropdown,
       VerticalBarChart,
       HorizontalBarChart,
@@ -341,12 +338,11 @@
   .chart-report-panel {
     height: 100%;
     overflow: hidden;
-
+    transition: transform .4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     font-size: @font-size;
 
     &.open {
       transform: scale(1.03);
-      z-index: 99;
       .box-shadow(0 0 50px 0 fadeout(black, 85%));
       border: solid thin @grey6;
     }

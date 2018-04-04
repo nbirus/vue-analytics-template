@@ -8,6 +8,7 @@ props:
     value: "14px"
     comment: "This value controls all font and spacing sizes"
 
+  # font size
   font-size:
     value: "1rem"
   font-size-sm:
@@ -15,6 +16,7 @@ props:
   font-size-lg:
     value: "1.1rem"
 
+  # font weight
   regular:
     value: "500"
   thin:
@@ -23,5 +25,5 @@ props:
     value: "900"
 
 global:
-  type: no-sure
-  category: all
+  type: font
+  category: font
