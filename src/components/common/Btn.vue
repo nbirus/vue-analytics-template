@@ -128,7 +128,7 @@
 
     &:hover {
       color: @grey9;
-      border-color: darken(@grey4, 5%);
+      border-color: @grey5;
     }
 
     &:active {

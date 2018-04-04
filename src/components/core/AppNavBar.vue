@@ -90,7 +90,7 @@
 
         // .vertical-gradient(lighten(@nav-bg-color, 1%), darken(@nav-bg-color, 2%));
         // .vertical-gradient(lighten(@c-cyan, 1%), darken(@c-cyan, 2%));
-        background-color: @nav-logo-bg-color;
+        background-color: lighten(@nav-bg-color, 5%);
 
         line-height: @nav-header-height;
         vertical-align: middle;

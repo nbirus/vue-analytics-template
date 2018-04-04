@@ -63,7 +63,7 @@
     }
 
     &.error > .form-control {
-      border-color: @input-error-border-color ;
+      border: @input-error-border;
       background-color: @input-error-bg-color;
     }
   }

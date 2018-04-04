@@ -21,6 +21,9 @@
       :label="(hasLabel) ? optionLabel : undefined"
 
       :multiple="multiselect"
+
+      :placeholder="placeholder"
+      :allowEmpty="allowEmpty"
     >
     </multiselect>
 
@@ -78,6 +81,14 @@
       hasLabel: {
         type: Boolean,
         default: false
+      },
+
+      placeholder: {
+        type: String,
+        default: ''
+      },
+      allowEmpty: {
+        type: Boolean
       }
 
     },
@@ -89,13 +100,16 @@
     },
     async mounted () {
 
+      // get options
+      this.activeOptions = await this.getOptions()
+
       // if there is no initial value, initialize it
       if (!this.inputValue) {
         this.$nextTick(() => { this.$updateValue(this.getDefaultValue()) })
       }
-
-      // get options
-      this.activeOptions = await this.getOptions()
+      else {
+        this.displayValue = this.formatValueForDisplay(this.inputValue)
+      }
 
     },
     methods: {

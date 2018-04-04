@@ -105,7 +105,7 @@
     }
 
     &.error > .checkbox {
-      color: @input-error-border-color;
+      border: @input-error-border;
     }
   }
 

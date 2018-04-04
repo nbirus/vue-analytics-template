@@ -235,7 +235,7 @@
         // if collapsed
         &.collapse {
           flex: 0 0 10px;
-          transition: @transition;
+          transition: all @transition-speed ease-in-out;
 
           .tab-actions {
             padding: 0 5px;

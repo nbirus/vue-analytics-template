@@ -10,6 +10,7 @@
         :error="_state.error"
         :chartData="_response.analytics"
 
+        :id="reportProps.id"
         :chartType="reportProps.chartType"
         :chartProps="reportProps.chartProps"
 

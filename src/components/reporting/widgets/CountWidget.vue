@@ -107,33 +107,35 @@
   @import (reference) '../../../styles/theme-generator.less';
 
   .widget {
+    font-size: @font-size;
+
     width: 100%; height: 100%;
-    padding: @pad;
-    overflow: hidden;
+    padding: .8em;
 
     color: white;
 
     display: flex;
     flex-wrap: wrap;
+    overflow: hidden;
 
     .body {
       flex: 0 0 auto;
 
       .count {
-        font-size: 2.4rem;
+        font-size: 2.4em;
         .f-r;
       }
 
       .title {
         color: fadeout(white, 25%);
         font-weight: 100;
-        font-size: 1rem;
+        font-size: 1em;
       }
     }
 
     .icon {
       flex: 0 1 100%;
-      font-size: 26pt;
+      font-size: 2.8em;
       text-align: right;
       color: fadeout(white, 85%);
     }
@@ -144,18 +146,15 @@
       display: flex;
       justify-content: center;
       align-items: center;
-
     }
 
     .error {
       .icon-circle {
-        padding: 1.2em 1.8rem;
+        padding: 1.2em 1.8em;
       }
     }
 
-    &.loading {
-
-    }
+    &.loading {}
   }
 
 
@@ -166,7 +165,7 @@
         .vertical-gradient(darken(@color, 3%), @color);
         border-color: @color-dark!important;
 
-        &.error {
+        &.error,  {
           .stripe-gradient(@color) !important;
 
           .icon-circle {

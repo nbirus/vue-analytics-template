@@ -69,10 +69,9 @@
           "reportType": "chart-report",
           "reportProps": {
 
+            "id": "phase",
             "chartType": "pie",
-            "chartProps": {
-              "id": "phase"
-            },
+            "chartProps": {},
 
             "title": "Test Pie",
             "countType": "items",
@@ -117,10 +116,9 @@
           "reportType": "chart-report",
           "reportProps": {
 
+            "id": "phase",
             "chartType": "vertical-bar",
-            "chartProps": {
-              "id": "phase"
-            },
+            "chartProps": {},
 
             "title": "Test Vertical Bar",
             "countType": "items",
@@ -165,10 +163,9 @@
           "reportType": "chart-report",
           "reportProps": {
 
+            "id": "phase",
             "chartType": "horizontal-bar",
-            "chartProps": {
-              "id": "phase"
-            },
+            "chartProps": {},
 
             "title": "Test Horizontal Bar",
             "countType": "items",

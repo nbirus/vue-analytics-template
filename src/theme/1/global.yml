@@ -1,0 +1,27 @@
+#
+# THEME COLOR TOKENS
+# Set global styles and themes.
+
+props:
+
+  root-size:
+    value: "14px"
+    comment: "This value controls all font and spacing sizes"
+
+  font-size:
+    value: "1rem"
+  font-size-sm:
+    value: ".8rem"
+  font-size-lg:
+    value: "1.1rem"
+
+  regular:
+    value: "500"
+  thin:
+    value: "100"
+  bold:
+    value: "900"
+
+global:
+  type: no-sure
+  category: all

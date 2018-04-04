@@ -40,9 +40,8 @@
     <transition name="dashboard-list" appear mode="out-in">
       <div class="page-body grid" v-if="value === 'grid'">
 
-        <div style="height: 100px; width: 300px">
 
-          <!-- <grid
+          <grid style="height: 80vh; width: 100%"
                 id="test-grid"
 
                 :data="data"
@@ -60,28 +59,40 @@
                 :showRowDetail="false"
               >
                 <btn slot="extra-action">Change Columns</btn>
-              </grid> -->
+              </grid>
 
-            <data-wrapper :apiConfig="config">
-              <template slot-scope="{ _response, _state }">
+            <!--<data-wrapper :apiConfig="config">-->
+              <!--<template slot-scope="{ _response, _state }">-->
+                <!--<chart-report-->
+                  <!--style="height: 370px; width: 400px"-->
 
-                <count-widget
-                  style="height: 100px"
+                  <!--:loading="_state.loading"-->
+                  <!--:error="_state.error"-->
+                  <!--:chartData="_response.analytics"-->
 
-                  :loading="_state.loading"
-                  :error="_state.error"
+                  <!--title="Test Title"-->
+                  <!--chartType="pie"-->
+                  <!--id="phase"-->
+                  <!--theme="cyan"-->
+                <!--&gt;-->
+                <!--</chart-report>-->
 
-                  :count="_response.count"
-                  title="TEST"
-                  icon="grid"
-                >
-                </count-widget>
+                <!--&lt;!&ndash;<count-widget&ndash;&gt;-->
+                  <!--&lt;!&ndash;style="height: 100px"&ndash;&gt;-->
 
-              </template>
-            </data-wrapper>
+                  <!--&lt;!&ndash;:loading="_state.loading"&ndash;&gt;-->
+                  <!--&lt;!&ndash;:error="_state.error"&ndash;&gt;-->
 
+                  <!--&lt;!&ndash;:count="_response.count"&ndash;&gt;-->
+                  <!--&lt;!&ndash;title="TEST"&ndash;&gt;-->
+                  <!--&lt;!&ndash;icon="grid"&ndash;&gt;-->
+                  <!--&lt;!&ndash;theme="inverse"&ndash;&gt;-->
+                <!--&lt;!&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;</count-widget>&ndash;&gt;-->
 
-        </div>
+              <!--</template>-->
+            <!--</data-wrapper>-->
+
       </div>
     </transition>
 
@@ -95,6 +106,8 @@
   import Grid from '../components/reporting/Grid'
   import ProgressWidget from '../components/reporting/widgets/ProgressWidget'
   import CountWidget from '../components/reporting/widgets/CountWidget'
+  import ChartReport from '../components/reporting/ChartReport'
+
   import DataWrapper from '../components/reporting/DataWrapper'
 
   import Dashboard from '../components/generators/ReportGenerator'
@@ -102,9 +115,10 @@
 
   export default {
     name: 'trials',
-    components: { DataWrapper, Grid, Dashboard, ProgressWidget, CountWidget },
+    components: { DataWrapper, Grid, Dashboard, ProgressWidget, CountWidget, ChartReport },
     data () {
       return {
+        load: false,
         data: TestData,
         columns: TestColumns,
         value: 'grid',
@@ -112,7 +126,7 @@
           headers: {},
           endpoint: 'analytic/trials',
           params: {
-            chart: 'person_total'
+            chart: 'phase'
           }
         },
         inputList: [

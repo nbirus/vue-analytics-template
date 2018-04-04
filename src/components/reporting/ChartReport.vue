@@ -39,7 +39,7 @@
         <horizontal-bar-chart
           v-if="chartType === 'horizontal-bar'"
 
-          :id="chartProps.id"
+          :id="id"
           :chartData="chartData"
 
           :theme="theme"
@@ -54,7 +54,7 @@
         <vertical-bar-chart
           v-if="chartType === 'vertical-bar'"
 
-          :id="chartProps.id"
+          :id="id"
           :chartData="chartData"
 
           :theme="theme"
@@ -69,7 +69,7 @@
         <pie-chart
           v-if="chartType === 'pie'"
 
-          :id="chartProps.id"
+          :id="id"
           :chartData="chartData"
 
           :theme="theme"
@@ -84,18 +84,23 @@
     </div>
 
     <!--api states-->
-    <div class="panel-body chart-api-states" v-else>
+    <div class="panel-body chart-api-states">
 
       <!-- loading -->
-      <div class="loading" v-if="loading">
-        <div class="icon-circle"><i class="fa fa-sync-alt fa-spin" :class="'text-' + theme"></i></div>
-      </div>
+      <transition name="icon-circle" appear>
+        <div class="loading" v-if="loading">
+          <div class="icon-circle">
+            <i class="fa fa-sync-alt fa-spin"></i>
+          </div>
+        </div>
+      </transition>
 
       <!-- error -->
       <div class="error" v-if="error">
         <div class="icon-circle"><i class="fa fa-exclamation"></i></div>
         <h4 class="error-message">{{error}}</h4>
       </div>
+
     </div>
 
     <!--sidebar-->
@@ -189,9 +194,13 @@
         type: String,
         required: true
       },
+      id: {
+        type: String,
+        required: true
+      },
       chartProps: {
         type: Object,
-        required: true
+        required: false
       },
 
       // ------ data ------
@@ -278,7 +287,7 @@
 
       chartStateClass () {
         return {
-          'loading': this.loading,
+          'loading ': this.loading,
           'error': this.error,
           'open': this.sidebar,
           'expanded': this.expanded
@@ -295,6 +304,7 @@
     },
     methods: {
 
+      // actions
       toggleExpand () {
         this.expanded = !this.expanded
       },
@@ -330,8 +340,9 @@
 
   .chart-report-panel {
     height: 100%;
-    transition: transform .4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     overflow: hidden;
+
+    font-size: @font-size;
 
     &.open {
       transform: scale(1.03);
@@ -342,13 +353,13 @@
 
     &.expanded {
       position: absolute;
-      top: 2rem; left: 2rem; right: 2rem;
+      top: 2em; left: 2em; right: 2em;
       height: calc(~'100vh - 4rem');
       z-index: 999;
     }
 
-    &.error {
-      .stripe-gradient;
+    &.error, &.loading {
+      .stripe-gradient(white, 1%);
       background-color: white;
     }
 
@@ -361,12 +372,12 @@
 
         h4 {
           color: @c-inverse;
-          font-size: 1.2rem;
+          font-size: 1.2em;
         }
         h5 {
           color: @grey6;
-          .f-r;
-          font-size: .8rem;
+          font-weight: @regular;
+          font-size: .9em;
         }
       }
 
@@ -374,7 +385,9 @@
         flex: 0 0 auto;
 
         i {
-          margin-left: 5px;
+          font-size: 1em;
+          margin-left: .5em;
+
           cursor: pointer;
           color: @c-inverse;
 
@@ -392,43 +405,51 @@
     .chart-body {
       & > .panel-block {
         height: 100%;
-        padding: 0 20px 20px;
+        padding: 0 1em 1em;
+        overflow: visible;
       }
     }
 
     .chart-api-states {
+      width: 100%; height: 100%;
+      pointer-events: none;
+
       display: flex;
       justify-content: center;
       align-items: center;
+      position: absolute;
 
       .error {
         display: flex;
         flex-direction: column;
         align-items: center;
 
-        margin-top: -40px;
+        /*margin-top: -40px;*/
+
 
         .icon-circle {
-          background-color: transparent;
-          border: none;
-          font-size: 25pt;
+          background-color: fadeout(@c-danger, 95%);
+          border-color: fadeout(@c-danger, 90%);
+          font-size: 1.2em;
+          i { font-size: 1.5em; }
           color: @c-danger;
         }
-
         .error-message {
           font-weight: normal;
           color: @c-danger;
-          font-size: 10pt;
-          margin-top: 5px;
+          font-size: 1em;
+          margin-top: .5em;
         }
       }
 
-      .loading {
-        .icon-circle {
-          background-color: fadeout(black, 98%);
-          margin-top: -40px;
-          font-size: 1.2rem;
+      .loading > .icon-circle {
+        font-size: 1.5rem;
 
+        background-color: fadeout(black, 55%);
+        color: fadeout(white, 10%);
+
+        i {
+          font-size: 1em;
         }
       }
     }

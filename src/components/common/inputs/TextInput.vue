@@ -60,6 +60,7 @@
 
       background-color: @input-bg-color;
       border: @input-border;
+      border-radius: @input-border-radius;
 
       &:focus {
         outline: 0;
@@ -70,7 +71,7 @@
     }
 
     &.error > .form-control {
-      border-color: @input-error-border-color ;
+      border: @input-error-border;
       background-color: @input-error-bg-color;
     }
   }

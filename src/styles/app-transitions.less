@@ -61,8 +61,7 @@
 
 
 
-
-
+// ---------- generic -----------
 
 // side in from right
 .slide-in-from-right-enter-active {
@@ -89,9 +88,26 @@
 
 
 
+.icon-circle-enter {
+  transform: scale(.7);
+  opacity: 0;
+}
+.icon-circle-enter-active {
+  transition: all @transition-speed @transition-curve-in;
+}
+.icon-circle-enter-to, .icon-circle-leave {
+  transform: scale(1);
+  opacity: 1;
+}
+.icon-circle-leave-active {
+  transition: all .4s @transition-curve-out;
+}
+.icon-circle-leave-to {
+  transform: scale(1.5);
+  opacity: 0;
+}
 
-
-// dashboard enter animation
+// ---------- dashboard enter animation -----------
 .dashboard-list-enter {
   opacity: 0;
   transform: translateY(40px) rotateY(45deg);
@@ -119,7 +135,6 @@
 .dashboard-list-leave-to {
   opacity: 0;
 }
-
 .foreach(@body, @i) when (@i>0) {
   .foreach(@body, @i - 1);
 

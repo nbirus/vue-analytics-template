@@ -6,16 +6,19 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev-mac": "webpack-dev-server --progress --port 8080 --host 0.0.0.0 --config build/webpack.dev.conf.js --content-base build/",
+
     "start": "bash start.sh",
-    "theo": "theo src/tokens/tokens.yml --transform web --format less,raw.json,json --dest src/assets/tokens",
-    "theo:onchange": "onchange \"src/tokens/*.yml\" -- npm run theo",
-    "mac": "webpack-dev-server --progress --port 8080 --host 0.0.0.0 --config build/webpack.dev.conf.js --content-base build/",
+    "theo": "theo src/theme/$THEME/tokens.yml --transform web --format less,raw.json,json --dest src/assets/tokens",
+    "theo:onchange": "onchange \"src/theme/**/*.yml\" -- npm run theo",
+
+    "styleguide": "vue-styleguidist server",
+    "styleguide:build": "vue-styleguidist build",
+
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit",
-    "build": "npm run theo && node build/build.js",
-    "styleguide": "vue-styleguidist server",
-    "styleguide:build": "vue-styleguidist build"
+    "build": "npm run theo && node build/build.js"
   },
   "dependencies": {
     "ag-grid": "^16.0.1",

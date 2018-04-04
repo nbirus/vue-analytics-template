@@ -4,8 +4,10 @@
 #
 
 imports:
-  - ./1/color.yml
-  - ./1/theme.yml
+  - ./global.yml
+  - ./color.yml
+  - ./theme-color.yml
+  - ./input.yml
 global:
   type: global
   category: all

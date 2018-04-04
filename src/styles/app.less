@@ -169,7 +169,7 @@
   // input
   .form-control {
     width: 100%;
-    transition: @transition;
+    transition: all @transition-speed ease-in-out;
   }
 
   // error text
@@ -275,7 +275,7 @@
   &.bar-left:before {
     width: 4px; max-width: 4px;
     top: 2px; bottom: 2px; left: -4px;
-    border-radius: @br 0 0 @br;
+    border-radius: @panel-border-radius 0 0 @panel-border-radius;
     background-color: @c-inverse;
   }
 
@@ -283,7 +283,7 @@
   &.bar-top:before {
     height: 4px; max-height: 4px;
     top: -4px; left: 1px; right: 1px;
-    border-radius: @br @br 0 0;
+    border-radius: @panel-border-radius @panel-border-radius 0 0;
     background-color: @c-inverse;
   }
 
@@ -291,7 +291,7 @@
   &.bar-right:before {
     width: 4px; max-width: 4px;
     top: 2px; bottom: 2px; right: -4px;
-    border-radius: 0 @br @br 0;
+    border-radius: 0 @panel-border-radius @panel-border-radius 0;
     background-color: @c-inverse;
   }
 
@@ -299,7 +299,7 @@
   &.bar-bottom:before {
     height: 4px; max-height: 4px;
     bottom: -4px; left: 1px; right: 1px;
-    border-radius: 0 0 @br @br;
+    border-radius: 0 0 @panel-border-radius @panel-border-radius;
     background-color: @c-inverse;
   }
 
@@ -310,7 +310,8 @@
 
 // ----- icon circle -----
 .icon-circle {
-  font-size: 1.2rem;
+  width: 4em; height: 4em;
+
   padding: 1.2em;
   border-radius: 50%;
 
@@ -320,6 +321,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  i {
+    font-size: 1.3em;
+  }
 }
 
 

@@ -38,10 +38,8 @@
       }
     },
     methods: {
-
       buildReportClass (display) {
         if (display) {
-
           let lg = `sr-lg-${display[0].row} sc-lg-${display[0].col} order-lg-${display[0].order} `
           let md = `sr-md-${display[1].row} sc-md-${display[1].col} order-md-${display[1].order} `
           let sm = `sr-sm-${display[2].row} sc-sm-${display[2].col} order-sm-${display[2].order}`
@@ -49,7 +47,6 @@
           return lg + md + sm
         }
       }
-
     }
   }
 </script>

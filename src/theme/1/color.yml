@@ -12,7 +12,7 @@ aliases:
   blue:
     value: "201, 96%"
   cyan:
-    value: "203, 84%"
+    value: "186, 100%"
   lime:
     value: "147, 86%"
   purple:
@@ -20,14 +20,11 @@ aliases:
   yellow:
     value: "51, 97%"
   inverse:
-    value: "218, 31%"
+    value: "214, 17%"
   light:
-    value: "206, 26%"
+    value: "218, 35%"
 
 props:
-  
-  c-first:
-    value: "@c-cyan"
 
   # Main Colors
   c-red:
@@ -61,7 +58,7 @@ props:
     category: "base-color"
 
   c-cyan:
-    value: "hsla({!cyan}, 65%, 1)"
+    value: "hsla({!cyan}, 45%, 1)"
     category: "base-color"
   c-cyan-light:
     value: "hsla({!cyan}, 35%, 1)"
@@ -101,7 +98,7 @@ props:
     category: "base-color"
 
   c-inverse:
-    value: "hsla({!inverse}, 30%, 1)"
+    value: "hsla({!inverse}, 24%, 1)"
     category: "base-color"
   c-inverse-light:
     value: "hsla({!inverse}, 13%, 1)"
@@ -111,7 +108,7 @@ props:
     category: "base-color"
 
   c-light:
-    value: "hsla({!light}, 95%, 1)"
+    value: "hsla({!light}, 94%, 1)"
     category: "base-color"
   c-light-light:
     value: "hsla({!light}, 83%, 1)"
@@ -163,31 +160,31 @@ props:
 
   # Greyscale Colors
   grey1:
-    value: "hsla(0, 0, 0, .02)"
+    value: "hsla(0, 0, 98%, 1)"
     category: "greyscale-color"
   grey2:
-    value: "hsla(0, 0, 0, .05)"
+    value: "hsla(0, 0, 95%, 1)"
     category: "greyscale-color"
   grey3:
-    value: "hsla(0, 0, 0, .1)"
+    value: "hsla(0, 0, 90%, 1)"
     category: "greyscale-color"
   grey4:
-    value: "hsla(0, 0, 0, .15)"
+    value: "hsla(0, 0, 85%, 1)"
     category: "greyscale-color"
   grey5:
-    value: "hsla(0, 0, 0, .25)"
+    value: "hsla(0, 0, 75%, 1)"
     category: "greyscale-color"
   grey6:
-    value: "hsla(0, 0, 0, .4)"
+    value: "hsla(0, 0, 60%, 1)"
     category: "greyscale-color"
   grey7:
-    value: "hsla(0, 0, 0, .5)"
+    value: "hsla(0, 0, 50%, 1)"
     category: "greyscale-color"
   grey8:
-    value: "hsla(0, 0, 0, .7)"
+    value: "hsla(0, 0, 30%, 1)"
     category: "greyscale-color"
   grey9:
-    value: "hsla(0, 0, 0, .9)"
+    value: "hsla(0, 0, 10%, 1)"
     category: "greyscale-color"
 
 global:

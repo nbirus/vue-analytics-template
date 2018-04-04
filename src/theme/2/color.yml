@@ -6,13 +6,13 @@
 
 aliases:
   red:
-    value: "7, 93%"
+    value: "10, 93%"
   green:
-    value: "131, 50%"
+    value: "21, 50%"
   blue:
-    value: "201, 96%"
+    value: "13, 96%"
   cyan:
-    value: "186, 100%"
+    value: "190, 100%"
   lime:
     value: "147, 86%"
   purple:
@@ -20,12 +20,12 @@ aliases:
   yellow:
     value: "51, 97%"
   inverse:
-    value: "214, 17%"
+    value: "180, 17%"
   light:
-    value: "218, 35%"
+    value: "118, 35%"
 
 props:
-  
+
   # Main Colors
   c-red:
     value: "hsla({!red}, 62%, 1)"
@@ -160,31 +160,31 @@ props:
 
   # Greyscale Colors
   grey1:
-    value: "hsla(0, 0, 0, .02)"
+    value: "hsla(0, 0, 98%, 1)"
     category: "greyscale-color"
   grey2:
-    value: "hsla(0, 0, 0, .05)"
+    value: "hsla(0, 0, 95%, 1)"
     category: "greyscale-color"
   grey3:
-    value: "hsla(0, 0, 0, .1)"
+    value: "hsla(0, 0, 90%, 1)"
     category: "greyscale-color"
   grey4:
-    value: "hsla(0, 0, 0, .15)"
+    value: "hsla(0, 0, 85%, 1)"
     category: "greyscale-color"
   grey5:
-    value: "hsla(0, 0, 0, .25)"
+    value: "hsla(0, 0, 75%, 1)"
     category: "greyscale-color"
   grey6:
-    value: "hsla(0, 0, 0, .4)"
+    value: "hsla(0, 0, 60%, 1)"
     category: "greyscale-color"
   grey7:
-    value: "hsla(0, 0, 0, .5)"
+    value: "hsla(0, 0, 50%, 1)"
     category: "greyscale-color"
   grey8:
-    value: "hsla(0, 0, 0, .7)"
+    value: "hsla(0, 0, 30%, 1)"
     category: "greyscale-color"
   grey9:
-    value: "hsla(0, 0, 0, .9)"
+    value: "hsla(0, 0, 10%, 1)"
     category: "greyscale-color"
 
 global:

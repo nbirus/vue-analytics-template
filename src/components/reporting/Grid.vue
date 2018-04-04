@@ -22,9 +22,14 @@
         <!-- select input -->
         <select-input
           style="margin: 15px 0"
-          label="Type"
+
+          :inputValue.sync="exportFileType"
           :options="exportFileTypes.filter(type => exportTypes.includes(type.value))"
-          :inputValue.sync="exportFileType">
+
+          label="Type"
+          :hasLabel="true"
+          :allowEmpty="false"
+        >
         </select-input>
 
         <div class="export-buttons">
@@ -53,7 +58,10 @@
             {value: -1, label: 'All'}
           ]"
           optionSource="inline"
+          placeholder="Select Page Size"
+          :allowEmpty="false"
           :hasLabel="true"
+
           @changed="setPageSize"
         >
         </select-input>
@@ -75,7 +83,8 @@
 
         <!--refresh-->
         <btn
-          v-if="canToggleColumns"
+          v-if="canRefresh"
+          class="refresh-btn"
           @onClick="() => {}">
           <i class="fa fa-sync-alt"></i>
         </btn>
@@ -271,6 +280,10 @@
         default: 20
       },
       canSearch: {
+        type: Boolean,
+        default: true
+      },
+      canRefresh: {
         type: Boolean,
         default: true
       },
@@ -534,15 +547,12 @@
         }
       }
 
-      .extra-buttons-slot {
-        .b;
-      }
-
       .action-buttons {
         flex: 0 0 auto;
 
         .refresh-btn {
-          padding: 0 11px;
+          padding-left: .8em;
+          padding-right: .6em;
         }
       }
 
