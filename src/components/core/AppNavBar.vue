@@ -88,7 +88,9 @@
         flex: 0 0 auto; height: @nav-header-height;
         padding: 3px .5em;
 
-        .vertical-gradient(lighten(@nav-bg-color, 1%), darken(@nav-bg-color, 2%));
+        // .vertical-gradient(lighten(@nav-bg-color, 1%), darken(@nav-bg-color, 2%));
+        // .vertical-gradient(lighten(@c-cyan, 1%), darken(@c-cyan, 2%));
+        background-color: @nav-logo-bg-color;
 
         line-height: @nav-header-height;
         vertical-align: middle;

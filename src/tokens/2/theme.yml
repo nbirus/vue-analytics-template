@@ -1,0 +1,8 @@
+props:
+
+  c-first:
+    value: "@c-cyan"
+
+global:
+  type: primary-colors
+  category: color

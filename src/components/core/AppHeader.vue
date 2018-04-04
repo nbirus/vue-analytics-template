@@ -10,7 +10,7 @@
         </div>
 
         <transition name="page-header" mode="out-in">
-          <h2 :key="pageKey">{{$route.name}}</h2>
+          <h2 :key="$route.name">{{$route.name}}</h2>
         </transition>
 
       </div>
@@ -29,12 +29,7 @@
 
 <script>
   export default {
-    name: 'app-header',
-    computed: {
-      pageKey () {
-        return this.$route.name
-      }
-    }
+    name: 'app-header'
   }
 </script>
 
@@ -47,14 +42,13 @@
     border-color: darken(@c-light, 5%)!important;
   }
 
-
   .header {
     width: 100%;
     top: 0;
-    padding: 1rem 0; margin: 0;
+    padding: 1rem 0 1rem .5rem; margin: 0;
 
-    background-color: lighten(@page-bg-color, 3%);
-    border-bottom: solid 2px darken(@page-bg-color, 7%);
+    background-color: @page-header-color;
+    border-bottom: solid 1px darken(@page-bg-color, 7%);
     overflow: hidden;
 
     .page-header-content {

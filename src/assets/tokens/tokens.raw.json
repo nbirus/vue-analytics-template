@@ -4,10 +4,10 @@
       "value": "131, 50%"
     },
     "cyan": {
-      "value": "186, 100%"
+      "value": "203, 84%"
     },
     "inverse": {
-      "value": "214, 17%"
+      "value": "218, 31%"
     },
     "red": {
       "value": "7, 93%"
@@ -19,7 +19,7 @@
       "value": "147, 86%"
     },
     "light": {
-      "value": "218, 35%"
+      "value": "206, 26%"
     },
     "blue": {
       "value": "201, 96%"
@@ -32,7 +32,7 @@
     "c-info-light": {
       "type": "color",
       "category": "special-color",
-      "value": "rgb(0, 197, 219)",
+      "value": "rgb(18, 131, 202)",
       "originalValue": "hsla({!cyan}, 43%, 1)",
       "name": "c-info-light"
     },
@@ -78,11 +78,18 @@
       "originalValue": "hsla({!purple}, 67%, 1)",
       "name": "c-purple"
     },
+    "c-first": {
+      "type": "primary-colors",
+      "category": "color",
+      "value": "@c-cyan",
+      "originalValue": "@c-cyan",
+      "name": "c-first"
+    },
     "c-inverse": {
       "type": "color",
       "category": "base-color",
-      "value": "rgb(51, 60, 72)",
-      "originalValue": "hsla({!inverse}, 24%, 1)",
+      "value": "rgb(53, 70, 100)",
+      "originalValue": "hsla({!inverse}, 30%, 1)",
       "name": "c-inverse"
     },
     "c-red": {
@@ -123,15 +130,15 @@
     "c-info-dark": {
       "type": "color",
       "category": "special-color",
-      "value": "rgb(66, 236, 255)",
+      "value": "rgb(81, 179, 240)",
       "originalValue": "hsla({!cyan}, 63%, 1)",
       "name": "c-info-dark"
     },
     "c-light": {
       "type": "color",
       "category": "base-color",
-      "value": "rgb(234, 238, 245)",
-      "originalValue": "hsla({!light}, 94%, 1)",
+      "value": "rgb(239, 243, 246)",
+      "originalValue": "hsla({!light}, 95%, 1)",
       "name": "c-light"
     },
     "c-blue-light": {
@@ -144,8 +151,8 @@
     "c-cyan": {
       "type": "color",
       "category": "base-color",
-      "value": "rgb(0, 207, 230)",
-      "originalValue": "hsla({!cyan}, 45%, 1)",
+      "value": "rgb(91, 183, 241)",
+      "originalValue": "hsla({!cyan}, 65%, 1)",
       "name": "c-cyan"
     },
     "c-danger": {
@@ -158,7 +165,7 @@
     "c-inverse-light": {
       "type": "color",
       "category": "base-color",
-      "value": "rgb(28, 32, 39)",
+      "value": "rgb(23, 30, 43)",
       "originalValue": "hsla({!inverse}, 13%, 1)",
       "name": "c-inverse-light"
     },
@@ -221,7 +228,7 @@
     "c-light-light": {
       "type": "color",
       "category": "base-color",
-      "value": "rgb(196, 208, 227)",
+      "value": "rgb(200, 213, 223)",
       "originalValue": "hsla({!light}, 83%, 1)",
       "name": "c-light-light"
     },
@@ -235,7 +242,7 @@
     "c-cyan-light": {
       "type": "color",
       "category": "base-color",
-      "value": "rgb(0, 161, 179)",
+      "value": "rgb(14, 107, 164)",
       "originalValue": "hsla({!cyan}, 35%, 1)",
       "name": "c-cyan-light"
     },
@@ -256,7 +263,7 @@
     "c-cyan-dark": {
       "type": "color",
       "category": "base-color",
-      "value": "rgb(66, 236, 255)",
+      "value": "rgb(81, 179, 240)",
       "originalValue": "hsla({!cyan}, 63%, 1)",
       "name": "c-cyan-dark"
     },
@@ -284,7 +291,7 @@
     "c-info": {
       "type": "color",
       "category": "special-color",
-      "value": "rgb(15, 231, 255)",
+      "value": "rgb(34, 159, 236)",
       "originalValue": "hsla({!cyan}, 53%, 1)",
       "name": "c-info"
     },
@@ -340,7 +347,7 @@
     "c-inverse-dark": {
       "type": "color",
       "category": "base-color",
-      "value": "rgb(70, 82, 98)",
+      "value": "rgb(58, 77, 110)",
       "originalValue": "hsla({!inverse}, 33%, 1)",
       "name": "c-inverse-dark"
     },

@@ -1,0 +1,195 @@
+#
+# COLOR TOKENS
+# Use these tokens to set a color.
+# http://hslpicker.com/
+# The aliase value sets the color, props is where you can control brightness
+
+aliases:
+  red:
+    value: "7, 93%"
+  green:
+    value: "131, 50%"
+  blue:
+    value: "201, 96%"
+  cyan:
+    value: "203, 84%"
+  lime:
+    value: "147, 86%"
+  purple:
+    value: "276, 61%"
+  yellow:
+    value: "51, 97%"
+  inverse:
+    value: "218, 31%"
+  light:
+    value: "206, 26%"
+
+props:
+  
+  c-first:
+    value: "@c-cyan"
+
+  # Main Colors
+  c-red:
+    value: "hsla({!red}, 62%, 1)"
+    category: "base-color"
+  c-red-light:
+    value: "hsla({!red}, 40%, 1)"
+    category: "base-color"
+  c-red-dark:
+    value: "hsla({!red}, 65%, 1)"
+    category: "base-color"
+
+  c-green:
+    value: "hsla({!green}, 53%, 1)"
+    category: "base-color"
+  c-green-light:
+    value: "hsla({!green}, 43%, 1)"
+    category: "base-color"
+  c-green-dark:
+    value: "hsla({!green}, 63%, 1)"
+    category: "base-color"
+
+  c-blue:
+    value: "hsla({!blue}, 53%, 1)"
+    category: "base-color"
+  c-blue-light:
+    value: "hsla({!blue}, 43%, 1)"
+    category: "base-color"
+  c-blue-dark:
+    value: "hsla({!blue}, 63%, 1)"
+    category: "base-color"
+
+  c-cyan:
+    value: "hsla({!cyan}, 65%, 1)"
+    category: "base-color"
+  c-cyan-light:
+    value: "hsla({!cyan}, 35%, 1)"
+    category: "base-color"
+  c-cyan-dark:
+    value: "hsla({!cyan}, 63%, 1)"
+    category: "base-color"
+
+  c-lime:
+    value: "hsla({!lime}, 45%, 1)"
+    category: "base-color"
+  c-lime-light:
+    value: "hsla({!lime}, 35%, 1)"
+    category: "base-color"
+  c-lime-dark:
+    value: "hsla({!lime}, 63%, 1)"
+    category: "base-color"
+
+  c-purple:
+    value: "hsla({!purple}, 67%, 1)"
+    category: "base-color"
+  c-purple-light:
+    value: "hsla({!purple}, 43%, 1)"
+    category: "base-color"
+  c-purple-dark:
+    value: "hsla({!purple}, 73%, 1)"
+    category: "base-color"
+
+  c-yellow:
+    value: "hsla({!yellow}, 62%, 1)"
+    category: "base-color"
+  c-yellow-light:
+    value: "hsla({!yellow}, 43%, 1)"
+    category: "base-color"
+  c-yellow-dark:
+    value: "hsla({!yellow}, 63%, 1)"
+    category: "base-color"
+
+  c-inverse:
+    value: "hsla({!inverse}, 30%, 1)"
+    category: "base-color"
+  c-inverse-light:
+    value: "hsla({!inverse}, 13%, 1)"
+    category: "base-color"
+  c-inverse-dark:
+    value: "hsla({!inverse}, 33%, 1)"
+    category: "base-color"
+
+  c-light:
+    value: "hsla({!light}, 95%, 1)"
+    category: "base-color"
+  c-light-light:
+    value: "hsla({!light}, 83%, 1)"
+    category: "base-color"
+  c-light-dark:
+    value: "hsla({!light}, 100%, 1)"
+    category: "base-color"
+
+  # Special Colors
+  c-success:
+    value: "hsla({!green}, 53%, 1)"
+    category: "special-color"
+  c-success-light:
+    value: "hsla({!green}, 43%, 1)"
+    category: "special-color"
+  c-success-dark:
+    value: "hsla({!green}, 63%, 1)"
+    category: "special-color"
+
+  c-info:
+    value: "hsla({!cyan}, 53%, 1)"
+    category: "special-color"
+  c-info-light:
+    value: "hsla({!cyan}, 43%, 1)"
+    category: "special-color"
+  c-info-dark:
+    value: "hsla({!cyan}, 63%, 1)"
+    category: "special-color"
+
+  c-warning:
+    value: "hsla({!yellow}, 53%, 1)"
+    category: "special-color"
+  c-warning-light:
+    value: "hsla({!yellow}, 43%, 1)"
+    category: "special-color"
+  c-warning-dark:
+    value: "hsla({!yellow}, 63%, 1)"
+    category: "special-color"
+
+  c-danger:
+    value: "hsla({!red}, 53%, 1)"
+    category: "special-color"
+  c-danger-light:
+    value: "hsla({!red}, 43%, 1)"
+    category: "special-color"
+  c-danger-dark:
+    value: "hsla({!red}, 63%, 1)"
+    category: "special-color"
+
+  # Greyscale Colors
+  grey1:
+    value: "hsla(0, 0, 0, .02)"
+    category: "greyscale-color"
+  grey2:
+    value: "hsla(0, 0, 0, .05)"
+    category: "greyscale-color"
+  grey3:
+    value: "hsla(0, 0, 0, .1)"
+    category: "greyscale-color"
+  grey4:
+    value: "hsla(0, 0, 0, .15)"
+    category: "greyscale-color"
+  grey5:
+    value: "hsla(0, 0, 0, .25)"
+    category: "greyscale-color"
+  grey6:
+    value: "hsla(0, 0, 0, .4)"
+    category: "greyscale-color"
+  grey7:
+    value: "hsla(0, 0, 0, .5)"
+    category: "greyscale-color"
+  grey8:
+    value: "hsla(0, 0, 0, .7)"
+    category: "greyscale-color"
+  grey9:
+    value: "hsla(0, 0, 0, .9)"
+    category: "greyscale-color"
+
+global:
+  type: color
+  category: color

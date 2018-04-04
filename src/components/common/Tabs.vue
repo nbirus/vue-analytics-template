@@ -13,7 +13,7 @@
         <text-input
           :inputValue.sync="searchText"
           class="tab-search"
-          placeholder="Type to filter.."
+          placeholder="Filter.."
           v-if="isSidebarOpen" />
 
         <!-- collapse button -->

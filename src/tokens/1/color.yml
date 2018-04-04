@@ -25,7 +25,7 @@ aliases:
     value: "218, 35%"
 
 props:
-
+  
   # Main Colors
   c-red:
     value: "hsla({!red}, 62%, 1)"
