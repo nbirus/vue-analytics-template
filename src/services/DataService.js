@@ -72,7 +72,8 @@ let cancelPendingAPIRequests = () => {
 function setDefaultHeader () {
   return {
     'Cache-Control': 'no-cache',
-    'Authorization': 'Bearer ' + localStorage.getItem('id_token')
+    // 'Authorization': 'Bearer ' + localStorage.getItem('id_token')
+    'Authorization': 'Bearer'
   }
 }
 

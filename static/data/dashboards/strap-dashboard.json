@@ -1,0 +1,109 @@
+{
+  "settings": [],
+  "reports": [
+    {
+      "id": "total-trials",
+      "display": [
+        {
+          "order": 1,
+          "row": 2,
+          "col": 3
+        },
+        {
+          "order": 1,
+          "row": 1,
+          "col": 4
+        },
+        {
+          "order": 1,
+          "row": 1,
+          "col": 12
+        }
+      ],
+
+      "reportApiConfig": {
+
+        "endpoint": "analytics/trials",
+        "params": {
+          "chart": "trial_total"
+        }
+      },
+      "reportType": "count-widget",
+      "reportProps": {
+        "title": "Total Trials",
+        "theme": "inverse",
+        "icon": "book-open",
+        "size": "large"
+      }
+    },
+    {
+      "id": "total-trials",
+      "display": [
+        {
+          "order": 1,
+          "row": 2,
+          "col": 3
+        },
+        {
+          "order": 1,
+          "row": 1,
+          "col": 4
+        },
+        {
+          "order": 1,
+          "row": 1,
+          "col": 12
+        }
+      ],
+
+      "reportApiConfig": {
+
+        "endpoint": "analytics/trials",
+        "params": {
+          "chart": "organization_total"
+        }
+      },
+      "reportType": "count-widget",
+      "reportProps": {
+        "title": "Total Organizations",
+        "theme": "cyan",
+        "icon": "organization",
+        "size": "large"
+      }
+    },
+    {
+      "id": "total-trials",
+      "display": [
+        {
+          "order": 1,
+          "row": 2,
+          "col": 3
+        },
+        {
+          "order": 1,
+          "row": 1,
+          "col": 4
+        },
+        {
+          "order": 1,
+          "row": 1,
+          "col": 12
+        }
+      ],
+
+      "reportApiConfig": {
+        
+        "endpoint": "analytics/trials",
+        "params": {
+          "chart": "person_total"
+        }
+      },
+      "reportType": "count-widget",
+      "reportProps": {
+        "title": "Total Persons",
+        "theme": "purple",
+        "icon": "user"
+      }
+    }
+  ]
+}

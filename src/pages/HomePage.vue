@@ -32,8 +32,7 @@
 
 <script>
   import Dashboard from '../components/generators/ReportGenerator'
-
-  import DashboardJSON from '../../static/data/dashboards/test-dashboard.json'
+  import DashboardJSON from '../../static/data/dashboards/strap-dashboard.json'
 
   export default {
     name: 'home',
@@ -42,12 +41,8 @@
     },
     data () {
       return {
-        dashboard: DashboardJSON,
-        rendered: false
+        dashboard: DashboardJSON
       }
-    },
-    mounted () {
-      this.rendered = true
     }
   }
 </script>

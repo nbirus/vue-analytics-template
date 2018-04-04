@@ -2,7 +2,7 @@
   <transition-group name="dashboard-list" appear mode="out-in" class="dashboard" tag="div">
     <report-container
 
-      v-for="(report, index) in activeDashboard.reportContainers" :key="index"
+      v-for="(report, index) in dashboard.reports" :key="index"
 
       class="dashboard-item"
       :class="buildReportClass(report.display)"
@@ -30,11 +30,6 @@
       initialProps: {
         type: Object,
         default () { return {} }
-      }
-    },
-    computed: {
-      activeDashboard () {
-        return this.dashboard.dashboards[0]
       }
     },
     methods: {

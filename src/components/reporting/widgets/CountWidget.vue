@@ -162,10 +162,10 @@
     .generateThemeClasses({
 
       .widget.theme-@{name} {
-        .vertical-gradient(darken(@color, 3%), @color);
+        .vertical-gradient(lighten(@color, 4%), @color);
         border-color: @color-dark!important;
 
-        &.error,  {
+        &.error {
           .stripe-gradient(@color) !important;
 
           .icon-circle {

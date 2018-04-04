@@ -251,7 +251,6 @@
          &:after {
            display: none;
          }
-
        }
      }
 
