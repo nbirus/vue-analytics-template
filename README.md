@@ -1,14 +1,14 @@
 # vue-analytics-template
 A base set of components for an analytics website..
 
-# Quick start
+# Quick start for mac
 - `npm install`
-- `npm run mac`
+- `npm run dev-mac`
 - open `http://0.0.0.0:8080/`
 
 # Commands:
 - `npm run dev` starts webpack server with hotreload for windows machines
-- `npm run mac` starts webpack server with hotreload for mac
+- `npm run dev-mac` starts webpack server with hotreload for mac
 - `npm start` starts webpack server with hotreloaded style token generation
 - `npm run theo` build style tokens
 
