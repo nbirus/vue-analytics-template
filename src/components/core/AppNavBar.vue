@@ -92,9 +92,7 @@
         flex: 0 0 auto; height: 100%;
         padding: 3px .5em;
 
-        // .vertical-gradient(lighten(@nav-bg-color, 1%), darken(@nav-bg-color, 2%));
-        // .vertical-gradient(lighten(@c-cyan, 1%), darken(@c-cyan, 2%));
-        background-color: lighten(@nav-bg-color, 5%);
+        .vertical-gradient(darken(@nav-bg-color, 3%), darken(@nav-bg-color, 6%));
 
         line-height: @nav-height;
         vertical-align: middle;
@@ -217,7 +215,7 @@
       }
 
       .user {
-        flex: 0 0 auto; height: @nav-height;
+        flex: 0 0 auto; height: 100%;
         padding: 0 1rem;
 
         display: flex;
@@ -294,7 +292,7 @@
       }
 
       .user {
-        flex: 0 0 auto; height: @nav-height;
+        flex: 0 0 auto; height: 100%;
         display: none;
       }
 

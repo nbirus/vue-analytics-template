@@ -51,9 +51,9 @@
       border: @border;
       border-right: none;
 
-      .box-shadow(inset 1px 2px 4px 0 fadeout(@grey8, 90%));
+      .box-shadow(inset 1px 2px 4px 0 fadeout(black, 95%));
 
-      .f-b;
+      font-weight: @bold;
       color: @grey6;
       font-size: @input-font-size;
 
@@ -65,8 +65,8 @@
       }
 
       &:hover {
-        background-color: @grey2;
-        color: @grey7;
+        background-color: fadeout(black, 95%);
+        color: fadeout(black, 55%);
       }
 
       &.active {

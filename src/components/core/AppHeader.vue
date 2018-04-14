@@ -2,27 +2,24 @@
   <header class="header">
     <div class="page-header-content">
 
+      <!-- title -->
       <div class="page-title-container">
         <div class="icon">
-          <transition name="page-header-icon" mode="out-in" >
+          <transition name="page-header-icon" mode="out-in" appear>
             <i class="icons" :class="'icon-' + $route.meta.icon" :key="$route.meta.icon"></i>
           </transition>
         </div>
 
-        <transition name="page-header" mode="out-in">
+        <transition name="page-header" mode="out-in" appear>
           <h2 :key="$route.name">{{$route.name}}</h2>
         </transition>
-
       </div>
 
+      <!-- actions -->
       <div class="page-actions">
-        <!--<text-input placeholder="Search.." style="width: 300px; margin-right: 10px"></text-input>-->
-        <!--
-        <btn class="settings-btn" large>
-          <i class="fa fa-cogs"></i>
-          Settings
-        </btn> -->
+        <slot name="page-actions"/>
       </div>
+
     </div>
   </header>
 </template>
@@ -56,12 +53,8 @@
       .max-page-width;
 
       display: flex;
-      justify-content: space-between;
-
       padding: 0 @page-padding;
 
-
-      // features
       .page-title-container {
         flex: 0 0 auto;
         height: 100%;
@@ -74,12 +67,7 @@
         .icon {
           margin-right: 1rem;
           padding: 3px 0 0;
-
-          // background-color: fadeout(black, 96%);
-          // border-right: solid 2px fadeout(black, 97%);
-          // color: fadeout(black, 75%);
           color: @c-inverse;
-          // color: fadeout(black, 5%);
 
           font-size: 1.8rem;
           height: 100%;
@@ -91,7 +79,6 @@
 
         h2 {
           color: @c-inverse;
-          // color: white;
           font-weight: 100;
           font-size: 1.9rem;
 
@@ -101,14 +88,18 @@
             font-size: 1.5rem;
           }
         }
-
       }
 
       .page-actions {
-        flex: 0 0 auto;
+        flex: 0 1 100%;
 
         display: flex;
         align-items: center;
+        justify-content: flex-end;
+
+        & > div {
+          display: flex;
+        }
       }
     }
 

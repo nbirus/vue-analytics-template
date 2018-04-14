@@ -223,6 +223,7 @@
      & > .multiselect__content-wrapper {
        border: @input-focus-border;
        border-top: none;
+       .box-shadow(@input-focus-shadow);
 
        background-color: white;
        border-radius: @input-border-radius;

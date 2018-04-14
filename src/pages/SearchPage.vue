@@ -1,37 +1,19 @@
 <template>
   <div class="page">
 
-    <div class="page-header" v-if="false">
+    <app-header>
+      <div slot="page-actions">
+        <pill-input id="pill"
+          :inputValue.sync="value"
+          :options="[
+            {label: 'Grid', value: 'grid'},
+            {label: 'Analytics', value: 'charts'}
+          ]"
+        />
 
-      <div class="page-header-content">
-        <div class="page-title-container">
-          <h2>
-            <i class="icons icon-book-open" style="font-size: 16pt;"></i>
-            Trials
-          </h2>
-        </div>
-
-        <div class="page-actions">
-          <!-- <btn class="dashboard-settings-btn icon-margin" large><i class="fa fa-history icon-margin"></i>Recent</btn> -->
-          <!-- <btn class="dashboard-settings-btn icon-margin" large><i class="fa fa-star text-yellow"></i></btn> -->
-          <!-- <btn class="dashboard-settings-btn icon-margin" large><i class="fa fa-history"></i></btn> -->
-
-          <pill-input class="icon-margin"
-            id="pill"
-            :inputValue.sync="value"
-            :options="[
-              {label: 'Grid', value: 'grid'},
-              {label: 'Analytics', value: 'charts'}
-            ]"
-          ></pill-input>
-
-          <btn class="dashboard-settings-btn" large><i class="fa fa-cog"></i></btn>
-
-        </div>
+        <btn class="dashboard-settings-btn" style="margin-left: 8px;" large><i class="fa fa-cog"></i> Settings</btn>
       </div>
-
-
-    </div>
+    </app-header>
 
     <div class="page-body analytics" v-if="value === 'charts'">
       <dashboard :dashboard="dashboard"></dashboard>
@@ -40,26 +22,30 @@
     <transition name="dashboard-list" appear mode="out-in">
       <div class="page-body grid" v-if="value === 'grid'">
 
-
+        <div class="panel" style="height: 80vh; width: 100%">
           <grid style="height: 80vh; width: 100%"
-                id="test-grid"
+              id="test-grid"
 
-                :data="data"
-                :columns="columns"
+              :data="data"
+              :columns="columns"
 
-                :canSort="true"
-                :canResizeColumns="true"
-                :canMoveColumns="false"
-                :paginate="true"
-                :initialPageSize="20"
-                :canSearch="false"
-                :canToggleColumns="true"
-                :canSelect="true"
-                :canSelectMultiple="false"
-                :showRowDetail="false"
-              >
-                <btn slot="extra-action">Change Columns</btn>
-              </grid>
+              :canSort="true"
+              :canResizeColumns="true"
+              :canMoveColumns="false"
+              :paginate="true"
+              :initialPageSize="20"
+              :canSearch="false"
+              :canToggleColumns="true"
+              :canSelect="true"
+              :canSelectMultiple="false"
+              :showRowDetail="false"
+            >
+              <btn slot="extra-action">Change Columns</btn>
+            </grid>
+        </div>
+
+
+
 
             <!--<data-wrapper :apiConfig="config">-->
               <!--<template slot-scope="{ _response, _state }">-->
@@ -100,7 +86,7 @@
 </template>
 
 <script>
-
+  import AppHeader from '@/components/core/AppHeader'
   import TestData from '../../static/data/grid-headers/test-data2.json'
   import TestColumns from '../../static/data/grid-headers/test-headers2.json'
   import Grid from '../components/reporting/Grid'
@@ -115,7 +101,7 @@
 
   export default {
     name: 'trials',
-    components: { DataWrapper, Grid, Dashboard, ProgressWidget, CountWidget, ChartReport },
+    components: { AppHeader, DataWrapper, Grid, Dashboard, ProgressWidget, CountWidget, ChartReport },
     data () {
       return {
         load: false,

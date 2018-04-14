@@ -1,27 +1,11 @@
 <template>
   <div class="page">
 
-    <!-- <div class="page-header"> -->
-
-      <!-- <div class="page-header-content">
-
-        <div class="page-title-container">
-          <div class="icon">
-            <i class="icons icon-grid"></i>
-          </div>
-
-          <transition name="page-header" mode="out-in">
-            <h2 v-if="rendered">Dashboard</h2>
-          </transition>
-
-        </div>
-
-        <div class="page-actions">
-          <btn class="dashboard-settings-btn" large><i class="fa fa-cog icon-margin"></i>Dashboard Settings</btn>
-        </div>
-      </div> -->
-
-    <!-- </div> -->
+    <app-header>
+      <div slot="page-actions">
+        <btn class="dashboard-settings-btn" large><i class="fa fa-cog icon-margin"></i>Dashboard Settings</btn>
+      </div>
+    </app-header>
 
     <div class="page-body">
       <dashboard :dashboard="dashboard"></dashboard>
@@ -31,13 +15,15 @@
 </template>
 
 <script>
+  import AppHeader from '@/components/core/AppHeader'
   import Dashboard from '../components/generators/ReportGenerator'
   import DashboardJSON from '../../static/data/dashboards/strap-dashboard.json'
 
   export default {
     name: 'home',
     components: {
-      Dashboard
+      Dashboard,
+      AppHeader
     },
     data () {
       return {

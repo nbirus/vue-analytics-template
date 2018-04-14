@@ -5,14 +5,16 @@
   opacity: 0;
 }
 .default-page-transition-enter-active {
-  transition: all @transition-speed @transition-curve-in;
+  transition: all .1s @transition-curve-in;
+  // transition: all @transition-speed @transition-curve-in;
 }
 .default-page-transition-enter-to, .default-page-transition-leave {
   transform: translateX(0);
   opacity: 1;
 }
 .default-page-transition-leave-active {
-  transition: all @transition-speed @transition-curve-out;
+  transition: all .1s @transition-curve-out;
+  // transition: all @transition-speed @transition-curve-out;
 }
 .default-page-transition-leave-to {
   transform: translateX(25px);

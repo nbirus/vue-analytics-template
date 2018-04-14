@@ -7,9 +7,6 @@
     <!-- page content -->
     <div class="content">
 
-      <!-- nav bar -->
-      <app-header v-if="showHeader"></app-header>
-
       <!-- page -->
       <transition name="default-page-transition" mode="out-in">
         <router-view :key="$route.name"/>
@@ -24,14 +21,12 @@
 </template>
 
 <script>
-  import AppHeader from '@/components/core/AppHeader'
   import AppNavBar from '@/components/core/AppNavBar'
   import AppFooter from '@/components/core/AppFooter'
 
   export default {
     name: 'App',
     components: {
-      AppHeader,
       AppNavBar,
       AppFooter
     },
