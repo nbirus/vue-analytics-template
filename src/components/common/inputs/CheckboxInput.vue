@@ -11,12 +11,17 @@
       {{label}}
     </label>
 
-    <label class="checkbox"
-       v-for="(option, index) in options"
-       :key="index"
-       @click="optionClicked(option.value)">
+    <label
+      class="checkbox"
+      v-for="(option, index) in options" :key="index"
+      @click="optionClicked(option)">
 
-      <input type="checkbox" :name="option.value" :checked="inputValue.includes(option.value)">
+      <input
+        type="checkbox"
+        :name="option.value"
+        :checked="isActive(option)"
+      />
+
       {{option.label}}
 
     </label>
@@ -53,16 +58,28 @@
       this.options = OptionsJSON[this.optionSource]
     },
     methods: {
-      optionClicked (value) {
+      optionClicked (option) {
 
-        let activeList = JSON.parse(JSON.stringify(this.inputValue))
+        let selectedOptions = JSON.parse(JSON.stringify(this.inputValue))
 
-        if (activeList) {
-          if (activeList.includes(value)) { activeList.splice(activeList.indexOf(value), 1) }
-          else { activeList.push(value) }
+        if (selectedOptions) {
 
-          this.$updateValue(activeList)
+          // toggle selected item
+          if (this.isActive(option)) {
+            selectedOptions.splice(this.getIndex(option), 1)
+          }
+          else {
+            selectedOptions.push(option)
+          }
+
+          this.$updateValue(selectedOptions)
         }
+      },
+      isActive (option) {
+        return this.inputValue.some(selectedOption => selectedOption.value === option.value)
+      },
+      getIndex (option) {
+        return this.inputValue.findIndex(o => option.value === o.value)
       }
     }
   }
@@ -83,11 +100,11 @@
 
     .checkbox {
       flex: 0 0 100%;
-      cursor: pointer;
+      cursor: default;
       .f-r;
       margin-right: 15px;
       margin-bottom: 3px;
-      font-size: @input-font-size;;
+      font-size: @input-font-size;
 
       &:last-child {
         margin-right: 0;

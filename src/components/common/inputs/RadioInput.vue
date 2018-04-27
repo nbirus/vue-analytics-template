@@ -14,9 +14,14 @@
     <label class="checkbox"
        v-for="(option, index) in options"
        :key="index"
-       @click="optionClicked(option.value)">
+       @click="optionClicked(option)">
 
-      <input type="radio" :name="option.value" :checked="inputValue === option.value" />
+      <input
+        type="radio"
+        :name="option.value"
+        :checked="inputValue.value === option.value"
+      />
+
       {{option.label}}
 
     </label>
@@ -75,7 +80,6 @@
 
     .checkbox {
       flex: 0 0 100%;
-      cursor: pointer;
       .f-r;
       margin-right: 15px;
       margin-bottom: 3px;

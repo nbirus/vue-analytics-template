@@ -8,7 +8,6 @@ import FormListInput from './inputs/FormListInput'
 import PillInput from './inputs/PillInput'
 import DateRangeInput from './inputs/DateRangeInput'
 import SelectInput from './inputs/SelectInput'
-import ColorInput from './inputs/ColorInput'
 
 export default {
   Tabs,
@@ -20,6 +19,5 @@ export default {
   FormListInput,
   PillInput,
   DateRangeInput,
-  SelectInput,
-  ColorInput
+  SelectInput
 }

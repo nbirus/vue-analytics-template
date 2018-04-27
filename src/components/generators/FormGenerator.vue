@@ -9,7 +9,7 @@
     <div class="form-input-row"
       v-for="input in inputs"
       :key="input.id"
-      >
+    >
 
       <!-- text input -->
       <text-input
@@ -114,7 +114,7 @@
 </template>
 
 <script>
-  import { isNil } from 'lodash'
+  import { isNil, isArray, isObject } from 'lodash'
 
   export default {
     name: 'form-generator',
@@ -145,6 +145,7 @@
           this.updateValue(input.id, this.getInitialValue(input))
         })
       },
+
       updateValue (id, value) {
         this.$set(this.inputValues, id, value)
         this.$emit('formChanged', this.inputValues)
@@ -158,15 +159,46 @@
           initialValue = input.initialValue
         }
 
-        // initial value from parent
+        // initial value from props
         if (!isNil(this.initialValues[input.id])) {
           initialValue = this.initialValues[input.id]
         }
 
         return initialValue
       },
+
+      getFormattedInputValues () {
+
+        let returnObject = {}
+
+        Object.keys(this.inputValues).forEach(key => {
+          returnObject[key] = this.formatField(
+            this.inputs.find(input => input.id === key),
+            this.inputValues[key]
+          )
+        })
+
+        return returnObject
+      },
+      formatField (input, value) {
+
+        let labelValueTypes = ['select', 'checkbox', 'radio']
+
+        // check the type to see if it needs formatting
+        if (labelValueTypes.includes(input.type)) {
+
+          // if an array of objects, loop over each one
+          if (isArray(value)) value = value.map(item => item.value)
+
+          // if a single object, extract value field
+          else if (isObject(value)) value = value.value
+        }
+
+        return value
+      },
+
       submitForm () {
-        this.$emit('formSubmited', this.inputValues)
+        this.$emit('formSubmitted', this.inputValues)
       },
       resetForm () {
         this.inputValues = {}

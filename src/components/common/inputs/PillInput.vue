@@ -11,11 +11,16 @@
       {{label}}
     </label>
 
-    <button type="button" class="form-control" v-for="(option, index) in options"
-                      :key="index"
-                      :class="{'active': option.value === inputValue}"
-                      @click="$updateValue(option.value)">
+    <button
+      type="button"
+      class="form-control"
+
+      v-for="(option, index) in options" :key="index"
+      :class="{'active': option.value === inputValue.value}"
+      @click="$updateValue(option)">
+
       {{option.label}}
+
     </button>
   </div>
 </template>
@@ -46,6 +51,7 @@
     .form-control {
       width: auto; height: 40px;
       display: inline-block;
+      padding: 0 15px;
 
       background-color: fadeout(black, 97%);
       border: @border;
@@ -56,9 +62,6 @@
       font-weight: @bold;
       color: @grey6;
       font-size: @input-font-size;
-
-      padding: 0 15px;
-      cursor: pointer;
 
       &:last-child {
         border-right: @border;

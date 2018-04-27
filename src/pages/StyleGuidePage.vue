@@ -13,8 +13,6 @@
 
     <div class="page-body">
 
-
-
       <div class="panel style-panel">
         <tabs sidebar searchable theme="inverse">
 
@@ -265,15 +263,6 @@
                   @changed="alert"
                 ></select-input>
 
-                <!--color selector input-->
-                <color-input class="form-space"
-                  id="color-id"
-                  label="Color Input"
-                  :required="inputsRequired"
-                  :error="inputsError"
-                  @changed="alert"
-                ></color-input>
-
               </div>
 
             </div>
@@ -289,15 +278,16 @@
               <div class="panel-section">
 
                 <div class="panel-block">
-                  <form-generator
+                  <form-generator ref="form"
                     :inputs="testForm"
                     :initialValues="initialValues"
                     :breakFormIndex="2"
 
                     @formChanged="formChanged"
-                    @formSubmited="formSubmited"
+                    @formSubmitted="formSubmitted"
                   >
                   </form-generator>
+                  {{initialValues}}
                 </div>
 
               </div>
@@ -428,8 +418,10 @@
       rowSelected (rowSelected) {
         console.log(rowSelected)
       },
-      formChanged (obj) {},
-      formSubmited (obj) {
+      formChanged (obj) {
+        // this.$refs.form.getFormattedInputValues()
+      },
+      formSubmitted (obj) {
         this.initialValues = JSON.parse(JSON.stringify(obj))
       }
     }

@@ -13,8 +13,8 @@
 
     <multiselect
       class="form-control"
-      :value="displayValue"
-      @input="optionSelected"
+      :value="inputValue"
+      @input="$updateValue"
 
       :options="activeOptions"
 
@@ -96,8 +96,7 @@
     },
     data () {
       return {
-        activeOptions: [],
-        displayValue: undefined
+        activeOptions: []
       }
     },
     async mounted () {
@@ -107,54 +106,31 @@
 
       // if there is no initial value, initialize it
       if (!this.inputValue) {
-        this.$nextTick(() => { this.$updateValue(this.getDefaultValue()) })
-      }
-      else {
-        this.displayValue = this.formatValueForDisplay(this.inputValue)
+        this.$nextTick(() => { this.$updateValue(this.multiselect ? [] : '') })
       }
 
     },
     methods: {
-      optionSelected (selectedValue) {
-        let updateValue = (selectedValue)
-          ? this.formatValueForReturn(selectedValue)
-          : this.getDefaultValue()
-
-        this.$updateValue(updateValue)
-      },
 
       getOptions () {
+
+        // specified in the props
         if (this.optionSource === 'inline') {
           return cloneDeep(this.options)
         }
+
+        // from the options file
         else if (this.optionSource === 'local') {
           return cloneDeep(OptionsJSON[this.optionPath])
         }
+
+        // use the api to get the options
         else if (this.optionSource === 'api') {
           // get from api
         }
-      },
-      getDefaultValue () {
-        return (this.multiselect) ? [] : ''
-      },
 
-      formatValueForReturn (value) {
-        return (this.multiselect)
-          ? value.map(valueItem => (this.hasLabel) ? valueItem[this.optionValue] : valueItem) // multi-select
-          : (this.hasLabel) ? value[this.optionValue] : value // single-select
-      },
-      formatValueForDisplay (value) {
-        return (this.multiselect)
-          ? value.map(valueItem => (this.hasLabel) ? this.activeOptions.find(item => item[this.optionValue] === valueItem) : valueItem) // multi-select
-          : (this.hasLabel) ? this.activeOptions.find(item => item[this.optionValue] === value) : value // single-select
       }
-    },
-    watch: {
-      inputValue (value) {
-        this.displayValue = (value)
-          ? this.formatValueForDisplay(value)
-          : this.getDefaultValue()
-      }
+
     }
   }
 </script>
@@ -210,8 +186,10 @@
          border-radius: 2px;
          line-height: initial;
 
+
          & > .multiselect__tag-icon {
            border-radius: 0;
+           cursor: default;
 
            &:hover { background: @grey2; }
            &:after { color: @grey8; }
@@ -234,6 +212,7 @@
          padding: @input-padding;
          color: @grey9;
          min-height: initial;
+         cursor: default;
 
          // hover over option
          &.multiselect__option--highlight {

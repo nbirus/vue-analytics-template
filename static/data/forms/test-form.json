@@ -1,7 +1,7 @@
 [
   {
     "type": "select",
-    "id": "select-wow",
+    "id": "select-1",
     "label": "Select Input Inline No Label",
 
     "hasLabel": true,
@@ -16,7 +16,7 @@
   },
   {
     "type": "select",
-    "id": "select",
+    "id": "select-2",
     "label": "Select Input Inline",
 
     "multiselect": false,
@@ -27,7 +27,7 @@
   },
   {
     "type": "select",
-    "id": "select-2",
+    "id": "select-3",
     "label": "Select Input From File",
     "optionSource": "local",
     "optionPath": "test",
