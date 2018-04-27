@@ -109,6 +109,7 @@
       <btn type="reset">Cancel</btn>
       <btn type="submit" theme="success">Ok</btn>
     </div>
+
   </form>
 </template>
 
@@ -126,11 +127,6 @@
         type: Object,
         required: false,
         default () { return {} }
-      },
-      breakFormIndex: {
-        type: Number,
-        required: false,
-        default: 0
       }
     },
     data () {
@@ -139,7 +135,6 @@
       }
     },
     mounted () {
-      // on mount create inputValues
       this.createInitialInputValues()
     },
     methods: {
