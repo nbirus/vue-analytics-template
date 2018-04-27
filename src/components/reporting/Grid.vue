@@ -40,7 +40,6 @@
       </div>
     </modal>
 
-
     <!-- ------actions bar------ -->
     <div class="grid-action-bar">
 
@@ -65,7 +64,7 @@
           @changed="setPageSize"
         >
         </select-input>
-        <span>of {{gridData.length}} entries</span>
+        <span>of {{(gridData.length) ? gridData.length.toLocaleString() : ''}} entries</span>
       </div>
 
       <!--search-->
@@ -79,29 +78,28 @@
       </div>
 
       <!--toggle columns-->
-      <div class="action-buttons">
+      <div class="action-buttons links">
 
-        <!--refresh-->
-        <btn
+        <!-- refresh -->
+        <a
           v-if="canRefresh"
-          class="refresh-btn"
-          @onClick="() => {}">
-          <i class="fa fa-sync-alt"></i>
-        </btn>
+          @click="() => {}">
+          Refresh <i class="fa fa-sync-alt"></i>
+        </a>
 
         <!--toggle columns-->
-        <btn
-           v-if="canToggleColumns"
-           @onClick="toggleColumnsOpen = !toggleColumnsOpen">
-           Toggle Columns
-       </btn>
+        <a
+          v-if="canToggleColumns"
+          @click="toggleColumnsOpen = !toggleColumnsOpen">
+          Toggle Columns
+        </a>
 
         <!--export-->
-        <btn
+        <a
           v-if="canExport"
-          @onClick="exportModal = true">
+          @click="exportModal = true">
           Export Table
-        </btn>
+        </a>
 
         <!-- extra buttons -->
         <slot name="extra-action"></slot>
@@ -183,11 +181,11 @@
     <!-- ------footer------ -->
     <div class="grid-footer">
       <div class="pagination">
-        <btn @onClick="goToPage(0)">First</btn>
-        <btn @onClick="goToPage(pageNumber - 1)">Previous</btn>
-        <span>Page {{pageNumber + 1}}</span>
-        <btn @onClick="goToPage(pageNumber + 1)">Next</btn>
-        <btn @onClick="goToPage(pageTotal)">Last</btn>
+        <btn :disabled="pageNumber === 0" @onClick="goToPage(0)">First</btn>
+        <btn :disabled="pageNumber === 0" @onClick="goToPage(pageNumber - 1)">Previous</btn>
+        <span>Page {{pageNumber + 1}} of {{pageTotal + 1}}</span>
+        <btn :disabled="pageNumber === pageTotal" @onClick="goToPage(pageNumber + 1)">Next</btn>
+        <btn :disabled="pageNumber === pageTotal" @onClick="goToPage(pageTotal)">Last</btn>
       </div>
     </div>
 
@@ -347,7 +345,7 @@
 
         // actions
         pageSize: this.initialPageSize,
-        pageTotal: 2,
+        pageTotal: 0,
         pageNumber: 0,
         searchText: '',
         toggleColumnSearchText: '',
@@ -416,12 +414,20 @@
       },
       setRowData () {
         this.gridData = this.data
+
+        this.calculatePageTotal()
+      },
+
+      // other
+      calculatePageTotal () {
+        this.pageTotal = Math.floor(this.gridData.length / this.pageSize)
       },
 
       // grid actions
       setPageSize (pageSize) {
         this.pageNumber = 0
         this.pageSize = pageSize
+        this.calculatePageTotal()
         this.pageAction('pageSize', pageSize)
       },
       goToPage (pageNumber) {
@@ -430,8 +436,6 @@
       },
 
       pageAction (action, param) {
-
-        console.log(action, param)
 
         switch (action) {
           case 'pageSize':
@@ -533,7 +537,6 @@
         .page-size-input {
           margin: 0 5px;
           width: auto;
-          /*min-width: 100px;*/
         }
       }
 
@@ -552,9 +555,20 @@
       .action-buttons {
         flex: 0 0 auto;
 
-        .refresh-btn {
-          padding-left: .8em;
-          padding-right: .6em;
+        display: flex;
+        align-items: center;
+
+        a {
+          display: inline-block;
+          color: blue;
+          text-decoration: underline;
+          cursor: pointer;
+          margin: 0 10px;
+          font-size: 1.1em;
+
+          &:hover {
+            color: darken(blue, 20%);
+          }
         }
       }
 

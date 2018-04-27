@@ -38,7 +38,7 @@
       */
       theme: {
         type: String,
-        default: '-default'
+        default: 'default'
       },
       /**
       * If the button takes up all horizontal space
@@ -94,7 +94,9 @@
           'btn-circle': this.icon,
           'btn-rounded': this.rounded,
           'btn-flat': this.flat,
-          'btn-block': this.block
+          'btn-block': this.block,
+          'btn-disabled': this.disabled
+
         }
       },
 
@@ -145,6 +147,12 @@
       margin-right: .2em;
     }
   }
+  // ------------- disabled -------------
+  .btn.btn-disabled {
+    opacity: .7;
+    pointer-events: none;
+  }
+
 
   // ------------- circle -------------
   .btn.btn-circle {

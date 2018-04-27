@@ -92,7 +92,7 @@
       ],
 
       "reportApiConfig": {
-        
+
         "endpoint": "analytics/trials",
         "params": {
           "chart": "person_total"

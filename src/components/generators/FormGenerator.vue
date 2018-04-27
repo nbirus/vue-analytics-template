@@ -150,12 +150,10 @@
           this.updateValue(input.id, this.getInitialValue(input))
         })
       },
-
       updateValue (id, value) {
         this.$set(this.inputValues, id, value)
         this.$emit('formChanged', this.inputValues)
       },
-
       getInitialValue (input) {
 
         let initialValue

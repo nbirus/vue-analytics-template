@@ -22,6 +22,13 @@
     <transition name="dashboard-list" appear mode="out-in">
       <div class="page-body grid" v-if="value === 'grid'">
 
+        <!--<progress-widget-->
+          <!--style="width: 280px; height: 110px"-->
+          <!--:target="29"-->
+          <!--:count="15"-->
+        <!--&gt;-->
+        <!--</progress-widget>-->
+
         <div class="panel" style="height: 80vh; width: 100%">
           <grid style="height: 80vh; width: 100%"
               id="test-grid"
@@ -40,7 +47,6 @@
               :canSelectMultiple="false"
               :showRowDetail="false"
             >
-              <btn slot="extra-action">Change Columns</btn>
             </grid>
         </div>
 
