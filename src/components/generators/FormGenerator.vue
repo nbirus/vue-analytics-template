@@ -21,6 +21,7 @@
         :required="input.required"
         :error="undefined"
         @changed="value => updateValue(input.id, value)"
+        @updateDisplayValue="value => updateDisplayValue(input.id, value)"
       />
 
       <!-- select input -->
@@ -109,6 +110,7 @@
       <btn type="reset">Cancel</btn>
       <btn type="submit" theme="success">Ok</btn>
     </div>
+
   </form>
 </template>
 
@@ -126,20 +128,15 @@
         type: Object,
         required: false,
         default () { return {} }
-      },
-      breakFormIndex: {
-        type: Number,
-        required: false,
-        default: 0
       }
     },
     data () {
       return {
-        inputValues: {}
+        inputValues: {},
+        displayValues: {}
       }
     },
     mounted () {
-      // on mount create inputValues
       this.createInitialInputValues()
     },
     methods: {
@@ -154,6 +151,10 @@
       updateValue (id, value) {
         this.$set(this.inputValues, id, value)
         this.$emit('formChanged', this.inputValues)
+      },
+
+      updateDisplayValue (id, value) {
+        this.$set(this.displayValues, id, value)
       },
 
       getInitialValue (input) {

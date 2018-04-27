@@ -38,7 +38,7 @@
       */
       theme: {
         type: String,
-        default: '-default'
+        default: 'default'
       },
       /**
       * If the button takes up all horizontal space
@@ -124,8 +124,6 @@
     color: fadeout(@grey9, 20%);
     font-weight: @btn-font-weight;
 
-    cursor: pointer;
-
     &:hover {
       color: @grey9;
       border-color: @grey5;
@@ -185,12 +183,21 @@
     height: 2.4em; width: 2.4em;
     padding: 0;
 
-    // padding: .6em .8em;
+    &:hover {
+      background-color: fadeout(black, 98%)!important;
+    }
   }
 
   // ------------- rounded -------------
   .btn.btn-rounded {
     border-radius: 2em;
+  }
+
+  // ------------- header -------------
+  .btn-header {
+    .vertical-gradient(lighten(@page-bg-color, 10%), transparent)!important;
+    border-color: darken(@page-bg-color, 5%)!important;
+    border-radius: 25px;
   }
 
   // ------------- generator theme classes -------------

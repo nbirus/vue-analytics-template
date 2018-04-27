@@ -37,9 +37,6 @@
     name: 'text-input',
     mixins: [InputMixin],
     props: {
-      /**
-      * Type of input
-      **/
       type: {
         type: String,
         default: 'text'

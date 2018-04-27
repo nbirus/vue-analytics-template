@@ -31,21 +31,15 @@
 </script>
 
 <style lang="less" scoped>
-
   @import (reference) '../../styles/app-helper.less';
-
-  .settings-btn {
-    .vertical-gradient(lighten(@c-light, 10%), transparent)!important;
-    border-color: darken(@c-light, 5%)!important;
-  }
 
   .header {
     width: 100%;
     top: 0;
     padding: 1rem 0 1rem .5rem; margin: 0;
 
-    background-color: @page-header-color;
-    border-bottom: solid 1px darken(@page-bg-color, 7%);
+    background-color: @page-bg-color;
+    border-bottom: solid 2px darken(@page-bg-color, 3%);
     overflow: hidden;
 
     .page-header-content {
@@ -102,8 +96,6 @@
         }
       }
     }
-
-
 
   }
 

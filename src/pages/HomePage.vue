@@ -3,7 +3,7 @@
 
     <app-header>
       <div slot="page-actions">
-        <btn class="dashboard-settings-btn" large><i class="fa fa-cog icon-margin"></i>Dashboard Settings</btn>
+        <btn theme="header" large><i class="fa fa-cog icon-margin"></i>Dashboard Settings</btn>
       </div>
     </app-header>
 
@@ -34,13 +34,5 @@
 </script>
 
 <style lang="less" scoped>
-
   @import (reference) '../styles/app-helper.less';
-
-  .dashboard-settings-btn {
-    .vertical-gradient(lighten(@c-light, 10%), transparent)!important;
-    border-color: darken(@c-light, 5%)!important;
-  }
-
-
 </style>

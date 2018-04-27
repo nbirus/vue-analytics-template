@@ -14,9 +14,15 @@ const defaultValues = {
  */
 export default {
   props: {
-    /**
-     * add an id attr to the input
-     */
+    
+    inputValue: {
+      required: false,
+      default () {
+        // pull default value from list above
+        return defaultValues[this.$options.name]
+      }
+    },
+
     id: {
       type: String,
       required: false,
@@ -25,15 +31,6 @@ export default {
     label: {
       type: String,
       required: false
-    },
-
-    // value
-    inputValue: {
-      required: false,
-      default () {
-        // pull default value from list above
-        return defaultValues[this.$options.name]
-      }
     },
     placeholder: {
       type: String,
