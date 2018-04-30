@@ -80,7 +80,7 @@
 
     .checkbox {
       flex: 0 0 100%;
-      .f-r;
+      font-weight: @regular;
       margin-right: 15px;
       margin-bottom: 3px;
       font-size: @input-font-size;;
@@ -101,7 +101,7 @@
     }
 
     &.error > .checkbox {
-      border: @input-error-border;
+      color: @input-error-color;
     }
   }
 

@@ -16,7 +16,7 @@
 
 <script>
   import AppHeader from '@/components/core/AppHeader'
-  import Dashboard from '../components/generators/ReportGenerator'
+  import Dashboard from '@/components/generators/ReportGenerator'
   import DashboardJSON from '../../static/data/dashboards/strap-dashboard.json'
 
   export default {

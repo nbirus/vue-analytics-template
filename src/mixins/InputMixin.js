@@ -9,12 +9,9 @@ const defaultValues = {
   'color-input': ''
 }
 
-/**
- * @mixin
- */
 export default {
   props: {
-    
+
     inputValue: {
       required: false,
       default () {
@@ -58,6 +55,14 @@ export default {
       // if the '.sync' is used on the prop, it will be 2-way bound
       this.$emit('update:inputValue', updatedValue)
 
+    }
+  },
+  computed: {
+    formGroupClass () {
+      return {
+        'error': this.error,
+        'required': this.required
+      }
     }
   }
 }

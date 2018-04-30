@@ -419,7 +419,8 @@
         console.log(rowSelected)
       },
       formChanged (obj) {
-        // this.$refs.form.getFormattedInputValues()
+        let test = this.$refs.form.getFormattedInputValues()
+        console.log(test)
       },
       formSubmitted (obj) {
         this.initialValues = JSON.parse(JSON.stringify(obj))

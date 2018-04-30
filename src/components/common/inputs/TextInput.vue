@@ -1,6 +1,6 @@
 <template>
 
-  <div class="form-group" :class="{'error': error, 'required': required}">
+  <div class="form-group" :class="formGroupClass">
 
     <!-- label -->
     <label

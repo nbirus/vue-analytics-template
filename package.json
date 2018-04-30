@@ -7,14 +7,11 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "dev-mac": "webpack-dev-server --progress --port 8080 --host 0.0.0.0 --config build/webpack.dev.conf.js --content-base build/",
-
     "start": "bash start.sh",
     "theo": "theo src/theme/$THEME/tokens.yml --transform web --format less,raw.json,json --dest src/assets/tokens",
     "theo:onchange": "onchange \"src/theme/**/*.yml\" -- npm run theo",
-
     "styleguide": "vue-styleguidist server",
     "styleguide:build": "vue-styleguidist build",
-
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit",
@@ -35,7 +32,8 @@
     "vue-echarts": "^3.0.3",
     "vue-multiselect": "^2.1.0",
     "vue-ripple-directive": "^2.0.1",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuelidate": "^0.6.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
