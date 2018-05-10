@@ -21,6 +21,11 @@
       </div>
 
     </div>
+
+    <div class="page-header-body">
+      <slot name="header-body"/>
+    </div>
+
   </header>
 </template>
 
@@ -38,8 +43,8 @@
     top: 0;
     padding: 1rem 0 1rem .5rem; margin: 0;
 
-    background-color: @page-bg-color;
-    border-bottom: solid 2px darken(@page-bg-color, 3%);
+    background-color: @page-header-color;
+    border-bottom: solid 1px darken(@page-header-color, 5%);
     overflow: hidden;
 
     .page-header-content {

@@ -149,9 +149,79 @@
               <h2>Inputs</h2>
             </div>
 
-            <div class="panel-body darken">
+            <div class="panel-body darken" style="padding: 15px">
 
-              <div class="panel-block" style="width: 400px;">
+              <!-- radio input -->
+              <radio-input class="form-space"
+                           :id="'radio-input'"
+                           :label="'Radio Input'"
+                           :inline="true"
+
+                           optionSource="file"
+                           optionPath="test"
+
+                           :required="inputsRequired"
+                           :error="inputsError"
+                           @changed="alert"
+              ></radio-input>
+
+              <!-- checkbox input -->
+              <checkbox-input class="form-space"
+                              :id="'checkbox'"
+                              :label="'Checkbox Input'"
+                              :inline="true"
+
+                              optionSource="file"
+                              optionPath="test"
+
+                              :required="inputsRequired"
+                              :error="inputsError"
+                              @changed="alert"
+              ></checkbox-input>
+
+              <!-- select input -->
+              <select-input class="form-space"
+                            :inputValue.sync="test2"
+                            id="select-id"
+                            label="Select Input"
+                            optionSource="props"
+                            :options="[
+                              {'label': 'One', 'value': 'one'},
+                              {'label': 'Two', 'value': 'Two'},
+                              {'label': 'Three', 'value': 'three'}
+                            ]"
+                            :required="inputsRequired"
+                            :hasLabel="true"
+                            :error="inputsError"
+                            @changed="alert"
+              ></select-input>
+
+              <!-- select input -->
+              <!--<select-input class="form-space"-->
+                            <!--:inputValue.sync="test1"-->
+                            <!--id="select-id"-->
+                            <!--label="Select API"-->
+                            <!--optionSource="api"-->
+                            <!--:optionAPIConfig="{-->
+                              <!--baseURL: 'http://localhost:3003/api/v2/',-->
+                              <!--endpoint: 'trials/diseases',-->
+                              <!--params: {-->
+                                <!--type: 'maintype'-->
+                              <!--}-->
+                            <!--}"-->
+                            <!--:required="inputsRequired"-->
+                            <!--:hasLabel="true"-->
+                            <!--:error="inputsError"-->
+                            <!--@changed="alert"-->
+              <!--&gt;</select-input>-->
+
+              <br>
+              <br>
+              <br>
+              <br>
+
+              <div class="panel-block" style="width: 400px;" v-if="false">
+
 
                 <!-- text input -->
                 <text-input class="form-space"
@@ -162,28 +232,6 @@
                   :error="inputsError"
                   @changed="alert"
                 ></text-input>
-
-                <!-- checkbox input -->
-                <checkbox-input class="form-space"
-                  :id="'checkbox'"
-                  :label="'Checkbox Input'"
-                  :inline="true"
-                  :optionSource="'test'"
-                  :required="inputsRequired"
-                  :error="inputsError"
-                  @changed="alert"
-                ></checkbox-input>
-
-                <!-- radio input -->
-                <radio-input class="form-space"
-                  :id="'radio-input'"
-                  :label="'Radio Input'"
-                  :inline="true"
-                  :optionSource="'test'"
-                  :required="inputsRequired"
-                  :error="inputsError"
-                  @changed="alert"
-                ></radio-input>
 
                 <!-- pill input -->
                 <pill-input class="form-space"
@@ -236,21 +284,6 @@
                   @changed="alert"
                 ></date-range-input>
 
-                <!-- select input -->
-                <select-input class="form-space"
-                  :inputValue.sync="test1"
-                  id="select-id"
-                  label="Select Input"
-                  :options="[
-                    {'label': 'One', 'value': 'one'},
-                    {'label': 'Two', 'value': 'Two'},
-                    {'label': 'Three', 'value': 'three'}
-                  ]"
-                  :required="inputsRequired"
-                  :hasLabel="true"
-                  :error="inputsError"
-                  @changed="alert"
-                ></select-input>
 
                 <select-input class="form-space"
                   :inputValue.sync="test2"
@@ -273,7 +306,7 @@
               <h2>Form Generator</h2>
             </div>
 
-            <div class="panel-body">
+            <div class="panel-body" v-if="false">
 
               <div class="panel-section">
 

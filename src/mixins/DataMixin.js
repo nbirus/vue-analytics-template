@@ -1,7 +1,5 @@
 import DataService from '../services/DataService'
-/**
- * @mixin
- */
+
 export default {
   props: {
     apiConfig: {
@@ -30,5 +28,6 @@ export default {
       this.state.error = error.toString()
       this.state.loading = false
     }
+
   }
 }

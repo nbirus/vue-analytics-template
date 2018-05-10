@@ -5,7 +5,7 @@
     :name="name"
     :disabled="disabled"
     v-ripple="rippleColor"
-    @click="$emit('onClick')"
+    @click="onClick"
   >
     <slot></slot>
   </button>
@@ -103,6 +103,11 @@
       rippleColor () {
         return (this.ripple) ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0)'
       }
+    },
+    methods: {
+      onClick (e) {
+        this.$emit('click', e)
+      }
     }
   }
 
@@ -142,6 +147,7 @@
     &:hover, &:focus { outline: none; }
 
     i {
+      font-size: .9em;
       margin-right: .2em;
     }
   }

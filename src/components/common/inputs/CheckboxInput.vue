@@ -1,6 +1,6 @@
 <template>
 
-  <div class="form-group" :class="{'error': error, 'required': required, 'inline': inline}">
+  <div class="form-group" :class="[formGroupClass, optionsClass, {'inline': inline}]">
 
     <!-- label -->
     <label
@@ -13,16 +13,16 @@
 
     <label
       class="checkbox"
-      v-for="(option, index) in options" :key="index"
+      v-for="(option, index) in activeOptions" :key="index"
       @click="optionClicked(option)">
 
       <input
         type="checkbox"
-        :name="option.value"
+        :name="option[optionValueAccessor]"
         :checked="isActive(option)"
       />
 
-      {{option.label}}
+      {{option[optionLabelAccessor]}}
 
     </label>
 
@@ -33,29 +33,17 @@
 </template>
 
 <script>
-  import InputMixin from '../../../mixins/InputMixin'
-  import OptionsJSON from '../../../../static/data/forms/options.json'
+  import InputMixin from '@/mixins/InputMixin'
+  import OptionsMixin from '@/mixins/OptionsMixin'
 
   export default {
     name: 'checkbox-input',
-    mixins: [InputMixin],
+    mixins: [InputMixin, OptionsMixin],
     props: {
-      optionSource: {
-        type: String,
-        required: true
-      },
       inline: {
         type: Boolean,
         default: false
       }
-    },
-    data () {
-      return {
-        options: []
-      }
-    },
-    mounted () {
-      this.options = OptionsJSON[this.optionSource]
     },
     methods: {
       optionClicked (option) {
@@ -75,11 +63,15 @@
           this.$updateValue(selectedOptions)
         }
       },
+
+      // is the checkbox checked
       isActive (option) {
-        return this.inputValue.some(selectedOption => selectedOption.value === option.value)
+        return this.inputValue
+          .some(selectedOption => selectedOption[this.optionValueAccessor] === option[this.optionValueAccessor])
       },
       getIndex (option) {
-        return this.inputValue.findIndex(o => option.value === o.value)
+        return this.inputValue
+          .findIndex(o => option[this.optionValueAccessor] === o[this.optionValueAccessor])
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
 
-  <div class="form-group" :class="{'error': error, 'required': required, 'inline': inline}">
+  <div class="form-group" :class="[formGroupClass, optionsClass, {'inline': inline}]">
 
     <!-- label -->
     <label
@@ -12,17 +12,17 @@
     </label>
 
     <label class="checkbox"
-       v-for="(option, index) in options"
+       v-for="(option, index) in activeOptions"
        :key="index"
-       @click="optionClicked(option)">
+       @click="$updateValue(value)">
 
       <input
         type="radio"
-        :name="option.value"
-        :checked="inputValue.value === option.value"
+        :name="option[optionValueAccessor]"
+        :checked="inputValue[optionValueAccessor] === option[optionValueAccessor]"
       />
 
-      {{option.label}}
+      {{option[optionLabelAccessor]}}
 
     </label>
 
@@ -33,33 +33,16 @@
 </template>
 
 <script>
-  import InputMixin from '../../../mixins/InputMixin'
-  import OptionsJSON from '../../../../static/data/forms/options.json'
+  import InputMixin from '@/mixins/InputMixin'
+  import OptionsMixin from '@/mixins/OptionsMixin'
 
   export default {
     name: 'radio-input',
-    mixins: [InputMixin],
+    mixins: [InputMixin, OptionsMixin],
     props: {
-      optionSource: {
-        type: String,
-        required: true
-      },
       inline: {
         type: Boolean,
         default: false
-      }
-    },
-    data () {
-      return {
-        options: []
-      }
-    },
-    mounted () {
-      this.options = OptionsJSON[this.optionSource]
-    },
-    methods: {
-      optionClicked (value) {
-        this.$updateValue(value)
       }
     }
   }

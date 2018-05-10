@@ -1,6 +1,6 @@
 <template>
 
-  <div class="form-group" :class="formGroupClass">
+  <div class="form-group" :class="[formGroupClass, optionsClass]">
 
     <!-- label -->
     <label
@@ -12,23 +12,31 @@
     </label>
 
     <multiselect
+
       class="form-control"
       :value="inputValue"
       @input="$updateValue"
 
       :options="activeOptions"
 
-      :trackBy="(hasLabel) ? optionLabel : undefined"
-      :label="(hasLabel) ? optionLabel : undefined"
+      :trackBy="optionValueAccessor"
+      :label="optionLabelAccessor"
 
       :multiple="multiselect"
+      :searchable="searchable"
+      :optionsLimit="optionsLimit"
+      :internalSearch="internalSearch"
+      :maxHeight="maxHeight"
+      :showNoResults="showNoResults"
 
       :placeholder="placeholder"
       :allowEmpty="allowEmpty"
+
+      :loading="state.loading"
     >
     </multiselect>
 
-    <p class="form-error-text">{{error}}</p>
+    <p class="form-error-text">{{error || state.error}}</p>
 
   </div>
 
@@ -36,54 +44,39 @@
 
 <script>
   import InputMixin from '@/mixins/InputMixin'
-  import OptionsJSON from '../../../../static/data/forms/options.json'
+  import OptionsMixin from '@/mixins/OptionsMixin'
   import Multiselect from 'vue-multiselect'
-
-  import { cloneDeep } from 'lodash'
 
   export default {
     name: 'select-input',
-    mixins: [InputMixin],
+    mixins: [InputMixin, OptionsMixin],
     components: { Multiselect },
     props: {
-
-      // options
-      optionSource: {
-        type: String,
-        default: 'inline',
-        validator (value) {
-          return ['inline', 'api', 'local'].includes(value)
-        }
-      },
-      options: {
-        type: Array,
-        default: () => []
-      },
-      optionPath: {
-        type: String,
-        default: ''
-      },
-      optionAPIConfig: {
-        type: Object,
-        default () { return {} }
-      },
-      optionLabel: {
-        type: String,
-        default: 'label'
-      },
-      optionValue: {
-        type: String,
-        default: 'value'
-      },
 
       // multiselect props
       multiselect: {
         type: Boolean,
         default: false
       },
-      hasLabel: {
+      searchable: {
         type: Boolean,
         default: false
+      },
+      internalSearch: {
+        type: Boolean,
+        default: true
+      },
+      showNoResults: {
+        type: Boolean,
+        default: true
+      },
+      optionsLimit: {
+        type: Number,
+        default: 1000
+      },
+      maxHeight: {
+        type: Number,
+        default: 350
       },
 
       placeholder: {
@@ -94,45 +87,6 @@
         type: Boolean,
         default: true
       }
-
-    },
-    data () {
-      return {
-        activeOptions: []
-      }
-    },
-    async mounted () {
-
-      // get options
-      this.activeOptions = await this.getOptions()
-
-      // if there is no initial value, initialize it
-      if (!this.inputValue) {
-        this.$nextTick(() => { this.$updateValue(this.multiselect ? [] : '') })
-      }
-
-    },
-    methods: {
-
-      getOptions () {
-
-        // specified in the props
-        if (this.optionSource === 'inline') {
-          return cloneDeep(this.options)
-        }
-
-        // from the options file
-        else if (this.optionSource === 'local') {
-          return cloneDeep(OptionsJSON[this.optionPath])
-        }
-
-        // use the api to get the options
-        else if (this.optionSource === 'api') {
-          // get from api
-        }
-
-      }
-
     }
   }
 </script>
@@ -247,11 +201,11 @@
     }
 
     &.multiselect--above {
-    & > .multiselect__content-wrapper {
-     border: @input-focus-border;
-     border-bottom: none;
-    }
-    }
+      & > .multiselect__content-wrapper {
+         border: @input-focus-border;
+         border-bottom: none;
+        }
+      }
     }
 
     &.error > .form-control {

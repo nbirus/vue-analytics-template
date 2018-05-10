@@ -40,6 +40,10 @@ export default {
       required: false,
       default: false
     },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
     error: {
       type: String,
       required: false,
@@ -60,8 +64,9 @@ export default {
   computed: {
     formGroupClass () {
       return {
-        'error': this.error,
-        'required': this.required
+        error: this.error,
+        disabled: this.disabled,
+        required: this.required
       }
     }
   }

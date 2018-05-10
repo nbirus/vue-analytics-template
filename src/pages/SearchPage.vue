@@ -2,17 +2,7 @@
   <div class="page">
 
     <app-header>
-      <div slot="page-actions">
-        <pill-input id="pill"
-          :inputValue.sync="value"
-          :options="[
-            {label: 'Grid', value: 'grid'},
-            {label: 'Analytics', value: 'charts'}
-          ]"
-        />
 
-        <btn class="dashboard-settings-btn" style="margin-left: 8px;" large><i class="fa fa-cog"></i> Settings</btn>
-      </div>
     </app-header>
 
     <div class="page-body analytics" v-if="value === 'charts'">
@@ -29,8 +19,7 @@
         <!--&gt;-->
         <!--</progress-widget>-->
 
-        <div class="panel" style="height: 80vh; width: 100%">
-          <grid style="height: 80vh; width: 100%"
+        <grid style="height: 80vh; width: 100%"
               id="test-grid"
 
               :data="data"
@@ -46,9 +35,8 @@
               :canSelect="true"
               :canSelectMultiple="false"
               :showRowDetail="false"
-            >
-            </grid>
-        </div>
+        >
+        </grid>
 
 
 

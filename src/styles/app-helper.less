@@ -2,7 +2,7 @@
   classes that are used to construct the App
 */
 
-@import (reference) 'app-config.less';
+@import (reference) 'app-variables.less';
 
 
 // greys
@@ -16,6 +16,9 @@
 .bg-grey8 { background-color: @grey8 }
 .bg-grey9 { background-color: @grey9 }
 
+.default-focus {
+  outline: 5px auto @c-first;
+}
 
 .max-page-width {
   max-width: @page-min-width;

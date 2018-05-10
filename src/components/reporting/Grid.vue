@@ -33,8 +33,8 @@
         </select-input>
 
         <div class="export-buttons">
-          <btn theme="warning" @onClick="exportModal = false">Cancel</btn>
-          <btn theme="success" @onClick="exportModal = false">Download</btn>
+          <btn theme="warning" @click="exportModal = false">Cancel</btn>
+          <btn theme="success" @click="exportModal = false">Download</btn>
         </div>
 
       </div>
@@ -46,24 +46,19 @@
       <!--page size-->
       <div class="page-size">
         <span>Show</span>
+
         <select-input
           class="page-size-input"
           :inputValue="pageSize"
-          :options="[
-            {value: 10, label: '10'},
-            {value: 20, label: '20'},
-            {value: 50, label: '50'},
-            {value: 100, label: '100'},
-            {value: -1, label: 'All'}
-          ]"
-          optionSource="inline"
+          :options="pageSizeOptions"
+          optionSource="props"
           placeholder="Select Page Size"
           :allowEmpty="false"
-          :hasLabel="true"
 
           @changed="setPageSize"
         >
         </select-input>
+
         <span>of {{(gridData.length) ? gridData.length.toLocaleString() : ''}} entries</span>
       </div>
 
@@ -81,25 +76,25 @@
       <div class="action-buttons links">
 
         <!-- refresh -->
-        <a
+        <btn
           v-if="canRefresh"
           @click="() => {}">
-          Refresh <i class="fa fa-sync-alt"></i>
-        </a>
+          <i class="fa fa-sync-alt"></i> Refresh
+        </btn>
 
         <!--toggle columns-->
-        <a
+        <btn
           v-if="canToggleColumns"
           @click="toggleColumnsOpen = !toggleColumnsOpen">
           Toggle Columns
-        </a>
+        </btn>
 
         <!--export-->
-        <a
+        <btn
           v-if="canExport"
           @click="exportModal = true">
           Export Table
-        </a>
+        </btn>
 
         <!-- extra buttons -->
         <slot name="extra-action"></slot>
@@ -150,7 +145,7 @@
             </div>
 
             <btn class="close-icon" flat theme="first"
-              @onClick="toggleColumnsOpen = false"><i class="fa fa-chevron-right"></i>
+              @click="toggleColumnsOpen = false"><i class="fa fa-chevron-right"></i>
             </btn>
 
           </div>
@@ -181,11 +176,11 @@
     <!-- ------footer------ -->
     <div class="grid-footer">
       <div class="pagination">
-        <btn :disabled="pageNumber === 0" @onClick="goToPage(0)">First</btn>
-        <btn :disabled="pageNumber === 0" @onClick="goToPage(pageNumber - 1)">Previous</btn>
+        <btn :disabled="pageNumber === 0" @click="goToPage(0)">First</btn>
+        <btn :disabled="pageNumber === 0" @click="goToPage(pageNumber - 1)">Previous</btn>
         <span>Page {{pageNumber + 1}} of {{pageTotal + 1}}</span>
-        <btn :disabled="pageNumber === pageTotal" @onClick="goToPage(pageNumber + 1)">Next</btn>
-        <btn :disabled="pageNumber === pageTotal" @onClick="goToPage(pageTotal)">Last</btn>
+        <btn :disabled="pageNumber === pageTotal" @click="goToPage(pageNumber + 1)">Next</btn>
+        <btn :disabled="pageNumber === pageTotal" @click="goToPage(pageTotal)">Last</btn>
       </div>
     </div>
 
@@ -342,9 +337,16 @@
 
         gridData: [],
         gridColumns: [],
+        pageSizeOptions: [
+          {value: 10, label: '10'},
+          {value: 20, label: '20'},
+          {value: 50, label: '50'},
+          {value: 100, label: '100'},
+          {value: -1, label: 'All'}
+        ],
 
         // actions
-        pageSize: this.initialPageSize,
+        pageSize: {},
         pageTotal: 0,
         pageNumber: 0,
         searchText: '',
@@ -396,6 +398,9 @@
       // set row data
       this.setRowData()
 
+      // initial page size
+      this.setPageSize(this.pageSizeOptions.find(size => size.value === this.initialPageSize))
+
     },
     methods: {
 
@@ -420,7 +425,7 @@
 
       // other
       calculatePageTotal () {
-        this.pageTotal = Math.floor(this.gridData.length / this.pageSize)
+        this.pageTotal = Math.floor(this.gridData.length / this.pageSize.value)
       },
 
       // grid actions
@@ -428,7 +433,7 @@
         this.pageNumber = 0
         this.pageSize = pageSize
         this.calculatePageTotal()
-        this.pageAction('pageSize', pageSize)
+        this.pageAction('pageSize', pageSize.value)
       },
       goToPage (pageNumber) {
         this.pageNumber = pageNumber
@@ -558,17 +563,9 @@
         display: flex;
         align-items: center;
 
-        a {
+        button {
           display: inline-block;
-          color: blue;
-          text-decoration: underline;
-          cursor: pointer;
-          margin: 0 10px;
-          font-size: 1.1em;
-
-          &:hover {
-            color: darken(blue, 20%);
-          }
+          margin: 0 0 0 10px;
         }
       }
 

@@ -6,7 +6,7 @@ import { cacheAdapterEnhancer, throttleAdapterEnhancer } from 'axios-extensions'
 let querystring = require('querystring')
 
 let defaultConfig = {
-  baseURL: 'https://trials-int.nci.nih.gov/strap/mock/ui_mock/',
+  baseURL: '',
   params: {},
   endpoint: '/'
 }
@@ -36,7 +36,8 @@ let get = (config) => {
     headers: config.headers || setDefaultHeader(),
     responseType: config.responseType || '',
     cancelToken: source.token,
-    adapter: throttleAdapterEnhancer(cacheAdapterEnhancer(axios.defaults.adapter, true))
+    adapter: throttleAdapterEnhancer(cacheAdapterEnhancer(axios.defaults.adapter, true)),
+    cache: true
   }
 
   // make request
@@ -48,8 +49,6 @@ let get = (config) => {
       })
 
       .catch(error => {
-
-        // format error message, log it, then return appropriate error message to the component if call wasn't canceled
         if (!axios.isCancel(error)) {
           reject(error)
         }
@@ -61,7 +60,7 @@ let get = (config) => {
 
 let cancelPendingAPIRequests = () => {
   for (let i = pendingAPIRequests.length - 1; i >= 0; i--) {
-    pendingAPIRequests.splice(i, 1)[0].cancel('UI Canceling API request')
+    pendingAPIRequests.splice(i, 1)[0].cancel('canceled')
   }
 }
 
@@ -71,9 +70,8 @@ let cancelPendingAPIRequests = () => {
 // if no header is passed in, replace it with the authorization header from localStorage
 function setDefaultHeader () {
   return {
-    'Cache-Control': 'no-cache',
+    'Cache-Control': 'no-cache'
     // 'Authorization': 'Bearer ' + localStorage.getItem('id_token')
-    'Authorization': 'Bearer'
   }
 }
 
@@ -98,23 +96,8 @@ function filterParams (paramObj) {
   return paramObj
 }
 
-// get a local file and return it's contents
-let getLocalFile = (path) => {
-  return new Promise((resolve, reject) => {
-    axios.get(path)
-    .then(response => {
-      resolve(response.data)
-    })
-    .catch(error => {
-      console.log(error)
-      reject(new Error('Error getting file'))
-    })
-  })
-}
-
 
 export default {
   get,
-  cancelPendingAPIRequests,
-  getLocalFile
+  cancelPendingAPIRequests
 }

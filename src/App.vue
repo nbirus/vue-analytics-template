@@ -4,6 +4,9 @@
     <!-- nav bar -->
     <app-nav-bar v-if="showHeader"></app-nav-bar>
 
+    <!--bread crumbs-->
+    <app-bread-crumbs v-if="showHeader"></app-bread-crumbs>
+
     <!-- page content -->
     <div class="content">
 
@@ -23,12 +26,14 @@
 <script>
   import AppNavBar from '@/components/core/AppNavBar'
   import AppFooter from '@/components/core/AppFooter'
+  import AppBreadCrumbs from '@/components/core/AppBreadCrumbs'
 
   export default {
     name: 'App',
     components: {
       AppNavBar,
-      AppFooter
+      AppFooter,
+      AppBreadCrumbs
     },
     computed: {
       showHeader () {
