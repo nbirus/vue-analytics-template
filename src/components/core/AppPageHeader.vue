@@ -11,7 +11,7 @@
         </div>
 
         <transition name="page-header" mode="out-in" appear>
-          <h2 :key="$route.name">{{$route.meta.pageHeaderName}}</h2>
+          <h2 :key="$route.name">{{pageTitle}}</h2>
         </transition>
       </div>
 
@@ -31,7 +31,15 @@
 
 <script>
   export default {
-    name: 'app-header'
+    name: 'app-header',
+    props: {
+      pageTitle: {
+        type: String,
+        default () {
+          return this.$route.meta.navBarTitle
+        }
+      }
+    }
   }
 </script>
 
@@ -41,7 +49,7 @@
   .header {
     width: 100%;
     top: 0;
-    padding: 1.5rem 0 1rem .5rem; margin: 0;
+    padding: 1.2rem 0 1.2rem .5rem; margin: 0;
 
     background-color: @page-header-color;
     border-bottom: solid 1px darken(@page-header-color, 5%);

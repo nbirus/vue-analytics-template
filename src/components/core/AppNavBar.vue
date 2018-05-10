@@ -52,7 +52,7 @@
               tag="a"
             >
               <i class="icons" :class="`icon-${route.meta.icon}`"></i>
-              <span>{{route.meta.pageHeaderName}}</span>
+              <span>{{route.meta.navBarTitle}}</span>
             </router-link>
 
           </li>
@@ -93,7 +93,7 @@
     border-bottom: solid thin @grey3;
 
     .main {
-      padding: 15px 0;
+      padding: 1.3rem 0;
 
       .fluid-container {
         display: flex;
@@ -144,7 +144,7 @@
           margin: 0 .5rem;
 
           a {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             text-decoration: none;
             color: @grey8;
 

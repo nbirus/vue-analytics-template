@@ -7,6 +7,7 @@ import Unauthorized from '@/pages/common/UnauthorizedPage'
 import Login from '@/pages/common/Login'
 
 // pages
+import Home from '@/pages/HomePage'
 import Search from '@/pages/SearchPage'
 import StyleGuide from '@/pages/StyleGuidePage'
 
@@ -24,12 +25,22 @@ const routes = [
     }
   },
   {
+    path: '/home',
+    name: 'home',
+    component: Home,
+    meta: {
+      navBarLink: true,
+      navBarTitle: 'Home',
+      icon: 'grid'
+    }
+  },
+  {
     path: '/search',
     name: 'search',
     component: Search,
     meta: {
       navBarLink: true,
-      pageHeaderName: 'Search',
+      navBarTitle: 'Search',
       icon: 'book-open'
     }
   },
@@ -39,7 +50,7 @@ const routes = [
     component: StyleGuide,
     meta: {
       navBarLink: true,
-      pageHeaderName: 'Style Guide',
+      navBarTitle: 'Style Guide',
       icon: 'directions'
     }
   },

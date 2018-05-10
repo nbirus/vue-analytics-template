@@ -5,7 +5,7 @@
     <app-nav-bar v-if="showHeader"></app-nav-bar>
 
     <!--bread crumbs-->
-    <app-bread-crumbs v-if="showHeader"></app-bread-crumbs>
+    <!--<app-bread-crumbs v-if="showHeader"></app-bread-crumbs>-->
 
     <!-- page content -->
     <div class="content">

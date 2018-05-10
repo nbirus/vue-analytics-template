@@ -1,7 +1,10 @@
 <template>
   <div class="page">
 
-    <app-page-header></app-page-header>
+    <app-page-header
+      pageTitle="Search Page"
+    >
+    </app-page-header>
 
     <div class="page-body analytics" v-if="value === 'charts'">
       <dashboard :dashboard="dashboard"></dashboard>
