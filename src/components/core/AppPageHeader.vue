@@ -11,7 +11,7 @@
         </div>
 
         <transition name="page-header" mode="out-in" appear>
-          <h2 :key="$route.name">{{$route.name}}</h2>
+          <h2 :key="$route.name">{{$route.meta.pageHeaderName}}</h2>
         </transition>
       </div>
 
@@ -41,7 +41,7 @@
   .header {
     width: 100%;
     top: 0;
-    padding: 1rem 0 1rem .5rem; margin: 0;
+    padding: 1.5rem 0 1rem .5rem; margin: 0;
 
     background-color: @page-header-color;
     border-bottom: solid 1px darken(@page-header-color, 5%);

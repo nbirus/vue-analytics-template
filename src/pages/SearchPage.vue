@@ -1,9 +1,7 @@
 <template>
   <div class="page">
 
-    <app-header>
-
-    </app-header>
+    <app-page-header></app-page-header>
 
     <div class="page-body analytics" v-if="value === 'charts'">
       <dashboard :dashboard="dashboard"></dashboard>
@@ -11,13 +9,6 @@
 
     <transition name="dashboard-list" appear mode="out-in">
       <div class="page-body grid" v-if="value === 'grid'">
-
-        <!--<progress-widget-->
-          <!--style="width: 280px; height: 110px"-->
-          <!--:target="29"-->
-          <!--:count="15"-->
-        <!--&gt;-->
-        <!--</progress-widget>-->
 
         <grid style="height: 80vh; width: 100%"
               id="test-grid"
@@ -39,40 +30,6 @@
         </grid>
 
 
-
-
-            <!--<data-wrapper :apiConfig="config">-->
-              <!--<template slot-scope="{ _response, _state }">-->
-                <!--<chart-report-->
-                  <!--style="height: 370px; width: 400px"-->
-
-                  <!--:loading="_state.loading"-->
-                  <!--:error="_state.error"-->
-                  <!--:chartData="_response.analytics"-->
-
-                  <!--title="Test Title"-->
-                  <!--chartType="pie"-->
-                  <!--id="phase"-->
-                  <!--theme="cyan"-->
-                <!--&gt;-->
-                <!--</chart-report>-->
-
-                <!--&lt;!&ndash;<count-widget&ndash;&gt;-->
-                  <!--&lt;!&ndash;style="height: 100px"&ndash;&gt;-->
-
-                  <!--&lt;!&ndash;:loading="_state.loading"&ndash;&gt;-->
-                  <!--&lt;!&ndash;:error="_state.error"&ndash;&gt;-->
-
-                  <!--&lt;!&ndash;:count="_response.count"&ndash;&gt;-->
-                  <!--&lt;!&ndash;title="TEST"&ndash;&gt;-->
-                  <!--&lt;!&ndash;icon="grid"&ndash;&gt;-->
-                  <!--&lt;!&ndash;theme="inverse"&ndash;&gt;-->
-                <!--&lt;!&ndash;&gt;&ndash;&gt;-->
-                <!--&lt;!&ndash;</count-widget>&ndash;&gt;-->
-
-              <!--</template>-->
-            <!--</data-wrapper>-->
-
       </div>
     </transition>
 
@@ -80,7 +37,7 @@
 </template>
 
 <script>
-  import AppHeader from '@/components/core/AppHeader'
+  import AppPageHeader from '@/components/core/AppPageHeader'
   import TestData from '../../static/data/grid-headers/test-data2.json'
   import TestColumns from '../../static/data/grid-headers/test-headers2.json'
   import Grid from '../components/reporting/Grid'
@@ -95,7 +52,7 @@
 
   export default {
     name: 'trials',
-    components: { AppHeader, DataWrapper, Grid, Dashboard, ProgressWidget, CountWidget, ChartReport },
+    components: { AppPageHeader, DataWrapper, Grid, Dashboard, ProgressWidget, CountWidget, ChartReport },
     data () {
       return {
         load: false,

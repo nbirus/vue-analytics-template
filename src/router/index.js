@@ -7,7 +7,6 @@ import Unauthorized from '@/pages/common/UnauthorizedPage'
 import Login from '@/pages/common/Login'
 
 // pages
-import Home from '@/pages/HomePage'
 import Search from '@/pages/SearchPage'
 import StyleGuide from '@/pages/StyleGuidePage'
 
@@ -19,29 +18,28 @@ const routes = [
   // catch all
   {
     path: '*',
-    redirect: '/not-found'
-  },
-  {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: Home,
+    redirect: '/not-found',
     meta: {
-      icon: 'grid'
+      navBarLink: false
     }
   },
   {
     path: '/search',
-    name: 'Trial Search',
+    name: 'search',
     component: Search,
     meta: {
+      navBarLink: true,
+      pageHeaderName: 'Search',
       icon: 'book-open'
     }
   },
   {
     path: '/style-guide',
-    name: 'Style Guide',
+    name: 'style-guide',
     component: StyleGuide,
     meta: {
+      navBarLink: true,
+      pageHeaderName: 'Style Guide',
       icon: 'directions'
     }
   },
@@ -49,6 +47,7 @@ const routes = [
     path: '/not-found',
     component: NotFound,
     meta: {
+      navBarLink: false,
       showHeader: false
     }
   },
@@ -56,6 +55,7 @@ const routes = [
     path: '/unauthorized',
     component: Unauthorized,
     meta: {
+      navBarLink: false,
       showHeader: false
     }
   },
@@ -63,6 +63,7 @@ const routes = [
     path: '/login',
     component: Login,
     meta: {
+      navBarLink: false,
       showHeader: false
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="bread-crumbs">
     <div class="fluid-container">
-      {{$route.name}}
+      {{$route.meta.pageHeaderName}}
     </div>
   </div>
 </template>
@@ -18,14 +18,13 @@
 
   .bread-crumbs {
     background-color: darken(white, 4%);
-    border-bottom: solid thin darken(white, 8%);
+    border-bottom: solid thin @grey3;
 
     .fluid-container {
       padding: 10px @page-padding;
       .max-page-width;
-
-
-
+      color: @grey6;
+      font-size: 1.1rem;
     }
   }
 

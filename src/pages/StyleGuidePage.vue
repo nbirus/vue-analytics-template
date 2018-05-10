@@ -1,15 +1,7 @@
 <template>
   <div class="page">
 
-    <!-- <div class="page-header">
-
-      <div class="page-header-content">
-        <div class="page-title-container">
-          <h2>Style Guide</h2>
-        </div>
-      </div>
-
-    </div> -->
+    <app-page-header></app-page-header>
 
     <div class="page-body">
 
@@ -360,6 +352,35 @@
             </div>
           </tab>
 
+          <tab name="Data Wrapper">
+            <div class="panel-header">
+              <h2>Data Wrapper</h2>
+            </div>
+
+            <div class="panel-body">
+
+              <!--<data-wrapper :apiConfig="config">-->
+                <!--<template slot-scope="{ _response, _state }">-->
+
+                  <!--&lt;!&ndash;<count-widget&ndash;&gt;-->
+                  <!--&lt;!&ndash;style="height: 100px"&ndash;&gt;-->
+
+                  <!--&lt;!&ndash;:loading="_state.loading"&ndash;&gt;-->
+                  <!--&lt;!&ndash;:error="_state.error"&ndash;&gt;-->
+
+                  <!--&lt;!&ndash;:count="_response.count"&ndash;&gt;-->
+                  <!--&lt;!&ndash;title="TEST"&ndash;&gt;-->
+                  <!--&lt;!&ndash;icon="grid"&ndash;&gt;-->
+                  <!--&lt;!&ndash;theme="inverse"&ndash;&gt;-->
+                  <!--&lt;!&ndash;&gt;&ndash;&gt;-->
+                  <!--&lt;!&ndash;</count-widget>&ndash;&gt;-->
+
+                <!--</template>-->
+              <!--</data-wrapper>-->
+
+            </div>
+          </tab>
+
           <tab name="Dashboard" v-if="false">
             <div class="panel-header">
               <h2>Dashboard</h2>
@@ -394,6 +415,8 @@
 </template>
 
 <script>
+  import AppPageHeader from '@/components/core/AppPageHeader'
+
   import FormGenerator from '../components/generators/FormGenerator'
   import Grid from '../components/reporting/Grid'
   import TestForm from '../../static/data/forms/test-form.json'
@@ -405,7 +428,8 @@
     name: 'style-guide',
     components: {
       FormGenerator,
-      Grid
+      Grid,
+      AppPageHeader
     },
     data () {
       return {

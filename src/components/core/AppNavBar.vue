@@ -6,12 +6,15 @@
 
         <!--identity-->
         <div class="identity">
-          <img height="30" src="../../../assets/nci-logo-full.svg" alt="National Cancer Institute"/>
+          <img height="32" src="../../../assets/nci-logo-full-blue.png" alt="National Cancer Institute"/>
         </div>
 
         <!--search-->
         <div class="search">
-          <a>Search</a>
+          <a>
+            <i class="fa fa-search"></i>
+            Search
+          </a>
         </div>
 
         <!--user-->
@@ -19,7 +22,7 @@
 
           <div class="user" data-role="trigger" v-ripple>
             <span>Nathan Birus</span>
-            <i class="icons icon-arrow-down"></i>
+            <i class="fa fa-chevron-down"></i>
           </div>
 
           <template slot="dropdown">
@@ -37,25 +40,21 @@
 
         <ul class="nav-items">
 
-          <li>
-            <router-link class="nav-item" id="home-navbar" to="/search" tag="a">
-              <i class="icons" :class="`icon-${getIcon('/search')}`"></i>
-              <span>Home</span>
-            </router-link>
-          </li>
+          <li
+            v-for="route in $router.options.routes" :key="route.name"
+            v-if="route.meta.navBarLink"
+          >
 
-          <li>
-            <router-link class="nav-item" id="style-guide-navbar" to="/dashboard" tag="a">
-              <i class="icons" :class="`icon-${getIcon('/dashboard')}`"></i>
-              <span>Dashboard</span>
+            <router-link
+              class="nav-item"
+              :id="`${route.name}-navbar`"
+              :to="`/${route.name}`"
+              tag="a"
+            >
+              <i class="icons" :class="`icon-${route.meta.icon}`"></i>
+              <span>{{route.meta.pageHeaderName}}</span>
             </router-link>
-          </li>
 
-          <li>
-            <router-link class="nav-item" to="/style-guide" tag="a">
-              <i class="icons" :class="`icon-${getIcon('/style-guide')}`"></i>
-              <span>Style Guide</span>
-            </router-link>
           </li>
 
         </ul>
@@ -76,12 +75,6 @@
       return {
         searchEntity: 'Trials'
       }
-    },
-    methods: {
-      getIcon (path) {
-        let route = this.$router.options.routes.find(r => r.path === path)
-        return route.meta.icon
-      }
     }
   }
 </script>
@@ -97,10 +90,9 @@
 
   .nav-bar {
     background-color: @nav-bg-color;
-    z-index: 100;
+    border-bottom: solid thin @grey3;
 
     .main {
-      border-bottom: solid thin fadeout(black, 95%);
       padding: 15px 0;
 
       .fluid-container {
@@ -110,6 +102,7 @@
 
       .identity {
         flex: 1 1 auto;
+        margin-left: -2px;
       }
 
       .search {
@@ -135,14 +128,13 @@
         }
 
         i {
-          font-size: .7rem;
+          font-size: .6rem;
         }
       }
     }
 
     .navigation {
-      border-bottom: solid thin fadeout(black, 90%);
-      padding: 10px 0;
+      padding: 0 0 10px ;
 
       .nav-items {
         display: flex;
@@ -154,7 +146,7 @@
           a {
             font-size: 1.1rem;
             text-decoration: none;
-            color: @grey7;
+            color: @grey8;
 
             display: flex;
             align-items: center;
@@ -165,6 +157,11 @@
 
             &.is-active {
               color: @c-first;
+
+              &:hover {
+                color: @c-first;
+              }
+
             }
 
             &:hover {
@@ -182,40 +179,6 @@
           }
         }
 
-      }
-    }
-
-    &.sidebar > .fluid-container {
-      flex-direction: column;
-      max-width: inherit;
-      width: 200px;
-      padding: 0;
-
-      .identity {
-        width: 100%; height: auto;
-        flex: 0 0 auto;
-        padding: .57rem 1rem;
-
-        border-top: solid 3px @c-cyan;
-      }
-
-      .nav-items {
-        flex: 0 1 100%;
-        flex-direction: column;
-      }
-
-      .user {
-        flex: 0 0 auto; height: 100%;
-        display: none;
-      }
-
-      .user-id {
-        margin: 5px 20px;
-        .f-b;
-      }
-
-      .logout {
-        flex: 0 0 auto; height: @nav-height;
       }
     }
 
