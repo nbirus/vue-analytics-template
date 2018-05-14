@@ -4,16 +4,17 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+// globally registered components
 import commonComponents from './components/common'
-import Ripple from 'vue-ripple-directive'
+
+// filters/directives
+import './services/FilterService'
+import './services/DirectiveService'
 
 // register all common components to be used anywhere
 for (let component in commonComponents) {
   Vue.component(component, commonComponents[component])
 }
-
-// ripple effect directive
-Vue.directive('ripple', Ripple)
 
 Vue.config.productionTip = false
 

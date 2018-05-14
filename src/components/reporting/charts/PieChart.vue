@@ -5,6 +5,8 @@
 <script>
   import ChartMixin from '@/mixins/ChartMixin'
   import 'echarts/lib/chart/pie'
+  import 'echarts/lib/component/tooltip'
+  import 'echarts/lib/component/legend'
 
   import { isEmpty } from 'lodash'
 
@@ -14,19 +16,21 @@
     data () {
       return {
         defaultChartOptions: {
+          tooltip: {
+            trigger: 'item',
+            extraCssText: 'box-shadow: 0 1px 3px rgba(0, 0, 0, .4)',
+            backgroundColor: 'white',
+            confine: true,
+            textStyle: {
+              color: 'black',
+              fontSize: 13
+            }
+          },
           textStyle: {
             fontSize: 12
           },
           legend: {
             show: false
-          },
-          label: {
-            confine: true,
-            normal: {
-              formatter: (label) => {
-                return label.data.name
-              }
-            }
           },
           series: [{
             name: '',
@@ -36,17 +40,23 @@
             data: []
           }]
         },
-        expandedChartOptions: {}
+        expandedChartOptions: {
+          legend: {
+            show: true,
+            orient: 'vertical',
+            x: 'left'
+          }
+        }
       }
     },
     computed: {
 
       // fill the data elements of the chart options object
       dataModifiers () {
-        return (isEmpty(this.filteredChartData)) ? {}
+        return (isEmpty(this.$filteredChartData)) ? {}
           : {
             series: [{
-              data: this.filteredChartData.map(item => {
+              data: this.$filteredChartData.map(item => {
                 return {
                   ...item,
                   itemStyle: { normal: { color: item.color } } // merge color object
@@ -63,11 +73,20 @@
       handleDataReturn (data) {
         return data.map((item, index) => {
           return {
-            name: item[this.id],
+            id: item[this.id],
+            name: this.$filterLabel(item[this.id]),
             value: item.count,
             color: this.colors[index]
           }
         })
+      },
+
+      getTotal () {
+        return this.$filteredChartData
+          .reduce((total, item) => {
+            total += item.value
+            return total
+          }, 0)
       }
 
     }

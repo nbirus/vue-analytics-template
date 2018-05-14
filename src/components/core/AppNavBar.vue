@@ -134,7 +134,7 @@
     }
 
     .navigation {
-      padding: 0 0 10px ;
+      padding: 0 0 10px;
 
       .nav-items {
         display: flex;

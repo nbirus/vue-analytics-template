@@ -28,6 +28,8 @@
   import AppFooter from '@/components/core/AppFooter'
   import AppBreadCrumbs from '@/components/core/AppBreadCrumbs'
 
+  // import './services/DirectiveService'
+
   export default {
     name: 'App',
     components: {
@@ -58,6 +60,7 @@
   // import uiv styles
   @import 'styles/uiv/app-dropdown.less';
   @import 'styles/uiv/app-modal.less';
+  @import 'styles/uiv/app-tooltip.less';
 
 
 </style>

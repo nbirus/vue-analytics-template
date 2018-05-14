@@ -1,0 +1,17 @@
+[
+  {
+    "type": "text",
+    "id": "title",
+    "label": "Chart Title",
+    "placeholder": "Enter a chart title"
+  },
+  {
+    "type": "text",
+    "id": "filename",
+    "label": "Filename",
+    "placeholder": "Enter a filename",
+    "validations": {
+      "required": true
+    }
+  }
+]

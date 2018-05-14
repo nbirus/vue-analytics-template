@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="page-body">
-      <btn @onClick="$router.push({ path: 'Dashboard' })">Go Home</btn>
+      <btn @click="$router.push({ name: 'home' })">Go Home</btn>
     </div>
   </div>
 </template>

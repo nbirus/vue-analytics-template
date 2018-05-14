@@ -29,6 +29,10 @@ export default {
       type: Array,
       default: () => []
     },
+    labelFilters: {
+      type: Array,
+      default: () => []
+    },
 
     // echart options object
     customModifiers: {
@@ -41,6 +45,8 @@ export default {
       formattedChartData: [],
 
       colors: ColorService.getColors(),
+
+      // chart options
       axisTextColor: '#999999',
       splitLineColor: '#e7e7e7'
     }
@@ -53,17 +59,18 @@ export default {
         this.defaultChartOptions,
         this.dataModifiers, // insert data
         this.customModifiers, // insert custom properties
-        this.isExpanded ? this.expandedChartOptions : {} // if expanded
+        this.expanded ? this.expandedChartOptions : {} // if expanded
       )
     },
 
     // filter out suppressed headers and null fields
-    filteredChartData () {
+    $filteredChartData () {
       return this.formattedChartData.filter(item =>
         item &&
-        item.name &&
-        !this.suppressedHeaders.includes(item.name))
+        item.id &&
+        !this.suppressedHeaders.includes(item.id))
     }
+
   },
   mounted () {
     this.$buildChart()
@@ -71,12 +78,14 @@ export default {
   methods: {
 
     $buildChart () {
+
       this.colors = this.$generateColors(this.chartData.length)
       this.formattedChartData = this.handleDataReturn(this.chartData)
-      this.$emit('chartRendered', this.filteredChartData)
+
+      // emit the render w/ headers and total
+      this.$emit('chartRendered', this.$filteredChartData, this.getTotal())
     },
 
-    // helper functions
     $generateColors (steps = 10) {
 
       let color = chroma(this.colors[this.theme][0])
@@ -84,6 +93,16 @@ export default {
       let colorLight = this.colors[this.theme][2]
 
       return chroma.scale([colorLight, color, colorDark]).mode('lch').colors(steps)
+    },
+
+    $filterLabel (label) {
+
+      // loop over each filter and manipulate passed in string
+      this.labelFilters.forEach(filter => {
+        label = this.$options.filters[filter](label)
+      })
+
+      return label
     }
   }
 }
