@@ -1,5 +1,7 @@
 <template>
-  <div id="app" class="">
+  <div id="app">
+
+    <app-header></app-header>
 
     <!-- nav bar -->
     <app-nav-bar v-if="showHeader"></app-nav-bar>
@@ -26,13 +28,13 @@
 <script>
   import AppNavBar from '@/components/core/AppNavBar'
   import AppFooter from '@/components/core/AppFooter'
+  import AppHeader from '@/components/core/AppHeader'
   import AppBreadCrumbs from '@/components/core/AppBreadCrumbs'
-
-  // import './services/DirectiveService'
 
   export default {
     name: 'App',
     components: {
+      AppHeader,
       AppNavBar,
       AppFooter,
       AppBreadCrumbs

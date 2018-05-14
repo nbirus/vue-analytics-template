@@ -1,44 +1,8 @@
 <template>
   <div class="nav-bar">
-
-    <div class="main">
-      <div class="fluid-container">
-
-        <!--identity-->
-        <div class="identity">
-          <img height="32" src="../../../assets/nci-logo-full-blue.png" alt="National Cancer Institute"/>
-        </div>
-
-        <!--search-->
-        <div class="search">
-          <a>
-            <i class="fa fa-search"></i>
-            Search
-          </a>
-        </div>
-
-        <!--user-->
-        <dropdown menu-right>
-
-          <div class="user" data-role="trigger" v-ripple>
-            <span>Nathan Birus</span>
-            <i class="fa fa-chevron-down"></i>
-          </div>
-
-          <template slot="dropdown">
-            <li><a role="button"><i class="icon-settings icons icon-margin"></i>User Settings</a></li>
-            <li><a role="button"><i class="icon-logout icons icon-margin"></i>Logout</a></li>
-          </template>
-
-        </dropdown>
-
-      </div>
-    </div>
-
     <div class="navigation">
-      <div class="fluid-container">
 
-        <ul class="nav-items">
+      <ul class="nav-items">
 
           <li
             v-for="route in $router.options.routes" :key="route.name"
@@ -57,25 +21,15 @@
 
           </li>
 
-        </ul>
-      </div>
+      </ul>
 
     </div>
-
   </div>
 </template>
 
 <script>
-  import { Dropdown } from 'uiv'
-
   export default {
-    name: 'navbar',
-    components: { Dropdown },
-    data () {
-      return {
-        searchEntity: 'Trials'
-      }
-    }
+    name: 'app-navbar'
   }
 </script>
 
@@ -83,89 +37,42 @@
 
   @import (reference) '../../styles/app-helper.less';
 
-  .fluid-container {
-    padding: 0 @page-padding;
-    .max-page-width;
-  }
-
   .nav-bar {
     background-color: @nav-bg-color;
-    border-bottom: solid thin @grey3;
-
-    .main {
-      padding: 1.3rem 0;
-
-      .fluid-container {
-        display: flex;
-        align-items: center;
-      }
-
-      .identity {
-        flex: 1 1 auto;
-        margin-left: -2px;
-      }
-
-      .search {
-        flex: 0 0 auto;
-        color: cornflowerblue;
-        font-size: 1.1rem;
-        font-weight: bold;
-        margin-right: 1rem;
-      }
-
-      .user {
-        flex: 0 0 auto;
-
-        display: flex;
-        align-items: center;
-
-        padding: .2rem .4rem;
-        cursor: default;
-
-        span {
-          font-size: 1.1rem;
-          margin-right: .5rem;
-        }
-
-        i {
-          font-size: .6rem;
-        }
-      }
-    }
 
     .navigation {
       padding: 0 0 10px;
 
       .nav-items {
         display: flex;
+        flex-direction: column;
 
         li {
-          padding: 0 .5rem;
-          margin: 0 .5rem;
-
           a {
-            font-size: 1.2rem;
+            padding: 1.6rem 0;
+            margin: 0;
+
+            font-size: 1rem;
             text-decoration: none;
-            color: @grey8;
+            color: fadeout(white, 25%);
 
             display: flex;
+            flex-direction: column;
             align-items: center;
 
             i {
-              margin-right: .5rem;
+              font-size: 1.7rem;
+              margin-bottom: .8rem;
             }
 
-            &.is-active {
+            &.is-active, &.is-active:hover {
               color: @c-first;
-
-              &:hover {
-                color: @c-first;
-              }
-
+              background-color: darken(@nav-bg-color, 5%);
             }
 
             &:hover {
-              color: @grey9;
+              color: white;
+              background-color: darken(@nav-bg-color, 3%);
             }
 
             &:focus {

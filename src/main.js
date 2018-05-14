@@ -3,15 +3,13 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-
-// globally registered components
 import commonComponents from './components/common'
 
 // filters/directives
 import './services/FilterService'
 import './services/DirectiveService'
 
-// register all common components to be used anywhere
+// register global components
 for (let component in commonComponents) {
   Vue.component(component, commonComponents[component])
 }

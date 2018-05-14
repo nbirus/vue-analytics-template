@@ -11,7 +11,7 @@
         style='height: 300px; width: 400px'
         id='phase'
         title='Test Chart'
-        chartType='vertical-bar'
+        chartType='pie'
         :chartData='chartData'
         :labelFilters="['upperCase', 'replaceUnderscores']"
       >
