@@ -8,7 +8,7 @@
 
         <div class="chart-title" v-if="hasHeader">
           <h4 :class="textColor" @keyup.esc="onEscape">{{title}}</h4>
-          <h5 v-if="!error && showTotal">{{chartTotal | localString}} {{countType}}</h5>
+          <h5 v-if="!error && showTotal">{{totalCount | localeString}} {{countType}}</h5>
         </div>
 
         <div class="chart-actions" v-if="!hideActions">
@@ -68,15 +68,10 @@
           <!-- horizontal-bar chart -->
           <horizontal-bar-chart
             v-if="chartType === 'horizontal-bar'"
+            v-bind="$props"
 
-            :id="id"
-            :chartData="chartData"
-            :labelFilters="labelFilters"
-
-            :theme="theme"
-            :expanded="expandActive"
             :suppressedHeaders="suppressedHeaders"
-
+            :expanded="expandActive"
             @chartRendered="chartRendered"
           >
           </horizontal-bar-chart>
@@ -84,15 +79,10 @@
           <!-- vertical-bar chart -->
           <vertical-bar-chart
             v-if="chartType === 'vertical-bar'"
+            v-bind="$props"
 
-            :id="id"
-            :chartData="chartData"
-            :labelFilters="labelFilters"
-
-            :theme="theme"
-            :expanded="expandActive"
             :suppressedHeaders="suppressedHeaders"
-
+            :expanded="expandActive"
             @chartRendered="chartRendered"
           >
           </vertical-bar-chart>
@@ -100,18 +90,22 @@
           <!-- pie chart -->
           <pie-chart
             v-if="chartType === 'pie'"
+            v-bind="$props"
 
-            :id="id"
-            :chartData="chartData"
-            :labelFilters="labelFilters"
-
-            :theme="theme"
-            :expanded="expandActive"
             :suppressedHeaders="suppressedHeaders"
-
+            :expanded="expandActive"
             @chartRendered="chartRendered"
           >
           </pie-chart>
+
+          <stacked-vertical-bar-chart
+            v-if="chartType === 'stacked-vertical-bar'"
+            v-bind="$props"
+
+            :suppressedHeaders="suppressedHeaders"
+            @chartRendered="chartRendered"
+          >
+          </stacked-vertical-bar-chart>
 
         </div>
       </div>
@@ -171,7 +165,7 @@
 
                     <input type="checkbox" :checked="!suppressedHeaders.includes(header.id)"/>
                     <div class="label">{{header.name}}</div>
-                    <div class="value">{{header.value | localString}}</div>
+                    <div class="value">{{header.value | localeString}}</div>
                   </li>
                 </ul>
               </div>
@@ -253,7 +247,7 @@
     },
     props: {
 
-      // ------ state ------
+      // state
       loading: {
         type: Boolean,
         default: false
@@ -263,9 +257,8 @@
         default: ''
       },
 
-      // ------ model ------
+      // model
       chartData: {
-        type: Array,
         required: false
       },
       chartType: {
@@ -276,7 +269,7 @@
         type: String,
         required: true
       },
-      chartProps: {
+      customModifiers: {
         type: Object,
         required: false
       },
@@ -284,8 +277,14 @@
         type: Array,
         default: () => []
       },
+      colors: {
+        type: Array,
+        default: () => []
+      },
 
-      // ------ data ------
+
+
+      // data
       title: {
         type: String,
         default: ''
@@ -302,7 +301,6 @@
         type: Array,
         default: () => []
       },
-
       initialParams: {
         type: Object,
         default () {
@@ -334,13 +332,18 @@
       canScreenShot: {
         type: Boolean,
         default: true
+      },
+
+      // custom chart props
+      // stacked bar
+      subLabelFilters: {
+        type: Array,
+        default: () => []
       }
 
     },
     data () {
       return {
-
-        chartTotal: 0,
 
         // header data
         toggleColumnSearchText: '',
@@ -385,6 +388,13 @@
 
       isChartReady () {
         return !this.loading && !this.error && !!this.chartData
+      },
+
+      totalCount () {
+        return this.filteredHeaders.reduce((total, item) => {
+          total += item.value
+          return total
+        }, 0)
       },
 
       filteredHeaders () {
@@ -461,13 +471,14 @@
             bgcolor: 'white'
           })
           .then(dataUrl => {
+
             let link = document.createElement('a')
             link.download = `${options.filename}.jpeg`
             link.href = dataUrl
             link.click()
-          })
 
-        this.screenShotActive = false
+            this.closeChart()
+          })
 
       }
 
@@ -489,7 +500,7 @@
     &.expanded {
       width: 100vw !important;
       height: 100vh !important;
-      background-color: fadeout(black, 80%);
+      background-color: fadeout(black, 70%);
 
       position: fixed;
       top: 0; left: 0;
@@ -521,7 +532,7 @@
       }
     }
 
-    // panel
+    // main panel
     & > .panel {
       height: 100%;
       overflow: hidden;
@@ -745,6 +756,8 @@
           // settings
           .settings {
             width: 300px;
+            background-color: @grey1;
+            border-left: solid 1px @grey4;
           }
 
           // screen shot

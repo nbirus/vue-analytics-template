@@ -1,5 +1,5 @@
 <template>
-  <e-charts class="chart" :options="activeOptions" :autoResize="true"></e-charts>
+  <e-charts class="chart" :options="$activeOptions" :autoResize="true"></e-charts>
 </template>
 
 <script>
@@ -98,15 +98,8 @@
             color: this.colors[index]
           }
         })
-      },
-
-      getTotal () {
-        return this.$filteredChartData
-          .reduce((total, item) => {
-            total += item.value
-            return total
-          }, 0)
       }
+
     }
   }
 </script>

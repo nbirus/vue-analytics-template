@@ -4,15 +4,16 @@
 
       <!-- title -->
       <div class="page-title-container">
-        <div class="icon">
-          <transition name="page-header-icon" mode="out-in" appear>
-            <i class="icons" :class="'icon-' + $route.meta.icon" :key="$route.meta.icon"></i>
-          </transition>
-        </div>
+        <!--<div class="icon">-->
+          <!--<transition name="page-header-icon" mode="out-in" appear>-->
+            <!--<i class="icons" :class="'icon-' + $route.meta.icon" :key="$route.meta.icon"></i>-->
+          <!--</transition>-->
+        <!--</div>-->
 
         <transition name="page-header" mode="out-in" appear>
           <h2 :key="$route.name">{{pageTitle}}</h2>
         </transition>
+
       </div>
 
       <!-- actions -->
@@ -70,7 +71,6 @@
 
         display: flex;
 
-
         .icon {
           margin-right: 1rem;
           padding: 3px 0 0;
@@ -86,8 +86,8 @@
 
         h2 {
           color: @c-inverse;
-          font-weight: 100;
-          font-size: 1.9rem;
+          font-weight: 900;
+          font-size: 1.6rem;
 
           // if icon exists
           i {

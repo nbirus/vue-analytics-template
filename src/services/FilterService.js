@@ -1,7 +1,8 @@
 import Vue from 'vue'
+import moment from 'moment'
 
-// localString
-Vue.filter('localString', value => {
+// localeString
+Vue.filter('localeString', value => {
 
   try {
     return (value)
@@ -9,7 +10,7 @@ Vue.filter('localString', value => {
       : value
   }
   catch (error) {
-    console.log('filter [localString]: ' + error)
+    console.log('filter [localeString]: ' + error)
     return value
   }
 
@@ -55,6 +56,21 @@ Vue.filter('upperCase', value => {
   }
   catch (error) {
     console.log('filter [upperCase]: ' + error)
+    return value
+  }
+
+})
+
+// date to MMM DD, YYYY
+Vue.filter('date', value => {
+
+  try {
+    return (value)
+      ? moment(value).format('MMM DD, YYYY')
+      : value
+  }
+  catch (error) {
+    console.log('filter [date]: ' + error)
     return value
   }
 

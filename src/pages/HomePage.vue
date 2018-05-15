@@ -7,15 +7,41 @@
     </app-page-header>
 
     <div class='page-body'>
+
+      <chart-report
+        style='height: 400px; width: 700px; margin-bottom: 10px'
+        id='dates'
+        title='Test Stacked Bar Chart'
+        chartType='stacked-vertical-bar'
+        :chartData='chartData3'
+        :labelFilters="['date']"
+        :subLabelFilters="['titleCase']"
+        :colors="['#3FAFD1', '#9A5CB4', '#68C472']"
+        :showTotal="false"
+        :abbreviateLabelsBy="3"
+        :customModifiers="{
+          dataZoom: [
+            {
+                show: true
+            }
+          ],
+          grid: {
+            bottom: '50px'
+          }
+        }"
+      >
+      </chart-report>
+
       <chart-report
         style='height: 300px; width: 400px'
         id='phase'
-        title='Test Chart'
-        chartType='pie'
+        title='Test Pie Chart'
+        chartType='vertical-bar'
         :chartData='chartData'
         :labelFilters="['upperCase', 'replaceUnderscores']"
       >
       </chart-report>
+
     </div>
 
   </div>
@@ -40,7 +66,24 @@
           {'count': 663, 'phase': 'i_ii'},
           {'count': 397, 'phase': 'iii'},
           {'count': 47, 'phase': 'ii_iii'}
-        ]
+        ],
+        chartData3: {
+          dates: ['2018-05-11T00:00:00.000Z', '2018-05-12T00:00:00.000Z', '2018-05-13T00:00:00.000Z'],
+          data: [
+            {
+              type: 'person',
+              counts: [15903, 167, 48]
+            },
+            {
+              type: 'organization',
+              counts: [5248, 139, 32]
+            },
+            {
+              type: 'trial',
+              counts: [17455, 239, 66]
+            }
+          ]
+        }
       }
     }
   }

@@ -38,10 +38,9 @@
   @import (reference) '../../styles/app-helper.less';
 
   .nav-bar {
-    background-color: @nav-bg-color;
+    .horizontal-gradient(@nav-bg-color, darken(@nav-bg-color, 3%));
 
     .navigation {
-      padding: 0 0 10px;
 
       .nav-items {
         display: flex;
@@ -49,25 +48,28 @@
 
         li {
           a {
-            padding: 1.6rem 0;
+            padding: 1.2rem 0 1rem;
             margin: 0;
 
             font-size: 1rem;
+            font-weight: 500;
             text-decoration: none;
             color: fadeout(white, 25%);
+
 
             display: flex;
             flex-direction: column;
             align-items: center;
 
             i {
-              font-size: 1.7rem;
+              font-size: 1.4rem;
               margin-bottom: .8rem;
             }
 
             &.is-active, &.is-active:hover {
-              color: @c-first;
+              color: WHITE;
               background-color: darken(@nav-bg-color, 5%);
+              border-left: solid 3px @c-first;
             }
 
             &:hover {

@@ -1,5 +1,5 @@
 <template>
-  <e-charts class="chart" :options="activeOptions" :autoResize="true"></e-charts>
+  <e-charts class="chart" :options="$activeOptions" :autoResize="true"></e-charts>
 </template>
 
 <script>
@@ -76,17 +76,13 @@
             id: item[this.id],
             name: this.$filterLabel(item[this.id]),
             value: item.count,
-            color: this.colors[index]
+            color: this.activeColors[index]
           }
         })
       },
 
-      getTotal () {
-        return this.$filteredChartData
-          .reduce((total, item) => {
-            total += item.value
-            return total
-          }, 0)
+      getDataLength () {
+        return this.chartData.length
       }
 
     }

@@ -40,16 +40,16 @@
   background-color: @page-bg-color;
 
   display: grid;
-  grid-template-columns: 110px auto;
-  grid-template-rows: 60px 100%;
+  grid-template-columns: 95px auto;
+  grid-template-rows: 50px 100%;
 
   & > .header {
     grid-row: 1;
-    grid-column: span 2;
+    grid-column: 2;
   }
 
   & > .nav-bar {
-    grid-row: 2;
+    grid-row: span 2;
     grid-column: 1;
   }
 
@@ -70,7 +70,7 @@
 
   & >.page-body {
     .max-page-width;
-    padding: 1.2rem @page-padding;
+    padding: @page-padding;
   }
 
 }

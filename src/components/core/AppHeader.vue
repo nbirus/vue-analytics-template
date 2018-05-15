@@ -3,17 +3,17 @@
 
     <!--identity-->
     <div class="identity">
-        <img height="32" src="../../../assets/nci-logo-full-blue.png" alt="National Cancer Institute"/>
+        <img height="30" src="../../../assets/nci-logo-full-blue.png" alt="National Cancer Institute"/>
       </div>
 
     <div class="actions">
       <!--search-->
-      <div class="search">
-        <a>
-          <i class="fa fa-search"></i>
-          Search
-        </a>
-      </div>
+      <!--<div class="search">-->
+        <!--<a>-->
+          <!--<i class="fa fa-search"></i>-->
+          <!--Search-->
+        <!--</a>-->
+      <!--</div>-->
 
       <!--user-->
       <dropdown menu-right>
@@ -57,11 +57,13 @@
     justify-content: space-between;
     align-items: center;
 
-    .box-shadow(0 1px 8px fadeout(black, 90%));
+    // .box-shadow(0 1px 8px fadeout(black, 90%));
+    border-bottom: solid thin @grey3;
     z-index: 1;
 
     .identity {
       flex: 0 0 auto;
+      margin-top: 4px;
     }
 
     .actions {

@@ -11,12 +11,9 @@ export default {
       type: String,
       required: true
     },
-
     chartData: {
-      type: Array,
       required: true
     },
-
     expanded: {
       type: Boolean,
       default: false
@@ -33,6 +30,10 @@ export default {
       type: Array,
       default: () => []
     },
+    colors: {
+      type: Array,
+      default: () => []
+    },
 
     // echart options object
     customModifiers: {
@@ -42,23 +43,25 @@ export default {
   },
   data () {
     return {
-      formattedChartData: [],
-
-      colors: ColorService.getColors(),
 
       // chart options
+      formattedChartData: [],
+      activeColors: [],
+
+      // default styling
       axisTextColor: '#999999',
       splitLineColor: '#e7e7e7'
+
     }
   },
   computed: {
 
     // visible chart object
-    activeOptions () {
+    $activeOptions () {
       return merge({},
         this.defaultChartOptions,
         this.dataModifiers, // insert data
-        this.customModifiers, // insert custom properties
+        this.customModifiers, // from props
         this.expanded ? this.expandedChartOptions : {} // if expanded
       )
     },
@@ -79,30 +82,38 @@ export default {
 
     $buildChart () {
 
-      this.colors = this.$generateColors(this.chartData.length)
+      // colors
+      this.activeColors = this.colors.length ? this.colors : this.$generateColors()
+
+      // data
       this.formattedChartData = this.handleDataReturn(this.chartData)
 
-      // emit the render w/ headers and total
-      this.$emit('chartRendered', this.$filteredChartData, this.getTotal())
+      // emit the render
+      this.$emit('chartRendered', this.$filteredChartData)
+
     },
 
-    $generateColors (steps = 10) {
+    $generateColors () {
 
-      let color = chroma(this.colors[this.theme][0])
-      let colorDark = this.colors[this.theme][1]
-      let colorLight = this.colors[this.theme][2]
+      let steps = this.getDataLength()
+      let colors = ColorService.getColors()
+
+      let color = chroma(colors[this.theme][0])
+      let colorDark = colors[this.theme][1]
+      let colorLight = colors[this.theme][2]
 
       return chroma.scale([colorLight, color, colorDark]).mode('lch').colors(steps)
     },
 
-    $filterLabel (label) {
+    $filterLabel (label, filters = this.labelFilters) {
 
       // loop over each filter and manipulate passed in string
-      this.labelFilters.forEach(filter => {
+      filters.forEach(filter => {
         label = this.$options.filters[filter](label)
       })
 
       return label
     }
+
   }
 }
