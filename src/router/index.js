@@ -2,15 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // common pages
-import NotFound from '@/pages/common/NotFoundPage'
-import Unauthorized from '@/pages/common/UnauthorizedPage'
-import Login from '@/pages/common/Login'
+const NotFound = (resolve) => require(['@/pages/common/NotFoundPage'], resolve)
+const Unauthorized = (resolve) => require(['@/pages/common/UnauthorizedPage'], resolve)
+const Login = (resolve) => require(['@/pages/common/Login'], resolve)
 
 // pages
-import Home from '@/pages/HomePage'
-import Search from '@/pages/SearchPage'
-import StyleGuide from '@/pages/StyleGuidePage'
-
+const Home = (resolve) => require(['@/pages/HomePage'], resolve)
+const Search = (resolve) => require(['@/pages/SearchPage'], resolve)
+const StyleGuide = (resolve) => require(['@/pages/StyleGuidePage'], resolve)
 
 Vue.use(Router)
 
@@ -84,7 +83,14 @@ const router = new Router({
   mode: 'history',
   base: process.env.BASE_HREF,
   routes,
-  linkActiveClass: 'is-active'
+  linkActiveClass: 'is-active',
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  }
 })
 
 

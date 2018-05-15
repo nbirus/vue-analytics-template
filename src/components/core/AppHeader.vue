@@ -57,7 +57,7 @@
     justify-content: space-between;
     align-items: center;
 
-    // .box-shadow(0 1px 8px fadeout(black, 90%));
+    .box-shadow(0 1px 8px fadeout(black, 95%));
     border-bottom: solid thin @grey3;
     z-index: 1;
 

@@ -69,7 +69,7 @@
             &.is-active, &.is-active:hover {
               color: WHITE;
               background-color: darken(@nav-bg-color, 5%);
-              border-left: solid 3px @c-first;
+              border-left: solid 4px @c-first;
             }
 
             &:hover {
