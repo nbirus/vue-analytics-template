@@ -4,11 +4,8 @@
 #
 
 imports:
-  - ./page.yml
-  - ./font.yml
   - ./color.yml
   - ./theme-color.yml
-  - ./input.yml
 global:
   type: global
   category: all

@@ -3,7 +3,10 @@
     "type": "text",
     "id": "title",
     "label": "Chart Title",
-    "placeholder": "Enter a chart title"
+    "placeholder": "Enter a chart title",
+    "validations": {
+      "maxLength": 255
+    }
   },
   {
     "type": "text",
@@ -11,7 +14,8 @@
     "label": "Filename",
     "placeholder": "Enter a filename",
     "validations": {
-      "required": true
+      "required": true,
+      "maxLength": 255
     }
   }
 ]

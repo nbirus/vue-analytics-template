@@ -178,8 +178,8 @@
 
 <style lang="less" scoped>
 
-  @import (reference) '../../styles/app-helper.less';
-  @import (reference) '../../styles/theme-generator.less';
+  @import (reference) '../../../styles/app-helper.less';
+  @import (reference) '../../../styles/theme-generator.less';
 
   .tabs {
     display: flex;

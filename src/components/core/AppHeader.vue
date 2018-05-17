@@ -16,19 +16,19 @@
       <!--</div>-->
 
       <!--user-->
-      <dropdown menu-right>
+      <!--<dropdown menu-right>-->
 
-        <div class="user" data-role="trigger" v-ripple>
-          <span>Nathan Birus</span>
-          <i class="fa fa-chevron-down"></i>
-        </div>
+        <!--<div class="user" data-role="trigger" v-ripple>-->
+          <!--<span>Nathan Birus</span>-->
+          <!--<i class="fa fa-chevron-down"></i>-->
+        <!--</div>-->
 
-        <template slot="dropdown">
-          <li><a role="button"><i class="icon-settings icons icon-margin"></i>User Settings</a></li>
-          <li><a role="button"><i class="icon-logout icons icon-margin"></i>Logout</a></li>
-        </template>
+        <!--<template slot="dropdown">-->
+          <!--<li><a role="button"><i class="icon-settings icons icon-margin"></i>User Settings</a></li>-->
+          <!--<li><a role="button"><i class="icon-logout icons icon-margin"></i>Logout</a></li>-->
+        <!--</template>-->
 
-      </dropdown>
+      <!--</dropdown>-->
 
     </div>
 

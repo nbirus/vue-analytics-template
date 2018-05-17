@@ -1,5 +1,5 @@
-import Tabs from './Tabs'
-import Tab from './Tab'
+import Tabs from './tabs/Tabs'
+import Tab from './tabs/Tab'
 import Btn from './Btn'
 import TextInput from './inputs/TextInput'
 import CheckboxInput from './inputs/CheckboxInput'

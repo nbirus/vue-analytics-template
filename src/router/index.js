@@ -2,12 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // common pages
-const NotFound = (resolve) => require(['@/pages/common/NotFoundPage'], resolve)
-const Unauthorized = (resolve) => require(['@/pages/common/UnauthorizedPage'], resolve)
-const Login = (resolve) => require(['@/pages/common/Login'], resolve)
+// const NotFound = (resolve) => require(['@/pages/common/NotFoundPage'], resolve)
+// const Unauthorized = (resolve) => require(['@/pages/common/UnauthorizedPage'], resolve)
+// const Login = (resolve) => require(['@/pages/common/Login'], resolve)
 
 // pages
-const Home = (resolve) => require(['@/pages/HomePage'], resolve)
 const Search = (resolve) => require(['@/pages/SearchPage'], resolve)
 const StyleGuide = (resolve) => require(['@/pages/StyleGuidePage'], resolve)
 
@@ -18,19 +17,9 @@ const routes = [
   // catch all
   {
     path: '*',
-    redirect: '/not-found',
+    redirect: '/search',
     meta: {
       navBarLink: false
-    }
-  },
-  {
-    path: '/home',
-    name: 'home',
-    component: Home,
-    meta: {
-      navBarLink: true,
-      navBarTitle: 'Home',
-      icon: 'grid'
     }
   },
   {
@@ -52,31 +41,31 @@ const routes = [
       navBarTitle: 'Style Guide',
       icon: 'directions'
     }
-  },
-  {
-    path: '/not-found',
-    component: NotFound,
-    meta: {
-      navBarLink: false,
-      showHeader: false
-    }
-  },
-  {
-    path: '/unauthorized',
-    component: Unauthorized,
-    meta: {
-      navBarLink: false,
-      showHeader: false
-    }
-  },
-  {
-    path: '/login',
-    component: Login,
-    meta: {
-      navBarLink: false,
-      showHeader: false
-    }
   }
+  // {
+  //   path: '/not-found',
+  //   component: NotFound,
+  //   meta: {
+  //     navBarLink: false,
+  //     showHeader: false
+  //   }
+  // },
+  // {
+  //   path: '/unauthorized',
+  //   component: Unauthorized,
+  //   meta: {
+  //     navBarLink: false,
+  //     showHeader: false
+  //   }
+  // },
+  // {
+  //   path: '/login',
+  //   component: Login,
+  //   meta: {
+  //     navBarLink: false,
+  //     showHeader: false
+  //   }
+  // }
 ]
 
 const router = new Router({

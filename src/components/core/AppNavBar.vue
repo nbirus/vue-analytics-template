@@ -62,7 +62,7 @@
             align-items: center;
 
             i {
-              font-size: 1.4rem;
+              font-size: 1.6rem;
               margin-bottom: .8rem;
             }
 
