@@ -263,6 +263,7 @@
 
         this.$set(this.inputValues, id, value)
         this.$emit('formChanged', this.inputValues)
+        this.$emit('update:initialValues', this.inputValues)
       },
       submitForm () {
 

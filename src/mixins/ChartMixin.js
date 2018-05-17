@@ -34,12 +34,11 @@ export default {
       type: Array,
       default: () => []
     },
-
-    // echart options object
     customModifiers: {
       type: Object,
       default () { return {} }
     }
+
   },
   data () {
     return {

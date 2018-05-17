@@ -7,11 +7,11 @@
       <div class="panel-header chart-header">
 
         <div class="chart-title" v-if="hasHeader">
-          <h4 :class="textColor" @keyup.esc="onEscape">{{title}}</h4>
-          <h5 v-if="!error && showTotal">{{totalCount | localeString}} {{countType}}</h5>
+          <h4 :class="textColor">{{chartTitle}}</h4>
+          <h5 v-if="isChartReady && showTotal">{{totalCount | localeString}} {{countType}}</h5>
         </div>
 
-        <div class="chart-actions" v-if="!hideActions">
+        <div class="chart-actions" v-if="!hideActions && isChartReady">
 
           <dropdown menu-right>
 
@@ -63,49 +63,23 @@
 
       <!--chart-->
       <div class="panel-body chart-body" v-if="isChartReady">
-        <div class="panel-block" ref="chart">
+        <div class="panel-block">
 
-          <!-- horizontal-bar chart -->
-          <horizontal-bar-chart
-            v-if="chartType === 'horizontal-bar'"
-            v-bind="$props"
+          <!--
+            Pass along:
+            - $props: shared ChartReport props
+            - $attrs: props specific to the underlying chart
+          -->
 
-            :suppressedHeaders="suppressedHeaders"
-            :expanded="expandActive"
-            @chartRendered="chartRendered"
-          >
-          </horizontal-bar-chart>
-
-          <!-- vertical-bar chart -->
-          <vertical-bar-chart
-            v-if="chartType === 'vertical-bar'"
-            v-bind="$props"
+          <component
+            :is="`${chartType}-chart`"
+            v-bind="[$props, $attrs]"
 
             :suppressedHeaders="suppressedHeaders"
             :expanded="expandActive"
             @chartRendered="chartRendered"
           >
-          </vertical-bar-chart>
-
-          <!-- pie chart -->
-          <pie-chart
-            v-if="chartType === 'pie'"
-            v-bind="$props"
-
-            :suppressedHeaders="suppressedHeaders"
-            :expanded="expandActive"
-            @chartRendered="chartRendered"
-          >
-          </pie-chart>
-
-          <stacked-vertical-bar-chart
-            v-if="chartType === 'stacked-vertical-bar'"
-            v-bind="$props"
-
-            :suppressedHeaders="suppressedHeaders"
-            @chartRendered="chartRendered"
-          >
-          </stacked-vertical-bar-chart>
+          </component>
 
         </div>
       </div>
@@ -131,7 +105,7 @@
       </div>
 
       <!--sidebar-->
-      <div class="chart-sidebar-mask">
+      <div class="chart-sidebar-mask" ref="sidebar">
 
         <div class="overlay" v-if="overlayActive"></div>
 
@@ -208,7 +182,7 @@
 
                 <form-generator
                   :inputs="screenShotForm"
-                  :initialValues="initialScreenShotValues"
+                  :initialValues.sync="initialScreenShotValues"
 
                   @formSubmitted="createScreenShot"
                   @formReset="screenShotActive = false"
@@ -225,7 +199,6 @@
 
     </div>
   </div>
-
 
 </template>
 
@@ -258,6 +231,10 @@
       },
 
       // model
+      id: {
+        type: String,
+        required: true
+      },
       chartData: {
         required: false
       },
@@ -265,24 +242,6 @@
         type: String,
         required: true
       },
-      id: {
-        type: String,
-        required: true
-      },
-      customModifiers: {
-        type: Object,
-        required: false
-      },
-      labelFilters: {
-        type: Array,
-        default: () => []
-      },
-      colors: {
-        type: Array,
-        default: () => []
-      },
-
-
 
       // data
       title: {
@@ -308,7 +267,7 @@
         }
       },
 
-      // ------ flags ------
+      // flags
       showTotal: {
         type: Boolean,
         default: true
@@ -332,13 +291,6 @@
       canScreenShot: {
         type: Boolean,
         default: true
-      },
-
-      // custom chart props
-      // stacked bar
-      subLabelFilters: {
-        type: Array,
-        default: () => []
       }
 
     },
@@ -366,6 +318,12 @@
       }
     },
     computed: {
+
+      chartTitle () {
+        return this.screenShotActive
+          ? this.initialScreenShotValues.title
+          : this.title
+      },
 
       overlayActive () {
         return (
@@ -456,6 +414,7 @@
           this.suppressedHeaders.splice(index, 1)
         }
       },
+
       toggleAllHeaders () {
         (this.suppressedHeaders.length)
           ? this.suppressedHeaders = []
@@ -466,9 +425,10 @@
       createScreenShot (options) {
 
         domtoimage
-          .toJpeg(this.$refs.chart, {
+          .toJpeg(this.$refs.report, {
             quality: 1,
-            bgcolor: 'white'
+            bgcolor: 'white',
+            filter: (node) => node !== this.$refs.sidebar
           })
           .then(dataUrl => {
 
@@ -477,6 +437,11 @@
             link.href = dataUrl
             link.click()
 
+            this.closeChart()
+
+          })
+          .catch(error => {
+            console.log(error)
             this.closeChart()
           })
 
@@ -495,8 +460,9 @@
   @import (reference) '../../styles/app-helper.less';
 
   .chart-report-panel {
+    font-size: 1rem;
 
-    // states
+    // chart report states
     &.expanded {
       width: 100vw !important;
       height: 100vh !important;
@@ -511,6 +477,7 @@
 
       & > .panel {
         transform: scale(1)!important;
+        font-size: 1.1em;
       }
 
     }
@@ -523,8 +490,13 @@
 
     &.screen-shot > .panel {
       padding-right: 300px;
+
+      .chart-header {
+        text-align: center;
+      }
     }
 
+    // gradient bg
     &.error, &.loading {
       & > .panel {
         .stripe-gradient(white, 1%);
@@ -601,18 +573,19 @@
           flex-direction: column;
           align-items: center;
 
-          /*margin-top: -40px;*/
-
-
           .icon-circle {
-            background-color: fadeout(@c-danger, 95%);
-            border-color: fadeout(@c-danger, 90%);
             font-size: 1.2em;
-            i { font-size: 1.5em; }
+
+            background-color: transparent;
+            border: none;
+
             color: @c-danger;
+
+            i { font-size: 1.5em; }
           }
+
           .error-message {
-            font-weight: normal;
+            font-weight: 900;
             color: @c-danger;
             font-size: 1em;
             margin-top: .5em;
@@ -622,8 +595,9 @@
         .loading > .icon-circle {
           font-size: 1.5rem;
 
-          background-color: fadeout(black, 55%);
-          color: fadeout(white, 10%);
+          background-color: transparent;
+          border: none;
+          color: fadeout(black, 50%);
 
           i {
             font-size: 1em;

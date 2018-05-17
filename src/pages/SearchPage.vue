@@ -18,7 +18,12 @@
 
   export default {
     name: 'search-page',
-    components: { AppPageHeader }
+    components: {
+      AppPageHeader
+    },
+    data () {
+      return {}
+    }
   }
 </script>
 

@@ -13,10 +13,15 @@
   export default {
     name: 'vertical-bar-chart',
     mixins: [ChartMixin, DataMixin],
+    props: {
+      test: {
+        type: Number,
+        default: 1
+      }
+    },
     data () {
       return {
         defaultChartOptions: {
-
           tooltip: {
             trigger: 'item',
             extraCssText: 'box-shadow: 0 1px 3px rgba(0, 0, 0, .4)',

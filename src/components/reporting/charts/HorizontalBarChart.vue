@@ -54,7 +54,7 @@
           grid: {
             top: '5px',
             left: '0',
-            right: '5px',
+            right: '15px',
             bottom: '0',
             containLabel: true
           },
@@ -95,9 +95,13 @@
             id: item[this.id],
             name: this.$filterLabel(item[this.id]),
             value: item.count,
-            color: this.colors[index]
+            color: this.activeColors[index]
           }
         })
+      },
+
+      getDataLength () {
+        return this.chartData.length
       }
 
     }
