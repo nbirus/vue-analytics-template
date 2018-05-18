@@ -175,7 +175,7 @@
                 <h2>Screen Shot</h2>
 
                 <btn flat class="close-icon" @click="screenShotActive = false">
-                  <i class="fa fa-chevron-right"></i>
+                  <i class="fa fa-times"></i>
                 </btn>
 
               </div>
@@ -313,7 +313,7 @@
         // screen shot
         screenShotForm: ScreenShotForm,
         initialScreenShotValues: {
-          title: this.title || 'chart',
+          title: this.chartTitle || 'chart',
           filename: 'filename',
           color: this.theme
         }
