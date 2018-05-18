@@ -7,12 +7,19 @@
   import DataMixin from '../../../mixins/DataMixin'
   import 'echarts/lib/chart/bar'
   import 'echarts/lib/component/tooltip'
+  import 'echarts/lib/component/dataZoom'
 
   import { isEmpty } from 'lodash'
 
   export default {
-    name: 'horizontal-bar-chart',
+    name: 'stacked-vertical-bar-chart',
     mixins: [ChartMixin, DataMixin],
+    props: {
+      subLabelFilters: {
+        type: Array,
+        default: () => []
+      }
+    },
     data () {
       return {
         defaultChartOptions: {
@@ -30,17 +37,17 @@
             type: 'category',
             axisLabel: {
               textStyle: {
-                  color: this.axisTextColor
+                color: this.axisTextColor
               }
             },
             axisLine: { show: false },
             axisTick: { show: false }
           },
           xAxis: {
-            type: 'value',
+            type: 'log',
             axisLabel: {
               textStyle: {
-                  color: this.axisTextColor
+                color: this.axisTextColor
               }
             },
             axisLine: { show: false },
@@ -54,34 +61,45 @@
           grid: {
             top: '5px',
             left: '0',
-            right: '15px',
+            right: '25px',
             bottom: '0',
             containLabel: true
           },
-          series: [{
-            type: 'bar'
-          }]
+          series: []
         },
-        expandedChartOptions: {}
+        expandedChartOptions: {},
+        series: []
       }
     },
     computed: {
 
-      // fill the data elements of the chart options object
       dataModifiers () {
         return (isEmpty(this.$filteredChartData)) ? {}
           : {
             yAxis: {
-              data: this.$filteredChartData.map(item => item.name)
-            },
-            series: [{
+              axisLabel: {
+                formatter: (label) => {
+                  return this.$filterLabel(label)
+                }
+              },
               data: this.$filteredChartData.map(item => {
                 return {
-                  ...item,
-                  itemStyle: { normal: { color: item.color } } // merge color object
+                  value: item.id
                 }
               })
-            }]
+            },
+            series: this.series.map(item => {
+
+              return {
+                type: 'bar',
+                id: item.id,
+                name: this.$filterLabel(item.name, this.subLabelFilters),
+                barGap: 0,
+                itemStyle: { normal: { color: item.color } },
+                data: item.data
+              }
+
+            })
           }
       }
 
@@ -89,24 +107,47 @@
     methods: {
 
       // format data specific for this chart
-      handleDataReturn (data) {
-        return data.map((item, index) => {
-          return {
-            id: item[this.id],
-            name: this.$filterLabel(item[this.id]),
-            value: item.count,
-            color: this.activeColors[index]
-          }
-        })
+      handleDataReturn (chartData) {
+
+        let headerData = []
+        let series = []
+
+        // set up y axis
+        chartData[this.id]
+          .forEach(item => {
+
+            headerData.push({
+              id: item,
+              name: this.$filterLabel(item)
+            })
+
+          })
+
+        // set up series
+        chartData.data
+          .forEach((item, index) => {
+
+            series.push({
+              id: item.type,
+              name: item.type,
+              data: item.counts,
+              color: this.activeColors[index]
+            })
+
+          })
+
+        this.series = series
+        return headerData
+
       },
 
       getDataLength () {
-        return this.chartData.length
+        return this.chartData.data.length
       },
 
       handleClick (e) {
         this.$emitClick({
-          [this.id]: e.data.id
+          [e.seriesId]: e.name
         })
       }
 

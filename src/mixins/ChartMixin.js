@@ -112,6 +112,10 @@ export default {
       })
 
       return label
+    },
+
+    $emitClick (model) {
+      this.$emit('chartClick', model)
     }
 
   }

@@ -1,18 +1,18 @@
 <template>
-  <e-charts class="chart" :options="$activeOptions" :autoResize="true" @click="handleClick"></e-charts>
+  <e-charts class="chart" :options="$activeOptions" :autoResize="true"></e-charts>
 </template>
 
 <script>
-  import ChartMixin from '../../../mixins/ChartMixin'
-  import DataMixin from '../../../mixins/DataMixin'
-  import 'echarts/lib/chart/bar'
+  import ChartMixin from '@/mixins/ChartMixin'
+  import 'echarts/lib/chart/line'
   import 'echarts/lib/component/tooltip'
+  import 'echarts/lib/component/legend'
 
   import { isEmpty } from 'lodash'
 
   export default {
-    name: 'horizontal-bar-chart',
-    mixins: [ChartMixin, DataMixin],
+    name: 'line-chart',
+    mixins: [ChartMixin],
     data () {
       return {
         defaultChartOptions: {
@@ -26,21 +26,19 @@
               fontSize: 13
             }
           },
-          yAxis: {
-            type: 'category',
-            axisLabel: {
-              textStyle: {
-                  color: this.axisTextColor
-              }
-            },
-            axisLine: { show: false },
-            axisTick: { show: false }
+          grid: {
+            top: '5px',
+            left: '0',
+            right: '5px',
+            bottom: '0',
+            containLabel: true
           },
           xAxis: {
-            type: 'value',
+            type: 'category',
+            data: [],
             axisLabel: {
               textStyle: {
-                  color: this.axisTextColor
+                color: this.axisTextColor
               }
             },
             axisLine: { show: false },
@@ -51,18 +49,28 @@
               }
             }
           },
-          grid: {
-            top: '5px',
-            left: '0',
-            right: '15px',
-            bottom: '0',
-            containLabel: true
+          yAxis: {
+            type: 'value',
+            axisLabel: {
+              textStyle: {
+                color: this.axisTextColor
+              }
+            },
+            axisLine: { show: false },
+            axisTick: { show: false }
           },
           series: [{
-            type: 'bar'
+            data: [],
+            type: 'line'
           }]
         },
-        expandedChartOptions: {}
+        expandedChartOptions: {
+          legend: {
+            show: true,
+            orient: 'vertical',
+            x: 'left'
+          }
+        }
       }
     },
     computed: {
@@ -71,17 +79,18 @@
       dataModifiers () {
         return (isEmpty(this.$filteredChartData)) ? {}
           : {
-            yAxis: {
-              data: this.$filteredChartData.map(item => item.name)
-            },
-            series: [{
+            xAxis: {
               data: this.$filteredChartData.map(item => {
-                return {
-                  ...item,
-                  itemStyle: { normal: { color: item.color } } // merge color object
-                }
+                return item.name
               })
-            }]
+            },
+            series: [
+              {
+                data: this.$filteredChartData.map(item => {
+                  return item.value
+                })
+              }
+            ]
           }
       }
 
@@ -90,24 +99,17 @@
 
       // format data specific for this chart
       handleDataReturn (data) {
-        return data.map((item, index) => {
+        return data.map((item) => {
           return {
             id: item[this.id],
             name: this.$filterLabel(item[this.id]),
-            value: item.count,
-            color: this.activeColors[index]
+            value: item.count
           }
         })
       },
 
       getDataLength () {
         return this.chartData.length
-      },
-
-      handleClick (e) {
-        this.$emitClick({
-          [this.id]: e.data.id
-        })
       }
 
     }

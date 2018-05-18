@@ -16,7 +16,7 @@
 
     "hasLabel": true,
     "multiselect": true,
-    "optionSource": "inline",
+    "optionSource": "props",
     "options": [
       {"label": "One", "value": "one"},
       {"label": "Two", "value": "two"},
@@ -28,20 +28,9 @@
   },
   {
     "type": "select",
-    "id": "select-2",
-    "label": "Select Input Inline",
-
-    "multiselect": false,
-    "hasLabel": false,
-    "optionSource": "inline",
-    "options": ["one", "two", "three"],
-    "required": true
-  },
-  {
-    "type": "select",
     "id": "select-3",
     "label": "Select Input From File",
-    "optionSource": "local",
+    "optionSource": "file",
     "optionPath": "test",
     "hasLabel": true,
     "multiselect": true
@@ -51,7 +40,8 @@
     "id": "checkbox",
     "label": "Checkbox Input",
     "inline": true,
-    "optionSource": "test",
+    "optionSource": "file",
+    "optionPath": "test",
     "validations": {
       "required": true
     }
@@ -61,17 +51,8 @@
     "id": "radio",
     "label": "Radio Input",
     "inline": true,
-    "optionSource": "test"
-  },
-  {
-    "type": "pill",
-    "id": "pill",
-    "label": "Pill Input",
-    "options": [
-      {"label": "One", "value": "one"},
-      {"label": "Two", "value": "two"},
-      {"label": "Three", "value": "three"}
-    ]
+    "optionSource": "file",
+    "optionPath": "test"
   },
   {
     "type": "date-range",

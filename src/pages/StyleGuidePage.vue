@@ -298,7 +298,7 @@
               <h2>Form Generator</h2>
             </div>
 
-            <div class="panel-body" v-if="false">
+            <div class="panel-body">
 
               <div class="panel-section">
 
@@ -306,7 +306,6 @@
                   <form-generator ref="form"
                     :inputs="testForm"
                     :initialValues="initialValues"
-                    :breakFormIndex="2"
 
                     @formChanged="formChanged"
                     @formSubmitted="formSubmitted"
@@ -476,8 +475,7 @@
         console.log(rowSelected)
       },
       formChanged (obj) {
-        let test = this.$refs.form.getFormattedInputValues()
-        console.log(test)
+        // let test = this.$refs.form.getFormattedInputValues()
       },
       formSubmitted (obj) {
         this.initialValues = JSON.parse(JSON.stringify(obj))

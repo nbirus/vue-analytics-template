@@ -1,5 +1,5 @@
 <template>
-  <e-charts class="chart" :options="$activeOptions" :autoResize="true"></e-charts>
+  <e-charts class="chart" :options="$activeOptions" :autoResize="true" @click="handleClick"></e-charts>
 </template>
 
 <script>
@@ -83,6 +83,12 @@
 
       getDataLength () {
         return this.chartData.length
+      },
+
+      handleClick (e) {
+        this.$emitClick({
+          [this.id]: e.data.id
+        })
       }
 
     }

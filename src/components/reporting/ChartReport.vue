@@ -7,7 +7,7 @@
       <div class="panel-header chart-header">
 
         <div class="chart-title" v-if="hasHeader">
-          <h4 :class="textColor">{{chartTitle}}</h4>
+          <h4 :class="textColor">{{activeChartTitle}}</h4>
           <h5 v-if="isChartReady && showTotal">{{totalCount | localeString}} {{countType}}</h5>
         </div>
 
@@ -78,6 +78,7 @@
             :suppressedHeaders="suppressedHeaders"
             :expanded="expandActive"
             @chartRendered="chartRendered"
+            @chartClick="chartClick"
           >
           </component>
 
@@ -244,7 +245,7 @@
       },
 
       // data
-      title: {
+      chartTitle: {
         type: String,
         default: ''
       },
@@ -319,10 +320,23 @@
     },
     computed: {
 
-      chartTitle () {
+      isChartReady () {
+        return !this.loading && !this.error && !!this.chartData
+      },
+
+      activeChartTitle () {
         return this.screenShotActive
           ? this.initialScreenShotValues.title
-          : this.title
+          : this.chartTitle
+      },
+
+      totalCount () {
+        return this.chartHeaders
+          .filter(item => !this.suppressedHeaders.includes(item.id))
+          .reduce((total, item) => {
+            total += item.value
+            return total
+          }, 0)
       },
 
       overlayActive () {
@@ -342,17 +356,6 @@
 
       hideActions () {
         return this.screenShotActive
-      },
-
-      isChartReady () {
-        return !this.loading && !this.error && !!this.chartData
-      },
-
-      totalCount () {
-        return this.filteredHeaders.reduce((total, item) => {
-          total += item.value
-          return total
-        }, 0)
       },
 
       filteredHeaders () {
@@ -403,6 +406,10 @@
       chartRendered (headers, total) {
         this.chartHeaders = headers
         this.chartTotal = total
+      },
+      chartClick (model) {
+        console.log('Chart Click:')
+        console.log(model)
       },
       toggleHeader (header) {
         let index = this.suppressedHeaders.indexOf(header)

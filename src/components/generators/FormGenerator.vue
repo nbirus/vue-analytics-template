@@ -11,90 +11,16 @@
       :key="input.id"
     >
 
-      <!-- text input -->
-      <text-input
-        v-if="input.type === 'text'"
-        :id="input.id"
-        :label="input.label"
-        :placeholder="input.placeholder"
+      <component
+        :is="`${input.type}-input`"
+        v-bind="input"
 
         :required="isRequired(input)"
         :error="inputError(input.id)"
         :inputValue="inputValues[input.id]"
         @changed="value => updateValue(input.id, value)"
-      ></text-input>
-
-      <!-- select input -->
-      <select-input
-        v-if="input.type === 'select'"
-        :id="input.id"
-        :label="input.label"
-        :placeholder="input.placeholder"
-        :optionSource="input.optionSource"
-        :options="input.options"
-        :optionPath="input.optionPath"
-        :optionAPIConfig="input.optionAPIConfig"
-        :multiselect="input.multiselect"
-        :hasLabel="input.hasLabel"
-
-        :required="isRequired(input)"
-        :error="inputError(input.id)"
-        :inputValue="inputValues[input.id]"
-        @changed="value => updateValue(input.id, value)"
-      ></select-input>
-
-      <!-- checkbox input -->
-      <checkbox-input
-        v-if="input.type === 'checkbox'"
-        :id="input.id"
-        :label="input.label"
-        :inline="input.inline"
-        :optionSource="input.optionSource"
-
-        :required="isRequired(input)"
-        :error="inputError(input.id)"
-        :inputValue="inputValues[input.id]"
-        @changed="value => updateValue(input.id, value)"
-      ></checkbox-input>
-
-      <!-- radio input -->
-      <radio-input
-        v-if="input.type === 'radio'"
-        :id="input.id"
-        :label="input.label"
-        :inline="input.inline"
-        :optionSource="input.optionSource"
-
-        :required="isRequired(input)"
-        :error="inputError(input.id)"
-        :inputValue="inputValues[input.id]"
-        @changed="value => updateValue(input.id, value)"
-      ></radio-input>
-
-      <!-- pill input -->
-      <pill-input
-        v-if="input.type === 'pill'"
-        :id="input.id"
-        :label="input.label"
-        :options="input.options"
-
-        :required="input.required"
-        :error="inputError(input.id)"
-        :inputValue="inputValues[input.id]"
-        @changed="value => updateValue(input.id, value)"
-      ></pill-input>
-
-      <!-- date range input -->
-      <date-range-input
-        v-if="input.type === 'date-range'"
-        :id="input.id"
-        :label="input.label"
-
-        :required="input.required"
-        :error="inputError(input.id)"
-        :inputValue="inputValues[input.id]"
-        @changed="value => updateValue(input.id, value)"
-      ></date-range-input>
+      >
+      </component>
 
     </div>
 

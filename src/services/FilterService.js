@@ -75,3 +75,33 @@ Vue.filter('date', value => {
   }
 
 })
+
+// arrayToString
+Vue.filter('arrayToString', value => {
+
+  try {
+    return (value.length)
+      ? value.join(', ')
+      : value
+  }
+  catch (error) {
+    console.log('filter [arrayToString]: ' + error)
+    return value
+  }
+
+})
+
+// objectArrayToString
+Vue.filter('objectArrayToString', (value, key) => {
+
+  try {
+    return (value.length)
+      ? value.map(item => item[key]).join(', ')
+      : value
+  }
+  catch (error) {
+    console.log('filter [objectArrayToString]: ' + error)
+    return value
+  }
+
+})
