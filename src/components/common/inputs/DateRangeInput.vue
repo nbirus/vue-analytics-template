@@ -1,17 +1,15 @@
 <template>
 
-  <div class="form-group">
+  <div class="form-group" :class="formGroupClass">
 
     <!-- label -->
     <label
       v-if="label"
       :for="id + '-input'"
       class="form-label"
-      :class="{'required': required}"
     >
       {{label}}
     </label>
-
 
     <div class="form-control">
 

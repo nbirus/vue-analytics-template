@@ -143,6 +143,15 @@
 
             <div class="panel-body darken" style="padding: 15px">
 
+              <text-input class="form-space"
+                          :id="'text-input'"
+                          :label="'Text Input'"
+                          :placeholder="'Default input'"
+                          :required="inputsRequired"
+                          :error="inputsError"
+                          @changed="alert"
+              ></text-input>
+
               <!-- radio input -->
               <radio-input class="form-space"
                            :id="'radio-input'"

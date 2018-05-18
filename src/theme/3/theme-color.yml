@@ -1,0 +1,57 @@
+#
+# THEME COLOR TOKENS
+# Set the value of the color to the desired theme color.
+
+aliases:
+  first:
+    value: "cyan"
+  second:
+    value: "lime"
+  third:
+    value: "purple"
+  fourth:
+    value: "blue"
+  fifth:
+    value: "inverse"
+
+props:
+
+  # Theme Colors
+  c-first:
+    value: "@c-{!first}"
+  c-first-light:
+    value: "@c-{!first}-light"
+  c-first-dark:
+    value: "@c-{!first}-dark"
+
+  c-second:
+    value: "@c-{!second}"
+  c-second-light:
+    value: "@c-{!second}-light"
+  c-second-dark:
+    value: "@c-{!second}-dark"
+
+  c-third:
+    value: "@c-{!third}"
+  c-third-light:
+    value: "@c-{!third}-light"
+  c-third-dark:
+    value: "@c-{!third}-dark"
+
+  c-fourth:
+    value: "@c-{!fourth}"
+  c-fourth-light:
+    value: "@c-{!fourth}-light"
+  c-fourth-dark:
+    value: "@c-{!fourth}-dark"
+
+  c-fifth:
+    value: "@c-{!fifth}"
+  c-fifth-light:
+    value: "@c-{!fifth}-light"
+  c-fifth-dark:
+    value: "@c-{!fifth}-dark"
+
+global:
+  type: theme-colors
+  category: color

@@ -17,5 +17,10 @@
       "required": true,
       "maxLength": 255
     }
+  },
+  {
+    "type": "color-picker",
+    "id": "color",
+    "label": "Choose a color"
   }
 ]

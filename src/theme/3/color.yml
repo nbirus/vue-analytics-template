@@ -1,0 +1,147 @@
+#
+# COLOR TOKENS
+# Use these tokens to set a color.
+# http://hslpicker.com/
+# http://www.convertacolor.com/
+# The aliase value sets the color, props is where you control brightness
+
+aliases:
+  lime:
+    value: "126.3, 45.3%"
+  success:
+    value: "167.5, 64.8%"
+  info:
+    value: "193.9, 63.8%"
+  primary:
+    value: "207.9, 73.7%"
+  purple:
+    value: "282.6, 38.9%"
+  orange:
+    value: "28.6, 93.3%"
+  inverse:
+    value: "208.2, 12.4%"
+  light:
+    value: "220, 37.5%"
+
+props:
+
+  # Main Colors
+  color-lime:
+    value: "hsla({!lime}, 58.4%, 1)"
+    category: "base-color"
+  color-lime-dark:
+    value: "hsla({!lime}, 40%, 1)"
+    category: "base-color"
+  color-lime-light:
+    value: "hsla({!lime}, 70%, 1)"
+    category: "base-color"
+
+
+  color-success:
+    value: "hsla({!success}, 37.8%, 1)"
+    category: "base-color"
+  color-success-dark:
+    value: "hsla({!success}, 20%, 1)"
+    category: "base-color"
+  color-success-light:
+    value: "hsla({!success}, 55%, 1)"
+    category: "base-color"
+
+
+  color-info:
+    value: "hsla({!info}, 52.4%, 1)"
+    category: "base-color"
+  color-info-dark:
+    value: "hsla({!info}, 30%, 1)"
+    category: "base-color"
+  color-info-light:
+    value: "hsla({!info}, 65%, 1)"
+    category: "base-color"
+
+
+  color-primary:
+    value: "hsla({!primary}, 49.2%, 1)"
+    category: "base-color"
+  color-primary-dark:
+    value: "hsla({!primary}, 30%, 1)"
+    category: "base-color"
+  color-primary-light:
+    value: "hsla({!primary}, 65%, 1)"
+    category: "base-color"
+
+
+  color-purple:
+    value: "hsla({!purple}, 53.1%, 1)"
+    category: "base-color"
+  color-purple-dark:
+    value: "hsla({!purple}, 30%, 1)"
+    category: "base-color"
+  color-purple-light:
+    value: "hsla({!purple}, 65%, 1)"
+    category: "base-color"
+
+
+  color-orange:
+    value: "hsla({!orange}, 47.3%, 1)"
+    category: "base-color"
+  color-orange-dark:
+    value: "hsla({!orange}, 40%, 1)"
+    category: "base-color"
+  color-orange-light:
+    value: "hsla({!orange}, 65%, 1)"
+    category: "base-color"
+
+
+  color-inverse:
+    value: "hsla({!inverse}, 20%, 1)"
+    category: "base-color"
+  color-inverse-dark:
+    value: "hsla({!inverse}, 11%, 1)"
+    category: "base-color"
+  color-inverse-light:
+    value: "hsla({!inverse}, 35%, 1)"
+    category: "base-color"
+
+  color-light:
+    value: "hsla({!inverse}, 96.9%, 1)"
+    category: "base-color"
+  color-light-dark:
+    value: "hsla({!inverse}, 80%, 1)"
+    category: "base-color"
+  color-light-light:
+    value: "hsla({!inverse}, 100%, 1)"
+    category: "base-color"
+
+
+  # Greyscale Colors
+  grey-1:
+    value: "hsla(0, 0, 98%, 1)"
+    category: "greyscale-color"
+  grey-2:
+    value: "hsla(0, 0, 95%, 1)"
+    category: "greyscale-color"
+  grey-3:
+    value: "hsla(0, 0, 90%, 1)"
+    category: "greyscale-color"
+  grey-4:
+    value: "hsla(0, 0, 85%, 1)"
+    category: "greyscale-color"
+  grey-5:
+    value: "hsla(0, 0, 75%, 1)"
+    category: "greyscale-color"
+  grey-6:
+    value: "hsla(0, 0, 60%, 1)"
+    category: "greyscale-color"
+  grey-7:
+    value: "hsla(0, 0, 50%, 1)"
+    category: "greyscale-color"
+  grey-8:
+    value: "hsla(0, 0, 30%, 1)"
+    category: "greyscale-color"
+  grey-9:
+    value: "hsla(0, 0, 10%, 1)"
+    category: "greyscale-color"
+
+global:
+  type: color
+  category: color

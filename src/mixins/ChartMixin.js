@@ -81,10 +81,10 @@ export default {
 
     $buildChart () {
 
-      // colors
+      // get colors
       this.activeColors = this.colors.length ? this.colors : this.$generateColors()
 
-      // data
+      // get data
       this.formattedChartData = this.handleDataReturn(this.chartData)
 
       // emit the render
@@ -94,14 +94,13 @@ export default {
 
     $generateColors () {
 
-      let steps = this.getDataLength()
-      let colors = ColorService.getColors()
+      let color = ColorService.getColors()[this.theme]
 
-      let color = chroma(colors[this.theme][0])
-      let colorDark = colors[this.theme][1]
-      let colorLight = colors[this.theme][2]
+      return chroma
+        .scale([color[1], color[0], color[2]])
+        .mode('lch')
+        .colors(this.getDataLength())
 
-      return chroma.scale([colorLight, color, colorDark]).mode('lch').colors(steps)
     },
 
     $filterLabel (label, filters = this.labelFilters) {
@@ -115,8 +114,13 @@ export default {
     },
 
     $emitClick (model) {
-      this.$emit('chartClick', model)
+      this.$emit('c', model)
     }
 
+  },
+  watch: {
+    theme () {
+      this.$buildChart()
+    }
   }
 }

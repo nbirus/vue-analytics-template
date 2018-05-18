@@ -75,6 +75,7 @@
             :is="`${chartType}-chart`"
             v-bind="[$props, $attrs]"
 
+            :theme="activeChartTheme"
             :suppressedHeaders="suppressedHeaders"
             :expanded="expandActive"
             @chartRendered="chartRendered"
@@ -313,7 +314,8 @@
         screenShotForm: ScreenShotForm,
         initialScreenShotValues: {
           title: this.title || 'chart',
-          filename: 'filename'
+          filename: 'filename',
+          color: this.theme
         }
 
       }
@@ -328,6 +330,12 @@
         return this.screenShotActive
           ? this.initialScreenShotValues.title
           : this.chartTitle
+      },
+
+      activeChartTheme () {
+        return this.screenShotActive
+          ? this.initialScreenShotValues.color
+          : this.theme
       },
 
       totalCount () {
@@ -481,10 +489,13 @@
 
       padding: 2rem 3rem;
 
-
       & > .panel {
         transform: scale(1)!important;
         font-size: 1.1em;
+
+        .chart-header {
+          text-align: center;
+        }
       }
 
     }
@@ -497,10 +508,6 @@
 
     &.screen-shot > .panel {
       padding-right: 300px;
-
-      .chart-header {
-        text-align: center;
-      }
     }
 
     // gradient bg

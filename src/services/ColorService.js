@@ -1,31 +1,53 @@
 import ColorJSON from '@/assets/tokens/tokens.raw.json'
 
-let getColors = () => {
+function getRawColors () {
+  return JSON.parse(JSON.stringify(ColorJSON.props))
+}
 
-  let colorObject = {}
-  let colorProps = JSON.parse(JSON.stringify(ColorJSON.props))
+function reduceColorObject (colors, category = 'base-color', cb, initialValue) {
 
-  for (let color in colorProps) {
+  return Object
+    .keys(colors)
+    .filter(color => colors[color].category === category)
+    .reduce(cb, initialValue)
 
-    let colorValue = colorProps[color]
-    if (colorValue.category === 'base-color') {
+}
 
-      let colorNameArray = color.split('-')
-      let colorName = colorNameArray[1]
-      // let colorModifier = colorNameArray[2]
 
-      if (!colorObject[colorName]) {
-        colorObject[colorName] = [colorValue.value]
-      }
-      else {
-        colorObject[colorName].push(colorValue.value)
-      }
+// get chart colors
+let getColors = (category = 'base-color') => {
+
+  let rawColors = getRawColors()
+
+  return reduceColorObject(rawColors, category, (res, key) => {
+
+    let colorName = key.split('-')[1]
+
+    !res[colorName]
+      ? res[colorName] = [rawColors[key].value]
+      : res[colorName].push(rawColors[key].value)
+
+    return res
+  }, {})
+}
+
+// get color names
+let getColorNames = (category = 'base-color') => {
+
+  return reduceColorObject(getRawColors(), category, (res, key) => {
+
+    let colorName = key.split('-')[1]
+
+    if (!res.includes(colorName)) {
+      res.push(colorName)
     }
-  }
 
-  return colorObject
+    return res
+  }, [])
+
 }
 
 export default {
-  getColors
+  getColors,
+  getColorNames
 }
