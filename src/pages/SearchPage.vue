@@ -2,69 +2,38 @@
   <div class="page">
 
     <app-page-header
-      pageTitle="Search Page"
+      title="Search"
+      subTitle="This is a search page to search stuff"
+      theme="cyan"
     >
+      <div slot="page-actions">
+        <search-input
+          @submit="searchSubmit"
+        >
+        </search-input>
+      </div>
     </app-page-header>
 
     <div class="page-body">
+      <grid style="height: 80vh; padding-bottom: 10px;"
+        id="test-grid"
 
-      <chart-report
-        style='height: 300px; width: 400px; margin-right: 10px; display: inline-block'
-        id='phase'
-        chartTitle='Test Verit Chart'
-        chartType='vertical-bar'
-        :chartData='chartData'
-        :labelFilters="['upperCase', 'replaceUnderscores']"
-      >
-      </chart-report>
+        :data="data"
+        :columns="columns"
 
-      <chart-report
-        style='height: 300px; width: 400px; margin-right: 10px; display: inline-block'
-        id='phase'
-        chartTitle='Test Line Chart'
-        chartType='pie'
-        :chartData='chartData'
-        :labelFilters="['upperCase', 'replaceUnderscores']"
-      >
-      </chart-report>
+        :canSort="true"
+        :canResizeColumns="true"
+        :canMoveColumns="false"
+        :paginate="true"
+        :initialPageSize="20"
+        :canSearch="false"
+        :canToggleColumns="true"
+        :canSelect="false"
+        :canSelectMultiple="false"
 
-      <chart-report
-        style='height: 300px; width: 400px; margin-right: 10px; display: inline-block'
-        id='phase'
-        chartTitle='Test Pie Chart'
-        chartType='horizontal-bar'
-        :chartData='chartData'
-        :labelFilters="['upperCase', 'replaceUnderscores']"
-      >
-      </chart-report>
+        :showRowDetail="false"
 
-      <chart-report
-        style='height: 400px; width: 600px; margin-top: 10px; display: inline-block'
-        id='dates'
-        chartTitle='Test stacked Chart'
-        chartType='stacked-vertical-bar'
-        :chartData='chartData2'
-        :showTotal="false"
-
-        :labelFilters="['date']"
-        :subLabelFilters="['titleCase']"
-      >
-      </chart-report>
-
-      <chart-report
-        style='height: 400px; width: 600px; margin-top: 10px; display: inline-block'
-        id='dates'
-        chartTitle='Test stacked Chart'
-        chartType='stacked-horizontal-bar'
-        :chartData='chartData2'
-        :showTotal="false"
-
-        :labelFilters="['date']"
-        :subLabelFilters="['titleCase']"
-      >
-      </chart-report>
-
-
+      />
     </div>
 
   </div>
@@ -74,40 +43,29 @@
   import AppPageHeader from '@/components/core/AppPageHeader'
   import ChartReport from '@/components/reporting/ChartReport'
 
+  import SearchInput from '@/components/inputs/SearchInput'
+  import Grid from '@/components/reporting/grid/Grid'
+
+  import TestData from '../../static/data/grid-headers/test-data2.json'
+  import TestColumns from '../../static/data/grid-headers/test-headers2.json'
+
   export default {
     name: 'search-page',
     components: {
       ChartReport,
-      AppPageHeader
+      AppPageHeader,
+      SearchInput,
+      Grid
     },
     data () {
       return {
-        test: ['test', 'test2', 'test3'],
-        chartData: [
-          {'count': 1755, 'phase': 'ii'},
-          {'count': 1294, 'phase': 'i'},
-          {'count': 1138, 'phase': 'na'},
-          {'count': 663, 'phase': 'i_ii'},
-          {'count': 397, 'phase': 'iii'},
-          {'count': 47, 'phase': 'ii_iii'}
-        ],
-        chartData2: {
-          dates: ['2018-05-11T00:00:00.000Z', '2018-05-12T00:00:00.000Z', '2018-05-13T00:00:00.000Z'],
-          data: [
-            {
-              type: 'person',
-              counts: [15903, 167, 48]
-            },
-            {
-              type: 'organization',
-              counts: [5248, 139, 32]
-            },
-            {
-              type: 'trial',
-              counts: [17455, 239, 66]
-            }
-          ]
-        }
+        data: TestData,
+        columns: TestColumns
+      }
+    },
+    methods: {
+      searchSubmit (searchString) {
+        console.log(searchString)
       }
     }
   }

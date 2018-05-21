@@ -1,6 +1,4 @@
 <template>
-
-
   <div class="tabs" :class="generateTabClasses()">
 
     <!--tab list-->
@@ -58,7 +56,6 @@
     </div>
 
   </div>
-
 </template>
 
 <script>
@@ -99,7 +96,6 @@
           return (tab.name) &&
                  (tab.name.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1) ||
                  (tab.isActive)
-
         })
       }
     },
@@ -129,7 +125,7 @@
       generateTabClasses () {
         return [
           (this.sidebar) ? 'sidebar' : 'topbar',
-          ('tabs-' + this.theme)
+          `tabs-${this.theme}`
         ]
       },
 

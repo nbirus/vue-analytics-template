@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <header class="header">
 
     <!--identity-->
     <div class="identity">
@@ -33,7 +33,7 @@
     </div>
 
 
-  </div>
+  </header>
 </template>
 
 <script>

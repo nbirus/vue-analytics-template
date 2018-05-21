@@ -367,8 +367,8 @@
 
             <div class="panel-body">
 
-              <!--<data-wrapper :apiConfig="config">-->
-                <!--<template slot-scope="{ _response, _state }">-->
+              <!-- <data-wrapper :apiConfig="config">
+                <template slot-scope="{ _response, _state }"> -->
 
                   <!--&lt;!&ndash;<count-widget&ndash;&gt;-->
                   <!--&lt;!&ndash;style="height: 100px"&ndash;&gt;-->
@@ -426,7 +426,7 @@
   import AppPageHeader from '@/components/core/AppPageHeader'
 
   import FormGenerator from '../components/generators/FormGenerator'
-  import Grid from '../components/reporting/Grid'
+  import Grid from '../components/reporting/grid/Grid'
   import TestForm from '../../static/data/forms/test-form.json'
 
   import TestData from '../../static/data/grid-headers/test-data2.json'

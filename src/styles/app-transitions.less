@@ -67,10 +67,10 @@
 
 // side in from right
 .slide-in-from-right-enter-active {
-  transition: transform .2s;
+  transition: transform .1s;
 }
 .slide-in-from-right-leave-active {
-  transition: transform .2s;
+  transition: transform .1s;
 }
 .slide-in-from-right-enter, .slide-in-from-right-leave-to {
   transform: translateX(400px);
@@ -89,23 +89,32 @@
 }
 
 
-
-.icon-circle-enter {
-  transform: scale(.7);
+.fade-leave-active, .fade-enter-active {
+  transition: opacity .2s;
+}
+.fadet-enter, .fade-leave-to {
   opacity: 0;
 }
-.icon-circle-enter-active {
-  transition: all .75s ease-in;
+
+
+
+.slide-down-enter {
+  transform: translateY(-10px);
+  opacity: 0;
 }
-.icon-circle-enter-to, .icon-circle-leave {
-  transform: scale(1);
+.slide-down-enter-active {
+  transition: all .1s ease-in;
+}
+.slide-down-enter-to, .slide-down-leave {
+  transform: translateY(0);
   opacity: 1;
 }
-.icon-circle-leave-active {
-  transition: all .75s ease-out;
+.slide-down-leave-active {
+  transition: all .1s ease-out;
 }
-.icon-circle-leave-to {
-  transform: scale(1.5);
+.slide-down-leave-to {
+  transform: translateY(10px);
+
   opacity: 0;
 }
 

@@ -1,7 +1,7 @@
 <template>
-  <div class="grid-container">
+  <div class="grid-container" ref="gridContainer">
 
-    <!-- ------export modal------ -->
+    <!-- ------ export modal ------ -->
     <modal v-model="exportModal"
            class="grid-export-modal"
            :size="'sm'"
@@ -40,7 +40,7 @@
       </div>
     </modal>
 
-    <!-- ------actions bar------ -->
+    <!-- ------ actions bar ------ -->
     <div class="grid-action-bar">
 
       <!--page size-->
@@ -55,7 +55,7 @@
           placeholder="Select Page Size"
           :allowEmpty="false"
 
-          @changed="setPageSize"
+          @changed="size => gridAction('pageSize', size)"
         >
         </select-input>
 
@@ -103,37 +103,45 @@
 
     </div>
 
-    <!-- ------body------ -->
+    <!-- ------ body ------ -->
     <div class="grid-body">
 
       <!--grid-->
       <ag-grid-vue
+        ref="grid"
+        v-show="showGrid"
         class="grid ag-fresh"
         :gridOptions="gridOptions"
 
         :rowData="gridData"
         :columnDefs="filteredGridColumns"
 
+        :enableServerSideSorting="serverSide"
         :enableSorting="canSort"
         :enableColResize="canResizeColumns"
         :suppressMovableColumns="!canMoveColumns"
 
         :pagination="paginate"
-        :paginationPageSize="pageSize"
+        :paginationPageSize="pageSize.value"
 
         :quickFilterText="searchText"
         :rowSelection="(canSelectMultiple) ? 'multiple' : 'single'"
 
-        :rowModelType="'inMemory'"
+        :sortChanged="model => gridAction('sort', model.api.getSortModel())"
+        :filterChanged="() => {}"
 
+        :rowModelType="'inMemory'"
         :rowClicked="rowSelected"
       />
 
       <!--overlay-->
       <div class="grid-mask">
 
-        <div class="overlay" v-if="overlayActive"></div>
+        <transition name="fade">
+          <div class="overlay" v-if="overlayActive"></div>
+        </transition>
 
+        <!-- toggle headers -->
         <transition name="slide-in-from-right">
           <div class="column-toggle-container" v-if="toggleColumnsOpen">
 
@@ -168,20 +176,66 @@
         </div>
         </transition>
 
-      </div>
+        <!-- state -->
+        <div class="state-container" v-if="stateOverlayActive">
 
+          <!-- loading -->
+          <div class="action loading" v-if="loading">
+            <div class="icon-circle">
+              <i class="fa fa-sync-alt fa-spin"></i>
+            </div>
+          </div>
+
+          <!-- error -->
+          <div class="action error" v-if="error">
+            <div class="icon-circle">
+              <i class="fa fa-exclamation"></i>
+            </div>
+            <div class="message">
+              {{error}}
+            </div>
+          </div>
+
+        </div>
+
+        <!-- active actions -->
+        <transition name="slide-down">
+          <div class="action-container" v-if="actionActive">
+
+            <!-- page size change -->
+            <div class="action page-number" v-if="actionType === 'pageNumber'">
+              Page {{pageNumber + 1}}
+            </div>
+
+            <!-- page number change -->
+            <div class="action page-size" v-if="actionType === 'pageSize'">
+              Page size of {{pageSize.label}}
+            </div>
+
+            <!-- sort change -->
+            <div class="action sort" v-if="actionType === 'sort'">
+              {{sortModelText}}
+              <!-- Sort {{sortModel.id | replaceUnderscores | titleCase }} in {{sortModel.sort}} order -->
+            </div>
+
+          </div>
+        </transition>
+
+
+      </div>
 
     </div>
 
-    <!-- ------footer------ -->
+    <!-- ------ footer ------ -->
     <div class="grid-footer">
-      <div class="pagination">
-        <btn :disabled="pageNumber === 0" @click="goToPage(0)">First</btn>
-        <btn :disabled="pageNumber === 0" @click="goToPage(pageNumber - 1)">Previous</btn>
-        <span>Page {{pageNumber + 1}} of {{pageTotal + 1}}</span>
-        <btn :disabled="pageNumber === pageTotal" @click="goToPage(pageNumber + 1)">Next</btn>
-        <btn :disabled="pageNumber === pageTotal" @click="goToPage(pageTotal)">Last</btn>
-      </div>
+
+      <paginiation-input
+        :inputValue="pageNumber"
+        :pageSize="pageTotal"
+        @changed="value => gridAction('pageNumber', value)"
+      >
+      </paginiation-input>
+
     </div>
 
   </div>
@@ -191,11 +245,9 @@
   import Vue from 'vue'
   import { AgGridVue } from 'ag-grid-vue'
   import { Modal } from 'uiv'
+  import { remove, some, get } from 'lodash'
 
-  import { remove, some } from 'lodash'
-
-  import '../../../node_modules/ag-grid/dist/styles/ag-grid.css'
-  import '../../../node_modules/ag-grid/dist/styles/theme-fresh.css'
+  import PaginiationInput from '@/components/inputs/PaginiationInput'
 
   let checkboxColumn = {
     field: 'checkbox',
@@ -217,7 +269,7 @@
 
   export default {
     name: 'grid',
-    components: { AgGridVue, Modal },
+    components: { AgGridVue, Modal, PaginiationInput },
     props: {
 
       // data
@@ -228,13 +280,19 @@
       },
 
       // async
-      apiConfig: {
-        type: Object,
-        required: false,
-        default () {
-          return {}
-        }
+      serverSide: {
+        type: Boolean,
+        default: false
       },
+      loading: {
+        type: Boolean,
+        default: false
+      },
+      error: {
+        type: String,
+        default: ''
+      },
+
 
       // local
       data: {
@@ -313,6 +371,15 @@
     data () {
       return {
 
+        actionMap: {
+          'pageNumber': this.setPageNumber,
+          'pageSize': this.setPageSize,
+          'sort': this.setSort
+        },
+        actionType: '',
+        actionActive: false,
+        actionTimeout: undefined,
+
         gridOptions: {
           rowHeight: 35,
           headerHeight: 50,
@@ -342,17 +409,18 @@
           {value: 20, label: '20'},
           {value: 50, label: '50'},
           {value: 100, label: '100'},
-          {value: -1, label: 'All'}
+          {value: 500, label: '500'}
         ],
 
         // actions
         pageSize: {},
-        pageTotal: 0,
+        // pageTotal: 0,
         pageNumber: 0,
         searchText: '',
         toggleColumnSearchText: '',
         suppressedColumns: [],
         toggleColumnsOpen: false,
+        sortModelText: '',
 
         // row selection
         selectedRows: [],
@@ -370,6 +438,10 @@
     },
     computed: {
 
+      pageTotal () {
+        return Math.floor(this.gridData.length / this.pageSize.value)
+      },
+
       // columns passed to the grid
       filteredGridColumns () {
         return this.gridColumns.filter(column => !this.suppressedColumns.includes(column.field) && column.show)
@@ -385,9 +457,14 @@
         return this.filteredGridColumns.length === this.gridColumns.filter(column => !this.suppressedColumns.includes(column.field)).length
       },
 
-      // show overlay
       overlayActive () {
         return this.toggleColumnsOpen
+      },
+      showGrid () {
+        return !(this.error)
+      },
+      stateOverlayActive () {
+        return this.error || this.loading
       }
     },
     mounted () {
@@ -400,6 +477,9 @@
 
       // initial page size
       this.setPageSize(this.pageSizeOptions.find(size => size.value === this.initialPageSize))
+
+      // resize event
+      window.addEventListener('resize', this.resizeIfNotScrollable)
 
     },
     methods: {
@@ -419,48 +499,44 @@
       },
       setRowData () {
         this.gridData = this.data
-
-        this.calculatePageTotal()
-      },
-
-      // other
-      calculatePageTotal () {
-        this.pageTotal = Math.floor(this.gridData.length / this.pageSize.value)
+        this.resizeIfNotScrollable()
       },
 
       // grid actions
+      gridAction (action, model) {
+
+        this.actionMap[action](model)
+
+        this.showAction(action)
+        this.$emit(`${action}Changed`, model)
+
+        this.reselectRows()
+      },
+
       setPageSize (pageSize) {
         this.pageNumber = 0
         this.pageSize = pageSize
-        this.calculatePageTotal()
-        this.pageAction('pageSize', pageSize.value)
+        this.gridOptions.api.paginationSetPageSize(pageSize.value)
       },
-      goToPage (pageNumber) {
+      setPageNumber (pageNumber) {
         this.pageNumber = pageNumber
-        this.pageAction('pageNumber', pageNumber)
+        this.gridOptions.api.paginationGoToPage(pageNumber)
       },
-
-      pageAction (action, param) {
-
-        switch (action) {
-          case 'pageSize':
-            this.gridOptions.api.paginationSetPageSize(param)
-            break
-          case 'pageNumber':
-            this.gridOptions.api.paginationGoToPage(param)
-            break
-        }
-
-        this.reselectRows()
+      setSort (sortModel) {
+        this.sortModelText = (sortModel.length)
+          ? `Sort ${get(sortModel, '[0].colId')} in ${get(sortModel, '[0].sort')} order`
+          : 'Clear Sort'
       },
 
       // toggle coloumns
       toggleColumn (column) {
         column.show = !column.show
+        this.resizeIfNotScrollable()
       },
       toggleAllColumns () {
         let flag = !this.allToggleColumnsSelected
         this.gridColumns.forEach(column => { column.show = flag })
+        this.resizeIfNotScrollable()
       },
 
       // row selection
@@ -492,14 +568,48 @@
         if (some(this.selectedRows, node.data)) {
           node.setSelected(true)
         }
+      },
+
+      // other
+      resizeIfNotScrollable () {
+
+        // make sure columns are defined
+        if (!!this.$refs.gridContainer && !!this.$refs.grid && this.gridOptions.columnApi) {
+          let gridWidth = this.$refs.gridContainer.clientWidth
+          let totalColsWidth = this.gridOptions.columnApi.getAllColumns()
+            .reduce((total, column) => {
+              total += (column.visible) ? column.actualWidth : 0
+              return total
+            }, 0)
+
+
+          if (totalColsWidth < gridWidth) {
+
+            this.$nextTick(() => {
+              this.gridOptions.api.sizeColumnsToFit()
+            })
+          }
+        }
+
+      },
+      showAction (action) {
+        this.actionType = action
+
+        if (this.actionTimeout) {
+          clearTimeout(this.actionTimeout)
+        }
+
+        this.actionActive = true
+        this.actionTimeout = setTimeout(() => { this.actionActive = false }, 1500)
       }
+
     }
   }
 </script>
 
 <style lang="less" scoped>
 
-  @import (reference) '../../styles/app-helper.less';
+  @import (reference) '../../../styles/app-helper.less';
 
   .grid-container {
     height: 100%;
@@ -521,9 +631,10 @@
 
     .grid-action-bar {
       flex: 0 0 auto;
-      padding: 10px;
+      padding: .8rem 0;
 
       display: flex;
+      align-items: center;
 
       .page-size {
         flex: 0 0 auto;
@@ -547,7 +658,7 @@
 
       .search {
         flex: 0 1 100%;
-        padding: 0 10px;
+        // padding: 0 10px;
 
         text-align: right;
 
@@ -575,7 +686,7 @@
       width: 100%;
       flex: 0 1 100%;
       position: relative;
-      border-bottom: solid thin @grey3;
+      border: solid thin @grey4;
 
       .grid-mask {
         width: 100%; height: 100%;
@@ -584,6 +695,14 @@
         pointer-events: none;
         overflow: hidden;
 
+        .overlay {
+          width: 100%; height: 100%;
+          position: absolute;
+          top: 0; left: 0;
+          background-color: fadeout(black, 90%);
+          pointer-events: none;
+        }
+
         .column-toggle-container {
           width: 33%; height: 100%;
           max-width: 400px;
@@ -591,9 +710,7 @@
           background-color: white;
           position: absolute;
           right: 0;
-          border: solid thin @grey5;
-          border-left: solid thin @grey6;
-          border-right: none;
+          border-left: solid thin @grey5;
           pointer-events: auto;
 
           display: flex;
@@ -657,11 +774,59 @@
           }
         }
 
-        .overlay {
+        .state-container {
           width: 100%; height: 100%;
-          position: absolute;
-          top: 0; left: 0;
-          background-color: fadeout(black, 65%);
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .stripe-gradient-transparent(black, 99%);
+
+          .action {
+            .icon-circle {
+              font-size: 1.3rem;
+              color: white;
+              background-color: fadeout(black, 36%);
+            }
+
+            &.error {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+
+              .icon-circle {
+                background-color: transparent;
+                border: none;
+                margin: 0;
+                color: @c-danger;
+              }
+
+              .message {
+                font-size: @font-size-lg;
+              }
+            }
+          }
+
+        }
+
+        .action-container {
+          width: 100%; height: 100%;
+
+          .action {
+            position: absolute;
+            top: 2rem; right: 3rem;
+            padding: .5rem 1rem;
+            border-radius: 2px;
+
+            width: auto;
+
+            font-size: 1rem;
+            color: white;
+            background-color: fadeout(black, 36%);
+
+          }
+
         }
       }
 
@@ -674,6 +839,7 @@
       flex: 0 0 auto;
       display: flex;
       justify-content: flex-end;
+      padding-top: 1rem;
 
       .pagination {
         margin: 15px;

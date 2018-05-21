@@ -21,15 +21,17 @@
       isDisabled: { default: false }
     },
 
-    data: () => ({
-      isActive: false,
-      isVisible: true
-    }),
+    data () {
+      return {
+        isActive: false,
+        isVisible: true
+      }
+    },
 
     computed: {
       header () {
         let name = this.prefix + this.name + this.suffix
-        let icon = (this.icon) ? '<i class="icon-margin fa fa-' + this.icon + '"></i>' : ''
+        let icon = (this.icon) ? `<i class="icon-margin fa fa-${this.icon}"></i>` : ''
 
         return icon + name
       },

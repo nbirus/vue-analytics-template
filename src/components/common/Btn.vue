@@ -69,6 +69,10 @@
         type: Boolean,
         default: false
       },
+      simple: {
+        type: Boolean,
+        default: false
+      },
       /**
       * Rounds the edges
       */
@@ -95,8 +99,8 @@
           'btn-rounded': this.rounded,
           'btn-flat': this.flat,
           'btn-block': this.block,
-          'btn-disabled': this.disabled
-
+          'btn-disabled': this.disabled,
+          'btn-simple': this.simple
         }
       },
 
@@ -143,7 +147,7 @@
 
     i {
       font-size: .9em;
-      margin-right: .2em;
+      margin-right: .4em;
     }
   }
   // ------------- disabled -------------
@@ -231,6 +235,11 @@
             background-color: fadeout(black, 97%)!important;
             color: @color!important;
           }
+        }
+
+        &.btn-simple {
+          background-color: @color!important;
+          background: none;
         }
       }
 

@@ -5,6 +5,9 @@ import Btn from './Btn'
 import Tabs from './tabs/Tabs'
 import Tab from './tabs/Tab'
 
+// data wrapper
+import DataWrapper from './utils/DataWrapper'
+
 // inputs
 import TextInput from './inputs/TextInput'
 import CheckboxInput from './inputs/CheckboxInput'
@@ -22,5 +25,6 @@ export default {
   RadioInput,
   DateRangeInput,
   SelectInput,
-  ColorPickerInput
+  ColorPickerInput,
+  DataWrapper
 }

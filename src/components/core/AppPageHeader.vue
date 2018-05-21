@@ -1,19 +1,13 @@
 <template>
-  <header class="header">
+  <div class="header">
     <div class="page-header-content">
 
       <!-- title -->
       <div class="page-title-container">
-        <!--<div class="icon">-->
-          <!--<transition name="page-header-icon" mode="out-in" appear>-->
-            <!--<i class="icons" :class="'icon-' + $route.meta.icon" :key="$route.meta.icon"></i>-->
-          <!--</transition>-->
-        <!--</div>-->
 
-        <transition name="page-header" mode="out-in" appear>
-          <h2 :key="$route.name">{{pageTitle}}</h2>
-        </transition>
-
+        <!-- <h2 :key="$route.name">{{title}}</h2>  -->
+        <h2 class="title">{{title}}</h2>
+        <h4 class="sub-title">{{subTitle}}</h4>
       </div>
 
       <!-- actions -->
@@ -27,18 +21,22 @@
       <slot name="header-body"/>
     </div>
 
-  </header>
+  </div>
 </template>
 
 <script>
   export default {
     name: 'app-header',
     props: {
-      pageTitle: {
+      title: {
         type: String,
         default () {
           return this.$route.meta.navBarTitle
         }
+      },
+      subTitle: {
+        type: String,
+        default: ''
       }
     }
   }
@@ -60,53 +58,27 @@
       width: 100%; height: 100%;
       .max-page-width;
 
-      display: flex;
       padding: 0 @page-padding;
 
       .page-title-container {
-        flex: 0 0 auto;
         height: 100%;
-
         padding: 0; margin: 0;
 
-        display: flex;
-
-        .icon {
-          margin-right: 1rem;
-          padding: 3px 0 0;
+        .title {
           color: @c-inverse;
-
-          font-size: 1.8rem;
-          height: 100%;
-
-          i {
-            display: inline-block;
-          }
+          font-weight: @bold;
+          font-size: 1.6rem;
         }
 
-        h2 {
+        .sub-title {
           color: @c-inverse;
-          font-weight: 900;
-          font-size: 1.6rem;
-
-          // if icon exists
-          i {
-            margin-right: 8px;
-            font-size: 1.5rem;
-          }
+          font-size: 1rem;
         }
       }
 
       .page-actions {
-        flex: 0 1 100%;
-
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-
-        & > div {
-          display: flex;
-        }
+        width: 100%; height: auto;
+        padding: 1.2rem 0;
       }
     }
 

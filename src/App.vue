@@ -64,5 +64,8 @@
   @import 'styles/uiv/app-modal.less';
   @import 'styles/uiv/app-tooltip.less';
 
+  // import grid styles
+  @import 'styles/grid/app-ag-grid.less';
+  @import 'styles/grid/app-ag-fresh.less';
 
 </style>
