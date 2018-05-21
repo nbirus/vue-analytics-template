@@ -11,20 +11,32 @@
       {{label}}
     </label>
 
-    <label class="checkbox"
-           v-for="(color, index) in colors"
-           :key="index"
-           @click="$updateValue(color)">
+    <dropdown>
 
-      <input
-        type="radio"
-        :name="color"
-        :checked="inputValue === color"
-      />
+      <button class="color-selector" data-role="trigger" v-ripple type="button">
+        <div class="color-circle" :class="`bg-${inputValue}`"></div>
+        <i class="fa fa-chevron-down"></i>
+      </button>
 
-      {{color}}
+      <template slot="dropdown">
+        <ul class="color-list">
+          <li
+            v-for="(color, index) in colors"
+            :key="index"
+            class="color"
+            :class="{'active': color === inputValue}"
+          >
+            <a class="color-btn"
+               :class="`bg-${color}`"
+               role="button"
+               @click="$updateValue(color)"
+            >
+            </a>
+          </li>
+        </ul>
+      </template>
 
-    </label>
+    </dropdown>
 
     <p class="form-error-text">{{error}}</p>
 
@@ -35,10 +47,12 @@
 <script>
   import InputMixin from '@/mixins/InputMixin'
   import ColorService from '@/services/ColorService'
+  import { Dropdown } from 'uiv'
 
   export default {
     name: 'color-picker-input',
     mixins: [InputMixin],
+    components: { Dropdown },
     data () {
       return {
         colors: ColorService.getColorNames()
@@ -60,15 +74,56 @@
       flex: 0 0 100%;
     }
 
-    .checkbox {
-      flex: 0 0 100%;
-      font-weight: @regular;
-      margin-right: 15px;
-      margin-bottom: 3px;
-      font-size: @input-font-size;
+    .color-selector {
 
-      &:last-child {
-        margin-right: 0;
+      background-color: transparent;
+      border: @input-border;
+      padding: .7em .9em;
+      cursor: default;
+
+      display: flex;
+      align-items: center;
+
+      .color-circle {
+        width: 1rem; height: 1rem;
+        border-radius: 50%;
+        margin-right: .4rem;
+      }
+
+      .color-name {
+        margin-right: .3rem;
+      }
+
+      i {
+        margin-top: 2px;
+        font-size: .7rem;
+      }
+
+      &:focus {
+        outline: @input-focus-border;
+      }
+    }
+
+    .color-list {
+      display: flex;
+      flex-wrap: wrap;
+
+      .color {
+        width: 2rem; height: 2rem;
+        border: solid thin fadeout(black, 90%);
+        padding: .15rem;
+        margin: 0 .4rem .3rem;
+        border-radius: 2px;
+
+        .color-btn {
+          display: block;
+          width: 100%; height: 100%;
+          border-radius: 1px;
+        }
+
+        &.active {
+          display: none;
+        }
       }
     }
 

@@ -10,9 +10,6 @@ import Router from 'vue-router'
 const Search = (resolve) => require(['@/pages/SearchPage'], resolve)
 const StyleGuide = (resolve) => require(['@/pages/StyleGuidePage'], resolve)
 
-// import Search from '@/pages/SearchPage'
-// import StyleGuide from '@/pages/StyleGuidePage'
-
 Vue.use(Router)
 
 const routes = [

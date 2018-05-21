@@ -4,10 +4,9 @@
       <grid
         :loading="_state.loading"
         :error="_state.error"
-
         :data="_response.data"
 
-        v-bind=[$props, $attrs]
+        v-bind="[$props, $attrs]"
 
         @sortChanged="sortChanged"
         @pageNumberChanged="pageNumberChanged"
@@ -18,17 +17,23 @@
 </template>
 
 <script>
+  import { merge } from 'lodash'
   import Grid from './Grid'
 
   export default {
     name: 'elastic-grid',
     components: { Grid },
     props: {
-
+      apiConfig: {
+        type: Object,
+        required: true
+      }
     },
     computed: {
       activeConfig () {
-        return {}
+        return merge(
+          this.apiConfig
+        )
       }
     },
     data () {

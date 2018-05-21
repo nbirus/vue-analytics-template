@@ -54,12 +54,12 @@
           optionSource="props"
           placeholder="Select Page Size"
           :allowEmpty="false"
-
+          :disabled="!gridData.length"
           @changed="size => gridAction('pageSize', size)"
         >
         </select-input>
 
-        <span>of {{(gridData.length) ? gridData.length.toLocaleString() : ''}} entries</span>
+        <span>of {{(gridData.length) ? (gridData.length | localeString) : 'no'}} entries</span>
       </div>
 
       <!--search-->
@@ -385,6 +385,7 @@
           headerHeight: 50,
           rowClass: 'grid-row',
           suppressPaginationPanel: true,
+          suppressNoRowsOverlay: true,
           gridLoadingTemplate: '<i class="fa fa-sync-alt fa-spin"></i>',
           gridNoRowsTemplate: '<i class="fa fa-danger"></i>',
           icons: {
@@ -432,14 +433,16 @@
           {'label': 'PDF', 'value': 'pdf'}
         ],
         exportFileName: 'table',
-        exportFileType: 'csv'
+        exportFileType: {'label': 'CSV', 'value': 'csv'}
 
       }
     },
     computed: {
 
       pageTotal () {
-        return Math.floor(this.gridData.length / this.pageSize.value)
+        return (this.gridData.length)
+          ? Math.floor(this.gridData.length / this.pageSize.value)
+          : undefined
       },
 
       // columns passed to the grid
@@ -465,6 +468,9 @@
       },
       stateOverlayActive () {
         return this.error || this.loading
+      },
+      noData () {
+        return this.gridData.length === 0
       }
     },
     mounted () {

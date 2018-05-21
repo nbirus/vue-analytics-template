@@ -108,49 +108,49 @@
 
     // main input container
     & > .multiselect__tags {
-    font-size: @font-size!important;
-    min-height: initial;
+      font-size: @font-size!important;
+      min-height: initial;
 
-    background-color: @input-bg-color;
-    border: @input-border;
-    border-radius: @input-border-radius;
+      background-color: @input-bg-color;
+      border: @input-border;
+      border-radius: @input-border-radius;
 
-    padding: @input-padding;
-    padding-right: 40px;
+      padding: @input-padding;
+      padding-right: 40px;
 
-    .multiselect__single, .multiselect__input {
-     font-size: 1em;
-     background: none;
-     background-color: transparent;
-     margin: 0; padding: 0;
-    }
+      .multiselect__single, .multiselect__input {
+       font-size: 1em;
+       background: none;
+       background-color: transparent;
+       margin: 0; padding: 0;
+      }
 
-    .multiselect__input::placeholder,
-    .multiselect__input::-webkit-input-placeholder {
-     font-size: 1em;
-     color: @grey7;
-    }
-
-
-    .multiselect__tag {
-     margin-bottom: 0;
-     background: @grey2;
-     color: @grey9;
-     border: @input-border;
-     overflow: initial;
-     padding: .1em 1.8em .1em .4em;
-     border-radius: 2px;
-     line-height: initial;
+      .multiselect__input::placeholder,
+      .multiselect__input::-webkit-input-placeholder {
+       font-size: 1em;
+       color: @grey7;
+      }
 
 
-     & > .multiselect__tag-icon {
-       border-radius: 0;
-       cursor: default;
+      .multiselect__tag {
+       margin-bottom: 0;
+       background: @grey2;
+       color: @grey9;
+       border: @input-border;
+       overflow: initial;
+       padding: .1em 1.8em .1em .4em;
+       border-radius: 2px;
+       line-height: initial;
 
-       &:hover { background: @grey2; }
-       &:after { color: @grey8; }
-     }
-    }
+
+       & > .multiselect__tag-icon {
+         border-radius: 0;
+         cursor: default;
+
+         &:hover { background: @grey2; }
+         &:after { color: @grey8; }
+       }
+      }
     }
 
     // main drop down container
@@ -193,10 +193,10 @@
     &.multiselect--active {
 
     & > .multiselect__tags {
-     border: @input-focus-border;
-     background-color: @input-focus-bg-color;
-     .box-shadow(@input-focus-shadow);
-    }
+       border: @input-focus-border;
+       background-color: @input-focus-bg-color;
+       .box-shadow(@input-focus-shadow);
+      }
 
     }
 

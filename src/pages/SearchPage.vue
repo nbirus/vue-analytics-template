@@ -15,10 +15,12 @@
     </app-page-header>
 
     <div class="page-body">
-      <grid style="height: 80vh; padding-bottom: 10px;"
+
+      <elastic-grid
+        style="height: 80vh;"
         id="test-grid"
 
-        :data="data"
+        :apiConfig="{}"
         :columns="columns"
 
         :canSort="true"
@@ -32,7 +34,6 @@
         :canSelectMultiple="false"
 
         :showRowDetail="false"
-
       />
     </div>
 
@@ -44,7 +45,7 @@
   import ChartReport from '@/components/reporting/ChartReport'
 
   import SearchInput from '@/components/inputs/SearchInput'
-  import Grid from '@/components/reporting/grid/Grid'
+  import ElasticGrid from '@/components/reporting/grid/ElasticGrid'
 
   import TestData from '../../static/data/grid-headers/test-data2.json'
   import TestColumns from '../../static/data/grid-headers/test-headers2.json'
@@ -55,7 +56,7 @@
       ChartReport,
       AppPageHeader,
       SearchInput,
-      Grid
+      ElasticGrid
     },
     data () {
       return {

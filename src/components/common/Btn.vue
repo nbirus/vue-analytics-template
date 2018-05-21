@@ -196,6 +196,10 @@
     height: 2.4em; width: 2.4em;
     padding: 0;
 
+    i {
+      margin-right: 0;
+    }
+
     &:hover {
       background-color: fadeout(black, 98%)!important;
     }
