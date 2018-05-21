@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <keep-alive>
     <slot :_response="response" :_state="state"/>
-  </div>
+  </keep-alive>
 </template>
 
 <script>
