@@ -2,15 +2,20 @@
   <data-wrapper :apiConfig="activeConfig">
     <template slot-scope="{ _response, _state }">
       <grid
-        :loading="_state.loading"
-        :error="_state.error"
-        :data="_response.data"
-
+        ref="grid"
         v-bind="[$props, $attrs]"
 
-        @sortChanged="sortChanged"
-        @pageNumberChanged="pageNumberChanged"
-        @pageSizeChanged="pageSizeChanged"
+        :loading="_state.loading"
+        :error="_state.error"
+        :rows="_response"
+
+        :pageNumber="pageNumber"
+        :pageSize="pageSize"
+        :pageSort="pageSort"
+
+        @sortChanged="changeSort"
+        @pageSizeChanged="changePageSize"
+        @pageNumberChanged="changePageNumber"
       />
     </template>
   </data-wrapper>
@@ -19,9 +24,11 @@
 <script>
   import { merge } from 'lodash'
   import Grid from './Grid'
+  import GridMixin from '@/mixins/GridMixin'
 
   export default {
     name: 'elastic-grid',
+    mixins: [GridMixin],
     components: { Grid },
     props: {
       apiConfig: {
@@ -36,20 +43,18 @@
         )
       }
     },
-    data () {
-      return {
-
-      }
-    },
     methods: {
-      sortChanged (model) {
+      changeSort (model) {
         console.log(model)
+        this.$saveGridState()
       },
-      pageSizeChanged (pageSize) {
+      changePageSize (pageSize) {
         console.log(pageSize)
+        this.$saveGridState()
       },
-      pageNumberChanged (pageNumber) {
+      changePageNumber (pageNumber) {
         console.log(pageNumber)
+        this.$saveGridState()
       }
     }
   }

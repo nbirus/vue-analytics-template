@@ -19,7 +19,7 @@
           flat
           class="tab-collapser"
           theme="first"
-          @onClick="isSidebarOpen = !isSidebarOpen"
+          @click="isSidebarOpen = !isSidebarOpen"
         >
           <i class="fa" :class="(isSidebarOpen) ? 'fa-chevron-left' : 'fa-chevron-right'"></i>
         </btn>

@@ -3,10 +3,10 @@
 
     <!--identity-->
     <div class="identity">
-        <img height="30" src="../../../assets/nci-logo-full-blue.png" alt="National Cancer Institute"/>
-      </div>
+      <img height="30" src="../../../assets/nci-logo-full-blue.png" alt="National Cancer Institute"/>
+    </div>
 
-    <div class="actions">
+    <div class="actions" v-if="isAuthenticated">
       <!--search-->
       <!--<div class="search">-->
         <!--<a>-->
@@ -16,32 +16,43 @@
       <!--</div>-->
 
       <!--user-->
-      <!--<dropdown menu-right>-->
+      <dropdown menu-right>
 
-        <!--<div class="user" data-role="trigger" v-ripple>-->
-          <!--<span>Nathan Birus</span>-->
-          <!--<i class="fa fa-chevron-down"></i>-->
-        <!--</div>-->
+        <div class="user" data-role="trigger" v-ripple>
+          <span>{{user}}</span>
+          <i class="fa fa-chevron-down"></i>
+        </div>
 
-        <!--<template slot="dropdown">-->
-          <!--<li><a role="button"><i class="icon-settings icons icon-margin"></i>User Settings</a></li>-->
-          <!--<li><a role="button"><i class="icon-logout icons icon-margin"></i>Logout</a></li>-->
-        <!--</template>-->
+        <template slot="dropdown">
+          <li><a role="button"><i class="icon-settings icons icon-margin"></i>User Settings</a></li>
+          <li><a role="button" @click="logout"><i class="icon-logout icons icon-margin"></i>Logout</a></li>
+        </template>
 
-      <!--</dropdown>-->
+      </dropdown>
 
     </div>
-
 
   </header>
 </template>
 
 <script>
   import { Dropdown } from 'uiv'
+  import { mapGetters } from 'vuex'
 
   export default {
     name: 'app-header',
-    components: { Dropdown }
+    components: { Dropdown },
+    computed: {
+      ...mapGetters({
+        user: 'auth/getUser',
+        isAuthenticated: 'auth/isAuthenticated'
+      })
+    },
+    methods: {
+      logout () {
+        this.$store.dispatch('auth/logout')
+      }
+    }
   }
 </script>
 

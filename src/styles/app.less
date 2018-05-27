@@ -60,6 +60,22 @@
     display: flex;
     flex-direction: column;
     justify-items: stretch;
+
+  }
+
+  // no nav bar
+  &.hide-nav {
+
+    // span header and content
+    & > .content {
+      grid-column: span 2;
+    }
+
+    // hide nav bar
+    & > .nav-bar, & > .header {
+      display: none;
+    }
+
   }
 
 }
@@ -251,4 +267,3 @@
     font-size: 1.3em;
   }
 }
-

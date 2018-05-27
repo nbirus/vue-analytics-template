@@ -5,7 +5,7 @@ import { cacheAdapterEnhancer, throttleAdapterEnhancer } from 'axios-extensions'
 
 let querystring = require('querystring')
 
-let defaultConfig = {
+const defaultConfig = {
   baseURL: '',
   params: {},
   endpoint: '/'

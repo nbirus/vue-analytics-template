@@ -4,7 +4,7 @@ import Router from 'vue-router'
 // common pages
 // const NotFound = (resolve) => require(['@/pages/common/NotFoundPage'], resolve)
 // const Unauthorized = (resolve) => require(['@/pages/common/UnauthorizedPage'], resolve)
-// const Login = (resolve) => require(['@/pages/common/Login'], resolve)
+const Login = (resolve) => require(['@/pages/common/Login'], resolve)
 
 // pages
 const Search = (resolve) => require(['@/pages/SearchPage'], resolve)
@@ -22,10 +22,12 @@ const routes = [
       navBarLink: false
     }
   },
+
   {
     path: '/search',
     name: 'search',
     component: Search,
+    beforeEnter: requireAuth,
     meta: {
       navBarLink: true,
       navBarTitle: 'Search',
@@ -36,12 +38,25 @@ const routes = [
     path: '/style-guide',
     name: 'style-guide',
     component: StyleGuide,
+    beforeEnter: requireAuth,
     meta: {
       navBarLink: true,
       navBarTitle: 'Style Guide',
       icon: 'directions'
     }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
+    beforeEnter: requireNoAuth,
+    meta: {
+      navBarLink: false,
+      hasNav: false,
+      navBarTitle: 'Login'
+    }
   }
+
   // {
   //   path: '/not-found',
   //   component: NotFound,
@@ -58,14 +73,7 @@ const routes = [
   //     showHeader: false
   //   }
   // },
-  // {
-  //   path: '/login',
-  //   component: Login,
-  //   meta: {
-  //     navBarLink: false,
-  //     showHeader: false
-  //   }
-  // }
+
 ]
 
 const router = new Router({
@@ -81,6 +89,43 @@ const router = new Router({
     }
   }
 })
+
+
+// before
+router.beforeEach((to, from, next) => {
+
+  // Start our vue-progressbar
+  router.app.$Progress.start()
+
+  // To set the title of each route
+  document.title = `Analytics: ${to.meta.navBarTitle}`
+
+  // go to next page
+  next()
+
+})
+
+// after
+router.afterEach((to, from) => {
+  // End our vue-progressbar
+  router.app.$Progress.finish()
+})
+
+// helper functions
+let isAuthenticated = () => (router.app.$options.store.getters['auth/isAuthenticated'])
+
+function requireAuth (to, from, next) {
+  !isAuthenticated()
+    ? next({name: 'login'})
+    : next()
+}
+
+function requireNoAuth (to, from, next) {
+  isAuthenticated()
+    ? next({name: 'search'})
+    : next()
+}
+
 
 
 export default router

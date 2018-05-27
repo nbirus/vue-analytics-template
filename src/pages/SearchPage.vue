@@ -16,11 +16,11 @@
 
     <div class="page-body">
 
-      <elastic-grid
+      <local-grid
         style="height: 80vh;"
-        id="test-grid"
+        id="test-grid-1"
 
-        :apiConfig="{}"
+        :rows="data"
         :columns="columns"
 
         :canSort="true"
@@ -35,6 +35,7 @@
 
         :showRowDetail="false"
       />
+
     </div>
 
   </div>
@@ -46,6 +47,7 @@
 
   import SearchInput from '@/components/inputs/SearchInput'
   import ElasticGrid from '@/components/reporting/grid/ElasticGrid'
+  import LocalGrid from '@/components/reporting/grid/LocalGrid'
 
   import TestData from '../../static/data/grid-headers/test-data2.json'
   import TestColumns from '../../static/data/grid-headers/test-headers2.json'
@@ -56,7 +58,8 @@
       ChartReport,
       AppPageHeader,
       SearchInput,
-      ElasticGrid
+      ElasticGrid,
+      LocalGrid
     },
     data () {
       return {

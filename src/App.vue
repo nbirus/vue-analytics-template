@@ -1,10 +1,10 @@
 <template>
-  <div id="app">
+  <div id="app" :class="{'hide-nav': !hasNav}">
 
     <app-header></app-header>
 
     <!-- nav bar -->
-    <app-nav-bar v-if="showHeader"></app-nav-bar>
+    <app-nav-bar></app-nav-bar>
 
     <!--bread crumbs-->
     <!--<app-bread-crumbs v-if="showHeader"></app-bread-crumbs>-->
@@ -21,6 +21,8 @@
       <!--<app-footer></app-footer>-->
 
     </div>
+
+    <vue-progress-bar></vue-progress-bar>
 
   </div>
 </template>
@@ -40,8 +42,8 @@
       AppBreadCrumbs
     },
     computed: {
-      showHeader () {
-        return (this.$route.meta.showHeader === undefined)
+      hasNav () {
+        return (this.$route.meta.hasNav === undefined)
           ? true
           : this.$route.meta.showHeader
       }

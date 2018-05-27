@@ -49,17 +49,19 @@
 
         <select-input
           class="page-size-input"
-          :inputValue="pageSize"
-          :options="pageSizeOptions"
-          optionSource="props"
+          id="grid-page-size-select"
+
           placeholder="Select Page Size"
+          optionSource="props"
+          :options="pageSizeOptions"
           :allowEmpty="false"
-          :disabled="!gridData.length"
-          @changed="size => gridAction('pageSize', size)"
+
+          :inputValue="displayPageSize"
+          @changed="size => gridAction('pageSize', size.value)"
         >
         </select-input>
 
-        <span>of {{(gridData.length) ? (gridData.length | localeString) : 'no'}} entries</span>
+        <span>of {{gridRows.length | localeString}} entries</span>
       </div>
 
       <!--search-->
@@ -109,20 +111,20 @@
       <!--grid-->
       <ag-grid-vue
         ref="grid"
-        v-show="showGrid"
+        v-if="gridActive"
         class="grid ag-fresh"
         :gridOptions="gridOptions"
 
-        :rowData="gridData"
+        :rowData="gridRows"
         :columnDefs="filteredGridColumns"
 
-        :enableServerSideSorting="serverSide"
+        :enableServerSideSorting="true"
         :enableSorting="canSort"
         :enableColResize="canResizeColumns"
         :suppressMovableColumns="!canMoveColumns"
 
         :pagination="paginate"
-        :paginationPageSize="pageSize.value"
+        :paginationPageSize="pageSize"
 
         :quickFilterText="searchText"
         :rowSelection="(canSelectMultiple) ? 'multiple' : 'single'"
@@ -209,18 +211,17 @@
 
             <!-- page number change -->
             <div class="action page-size" v-if="actionType === 'pageSize'">
-              Page size of {{pageSize.label}}
+              Page size of {{displayPageSize.label}}
             </div>
 
             <!-- sort change -->
             <div class="action sort" v-if="actionType === 'sort'">
-              {{sortModelText}}
-              <!-- Sort {{sortModel.id | replaceUnderscores | titleCase }} in {{sortModel.sort}} order -->
+              <span v-if="pageSort.id">Sort {{pageSort.id | replaceUnderscores | titleCase }} in {{pageSort.sort}} order</span>
+              <span v-else>Clear Sort</span>
             </div>
 
           </div>
         </transition>
-
 
       </div>
 
@@ -245,9 +246,10 @@
   import Vue from 'vue'
   import { AgGridVue } from 'ag-grid-vue'
   import { Modal } from 'uiv'
-  import { remove, some, get } from 'lodash'
+  import { remove, some } from 'lodash'
 
   import PaginiationInput from '@/components/inputs/PaginiationInput'
+
 
   let checkboxColumn = {
     field: 'checkbox',
@@ -280,10 +282,6 @@
       },
 
       // async
-      serverSide: {
-        type: Boolean,
-        default: false
-      },
       loading: {
         type: Boolean,
         default: false
@@ -293,17 +291,31 @@
         default: ''
       },
 
-
       // local
-      data: {
+      rows: {
+        type: Array,
         required: false,
-        default: false
+        default: () => []
       },
       columns: {
         type: Array,
         required: false,
         default: () => []
       },
+
+      pageNumber: {
+        type: Number,
+        default: 0
+      },
+      pageSize: {
+        type: Number,
+        default: 20
+      },
+      pageSort: {
+        type: Object,
+        default: () => ({})
+      },
+
       theme: {
         type: String,
         default: 'inverse'
@@ -371,21 +383,11 @@
     data () {
       return {
 
-        actionMap: {
-          'pageNumber': this.setPageNumber,
-          'pageSize': this.setPageSize,
-          'sort': this.setSort
-        },
-        actionType: '',
-        actionActive: false,
-        actionTimeout: undefined,
-
         gridOptions: {
           rowHeight: 35,
           headerHeight: 50,
           rowClass: 'grid-row',
           suppressPaginationPanel: true,
-          suppressNoRowsOverlay: true,
           gridLoadingTemplate: '<i class="fa fa-sync-alt fa-spin"></i>',
           gridNoRowsTemplate: '<i class="fa fa-danger"></i>',
           icons: {
@@ -402,8 +404,7 @@
           suppressCellSelection: true,
           suppressRowClickSelection: true
         },
-
-        gridData: [],
+        gridRows: [],
         gridColumns: [],
         pageSizeOptions: [
           {value: 10, label: '10'},
@@ -413,19 +414,25 @@
           {value: 500, label: '500'}
         ],
 
-        // actions
-        pageSize: {},
-        // pageTotal: 0,
-        pageNumber: 0,
         searchText: '',
         toggleColumnSearchText: '',
         suppressedColumns: [],
         toggleColumnsOpen: false,
-        sortModelText: '',
+
+        // actions
+        actionMap: {
+          'pageNumber': this.setPageNumber,
+          'pageSize': this.setPageSize,
+          'sort': this.setSort
+        },
+        actionType: '',
+        actionActive: false,
+        actionTimeout: undefined,
 
         // row selection
         selectedRows: [],
 
+        // exporting
         exportModal: false,
         exportFileTypes: [
           {'label': 'CSV', 'value': 'csv'},
@@ -433,16 +440,14 @@
           {'label': 'PDF', 'value': 'pdf'}
         ],
         exportFileName: 'table',
-        exportFileType: {'label': 'CSV', 'value': 'csv'}
+        exportFileType: 'csv'
 
       }
     },
     computed: {
 
-      pageTotal () {
-        return (this.gridData.length)
-          ? Math.floor(this.gridData.length / this.pageSize.value)
-          : undefined
+      gridActive () {
+        return !this.error && !!this.gridRows.length
       },
 
       // columns passed to the grid
@@ -450,7 +455,7 @@
         return this.gridColumns.filter(column => !this.suppressedColumns.includes(column.field) && column.show)
       },
 
-      // items shown on the toggle panel
+      // toggle
       toggleColumns () {
         return this.gridColumns.filter(column => {
           return (column.headerName.toLowerCase().indexOf(this.toggleColumnSearchText.toLowerCase()) > -1)
@@ -460,17 +465,19 @@
         return this.filteredGridColumns.length === this.gridColumns.filter(column => !this.suppressedColumns.includes(column.field)).length
       },
 
+      // actions
       overlayActive () {
         return this.toggleColumnsOpen
-      },
-      showGrid () {
-        return !(this.error)
       },
       stateOverlayActive () {
         return this.error || this.loading
       },
-      noData () {
-        return this.gridData.length === 0
+
+      pageTotal () {
+        return Math.floor(this.gridRows.length / this.pageSize)
+      },
+      displayPageSize () {
+        return this.pageSizeOptions.find(option => option.value === this.pageSize)
       }
     },
     mounted () {
@@ -478,11 +485,8 @@
       // set header definitions
       this.setHeader()
 
-      // set row data
-      this.setRowData()
-
-      // initial page size
-      this.setPageSize(this.pageSizeOptions.find(size => size.value === this.initialPageSize))
+      // set rows
+      this.setRows()
 
       // resize event
       window.addEventListener('resize', this.resizeIfNotScrollable)
@@ -503,35 +507,16 @@
 
         this.gridColumns = columns
       },
-      setRowData () {
-        this.gridData = this.data
-        this.resizeIfNotScrollable()
+      setRows () {
+        this.gridRows = this.rows
       },
 
       // grid actions
       gridAction (action, model) {
-
-        this.actionMap[action](model)
-
-        this.showAction(action)
-        this.$emit(`${action}Changed`, model)
-
-        this.reselectRows()
-      },
-
-      setPageSize (pageSize) {
-        this.pageNumber = 0
-        this.pageSize = pageSize
-        this.gridOptions.api.paginationSetPageSize(pageSize.value)
-      },
-      setPageNumber (pageNumber) {
-        this.pageNumber = pageNumber
-        this.gridOptions.api.paginationGoToPage(pageNumber)
-      },
-      setSort (sortModel) {
-        this.sortModelText = (sortModel.length)
-          ? `Sort ${get(sortModel, '[0].colId')} in ${get(sortModel, '[0].sort')} order`
-          : 'Clear Sort'
+        if (this.gridActive) {
+          this.$emit(`${action}Changed`, model)
+          this.showAction(action)
+        }
       },
 
       // toggle coloumns
@@ -580,7 +565,7 @@
       resizeIfNotScrollable () {
 
         // make sure columns are defined
-        if (!!this.$refs.gridContainer && !!this.$refs.grid && this.gridOptions.columnApi) {
+        if (!!this.$refs.gridContainer && this.gridOptions.columnApi) {
           let gridWidth = this.$refs.gridContainer.clientWidth
           let totalColsWidth = this.gridOptions.columnApi.getAllColumns()
             .reduce((total, column) => {
@@ -588,12 +573,8 @@
               return total
             }, 0)
 
-
           if (totalColsWidth < gridWidth) {
-
-            this.$nextTick(() => {
-              this.gridOptions.api.sizeColumnsToFit()
-            })
+            this.$nextTick(() => { this.gridOptions.api.sizeColumnsToFit() })
           }
         }
 
@@ -609,6 +590,11 @@
         this.actionTimeout = setTimeout(() => { this.actionActive = false }, 1500)
       }
 
+    },
+    watch: {
+      gridRows () {
+        this.$nextTick(this.resizeIfNotScrollable)
+      }
     }
   }
 </script>
