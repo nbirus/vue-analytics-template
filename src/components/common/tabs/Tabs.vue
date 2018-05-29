@@ -67,6 +67,10 @@
         type: Boolean,
         default: false
       },
+      pageHeader: {
+        type: Boolean,
+        default: false
+      },
       searchable: {
         type: Boolean,
         default: false
@@ -125,6 +129,7 @@
       generateTabClasses () {
         return [
           (this.sidebar) ? 'sidebar' : 'topbar',
+          {'page-header': this.pageHeader},
           `tabs-${this.theme}`
         ]
       },
@@ -179,6 +184,7 @@
 
   .tabs {
     display: flex;
+    font-size: 1rem;
 
     // --- top bar ---
     &.topbar {
@@ -191,14 +197,15 @@
         display: flex;
 
         .tabs-list-item {
-          margin-left: 20px;
-          padding-bottom: 10px;
+          margin-right: 1em;
+          padding-bottom: .7em;
 
           .tabs-list-item-name {
-            font-size: 13pt;
+            font-size: 1.2em;
             color: fadeout(black, 75%);
             text-decoration: none;
             font-weight: bold;
+            padding: 0 .6em;
           }
 
           &.disabled {
@@ -213,6 +220,21 @@
         flex: 1 0 auto;
       }
 
+      &.page-header {
+
+        // list
+        & > .tabs-list > ul {
+          padding: 0 3rem;
+          background-color: @page-header-color;
+          border-bottom: solid 1px darken(@page-header-color, 5%);
+        }
+
+        // body
+        .tabs-panels {
+          padding: @page-padding;
+        }
+
+      }
     }
 
     // --- side bar ---
@@ -308,7 +330,7 @@
 
       // tobar
       .topbar.tabs-@{name} > .tabs-list > ul > .tabs-list-item.active {
-        border-bottom: solid 2px @color;
+        border-bottom: solid 3px @color;
 
         .tabs-list-item-name {
           color: @color;

@@ -1,11 +1,9 @@
 <template>
-  <div class="header">
+  <div class="header" :class="{'has-tabs': hasTabs}">
     <div class="page-header-content">
 
       <!-- title -->
       <div class="page-title-container">
-
-        <!-- <h2 :key="$route.name">{{title}}</h2>  -->
         <h2 class="title">{{title}}</h2>
         <h4 class="sub-title">{{subTitle}}</h4>
       </div>
@@ -37,6 +35,10 @@
       subTitle: {
         type: String,
         default: ''
+      },
+      hasTabs: {
+        type: Boolean,
+        default: false
       }
     }
   }
@@ -80,6 +82,12 @@
         width: 100%; height: auto;
         padding: 1.2rem 0;
       }
+    }
+
+    // if page has tabs
+    &.has-tabs {
+      padding-bottom: 0;
+      border-bottom: 0;
     }
 
   }

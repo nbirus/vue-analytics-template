@@ -5,48 +5,72 @@
       title="Search"
       subTitle="This is a search page to search stuff"
       theme="cyan"
+      hasTabs
     >
       <div slot="page-actions">
-        <search-input
-          @submit="searchSubmit"
-        >
-        </search-input>
+
+        <div class="search-actions">
+          <search-input
+            class="search-input"
+            @submit="searchSubmit"
+          >
+          </search-input>
+
+          <a class="advanced-search">Advanced Search</a>
+        </div>
+
       </div>
+
     </app-page-header>
 
-    <div class="page-body">
+    <tabs theme="cyan" pageHeader>
 
-      <!--<chart-report-->
-        <!--style='height: 900px; width: 1000px; margin-right: 10px; display: inline-block'-->
-        <!--id='phase'-->
-        <!--chartTitle='Test Line Chart'-->
-        <!--chartType='sunburst'-->
-        <!--:chartData='data2'-->
-        <!--:labelFilters="['upperCase', 'replaceUnderscores']"-->
-      <!--&gt;-->
-      <!--</chart-report>-->
+      <tab name="Grid">
+        <div class="page-body">
+          <local-grid
+            style="height: 80vh;"
+            id="test-grid-1"
 
-      <local-grid
-        style="height: 80vh;"
-        id="test-grid-1"
+            :rows="data"
+            :columns="columns"
 
-        :rows="data"
-        :columns="columns"
+            :canSort="true"
+            :canResizeColumns="true"
+            :canMoveColumns="false"
+            :paginate="true"
+            :initialPageSize="20"
+            :canSearch="false"
+            :canToggleColumns="true"
+            :canSelect="false"
+            :canSelectMultiple="false"
 
-        :canSort="true"
-        :canResizeColumns="true"
-        :canMoveColumns="false"
-        :paginate="true"
-        :initialPageSize="20"
-        :canSearch="false"
-        :canToggleColumns="true"
-        :canSelect="false"
-        :canSelectMultiple="false"
+            :showRowDetail="false"
+          />
+        </div>
 
-        :showRowDetail="false"
-      />
+      </tab>
 
-    </div>
+      <tab name="Analytics">
+        <div class="page-body">
+          <chart-report
+            style='height: 900px; width: 1000px; margin-right: 10px; display: inline-block'
+            id='phase'
+            chartTitle='Test Line Chart'
+            chartType='sunburst'
+            :chartData='data2'
+            :labelFilters="['upperCase', 'replaceUnderscores']"
+          >
+          </chart-report>
+        </div>
+      </tab>
+
+      <tab name="Over Time">
+        <div class="page-body">
+
+        </div>
+      </tab>
+
+    </tabs>
 
   </div>
 </template>
@@ -110,7 +134,8 @@
                 }
               ]
             }]
-        }]
+          }
+        ]
       }
     },
     methods: {
@@ -124,5 +149,31 @@
 <style lang="less" scoped>
 
   @import (reference) '../styles/app-helper.less';
+
+  .search-actions {
+    display: flex;
+    align-items: center;
+
+    .search-input {
+      flex: 0 0 50vw;
+    }
+
+    .advanced-search {
+      flex: 0 0 auto;
+      margin-left: 1rem;
+      font-size: 1.1rem;
+
+      color: cornflowerblue;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .page-section {
+    padding: 1rem 0;
+  }
 
 </style>

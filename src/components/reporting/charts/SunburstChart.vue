@@ -65,6 +65,7 @@
       handleDataReturn (data) {
 
         return data
+
         // return data.map((item, index) => {
         //
         //   return {
