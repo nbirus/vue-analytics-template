@@ -63,14 +63,6 @@ export default {
         this.customModifiers, // from props
         this.expanded ? this.expandedChartOptions : {} // if expanded
       )
-    },
-
-    // filter out suppressed headers and null fields
-    $filteredChartData () {
-      return this.formattedChartData.filter(item =>
-        item &&
-        item.id &&
-        !this.suppressedHeaders.includes(item.id))
     }
 
   },
@@ -88,7 +80,7 @@ export default {
       this.formattedChartData = this.handleDataReturn(this.chartData)
 
       // emit the render
-      this.$emit('chartRendered', this.$filteredChartData)
+      this.$emit('chartRendered', this.filteredChartData)
 
     },
 

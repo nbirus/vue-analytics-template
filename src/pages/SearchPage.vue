@@ -16,15 +16,15 @@
 
     <div class="page-body">
 
-      <chart-report
-        style='height: 300px; width: 400px; margin-right: 10px; display: inline-block'
-        id='phase'
-        chartTitle='Test Line Chart'
-        chartType='pie'
-        :chartData='chartData'
-        :labelFilters="['upperCase', 'replaceUnderscores']"
-      >
-      </chart-report>
+      <!--<chart-report-->
+        <!--style='height: 900px; width: 1000px; margin-right: 10px; display: inline-block'-->
+        <!--id='phase'-->
+        <!--chartTitle='Test Line Chart'-->
+        <!--chartType='sunburst'-->
+        <!--:chartData='data2'-->
+        <!--:labelFilters="['upperCase', 'replaceUnderscores']"-->
+      <!--&gt;-->
+      <!--</chart-report>-->
 
       <local-grid
         style="height: 80vh;"
@@ -82,7 +82,35 @@
           {'count': 663, 'phase': 'i_ii'},
           {'count': 397, 'phase': 'iii'},
           {'count': 47, 'phase': 'ii_iii'}
-        ]
+        ],
+        data2: [
+          {
+            name: 'Grandpa',
+            children: [{
+              name: 'Uncle Leo',
+              value: 15,
+              children: [
+                {
+                  name: 'Cousin Jack',
+                  value: 2
+                },
+                {
+                  name: 'Cousin Mary',
+                  value: 5,
+                  children: [
+                    {
+                      name: 'Jackson',
+                      value: 2
+                    }
+                  ]
+                },
+                {
+                  name: 'Cousin Ben',
+                  value: 4
+                }
+              ]
+            }]
+        }]
       }
     },
     methods: {

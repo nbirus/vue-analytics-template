@@ -4,14 +4,14 @@
 
 <script>
   import ChartMixin from '@/mixins/ChartMixin'
-  import 'echarts/lib/chart/pie'
+  import 'echarts/lib/chart/sunburst'
   import 'echarts/lib/component/tooltip'
   import 'echarts/lib/component/legend'
 
   import { isEmpty } from 'lodash'
 
   export default {
-    name: 'pie-chart',
+    name: 'sunburst-chart',
     mixins: [ChartMixin],
     data () {
       return {
@@ -29,24 +29,16 @@
           textStyle: {
             fontSize: 12
           },
-          legend: {
-            show: false
-          },
           series: [{
             name: '',
-            type: 'pie',
-            radius: '75%',
+            type: 'sunburst',
+            highlightPolicy: 'ancestor',
+            radius: [0, '95%'],
             center: ['50%', '50%'],
             data: []
           }]
         },
-        expandedChartOptions: {
-          legend: {
-            show: true,
-            orient: 'vertical',
-            x: 'left'
-          }
-        }
+        expandedChartOptions: {}
       }
     },
     computed: {
@@ -56,22 +48,14 @@
         return (isEmpty(this.filteredChartData)) ? {}
           : {
             series: [{
-              data: this.filteredChartData.map(item => {
-                return {
-                  ...item,
-                  itemStyle: { normal: { color: item.color } } // merge color object
-                }
-              })
+              data: this.filteredChartData
             }]
           }
       },
 
       // filter out suppressed headers and null fields
       filteredChartData () {
-        return this.formattedChartData.filter(item =>
-          item &&
-          item.id &&
-          !this.suppressedHeaders.includes(item.id))
+        return this.formattedChartData
       }
 
     },
@@ -79,14 +63,17 @@
 
       // format data specific for this chart
       handleDataReturn (data) {
-        return data.map((item, index) => {
-          return {
-            id: item[this.id],
-            name: this.$filterLabel(item[this.id]),
-            value: item.count,
-            color: this.activeColors[index]
-          }
-        })
+
+        return data
+        // return data.map((item, index) => {
+        //
+        //   return {
+        //     id: item[this.id],
+        //     name: this.$filterLabel(item[this.id]),
+        //     value: item.count,
+        //     color: this.activeColors[index]
+        //   }
+        // })
       },
 
       getDataLength () {

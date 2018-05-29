@@ -69,13 +69,13 @@
 
       // fill the data elements of the chart options object
       dataModifiers () {
-        return (isEmpty(this.$filteredChartData)) ? {}
+        return (isEmpty(this.filteredChartData)) ? {}
           : {
             yAxis: {
-              data: this.$filteredChartData.map(item => item.name)
+              data: this.filteredChartData.map(item => item.name)
             },
             series: [{
-              data: this.$filteredChartData.map(item => {
+              data: this.filteredChartData.map(item => {
                 return {
                   ...item,
                   itemStyle: { normal: { color: item.color } } // merge color object
@@ -83,6 +83,14 @@
               })
             }]
           }
+      },
+
+      // filter out suppressed headers and null fields
+      filteredChartData () {
+        return this.formattedChartData.filter(item =>
+          item &&
+          item.id &&
+          !this.suppressedHeaders.includes(item.id))
       }
 
     },
@@ -114,7 +122,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .chart {
     width: 100%!important; height: 100%!important;
   }

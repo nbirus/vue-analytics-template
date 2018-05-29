@@ -23,11 +23,21 @@ import StackedHorizontalBarChart from './StackedHorizontalBarChart'
 // }
 
 
+// OTHER
+import SunburstChart from './SunburstChart'
+// {
+//   name: ''
+//   value: 0
+//   children: []
+// }
+
+
 export default {
   PieChart,
   LineChart,
   VerticalBarChart,
   HorizontalBarChart,
   StackedVerticalBarChart,
-  StackedHorizontalBarChart
+  StackedHorizontalBarChart,
+  SunburstChart
 }

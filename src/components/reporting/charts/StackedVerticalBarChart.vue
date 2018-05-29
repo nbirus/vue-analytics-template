@@ -74,10 +74,10 @@
     computed: {
 
       dataModifiers () {
-        return (isEmpty(this.$filteredChartData)) ? {}
+        return (isEmpty(this.filteredChartData)) ? {}
           : {
             xAxis: {
-              data: this.$filteredChartData.map(item => item.name)
+              data: this.filteredChartData.map(item => item.name)
             },
             series: this.series.map(item => {
 
@@ -91,6 +91,14 @@
 
             })
           }
+      },
+
+      // filter out suppressed headers and null fields
+      filteredChartData () {
+        return this.formattedChartData.filter(item =>
+          item &&
+          item.id &&
+          !this.suppressedHeaders.includes(item.id))
       }
 
     },
@@ -144,7 +152,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .chart {
     width: 100%!important; height: 100%!important;
   }
