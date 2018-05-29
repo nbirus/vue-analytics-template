@@ -14,14 +14,16 @@
 </template>
 
 <script>
+  import AppPageHeader from '@/components/partials/AppPageHeader'
+
   export default {
-    name: 'home'
+    name: 'home',
+    components: { AppPageHeader }
   }
 </script>
 
 <style lang="less" scoped>
 
   @import (reference) '../styles/app-helper.less';
-
 
 </style>

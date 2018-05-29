@@ -696,7 +696,7 @@
         }
 
         .column-toggle-container {
-          width: 33%; height: 100%;
+          width: 25%; height: 100%;
           max-width: 400px;
           min-width: 250px;
           background-color: white;
@@ -715,7 +715,7 @@
             justify-content: space-between;
             align-items: center;
 
-            padding: 15px 10px;
+            padding: .5em;
             background: @grey2;
             border-bottom: solid thin @grey4;
 
@@ -726,11 +726,11 @@
             .input-row {
               flex: 0 1 100%;
               display: flex;
-              padding-right: 10px;
+              padding-right: .5em;
 
               .select-all {
                 flex: 0 0 auto;
-                margin: 10px 15px 0 5px;
+                margin: .9em .9em 0 .5em;
                 cursor: pointer;
               }
 

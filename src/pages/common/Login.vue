@@ -44,35 +44,35 @@
 
           <btn block theme="cyan" @click="login">ACCESS ANALYTICS TEMPLATE</btn>
 
-          <!-- <p class="about">
-            <a
-              href="http://www.cancer.gov/about-cancer/treatment/clinical-trials/nci-supported/nci-match"
-              target="_blank"
-            >
+          <p class="about">
+            <a href="http://www.cancer.gov/about-cancer/treatment/clinical-trials/nci-supported/nci-match"
+              target="_blank">
               About NCI-MATCH Trial
             </a>
-          </p> -->
+          </p>
 
         </div>
 
       </div>
 
+      <!-- <form class="form-container" v-else>
 
-      <!-- <div class="panel login-panel">
+        <div class="panel login-panel">
 
-        <div class="panel-header">
-          <h2>Login</h2>
-        </div>
-
-        <div class="panel-body">
-          <div class="panel-section">
-            <text-input :required="true" style="margin-bottom: 15px" label="Username" placeholder="Enter username or email.."></text-input>
-            <text-input :required="true" style="margin-bottom: 15px" label="Password" placeholder="Enter password.."></text-input>
-            <btn @click="login" theme="lime" block>Login</btn>
+          <div class="panel-header">
+            <h2>Login</h2>
           </div>
-        </div>
 
-      </div> -->
+          <div class="panel-body">
+            <form class="panel-section" @submit.prevent="login">
+              <text-input id="username" required label="Username" placeholder="Enter username or email.."></text-input>
+              <text-input id="password" required type="password" label="Password" placeholder="Enter password.."></text-input>
+              <btn type="submit" theme="lime" block>Login</btn>
+            </form>
+          </div>
+
+        </div>
+      </form> -->
 
     </div>
 
@@ -82,6 +82,11 @@
 <script>
   export default {
     name: 'login',
+    data () {
+      return {
+        showForm: false
+      }
+    },
     methods: {
       login () {
         this.$store.dispatch('auth/login')
@@ -106,7 +111,7 @@
         margin-bottom: 2rem;
 
         img {
-          width: 80%; height: auto;
+          width: 85%; height: auto;
         }
       }
 
@@ -124,12 +129,25 @@
           width: 100%;
           margin-top: 1rem; padding-top: 1rem;
           text-align: center;
-          border-top: solid thin @grey4;
+          border-top: solid thin @grey3;
+        }
+      }
+
+    }
+
+    .form-container {
+      width: 320px;
+      margin: 8rem auto 0;
+
+      .panel-header, .panel-section {
+        background-color: white;
+
+        .form-group {
+          margin-bottom: 1rem;
         }
       }
 
     }
   }
-
 
 </style>

@@ -423,7 +423,7 @@
 </template>
 
 <script>
-  import AppPageHeader from '@/components/core/AppPageHeader'
+  import AppPageHeader from '@/components/partials/AppPageHeader'
 
   import FormGenerator from '../components/generators/FormGenerator'
   import Grid from '../components/reporting/grid/Grid'

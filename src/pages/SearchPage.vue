@@ -16,6 +16,16 @@
 
     <div class="page-body">
 
+      <chart-report
+        style='height: 300px; width: 400px; margin-right: 10px; display: inline-block'
+        id='phase'
+        chartTitle='Test Line Chart'
+        chartType='pie'
+        :chartData='chartData'
+        :labelFilters="['upperCase', 'replaceUnderscores']"
+      >
+      </chart-report>
+
       <local-grid
         style="height: 80vh;"
         id="test-grid-1"
@@ -42,7 +52,7 @@
 </template>
 
 <script>
-  import AppPageHeader from '@/components/core/AppPageHeader'
+  import AppPageHeader from '@/components/partials/AppPageHeader'
   import ChartReport from '@/components/reporting/ChartReport'
 
   import SearchInput from '@/components/inputs/SearchInput'
@@ -64,7 +74,15 @@
     data () {
       return {
         data: TestData,
-        columns: TestColumns
+        columns: TestColumns,
+        chartData: [
+          {'count': 1755, 'phase': 'ii'},
+          {'count': 1294, 'phase': 'i'},
+          {'count': 1138, 'phase': 'na'},
+          {'count': 663, 'phase': 'i_ii'},
+          {'count': 397, 'phase': 'iii'},
+          {'count': 47, 'phase': 'ii_iii'}
+        ]
       }
     },
     methods: {

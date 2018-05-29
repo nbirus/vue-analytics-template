@@ -28,10 +28,10 @@
 </template>
 
 <script>
-  import AppNavBar from '@/components/core/AppNavBar'
-  import AppFooter from '@/components/core/AppFooter'
-  import AppHeader from '@/components/core/AppHeader'
-  import AppBreadCrumbs from '@/components/core/AppBreadCrumbs'
+  import AppNavBar from '@/components/partials/AppNavBar'
+  import AppFooter from '@/components/partials/AppFooter'
+  import AppHeader from '@/components/partials/AppHeader'
+  import AppBreadCrumbs from '@/components/partials/AppBreadCrumbs'
 
   export default {
     name: 'App',

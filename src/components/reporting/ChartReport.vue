@@ -17,7 +17,7 @@
 
             <!--expand-->
             <i v-if="canExpand"
-               v-tooltip="expandActive ? 'Close' : 'Expand'"
+               v-tooltip.unenterable="expandActive ? 'Close' : 'Expand'"
                :class="[textColor, (expandActive ? 'fa-compress' : 'fa-expand')]" class="fa"
                @click="expandActive ? closeChart() : expandChart()"
             >
@@ -25,13 +25,13 @@
 
             <!--options-->
             <i v-if="hasOptions"
-               v-tooltip="'Options'"
+               v-tooltip.unenterable="'Options'"
                :class="textColor" class="icons icon-options-vertical" data-role="trigger">
             </i>
 
             <!--toggle headers-->
             <i v-if="hasLegend"
-               v-tooltip="'Toggle Headers'"
+               v-tooltip.unenterable="'Toggle Headers'"
                :class="textColor" @click="toggleColumnActive = true" class="fa fa-chevron-left">
             </i>
 
@@ -476,6 +476,8 @@
 
   .chart-report-panel {
     font-size: 1rem;
+    background-color: fadeout(black, 100%);
+    transition: background-color .5s ease-in;
 
     // chart report states
     &.expanded {
@@ -492,6 +494,7 @@
       & > .panel {
         transform: scale(1)!important;
         font-size: 1.1em;
+        opacity: .2;
 
         .chart-header {
           text-align: center;

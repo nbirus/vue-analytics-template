@@ -44,18 +44,25 @@
       }
     },
     methods: {
+
+      // sort
       changeSort (model) {
         console.log(model)
         this.$saveGridState()
       },
+
+      // page size
       changePageSize (pageSize) {
         console.log(pageSize)
         this.$saveGridState()
       },
+
+      // page number
       changePageNumber (pageNumber) {
         console.log(pageNumber)
         this.$saveGridState()
       }
+
     }
   }
 </script>
