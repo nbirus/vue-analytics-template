@@ -13,10 +13,10 @@
 
     <dropdown>
 
-      <button class="color-selector" data-role="trigger" v-ripple type="button">
+      <btn class="color-selector" data-role="trigger" type="button">
         <div class="color-circle" :class="`bg-${inputValue}`"></div>
         <i class="fa fa-chevron-down"></i>
-      </button>
+      </btn>
 
       <template slot="dropdown">
         <ul class="color-list">
@@ -75,19 +75,18 @@
     }
 
     .color-selector {
-
-      background-color: transparent;
-      border: @input-border;
-      padding: .7em .9em;
-      cursor: default;
-
       display: flex;
       align-items: center;
 
+      padding-right: .2em;
+      padding-left: .4em;
+
       .color-circle {
-        width: 1rem; height: 1rem;
-        border-radius: 50%;
+        width: 1.2em; height: 1.1em;
+        border-radius: 2px;
         margin-right: .4rem;
+
+        border: solid thin fadeout(black, 90%);
       }
 
       .color-name {
@@ -95,8 +94,8 @@
       }
 
       i {
-        margin-top: 2px;
-        font-size: .7rem;
+        margin-top: 1px;
+        font-size: .8rem;
       }
 
       &:focus {

@@ -70,7 +70,7 @@
 
     .box-shadow(0 1px 8px fadeout(black, 95%));
     border-bottom: solid thin @grey3;
-    z-index: 1;
+    // z-index: 1;
 
     .identity {
       flex: 0 0 auto;

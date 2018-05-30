@@ -49,7 +49,7 @@
               <!--<li><a role="button"><i class="icons icon-share-alt"></i>Export</a></li>-->
 
               <!--screen shot-->
-              <li @click="screenShotActive = true; expandActive = true">
+              <li @click="screenShotActive = true; expandChart()">
                 <a role="button"><i class="icons icon-camera"></i>Screen Shot</a>
               </li>
 
@@ -397,11 +397,16 @@
 
       // actions
       expandChart () {
+        console.log('here')
         this.expandActive = true
+        console.log(this.expandActive)
+        this.$emit('expand')
       },
       closeChart () {
+        console.log('gerer')
         this.expandActive = false
         this.screenShotActive = false
+        this.$emit('collapse')
       },
       onEscape (e) {
         e = e || window.event
@@ -480,28 +485,19 @@
     transition: background-color .5s ease-in;
 
     // chart report states
+
     &.expanded {
-      width: 100vw !important;
-      height: 100vh !important;
-      background-color: fadeout(black, 70%);
-
-      position: fixed;
-      top: 0; left: 0;
-      z-index: 999;
-
-      padding: 2rem 3rem;
 
       & > .panel {
         transform: scale(1)!important;
         font-size: 1.1em;
-        opacity: .2;
 
         .chart-header {
           text-align: center;
         }
       }
-
     }
+
 
     &.sidebar > .panel {
       transform: scale(1.03);
@@ -664,7 +660,7 @@
               justify-content: space-between;
               align-items: center;
 
-              padding: 10px;
+              padding: .7em 1em;
               background: @grey2;
               border-bottom: solid thin @grey4;
 

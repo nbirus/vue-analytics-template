@@ -118,6 +118,39 @@
   opacity: 0;
 }
 
+
+.expand-enter {
+  // transform: translateY(-10px);
+  transform: scale(1);
+  opacity: 1;
+}
+.expand-enter-active {
+  transition: transform 1s ease-in, opacity 1s ease-out;
+  transform: scale(1);
+
+  & > .child {
+    position: relative!important;
+    width: 100%; height: 100%;
+
+    top: initial; right: initial; bottom: initial; left: initial;
+  }
+
+}
+.expand-enter-to, .expand-leave {
+  transform: scale(1.2);
+  opacity: 0;
+}
+.expand-leave-active {
+  transition: opacity 1s ease-out;
+  // opacity: 0;
+}
+.expand-leave-to {
+  // transform: translateY(10px);
+
+  opacity: 1;
+}
+
+
 // ---------- dashboard enter animation -----------
 .dashboard-list-enter {
   opacity: 0;

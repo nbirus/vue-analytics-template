@@ -52,6 +52,27 @@
 
       <tab name="Analytics">
         <div class="page-body">
+
+          <fullscreen ref="fullscreen" style="width: 500px; height: 400px;">
+            <template slot-scope="{ _expand, _collapse }">
+
+              <chart-report
+                style='height: 100%'
+                id='phase'
+                chartTitle='Test Line Chart'
+                chartType='pie'
+                :chartData='chartData'
+                :labelFilters="['upperCase', 'replaceUnderscores']"
+
+                @expand="_expand"
+                @collapse="_collapse"
+              >
+              </chart-report>
+
+            </template>
+
+          </fullscreen>
+
           <chart-report
             style='height: 900px; width: 1000px; margin-right: 10px; display: inline-block'
             id='phase'
@@ -78,6 +99,7 @@
 <script>
   import AppPageHeader from '@/components/partials/AppPageHeader'
   import ChartReport from '@/components/reporting/ChartReport'
+  import Fullscreen from '@/components/utils/Fullscreen'
 
   import SearchInput from '@/components/inputs/SearchInput'
   import ElasticGrid from '@/components/reporting/grid/ElasticGrid'
@@ -93,7 +115,8 @@
       AppPageHeader,
       SearchInput,
       ElasticGrid,
-      LocalGrid
+      LocalGrid,
+      Fullscreen
     },
     data () {
       return {
