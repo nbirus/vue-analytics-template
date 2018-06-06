@@ -53,6 +53,11 @@
       <tab name="Analytics">
         <div class="page-body">
 
+          <report-generator
+
+          >
+          </report-generator>
+
           <chart-report
             style="width: 500px; height: 400px;"
             id='phase'
@@ -62,28 +67,6 @@
             :labelFilters="['upperCase', 'replaceUnderscores']"
           >
           </chart-report>
-
-          <chart-report
-            style="width: 500px; height: 400px;"
-            id='phase'
-            chartTitle='Test Line Chart'
-            chartType='pie'
-            :chartData='chartData'
-            :labelFilters="['upperCase', 'replaceUnderscores']"
-          >
-          </chart-report>
-
-
-          <!--<fullscreen style="width: 500px; height: 400px;">-->
-            <!--<template slot-scope="{ _expand, _collapse, _isExpanded }">-->
-
-
-
-            <!--</template>-->
-
-          <!--</fullscreen>-->
-
-
 
         </div>
       </tab>
@@ -102,7 +85,6 @@
 <script>
   import AppPageHeader from '@/components/partials/AppPageHeader'
   import ChartReport from '@/components/reporting/ChartReport'
-  import Fullscreen from '@/components/utils/Fullscreen'
 
   import SearchInput from '@/components/inputs/SearchInput'
   import ElasticGrid from '@/components/reporting/grid/ElasticGrid'
@@ -110,6 +92,8 @@
 
   import TestData from '../../static/data/grid-headers/test-data2.json'
   import TestColumns from '../../static/data/grid-headers/test-headers2.json'
+
+  import ReportGenerator from '@/components/generators/ReportGenerator'
 
   export default {
     name: 'search-page',
@@ -119,7 +103,7 @@
       SearchInput,
       ElasticGrid,
       LocalGrid,
-      Fullscreen
+      ReportGenerator
     },
     data () {
       return {
