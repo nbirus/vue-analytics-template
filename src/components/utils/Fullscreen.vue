@@ -3,15 +3,11 @@
   <div class="container" :class="expandedClass">
 
     <transition name="fade" mode="in-out">
-      <div class="overlay" v-if="isExpanded"></div>
+      <div class="overlay" v-if="expandActive"></div>
     </transition>
 
-    <div class="child" :class="delayExpanded ? 'test': ''">
-      <slot
-        :_expand="onExpand"
-        :_collapse="onCollapse"
-        :_isExpanded="delayExpanded"
-      />
+    <div class="child" :class="{'expanded': expandActive}">
+      <slot/>
     </div>
 
   </div>
@@ -22,32 +18,58 @@
 
   export default {
     name: 'fullscreen',
+    props: {
+      onExpand: {
+        type: Function,
+        default: () => {}
+      },
+      onCollapse: {
+        type: Function,
+        default: () => {}
+      }
+    },
     data () {
       return {
-        isExpanded: false,
-        delayExpanded: false
+        expandActive: false
       }
     },
     computed: {
       expandedClass () {
         return {
-          'expanded': this.isExpanded
+          'expanded': this.expandActive
         }
       }
     },
+    mounted () {
+      window.addEventListener('keydown', this.onEscape)
+    },
     methods: {
-      onExpand () {
-        this.isExpanded = true
 
-        setTimeout(() => {
-          this.delayExpanded = true
-        }, 200)
-        W
+      expand () {
+        this.expandActive = true
+        this.onExpand()
+
+        // add body class
+        document.body.classList.add('modal-open')
+
       },
-      onCollapse () {
-        this.isExpanded = false
-        this.delayExpanded = false
+      collapse () {
+        this.expandActive = false
+        this.onCollapse()
+
+        // remove body class
+        document.body.classList.remove('modal-open')
+      },
+
+      onEscape (e) {
+        e = e || window.event
+        if (e.keyCode === 27) {
+          this.collapse()
+        }
       }
+    },
+    beforeDestroy () {
+      document.removeEventListener('keydown', this.onEscape, false)
     }
   }
 
@@ -58,7 +80,7 @@
   @import (reference) '../../styles/app-helper.less';
 
   .container {
-    width: 100%; height: 100%;
+
 
     .overlay {
       position: fixed;
@@ -69,20 +91,19 @@
 
     .child {
       width: 100%; height: 100%;
-      // z-index: 3;
     }
 
     &.expanded {
       z-index: 1060;
 
       .child {
-        animation: expand .4s cubic-bezier(1,.05,.11,.99);
+        animation: expand .6s cubic-bezier(1,.05,.11,.99);
 
-        &.test {
+        &.expanded {
           position: fixed;
-          top: 4rem; left: 4rem;
+          top: 3rem; left: 3rem;
           z-index: 2;
-          width: calc(~'100% - 8rem'); height: calc(~'100% - 8rem');
+          width: calc(~'100% - 6rem'); height: calc(~'100% - 6rem');
         }
 
       }

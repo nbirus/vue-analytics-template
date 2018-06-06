@@ -1,213 +1,221 @@
 <template>
 
-  <div class="chart-report-panel" :class="chartStateClass">
-    <div class="panel" ref="report">
+  <fullscreen
+    ref="fullscreen"
+    :onExpand="expandChart"
+    :onCollapse="collapseChart"
+  >
+    <div class="chart-report-panel" :class="chartStateClass">
+      <div class="panel" ref="report">
 
-      <!--header-->
-      <div class="panel-header chart-header">
+        <!--header-->
+        <div class="panel-header chart-header">
 
-        <div class="chart-title" v-if="hasHeader">
-          <h4 :class="textColor">{{activeChartTitle}}</h4>
-          <h5 v-if="isChartReady && showTotal">{{totalCount | localeString}} {{countType}}</h5>
-        </div>
-
-        <div class="chart-actions" v-if="!hideActions && isChartReady">
-
-          <dropdown menu-right>
-
-            <!--expand-->
-            <i v-if="canExpand"
-               v-tooltip.unenterable="expandActive ? 'Close' : 'Expand'"
-               :class="[textColor, (expandActive ? 'fa-compress' : 'fa-expand')]" class="fa"
-               @click="expandActive ? closeChart() : expandChart()"
-            >
-            </i>
-
-            <!--options-->
-            <i v-if="hasOptions"
-               v-tooltip.unenterable="'Options'"
-               :class="textColor" class="icons icon-options-vertical" data-role="trigger">
-            </i>
-
-            <!--toggle headers-->
-            <i v-if="hasLegend"
-               v-tooltip.unenterable="'Toggle Headers'"
-               :class="textColor" @click="toggleColumnActive = true" class="fa fa-chevron-left">
-            </i>
-
-            <!-- drop-down -->
-            <template slot="dropdown">
-
-              <!--settings-->
-              <li
-                v-if="settings.length"
-                @click="settingsActive = true"
-              >
-                <a role="button"><i class="icons icon-settings"></i>Chart Settings</a>
-              </li>
-
-              <!--<li><a role="button"><i class="icons icon-share-alt"></i>Export</a></li>-->
-
-              <!--screen shot-->
-              <li @click="screenShotActive = true; expandChart()">
-                <a role="button"><i class="icons icon-camera"></i>Screen Shot</a>
-              </li>
-
-            </template>
-
-          </dropdown>
-
-        </div>
-
-      </div>
-
-      <!--chart-->
-      <div class="panel-body chart-body" v-if="isChartReady">
-        <div class="panel-block">
-
-          <!--
-            Pass along:
-            - $props: shared ChartReport props
-            - $attrs: props specific to the underlying chart
-          -->
-
-          <component
-            :is="`${chartType}-chart`"
-            v-bind="[$props, $attrs]"
-
-            :theme="activeChartTheme"
-            :suppressedHeaders="suppressedHeaders"
-            :expanded="expandActive"
-
-            @chartRendered="chartRendered"
-            @chartClick="chartClick"
-          >
-          </component>
-
-        </div>
-      </div>
-
-      <!--api states-->
-      <div class="panel-body chart-api-states">
-
-        <!-- loading -->
-        <transition name="icon-circle" appear>
-          <div class="loading" v-if="loading">
-            <div class="icon-circle">
-              <i class="fa fa-sync-alt fa-spin"></i>
-            </div>
+          <div class="chart-title" v-if="hasHeader">
+            <h4 :class="textColor">{{activeChartTitle}}</h4>
+            <h5 v-if="isChartReady && showTotal">{{totalCount | localeString}} {{countType}}</h5>
           </div>
-        </transition>
 
-        <!-- error -->
-        <div class="error" v-if="error">
-          <div class="icon-circle"><i class="fa fa-exclamation"></i></div>
-          <h4 class="error-message">{{error}}</h4>
+          <div class="chart-actions" v-if="!hideActions && isChartReady">
+
+            <dropdown menu-right>
+
+              <!--expand-->
+              <i v-if="canExpand"
+                 v-tooltip.unenterable="expandActive ? 'Close' : 'Expand'"
+                 :class="[textColor, (expandActive ? 'fa-compress' : 'fa-expand')]" class="fa"
+                 @click="!expandActive ? $refs.fullscreen.expand() : $refs.fullscreen.collapse()"
+              >
+              </i>
+
+              <!--options-->
+              <i v-if="hasOptions"
+                 v-tooltip.unenterable="'Options'"
+                 :class="textColor" class="icons icon-options-vertical" data-role="trigger">
+              </i>
+
+              <!--toggle headers-->
+              <i v-if="hasLegend"
+                 v-tooltip.unenterable="'Toggle Headers'"
+                 :class="textColor" @click="toggleColumnActive = true" class="fa fa-chevron-left">
+              </i>
+
+              <!-- drop-down -->
+              <template slot="dropdown">
+
+                <!--settings-->
+                <li
+                  v-if="settings.length"
+                  @click="settingsActive = true"
+                >
+                  <a role="button"><i class="icons icon-settings"></i>Chart Settings</a>
+                </li>
+
+                <!--<li><a role="button"><i class="icons icon-share-alt"></i>Export</a></li>-->
+
+                <!--screen shot-->
+                <li @click="screenShotActive = true; $refs.fullscreen.expand()">
+                  <a role="button"><i class="icons icon-camera"></i>Screen Shot</a>
+                </li>
+
+              </template>
+
+            </dropdown>
+
+          </div>
+
         </div>
 
-      </div>
+        <!--chart-->
+        <div class="panel-body chart-body" v-if="isChartReady">
+          <div class="panel-block">
 
-      <!--sidebar-->
-      <div class="chart-sidebar-mask" ref="sidebar">
+            <!--
+              Pass along:
+              - $props: shared ChartReport props
+              - $attrs: props specific to the underlying chart
+            -->
 
-        <div class="overlay" v-if="overlayActive"></div>
+            <component
+              :is="`${chartType}-chart`"
+              v-bind="[$props, $attrs]"
 
-        <transition name="slide-in-from-right" mode="in-out">
-          <div class="sidebar" v-if="sidebarActive">
+              :theme="activeChartTheme"
+              :suppressedHeaders="suppressedHeaders"
+              :expanded="expandActive"
 
-            <!--toggle headers-->
-            <div class="sidebar-item toggle-headers" v-if="toggleColumnActive">
+              @chartRendered="chartRendered"
+              @chartClick="chartClick"
+            >
+            </component>
 
-              <div class="sidebar-header">
+          </div>
+        </div>
 
-                <div class="input-row">
-                  <input @click="toggleAllHeaders" class="select-all" type="checkbox" :checked="!suppressedHeaders.length"/>
-                  <text-input :inputValue.sync="toggleColumnSearchText" class="filter-input" placeholder="Filter.."></text-input>
+        <!--api states-->
+        <div class="panel-body chart-api-states">
+
+          <!-- loading -->
+          <transition name="icon-circle" appear>
+            <div class="loading" v-if="loading">
+              <div class="icon-circle">
+                <i class="fa fa-sync-alt fa-spin"></i>
+              </div>
+            </div>
+          </transition>
+
+          <!-- error -->
+          <div class="error" v-if="error">
+            <div class="icon-circle"><i class="fa fa-exclamation"></i></div>
+            <h4 class="error-message">{{error}}</h4>
+          </div>
+
+        </div>
+
+        <!--sidebar-->
+        <div class="chart-sidebar-mask" ref="sidebar">
+
+          <div class="overlay" v-if="overlayActive"></div>
+
+          <transition name="slide-in-from-right" mode="in-out">
+            <div class="sidebar" v-if="sidebarActive">
+
+              <!--toggle headers-->
+              <div class="sidebar-item toggle-headers" v-if="toggleColumnActive">
+
+                <div class="sidebar-header">
+
+                  <div class="input-row">
+                    <input @click="toggleAllHeaders" class="select-all" type="checkbox" :checked="!suppressedHeaders.length"/>
+                    <text-input :inputValue.sync="toggleColumnSearchText" class="filter-input" placeholder="Filter.."></text-input>
+                  </div>
+
+                  <btn flat class="close-icon" @click="toggleColumnActive = false">
+                    <i class="fa fa-chevron-right"></i>
+                  </btn>
+
                 </div>
 
-                <btn flat class="close-icon" @click="toggleColumnActive = false">
-                  <i class="fa fa-chevron-right"></i>
-                </btn>
+                <div class="sidebar-body">
+
+                  <ul class="header-list">
+                    <li class="list-item"
+                        v-for="(header, index) in filteredHeaders"
+                        :key="index"
+                        v-if="header.id"
+                        @click="toggleHeader(header.id)">
+
+                      <input type="checkbox" :checked="!suppressedHeaders.includes(header.id)"/>
+                      <div class="label">{{header.name}}</div>
+                      <div class="value">{{header.value | localeString}}</div>
+                    </li>
+                  </ul>
+                </div>
 
               </div>
 
-              <div class="sidebar-body">
+              <!--settings-->
+              <div class="sidebar-item settings" v-if="settingsActive">
 
-                <ul class="header-list">
-                  <li class="list-item"
-                      v-for="(header, index) in filteredHeaders"
-                      :key="index"
-                      v-if="header.id"
-                      @click="toggleHeader(header.id)">
+                <div class="sidebar-header">
 
-                    <input type="checkbox" :checked="!suppressedHeaders.includes(header.id)"/>
-                    <div class="label">{{header.name}}</div>
-                    <div class="value">{{header.value | localeString}}</div>
-                  </li>
-                </ul>
-              </div>
+                  <h2>Settings</h2>
 
-            </div>
+                  <btn flat class="close-icon" @click="settingsActive = false">
+                    <i class="fa fa-chevron-right"></i>
+                  </btn>
 
-            <!--settings-->
-            <div class="sidebar-item settings" v-if="settingsActive">
+                </div>
 
-              <div class="sidebar-header">
+                <div class="sidebar-body">
 
-                <h2>Settings</h2>
-
-                <btn flat class="close-icon" @click="settingsActive = false">
-                  <i class="fa fa-chevron-right"></i>
-                </btn>
+                </div>
 
               </div>
 
-              <div class="sidebar-body">
+              <!--screen shot chart-->
+              <div class="sidebar-item settings" v-if="screenShotActive">
 
-              </div>
+                <div class="sidebar-header">
 
-            </div>
+                  <h2>Screen Shot</h2>
 
-            <!--screen shot chart-->
-            <div class="sidebar-item settings" v-if="screenShotActive">
+                  <btn flat class="close-icon" @click="screenShotActive = false">
+                    <i class="fa fa-times"></i>
+                  </btn>
 
-              <div class="sidebar-header">
+                </div>
 
-                <h2>Screen Shot</h2>
+                <div class="sidebar-body screen-shot">
 
-                <btn flat class="close-icon" @click="screenShotActive = false">
-                  <i class="fa fa-times"></i>
-                </btn>
+                  <form-generator
+                    :inputs="screenShotForm"
+                    :initialValues.sync="initialScreenShotValues"
 
-              </div>
+                    @formSubmitted="createScreenShot"
+                    @formReset="screenShotActive = false"
+                  ></form-generator>
 
-              <div class="sidebar-body screen-shot">
-
-                <form-generator
-                  :inputs="screenShotForm"
-                  :initialValues.sync="initialScreenShotValues"
-
-                  @formSubmitted="createScreenShot"
-                  @formReset="screenShotActive = false"
-                ></form-generator>
+                </div>
 
               </div>
 
             </div>
+          </transition>
 
-          </div>
-        </transition>
+        </div>
 
       </div>
-
     </div>
-  </div>
+
+  </fullscreen>
 
 </template>
 
 <script>
   import Charts from './charts'
   import FormGenerator from '@/components/generators/FormGenerator'
+  import Fullscreen from '@/components/utils/Fullscreen'
 
   import { Dropdown } from 'uiv'
   import domtoimage from 'dom-to-image'
@@ -219,7 +227,8 @@
     components: {
       ...Charts,
       Dropdown,
-      FormGenerator
+      FormGenerator,
+      Fullscreen
     },
     props: {
 
@@ -294,10 +303,6 @@
       canScreenShot: {
         type: Boolean,
         default: true
-      },
-      expandActive: {
-        type: Boolean,
-        default: false
       }
 
     },
@@ -310,7 +315,7 @@
         suppressedHeaders: [],
 
         // flags
-        // expandActive: false,
+        expandActive: false,
         toggleColumnActive: false,
         settingsActive: false,
         screenShotActive: false,
@@ -395,29 +400,18 @@
       }
 
     },
-    mounted () {
-      document.onkeydown = this.onEscape
-    },
     methods: {
 
-      // actions
+      // expand / collapse
       expandChart () {
         this.expandActive = true
-        this.$emit('expand')
       },
-      closeChart () {
+      collapseChart () {
         this.expandActive = false
         this.screenShotActive = false
-        this.$emit('collapse')
-      },
-      onEscape (e) {
-        e = e || window.event
-        if (e.keyCode === 27) {
-          this.closeChart()
-        }
       },
 
-      // headers
+
       chartRendered (headers, total) {
         this.chartHeaders = headers
         this.chartTotal = total
@@ -426,6 +420,8 @@
         console.log('Chart Click:')
         console.log(model)
       },
+
+      // headers
       toggleHeader (header) {
         let index = this.suppressedHeaders.indexOf(header)
 
@@ -436,7 +432,6 @@
           this.suppressedHeaders.splice(index, 1)
         }
       },
-
       toggleAllHeaders () {
         (this.suppressedHeaders.length)
           ? this.suppressedHeaders = []
@@ -459,19 +454,16 @@
             link.href = dataUrl
             link.click()
 
-            this.closeChart()
+            this.$refs.fullscreen.collapse()
 
           })
           .catch(error => {
             console.log(error)
-            this.closeChart()
+            this.$refs.fullscreen.collapse()
           })
 
       }
 
-    },
-    beforeDestroy () {
-      document.onkeydown = () => {}
     }
   }
 
@@ -482,31 +474,27 @@
   @import (reference) '../../styles/app-helper.less';
 
   .chart-report-panel {
+    width: 100%; height: 100%;
     font-size: 1rem;
-    background-color: fadeout(black, 100%);
-    transition: background-color .5s ease-in;
 
-    // chart report states
+    // chart expanded
+    &.expanded > .panel {
+      transform: scale(1)!important;
+      font-size: 1.1em;
 
-    &.expanded {
-
-      & > .panel {
-        transform: scale(1)!important;
-        font-size: 1.1em;
-
-        .chart-header {
-          text-align: center;
-        }
+      .chart-header {
+        text-align: center;
       }
     }
 
-
+    // sidebar open
     &.sidebar > .panel {
-      transform: scale(1.03);
+      /*transform: scale(1.03);*/
       @shadow: 0 0 5px rgba(0,0,0,0.06), 0 5px 10px rgba(0,0,0,0.20);
       .box-shadow(@shadow);
     }
 
+    // screen shot open
     &.screen-shot > .panel {
       padding-right: 300px;
     }
@@ -639,6 +627,7 @@
           background: @grey1;
           border-left: solid thin @grey3;
           pointer-events: auto;
+          z-index: 1;
 
 
           // apply to all sidebar containers

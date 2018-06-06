@@ -204,11 +204,11 @@
           padding-bottom: .7em;
 
           .tabs-list-item-name {
-            font-size: 1.1em;
+            font-size: 1.15em;
             color: fadeout(black, 75%);
             text-decoration: none;
             font-weight: bold;
-            padding: 0 .5em;
+            padding: 0 .4em;
 
             &:hover {
               color: fadeout(black, 65%);
@@ -306,7 +306,7 @@
             line-height: 40px;
             vertical-align: middle;
 
-            font-size: 12pt;
+            font-size: 1em;
             color: fadeout(black, 65%);
             text-decoration: none;
             font-weight: bold;

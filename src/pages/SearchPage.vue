@@ -53,36 +53,38 @@
       <tab name="Analytics">
         <div class="page-body">
 
-          <fullscreen ref="fullscreen" style="width: 500px; height: 400px;">
-            <template slot-scope="{ _expand, _collapse, _isExpanded }">
+          <chart-report
+            style="width: 500px; height: 400px;"
+            id='phase'
+            chartTitle='Test Line Chart'
+            chartType='pie'
+            :chartData='chartData'
+            :labelFilters="['upperCase', 'replaceUnderscores']"
+          >
+          </chart-report>
 
-              <chart-report
-                style='height: 100%'
-                id='phase'
-                chartTitle='Test Line Chart'
-                chartType='pie'
-                :chartData='chartData'
-                :labelFilters="['upperCase', 'replaceUnderscores']"
-                :expandActive="_isExpanded"
+          <chart-report
+            style="width: 500px; height: 400px;"
+            id='phase'
+            chartTitle='Test Line Chart'
+            chartType='pie'
+            :chartData='chartData'
+            :labelFilters="['upperCase', 'replaceUnderscores']"
+          >
+          </chart-report>
 
-                @expand="_expand"
-                @collapse="_collapse"
-              >
-              </chart-report>
 
-            </template>
+          <!--<fullscreen style="width: 500px; height: 400px;">-->
+            <!--<template slot-scope="{ _expand, _collapse, _isExpanded }">-->
 
-          </fullscreen>
 
-          <!--<chart-report-->
-            <!--style='height: 900px; width: 1000px; margin-right: 10px; display: inline-block'-->
-            <!--id='phase'-->
-            <!--chartTitle='Test Line Chart'-->
-            <!--chartType='sunburst'-->
-            <!--:chartData='data2'-->
-            <!--:labelFilters="['upperCase', 'replaceUnderscores']"-->
-          <!--&gt;-->
-          <!--</chart-report>-->
+
+            <!--</template>-->
+
+          <!--</fullscreen>-->
+
+
+
         </div>
       </tab>
 

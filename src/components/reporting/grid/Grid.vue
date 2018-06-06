@@ -595,6 +595,9 @@
       gridRows () {
         this.$nextTick(this.resizeIfNotScrollable)
       }
+    },
+    beforeDestroy () {
+      document.removeEventListener('resize', this.resizeIfNotScrollable, false)
     }
   }
 </script>
