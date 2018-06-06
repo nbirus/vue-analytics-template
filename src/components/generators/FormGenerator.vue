@@ -7,7 +7,7 @@
   >
 
     <div class="form-input-row"
-      v-for="input in inputs"
+      v-for="input in schema"
       :key="input.id"
     >
 
@@ -15,6 +15,7 @@
         :is="`${input.type}-input`"
         v-bind="input"
 
+        :layout="formLayout"
         :required="isRequired(input)"
         :error="inputError(input.id)"
         :inputValue="inputValues[input.id]"
@@ -41,7 +42,7 @@
     name: 'form-generator',
     mixins: [validationMixin],
     props: {
-      inputs: {
+      schema: {
         type: Array,
         required: true
       },
@@ -49,6 +50,10 @@
         type: Object,
         required: false,
         default () { return {} }
+      },
+      formLayout: {
+        type: String,
+        default: 'vertical'
       }
     },
     data () {
@@ -66,7 +71,7 @@
 
       // for each input, create a key value pair with it's initial value if it exists
       createInitialInputValues () {
-        this.inputs.forEach(input => {
+        this.schema.forEach(input => {
           this.updateValue(input.id, this.getInitialValue(input), false)
         })
       },
@@ -92,7 +97,7 @@
       createValidations () {
         return {
           inputValues: {
-            ...this.inputs
+            ...this.schema
 
               // remove elements without validation rules
               .filter(input => this.hasValidation(input.id))
@@ -118,7 +123,7 @@
         }
       },
       hasValidation (id) {
-        return has(this.inputs.find(input => input.id === id), 'validations')
+        return has(this.schema.find(input => input.id === id), 'validations')
       },
       isRequired (input) {
         return (input.validations) ? input.validations.hasOwnProperty('required') : false
@@ -154,7 +159,7 @@
 
             // remap return object to format value if needed
             result[key] = this.formatField(
-              this.inputs.find(input => input.id === key), // find associated input
+              this.schema.find(input => input.id === key), // find associated input
               this.inputValues[key] // pass value
             )
 
@@ -194,14 +199,14 @@
       submitForm () {
 
         if (this.isFormValid()) {
-          this.$emit('formSubmitted', this.inputValues)
+          this.$emit('formSubmit', this.inputValues)
         }
 
       },
       resetForm () {
         this.inputValues = {}
         this.createInitialInputValues()
-        this.$emit('formReset')
+        this.$emit('formCancel')
       }
     }
   }

@@ -27,26 +27,34 @@
       </div>
 
       <!-- list -->
-      <ul role="tablist" v-if="isSidebarOpen">
-        <li
-          v-for="(tab, i) in filteredTabs"
-          :key="i"
-          :class="{ 'active': tab.isActive, 'disabled': tab.isDisabled }"
-          class="tabs-list-item"
-          role="presentation"
-          v-show="tab.isVisible"
-        >
-          <a
-            v-html="tab.header"
-            :aria-controls="tab.hash"
-            :aria-selected="tab.isActive"
-            @click="selectTab(tab.hash, $event)"
-            :href="(useHash) ? tab.hash : 'javascript:void(0);'"
-            class="tabs-list-item-name"
-            role="tab"
-          ></a>
-        </li>
-      </ul>
+      <div class="tab-container" v-if="isSidebarOpen">
+
+        <ul role="tablist">
+          <li
+            v-for="(tab, i) in filteredTabs"
+            :key="i"
+            :class="{ 'active': tab.isActive, 'disabled': tab.isDisabled }"
+            class="tabs-list-item"
+            role="presentation"
+            v-show="tab.isVisible"
+          >
+            <a
+              v-html="tab.header"
+              :aria-controls="tab.hash"
+              :aria-selected="tab.isActive"
+              @click="selectTab(tab.hash, $event)"
+              :href="(useHash) ? tab.hash : 'javascript:void(0);'"
+              class="tabs-list-item-name"
+              role="tab"
+            ></a>
+          </li>
+        </ul>
+
+        <slot name="extra-options" class="extra-options"/>
+
+      </div>
+
+
 
     </div>
 
@@ -194,32 +202,64 @@
       flex-direction: column;
 
       // list
-      & > .tabs-list > ul {
+      & > .tabs-list > .tab-container {
         flex: 0 0 auto;
 
         display: flex;
+        justify-content: space-between;
 
-        .tabs-list-item {
-          margin-right: 1em;
-          padding-bottom: .7em;
+        ul {
+          flex: 0 0 auto;
 
-          .tabs-list-item-name {
-            font-size: 1.15em;
-            color: fadeout(black, 75%);
+          display: flex;
+
+          & > .tabs-list-item {
+            margin-right: 1em;
+            padding-bottom: .7em;
+
+            .tabs-list-item-name {
+              font-size: 1.15em;
+              color: fadeout(black, 70%);
+              text-decoration: none;
+              font-weight: @bold;
+              padding: 0 .4em;
+
+              &:hover {
+                color: fadeout(black, 65%);
+              }
+            }
+
+            &.disabled {
+
+            }
+
+          }
+        }
+
+        .extra-options {
+          flex: 0 1 100%;
+
+          .option {
+            font-size: 1.1em;
+            color: fadeout(black, 35%);
             text-decoration: none;
-            font-weight: bold;
-            padding: 0 .4em;
+            font-weight: @regular;
+            margin: 0 .8em;
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+
+            i {
+              margin-right: 5px;
+            }
 
             &:hover {
-              color: fadeout(black, 65%);
+              color: black;
             }
           }
-
-          &.disabled {
-
-          }
-
         }
+
       }
 
       // body
@@ -227,13 +267,21 @@
         flex: 1 0 auto;
       }
 
+
       &.page-header {
 
         // list
-        & > .tabs-list > ul {
+        & > .tabs-list {
+
           padding: 0 3rem;
           background-color: @page-header-color;
           border-bottom: solid 1px darken(@page-header-color, 5%);
+
+          & > .tab-container {
+            width: 55vw;
+            min-width: 700px;
+          }
+
         }
 
         // body
@@ -242,6 +290,7 @@
         }
 
       }
+
     }
 
     // --- side bar ---
@@ -336,7 +385,7 @@
     .generateThemeClasses({
 
       // tobar
-      .topbar.tabs-@{name} > .tabs-list > ul > .tabs-list-item.active {
+      .topbar.tabs-@{name} > .tabs-list > .tab-container > ul > .tabs-list-item.active {
         border-bottom: solid 3px @color;
 
         .tabs-list-item-name, .tabs-list-item-name:hover {
@@ -345,11 +394,11 @@
       }
 
       // sidebar
-      .sidebar.tabs-@{name} > .tabs-list > ul > .tabs-list-item {
+      .sidebar.tabs-@{name} > .tabs-list > .tab-container > ul > .tabs-list-item {
         border-color: @color;
       }
 
-      .sidebar.tabs-@{name} > .tabs-list > ul > .tabs-list-item.active {
+      .sidebar.tabs-@{name} > .tabs-list > .tab-container > ul > .tabs-list-item.active {
         border-left: solid 4px @color;
         background-color: fadeout(black, 97%);
         // .horizontal-gradient(fadeout(black, 96%), fadeout(black, 1000%));

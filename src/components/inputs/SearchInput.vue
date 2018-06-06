@@ -5,7 +5,7 @@
     <form
       class="input-form-group"
       :class="{'focus-active': focusActive}"
-      @submit.prevent="$emit('submit', inputValue)"
+      @submit.prevent="$updateValue($refs.input.value)"
     >
 
       <div class="icon">
@@ -15,13 +15,14 @@
       <div class="input">
 
         <input
+          ref="input"
           id="search-input"
           class="form-control"
           type="text"
           placeholder="Search"
           autocomplete="off"
 
-          v-model="inputValue"
+          :value="inputValue"
           @focus="focusActive = true"
           @blur="focusActive = false"
         />
@@ -46,9 +47,11 @@
 </template>
 
 <script>
+  import InputMixin from '@/mixins/InputMixin'
 
   export default {
-    name: 'text-input',
+    name: 'search-input',
+    mixins: [InputMixin],
     props: {
       theme: {
         type: String,
@@ -57,8 +60,7 @@
     },
     data () {
       return {
-        focusActive: false,
-        inputValue: ''
+        focusActive: false
       }
     }
 
@@ -74,8 +76,7 @@
     .input-form-group {
       font-size: 1.1rem;
 
-      max-width: 50vw;
-      min-width: 33vw;
+      width: 100%;
 
       padding: .4rem .5rem .4rem 1rem;
 

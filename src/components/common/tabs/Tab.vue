@@ -1,5 +1,5 @@
 <template>
-  <section v-show="isActive"
+  <section v-if="isActive"
            :aria-hidden="!isActive"
            :id="hash"
            role="tabpanel"
@@ -20,14 +20,12 @@
       suffix: { default: '' },
       isDisabled: { default: false }
     },
-
     data () {
       return {
         isActive: false,
         isVisible: true
       }
     },
-
     computed: {
       header () {
         let name = this.prefix + this.name + this.suffix

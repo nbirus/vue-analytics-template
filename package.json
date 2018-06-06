@@ -26,6 +26,7 @@
     "countup.js": "^1.9.3",
     "dom-to-image": "^2.6.0",
     "onchange": "^3.3.0",
+    "search-string": "^3.1.0",
     "theo": "^7.0.1",
     "uiv": "^0.19.1",
     "vue": "^2.5.2",

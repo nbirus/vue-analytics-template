@@ -1,6 +1,7 @@
 <template>
   <div class="page">
 
+    <!--header-->
     <app-page-header
       title="Search"
       subTitle="This is a search page to search stuff"
@@ -12,24 +13,31 @@
         <div class="search-actions">
           <search-input
             class="search-input"
-            @submit="searchSubmit"
+            :inputValue="searchString"
+            @submit="keywordSubmit"
           >
           </search-input>
-
-          <a class="advanced-search">Advanced Search</a>
         </div>
 
       </div>
 
     </app-page-header>
 
+    <!--tabs-->
     <tabs theme="cyan" pageHeader>
+
+      <!--<div slot="extra-options">-->
+        <!--<div class="extra-options">-->
+          <!--<a class="option" @click="advancedActive = true">Advanced Search</a>-->
+        <!--</div>-->
+      <!--</div>-->
 
       <tab name="Grid">
         <div class="page-body">
           <local-grid
-            style="height: 80vh;"
-            id="test-grid-1"
+            class="grid"
+
+            id="search-grid"
 
             :rows="data"
             :columns="columns"
@@ -61,8 +69,33 @@
         </div>
       </tab>
 
-
     </tabs>
+
+    <!--advanced search-->
+    <div class="advanced-search" v-if="advancedActive">
+
+      <div class="form-container">
+
+        <h2>Advanced Search</h2>
+
+        <form-generator
+          formLayout="horizontal"
+
+          :schema="form"
+          :initialValues="searchObject"
+
+          @formSubmit="advancedSubmit"
+          @formCancel="advancedActive = false"
+        >
+        </form-generator>
+
+      </div>
+
+      <div class="summary-container">
+
+      </div>
+
+    </div>
 
   </div>
 </template>
@@ -77,8 +110,12 @@
   import TestData from '../../static/data/grid-headers/test-data2.json'
   import TestColumns from '../../static/data/grid-headers/test-headers2.json'
   import TestDashboard from '../../static/data/dashboards/test-dashboard.json'
+  import TestForm from '../../static/data/forms/sample-form.json'
+
+  import SearchString from 'search-string'
 
   import ReportGenerator from '@/components/generators/ReportGenerator'
+  import FormGenerator from '@/components/generators/FormGenerator'
 
   export default {
     name: 'search-page',
@@ -87,33 +124,80 @@
       SearchInput,
       ElasticGrid,
       LocalGrid,
-      ReportGenerator
+      ReportGenerator,
+      FormGenerator
     },
     data () {
       return {
         data: TestData,
         columns: TestColumns,
-        dashboard: TestDashboard
+
+        dashboard: TestDashboard,
+        form: TestForm,
+
+        searchString: '',
+        searchObject: {},
+        advancedActive: false
       }
     },
     methods: {
-      searchSubmit (searchString) {
-        console.log(searchString)
+      advancedSubmit (queryObject) {
+
+        let searchString = SearchString.parse('')
+
+        Object.keys(queryObject).forEach((key) => {
+          searchString.addEntry(key, queryObject[key], false)
+        })
+
+        this.searchObject = queryObject
+        this.searchString = searchString.clone().toString()
+        this.advancedActive = false
+      },
+      keywordSubmit (query) {
+        console.log(query)
       }
     }
   }
+
 </script>
 
 <style lang="less" scoped>
 
   @import (reference) '../styles/app-helper.less';
 
+  .advanced-search {
+    background-color: white;
+    position: absolute;
+    top: 50px; right: 0; bottom: 0; left: @nav-width;
+
+    padding: @page-padding;
+
+    display: flex;
+
+    .form-container {
+      flex: 0 0 55vw;
+      max-width: 700px;
+      padding: 0 3em 0 1em;
+
+      h2 {
+        margin-bottom: 1em;
+      }
+    }
+
+    .summary-container {
+      flex: 0 1 100%;
+
+      border-left: solid thin @grey2;
+    }
+  }
+
   .search-actions {
     display: flex;
     align-items: center;
 
     .search-input {
-      flex: 0 0 50vw;
+      flex: 0 0 55vw;
+      min-width: 700px;
     }
 
     .advanced-search {
@@ -130,8 +214,12 @@
     }
   }
 
-  .page-section {
-    padding: 1rem 0;
+  .page-body {
+    /*overflow: hidden;*/
+
+    & > .grid {
+      height: 80vh;
+    }
   }
 
 </style>

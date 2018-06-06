@@ -36,6 +36,10 @@ export default {
     },
 
     // form modifiers
+    layout: {
+      type: String,
+      default: 'vertical'
+    },
     required: {
       required: false,
       default: false
@@ -46,7 +50,6 @@ export default {
     },
     error: {
       type: String,
-      required: false,
       default: ''
     }
   },
@@ -66,7 +69,8 @@ export default {
       return {
         error: this.error,
         disabled: this.disabled,
-        required: this.required
+        required: this.required,
+        [this.layout]: this.layout
       }
     }
   }

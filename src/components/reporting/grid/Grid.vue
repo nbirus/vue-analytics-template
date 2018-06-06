@@ -243,31 +243,12 @@
 </template>
 
 <script>
-  import Vue from 'vue'
   import { AgGridVue } from 'ag-grid-vue'
   import { Modal } from 'uiv'
-  import { remove, some } from 'lodash'
+  import { remove, some, cloneDeep } from 'lodash'
 
   import PaginiationInput from '@/components/inputs/PaginiationInput'
-
-
-  let checkboxColumn = {
-    field: 'checkbox',
-    headerName: ' ',
-    suppressSorting: true,
-    unSortIcon: false,
-    show: true,
-    showRowGroup: true,
-    width: 30,
-    cellRendererFramework: Vue.extend({
-      template: '<input type="checkbox" :checked="isSelected()" />',
-      methods: {
-        isSelected () {
-          return this.params.node.selected
-        }
-      }
-    })
-  }
+  import GridService from '@/services/GridService'
 
   export default {
     name: 'grid',
@@ -498,11 +479,11 @@
       setHeader () {
 
         // get passed in columns
-        let columns = this.columns
+        let columns = cloneDeep(this.columns)
 
         // add checkbox row if grid selectable
         if (this.canSelect && columns[0].field !== 'checkbox') {
-          columns.unshift(checkboxColumn)
+          columns.unshift(GridService.getCheckboxColumn())
         }
 
         this.gridColumns = columns
@@ -607,7 +588,6 @@
   @import (reference) '../../../styles/app-helper.less';
 
   .grid-container {
-    height: 100%;
 
     display: flex;
     flex-direction: column;
@@ -827,6 +807,7 @@
 
       .grid {
         height: 100%;
+
       }
     }
 

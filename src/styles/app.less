@@ -40,7 +40,7 @@
   background-color: @page-bg-color;
 
   display: grid;
-  grid-template-columns: 90px auto;
+  grid-template-columns: @nav-width auto;
   grid-template-rows: 50px 100%;
 
   & > .header {
@@ -51,9 +51,6 @@
   & > .nav-bar {
     grid-row: span 2;
     grid-column: 1;
-
-    position: fixed;
-    width: 90px; height: 100vh;
   }
 
   & > .content {
@@ -80,11 +77,6 @@
     }
 
   }
-
-  // expanded
-  //&.full-screen {
-  //  overflow: hidden;
-  //}
 
 }
 
@@ -132,9 +124,24 @@
     color: @c-danger;
   }
 
+  // disabled
   &.disabled {
     opacity: .7;
     pointer-events: none;
+  }
+
+  &.horizontal {
+    display: flex;
+    align-items: center;
+
+    .form-label {
+      width: 350px;
+    }
+
+    .form-control {
+
+    }
+
   }
 
 }
