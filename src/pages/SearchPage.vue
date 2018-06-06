@@ -73,15 +73,15 @@
 
           </fullscreen>
 
-          <chart-report
-            style='height: 900px; width: 1000px; margin-right: 10px; display: inline-block'
-            id='phase'
-            chartTitle='Test Line Chart'
-            chartType='sunburst'
-            :chartData='data2'
-            :labelFilters="['upperCase', 'replaceUnderscores']"
-          >
-          </chart-report>
+          <!--<chart-report-->
+            <!--style='height: 900px; width: 1000px; margin-right: 10px; display: inline-block'-->
+            <!--id='phase'-->
+            <!--chartTitle='Test Line Chart'-->
+            <!--chartType='sunburst'-->
+            <!--:chartData='data2'-->
+            <!--:labelFilters="['upperCase', 'replaceUnderscores']"-->
+          <!--&gt;-->
+          <!--</chart-report>-->
         </div>
       </tab>
 

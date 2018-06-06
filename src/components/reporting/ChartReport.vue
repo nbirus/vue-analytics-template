@@ -21,6 +21,7 @@
                :class="[textColor, (expandActive ? 'fa-compress' : 'fa-expand')]" class="fa"
                @click="expandActive ? closeChart() : expandChart()"
             >
+              expand
             </i>
 
             <!--options-->
@@ -78,6 +79,7 @@
             :theme="activeChartTheme"
             :suppressedHeaders="suppressedHeaders"
             :expanded="expandActive"
+
             @chartRendered="chartRendered"
             @chartClick="chartClick"
           >
@@ -111,7 +113,7 @@
 
         <div class="overlay" v-if="overlayActive"></div>
 
-        <transition name="slide-in-from-right">
+        <transition name="slide-in-from-right" mode="in-out">
           <div class="sidebar" v-if="sidebarActive">
 
             <!--toggle headers-->
@@ -397,13 +399,10 @@
 
       // actions
       expandChart () {
-        console.log('here')
         this.expandActive = true
-        console.log(this.expandActive)
         this.$emit('expand')
       },
       closeChart () {
-        console.log('gerer')
         this.expandActive = false
         this.screenShotActive = false
         this.$emit('collapse')

@@ -2,18 +2,43 @@
 
   <div class="container" :class="expandedClass">
 
-    <div class="overlay" v-if="isExpanded"></div>
+    <transition name="fade" mode="in-out">
+      <div class="overlay" v-if="isExpanded"></div>
+    </transition>
 
-    <!-- <transition name="expand"> -->
-    <div class="child">
+    <div class="child" :class="childClass">
       <slot
-        class="slot"
         :_expand="onExpand"
         :_collapse="onCollapse"
       />
     </div>
-    <!-- </transition> -->
 
+    <!--<transition-->
+      <!--@before-enter="beforeEnter"-->
+      <!--@enter="enter"-->
+      <!--@after-enter="afterEnter"-->
+      <!--@enter-cancelled="enterCancelled"-->
+
+      <!--@before-Leave="beforeLeave"-->
+      <!--@leave="leave"-->
+      <!--@after-leave="afterLeave"-->
+      <!--@leave-cancelled="leaveCancelled"-->
+      <!--:css="false">-->
+
+    <!--</transition>-->
+
+    <!--
+    methods: {
+      enterEl(el, done) {
+        //entrance animation
+        done();
+      },
+      leaveEl(el, done) {
+        //exit animation
+        done();
+      },
+    }
+    -->
 
   </div>
 
@@ -26,7 +51,7 @@
     data () {
       return {
         isExpanded: false,
-        test: 'test'
+        childClass: 'test'
       }
     },
     computed: {
@@ -39,6 +64,10 @@
     methods: {
       onExpand () {
         this.isExpanded = true
+
+        setTimeout(() => {
+          this.childClass = 'test'
+        }, 1000)
       },
       onCollapse () {
         this.isExpanded = false
@@ -59,25 +88,56 @@
       position: fixed;
       top: 0; right: 0; bottom: 0; left: 0;
       background-color: fadeout(black, 80%);
-      padding: 2rem;
+      opacity: 1;
     }
 
     .child {
       width: 100%; height: 100%;
-      // transition: all 1s;
     }
 
     &.expanded {
       z-index: 1060;
-      // animation: expand 1s;
 
       .child {
-        position: fixed;
-        top: 0; right: 0; bottom: 0; left: 0;
-        z-index: 1061;
+        animation: expand 1s;
 
-        padding: 2rem;
+        position: fixed;
+        top: 4rem; left: 4rem;
+        width: calc(~'100% - 8rem'); height: calc(~'100% - 8rem');
+
       }
+    }
+  }
+
+  @keyframes expand {
+    0% {
+      position: relative;
+      transform: scale(1);
+      opacity: 1;
+    }
+    30% {
+      transform: scale(1.2);
+      opacity: 0;
+    }
+    49% {
+      position: relative;
+      transform: scale(1.2);
+
+      position: relative;
+      width: 100%; height: 100%;
+      top: initial; left: initial;
+    }
+    50% {
+      transform: scale(.8);
+      opacity: 0;
+
+      position: fixed;
+      top: 4rem; left: 4rem;
+      width: calc(~'100% - 8rem'); height: calc(~'100% - 8rem');
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
     }
   }
 
