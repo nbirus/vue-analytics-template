@@ -80,7 +80,7 @@
 
       .page-actions {
         width: 100%; height: auto;
-        padding: 1.2rem 0;
+        padding: 1rem 0 1.3rem;
       }
     }
 

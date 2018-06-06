@@ -55,6 +55,7 @@
       <slot/>
     </div>
 
+
   </div>
 </template>
 
@@ -88,12 +89,14 @@
         default: 'inverse'
       }
     },
-    data: () => ({
-      tabs: [],
-      activeTabHash: '',
-      searchText: '',
-      isSidebarOpen: true
-    }),
+    data () {
+      return {
+        tabs: [],
+        activeTabHash: '',
+        searchText: '',
+        isSidebarOpen: true
+      }
+    },
     computed: {
       filteredTabs () {
         return this.tabs.filter(tab => {
@@ -201,11 +204,15 @@
           padding-bottom: .7em;
 
           .tabs-list-item-name {
-            font-size: 1.2em;
+            font-size: 1.1em;
             color: fadeout(black, 75%);
             text-decoration: none;
             font-weight: bold;
-            padding: 0 .6em;
+            padding: 0 .5em;
+
+            &:hover {
+              color: fadeout(black, 65%);
+            }
           }
 
           &.disabled {
@@ -332,7 +339,7 @@
       .topbar.tabs-@{name} > .tabs-list > ul > .tabs-list-item.active {
         border-bottom: solid 3px @color;
 
-        .tabs-list-item-name {
+        .tabs-list-item-name, .tabs-list-item-name:hover {
           color: @color;
         }
       }

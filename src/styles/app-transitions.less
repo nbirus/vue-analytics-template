@@ -79,6 +79,7 @@
 // side in from left
 .slide-in-from-left-enter-active {
   transition: transform .2s;
+
 }
 .slide-in-from-left-leave-active {
   transition: transform .2s;
@@ -90,7 +91,7 @@
 
 
 .fade-leave-active, .fade-enter-active {
-  transition: opacity .2s;
+  transition: all .2s ease-in;
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;
@@ -100,20 +101,19 @@
 }
 
 
-
 .slide-down-enter {
   transform: translateY(-10px);
   opacity: 0;
 }
 .slide-down-enter-active {
-  transition: all .1s ease-in;
+  transition: all .2s ease-in;
 }
 .slide-down-enter-to, .slide-down-leave {
   transform: translateY(0);
   opacity: 1;
 }
 .slide-down-leave-active {
-  transition: all .1s ease-out;
+  transition: all .2s ease-out;
 }
 .slide-down-leave-to {
   transform: translateY(10px);

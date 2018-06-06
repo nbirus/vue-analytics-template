@@ -68,9 +68,8 @@
     justify-content: space-between;
     align-items: center;
 
-    .box-shadow(0 1px 8px fadeout(black, 95%));
-    border-bottom: solid thin @grey3;
-    // z-index: 1;
+    .box-shadow(0 1px 4px fadeout(black, 80%));
+    z-index: 1;
 
     .identity {
       flex: 0 0 auto;

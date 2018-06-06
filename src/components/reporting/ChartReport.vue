@@ -21,7 +21,6 @@
                :class="[textColor, (expandActive ? 'fa-compress' : 'fa-expand')]" class="fa"
                @click="expandActive ? closeChart() : expandChart()"
             >
-              expand
             </i>
 
             <!--options-->
@@ -295,6 +294,10 @@
       canScreenShot: {
         type: Boolean,
         default: true
+      },
+      expandActive: {
+        type: Boolean,
+        default: false
       }
 
     },
@@ -307,7 +310,7 @@
         suppressedHeaders: [],
 
         // flags
-        expandActive: false,
+        // expandActive: false,
         toggleColumnActive: false,
         settingsActive: false,
         screenShotActive: false,
@@ -376,7 +379,7 @@
 
       chartStateClass () {
         return {
-          'loading ': this.loading,
+          'loading': this.loading,
           'error': this.error,
           'sidebar': this.sidebarActive,
           'expanded': this.expandActive,
@@ -500,8 +503,8 @@
 
     &.sidebar > .panel {
       transform: scale(1.03);
-      .box-shadow(0 0 50px 0 fadeout(black, 85%));
-      border: solid thin @grey6;
+      @shadow: 0 0 5px rgba(0,0,0,0.06), 0 5px 10px rgba(0,0,0,0.20);
+      .box-shadow(@shadow);
     }
 
     &.screen-shot > .panel {
@@ -533,7 +536,7 @@
 
           h4 {
             color: @c-inverse;
-            font-size: 1.2em;
+            font-size: 1.1em;
           }
           h5 {
             color: @grey6;
@@ -636,6 +639,7 @@
           background: @grey1;
           border-left: solid thin @grey3;
           pointer-events: auto;
+
 
           // apply to all sidebar containers
           .sidebar-item {

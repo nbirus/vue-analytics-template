@@ -55,6 +55,7 @@
             font-weight: 500;
             text-decoration: none;
             color: fadeout(white, 25%);
+            transition: all .2s ease;
 
 
             display: flex;
@@ -67,7 +68,7 @@
             }
 
             &.is-active, &.is-active:hover {
-              color: WHITE;
+              color: white;
               background-color: darken(@nav-bg-color, 5%);
               border-left: solid 4px @c-first;
             }

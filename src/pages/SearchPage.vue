@@ -54,7 +54,7 @@
         <div class="page-body">
 
           <fullscreen ref="fullscreen" style="width: 500px; height: 400px;">
-            <template slot-scope="{ _expand, _collapse }">
+            <template slot-scope="{ _expand, _collapse, _isExpanded }">
 
               <chart-report
                 style='height: 100%'
@@ -63,6 +63,7 @@
                 chartType='pie'
                 :chartData='chartData'
                 :labelFilters="['upperCase', 'replaceUnderscores']"
+                :expandActive="_isExpanded"
 
                 @expand="_expand"
                 @collapse="_collapse"

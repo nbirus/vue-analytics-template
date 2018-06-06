@@ -37,7 +37,8 @@
             type: 'pie',
             radius: '75%',
             center: ['50%', '50%'],
-            data: []
+            data: [],
+            animation: false
           }]
         },
         expandedChartOptions: {
