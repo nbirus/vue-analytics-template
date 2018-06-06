@@ -54,28 +54,13 @@
         <div class="page-body">
 
           <report-generator
-
+            :reports="dashboard"
           >
           </report-generator>
 
-          <chart-report
-            style="width: 500px; height: 400px;"
-            id='phase'
-            chartTitle='Test Line Chart'
-            chartType='pie'
-            :chartData='chartData'
-            :labelFilters="['upperCase', 'replaceUnderscores']"
-          >
-          </chart-report>
-
         </div>
       </tab>
 
-      <tab name="Over Time">
-        <div class="page-body">
-
-        </div>
-      </tab>
 
     </tabs>
 
@@ -84,7 +69,6 @@
 
 <script>
   import AppPageHeader from '@/components/partials/AppPageHeader'
-  import ChartReport from '@/components/reporting/ChartReport'
 
   import SearchInput from '@/components/inputs/SearchInput'
   import ElasticGrid from '@/components/reporting/grid/ElasticGrid'
@@ -92,13 +76,13 @@
 
   import TestData from '../../static/data/grid-headers/test-data2.json'
   import TestColumns from '../../static/data/grid-headers/test-headers2.json'
+  import TestDashboard from '../../static/data/dashboards/test-dashboard.json'
 
   import ReportGenerator from '@/components/generators/ReportGenerator'
 
   export default {
     name: 'search-page',
     components: {
-      ChartReport,
       AppPageHeader,
       SearchInput,
       ElasticGrid,
@@ -109,43 +93,7 @@
       return {
         data: TestData,
         columns: TestColumns,
-        chartData: [
-          {'count': 1755, 'phase': 'ii'},
-          {'count': 1294, 'phase': 'i'},
-          {'count': 1138, 'phase': 'na'},
-          {'count': 663, 'phase': 'i_ii'},
-          {'count': 397, 'phase': 'iii'},
-          {'count': 47, 'phase': 'ii_iii'}
-        ],
-        data2: [
-          {
-            name: 'Grandpa',
-            children: [{
-              name: 'Uncle Leo',
-              value: 15,
-              children: [
-                {
-                  name: 'Cousin Jack',
-                  value: 2
-                },
-                {
-                  name: 'Cousin Mary',
-                  value: 5,
-                  children: [
-                    {
-                      name: 'Jackson',
-                      value: 2
-                    }
-                  ]
-                },
-                {
-                  name: 'Cousin Ben',
-                  value: 4
-                }
-              ]
-            }]
-          }
-        ]
+        dashboard: TestDashboard
       }
     },
     methods: {

@@ -2,7 +2,7 @@
   <transition-group name="dashboard-list" appear mode="out-in" class="dashboard" tag="div">
     <report-container
 
-      v-for="(report, index) in dashboard.reports" :key="index"
+      v-for="(report, index) in reports" :key="index"
 
       class="dashboard-item"
       :class="buildReportClass(report.display)"
@@ -23,8 +23,8 @@
     name: 'reporting-generator',
     components: { ReportContainer },
     props: {
-      dashboard: {
-        type: Object,
+      reports: {
+        type: Array,
         required: true
       },
       initialProps: {
@@ -57,6 +57,7 @@
     grid-auto-rows: 2.6rem;
 
     .dashboard-item {
+      height: 100%;
 
       // create span classes
       .foreach ({

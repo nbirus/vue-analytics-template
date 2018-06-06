@@ -1,186 +1,52 @@
-{
-  "dashboards": [
-    {
-      "title": "Home Dashboard",
+[
+  {
+    "id": "test-pie-chart",
+    "display": [
+      {
+        "order": 5,
+        "row": 6,
+        "col": 4
+      },
+      {
+        "order": 1,
+        "row": 1,
+        "col": 4
+      },
+      {
+        "order": 1,
+        "row": 1,
+        "col": 12
+      }
+    ],
+
+    "reportApiConfig": {
+      "headers": {},
+      "endpoint": "analytic/trials",
+      "params": {
+        "chart": "phase"
+      }
+    },
+    "reportType": "chart",
+    "reportProps": {
+
+      "id": "phase",
+      "chartType": "pie",
+      "chartTitle": "Test Chart",
+      "chartProps": {
+
+      },
+
+      "title": "Test Pie",
+      "countType": "items",
+      "theme": "cyan",
       "settings": [],
-      "reportContainers": [
-        {
-          "id": "test-item",
-          "display": [
-            {
-              "order": 1,
-              "row": 2,
-              "col": 3
-            },
-            {
-              "order": 1,
-              "row": 1,
-              "col": 4
-            },
-            {
-              "order": 1,
-              "row": 1,
-              "col": 12
-            }
-          ],
-
-          "reportApiConfig": {
-            "headers": {},
-            "endpoint": "analytic/trials",
-            "params": {
-              "chart": "person_total"
-            }
-          },
-          "reportType": "count-widget",
-          "reportProps": {
-            "title": "Total Trials",
-            "theme": "lime",
-            "icon": "book-open",
-            "size": "large"
-          }
-        },
-        {
-          "id": "test-pie-chart",
-          "display": [
-            {
-              "order": 5,
-              "row": 6,
-              "col": 4
-            },
-            {
-              "order": 1,
-              "row": 1,
-              "col": 4
-            },
-            {
-              "order": 1,
-              "row": 1,
-              "col": 12
-            }
-          ],
-
-          "reportApiConfig": {
-            "headers": {},
-            "endpoint": "analytic/trials",
-            "params": {
-              "chart": "phase"
-            }
-          },
-          "reportType": "chart-report",
-          "reportProps": {
-
-            "id": "phase",
-            "chartType": "pie",
-            "chartProps": {},
-
-            "title": "Test Pie",
-            "countType": "items",
-            "theme": "cyan",
-            "settings": [],
-            "showTotal": true,
-            "hasHeader": true,
-            "hasActionBar": true,
-            "canExpand": false,
-            "hasLegend": true,
-            "canExport": true,
-            "canScreenshot": true
-          }
-        },
-        {
-          "id": "test-vertical-bar-chart",
-          "display": [
-            {
-              "order": 5,
-              "row": 6,
-              "col": 4
-            },
-            {
-              "order": 1,
-              "row": 1,
-              "col": 4
-            },
-            {
-              "order": 1,
-              "row": 1,
-              "col": 12
-            }
-          ],
-
-          "reportApiConfig": {
-            "headers": {},
-            "endpoint": "analytic/trials",
-            "params": {
-              "chart": "phase"
-            }
-          },
-          "reportType": "chart-report",
-          "reportProps": {
-
-            "id": "phase",
-            "chartType": "vertical-bar",
-            "chartProps": {},
-
-            "title": "Test Vertical Bar",
-            "countType": "items",
-            "theme": "inverse",
-            "settings": [],
-            "showTotal": true,
-            "hasHeader": true,
-            "hasActionBar": true,
-            "canExpand": false,
-            "hasLegend": true,
-            "canExport": true,
-            "canScreenshot": true
-          }
-        },
-        {
-          "id": "test-horizontal-bar-chart",
-          "display": [
-            {
-              "order": 5,
-              "row": 6,
-              "col": 5
-            },
-            {
-              "order": 1,
-              "row": 1,
-              "col": 4
-            },
-            {
-              "order": 1,
-              "row": 1,
-              "col": 12
-            }
-          ],
-
-          "reportApiConfig": {
-            "headers": {},
-            "endpoint": "analytic/trials",
-            "params": {
-              "chart": "phase"
-            }
-          },
-          "reportType": "chart-report",
-          "reportProps": {
-
-            "id": "phase",
-            "chartType": "horizontal-bar",
-            "chartProps": {},
-
-            "title": "Test Horizontal Bar",
-            "countType": "items",
-            "theme": "purple",
-            "settings": [],
-            "showTotal": true,
-            "hasHeader": true,
-            "hasActionBar": true,
-            "canExpand": false,
-            "hasLegend": true,
-            "canExport": true,
-            "canScreenshot": true
-          }
-        }
-      ]
+      "showTotal": true,
+      "hasHeader": true,
+      "hasActionBar": true,
+      "canExpand": false,
+      "hasLegend": true,
+      "canExport": true,
+      "canScreenshot": true
     }
-  ]
-}
+  }
+]
