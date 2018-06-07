@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import { isNil, isArray, isObject, has } from 'lodash'
+  import { isNil, has } from 'lodash'
   import { validationMixin } from 'vuelidate'
   import { validators, errors } from '@/services/ValidationService'
 
@@ -151,14 +151,14 @@
       },
 
       // formatting
-      getFormattedInputValues () {
+      getFormattedInputValues (formattingFunction) {
 
         return Object
           .keys(this.inputValues)
           .reduce((result, key) => {
 
-            // remap return object to format value if needed
-            result[key] = this.formatField(
+            formattingFunction(
+              result,
               this.schema.find(input => input.id === key), // find associated input
               this.inputValues[key] // pass value
             )
@@ -166,22 +166,6 @@
             return result
           }, {})
 
-      },
-      formatField (input, value) {
-
-        let labelValueTypes = ['select', 'checkbox', 'radio']
-
-        // check the type to see if it needs formatting
-        if (labelValueTypes.includes(input.type)) {
-
-          // if an array of objects, loop over each one
-          if (isArray(value)) value = value.map(item => item.value)
-
-          // if a single object, extract value field
-          else if (isObject(value)) value = value.value
-        }
-
-        return value
       },
 
       // form actions
@@ -197,17 +181,16 @@
         this.$emit('update:initialValues', this.inputValues)
       },
       submitForm () {
-
         if (this.isFormValid()) {
           this.$emit('formSubmit', this.inputValues)
         }
-
       },
       resetForm () {
         this.inputValues = {}
         this.createInitialInputValues()
         this.$emit('formCancel')
       }
+
     }
   }
 </script>

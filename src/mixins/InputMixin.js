@@ -1,13 +1,6 @@
-const defaultValues = {
-  'text-input': '',
-  'checkbox-input': [],
-  'radio-input': '',
-  'pill-input': '',
-  'form-list-input': [],
-  'datepicker-input': [],
-  'select-input': undefined, // depends on props, defined in the component
-  'color-input': ''
-}
+import FormService from '@/services/FormService'
+
+
 
 export default {
   props: {
@@ -15,8 +8,8 @@ export default {
     inputValue: {
       required: false,
       default () {
-        // pull default value from list above
-        return defaultValues[this.$options.name]
+        // pull in default value
+        return FormService.inputModel[this.$options.name.split('-input')[0]].default
       }
     },
 

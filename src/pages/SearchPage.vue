@@ -79,12 +79,12 @@
         <h2>Advanced Search</h2>
 
         <form-generator
-          formLayout="horizontal"
-
+          ref="advancedSearchForm"
           :schema="form"
           :initialValues="searchObject"
 
           @formSubmit="advancedSubmit"
+          @formChanged="advancedChanged"
           @formCancel="advancedActive = false"
         >
         </form-generator>
@@ -92,7 +92,11 @@
       </div>
 
       <div class="summary-container">
-
+        <form-summary
+          :schema="form"
+          :model="activeSearchObject"
+        >
+        </form-summary>
       </div>
 
     </div>
@@ -116,6 +120,8 @@
 
   import ReportGenerator from '@/components/generators/ReportGenerator'
   import FormGenerator from '@/components/generators/FormGenerator'
+  import FormSummary from '@/components/utils/FormSummary'
+  import FormService from '@/services/FormService'
 
   export default {
     name: 'search-page',
@@ -125,7 +131,8 @@
       ElasticGrid,
       LocalGrid,
       ReportGenerator,
-      FormGenerator
+      FormGenerator,
+      FormSummary
     },
     data () {
       return {
@@ -137,10 +144,19 @@
 
         searchString: '',
         searchObject: {},
+        activeSearchObject: {},
         advancedActive: false
       }
     },
     methods: {
+      advancedChanged (queryObject) {
+
+        let result = this.$refs.advancedSearchForm.getFormattedInputValues(FormService.visialFormFormatter)
+        this.activeSearchObject = result
+
+        // console.log(queryObject)
+
+      },
       advancedSubmit (queryObject) {
 
         let searchString = SearchString.parse('')
@@ -186,8 +202,10 @@
 
     .summary-container {
       flex: 0 1 100%;
-
+      max-width: 700px;
+      
       border-left: solid thin @grey2;
+      padding: 0 3em;
     }
   }
 

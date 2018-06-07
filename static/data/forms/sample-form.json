@@ -2,7 +2,7 @@
   {
     "type": "text",
     "id": "keyword",
-    "label": "Keyword Search",
+    "label": "Keyword",
     "placeholder": "Search on anything"
   },
   {
@@ -10,5 +10,19 @@
     "id": "other",
     "label": "Another Input",
     "placeholder": "Another Input"
+  },
+  {
+    "type": "select",
+    "id": "select-1",
+    "label": "Select",
+
+    "hasLabel": true,
+    "multiselect": true,
+    "optionSource": "props",
+    "options": [
+      {"label": "One", "value": "one"},
+      {"label": "Two", "value": "two"},
+      {"label": "Three", "value": "three"}
+    ]
   }
 ]
