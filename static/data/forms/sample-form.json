@@ -13,7 +13,7 @@
   },
   {
     "type": "select",
-    "id": "select-1",
+    "id": "select",
     "label": "Select",
 
     "hasLabel": true,

@@ -23,6 +23,9 @@ const inputModel = {
     default: undefined,
     visual: (result, schema, value) => {
       result[schema.id] = value.map(item => (item.label)).join(', and ')
+    },
+    api: (result, schema, value) => {
+      result[schema.id] = value.map(item => (item.value)).join(',')
     }
   },
   'color-picker': {

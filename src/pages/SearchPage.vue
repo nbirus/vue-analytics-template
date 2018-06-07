@@ -14,8 +14,9 @@
           <search-input
             class="search-input"
             :inputValue="searchString"
+
+            @changed="keywordChanged"
             @submit="keywordSubmit"
-            @changed="keywordSubmit"
           >
           </search-input>
         </div>
@@ -79,9 +80,9 @@
         <h2>Advanced Search</h2>
 
         <form-generator
-          ref="advancedSearchForm"
+          ref="advancedForm"
           :schema="form"
-          :initialValues="searchObject"
+          :initialValues="formObject"
 
           @formSubmit="advancedSubmit"
           @formChanged="advancedChanged"
@@ -94,7 +95,7 @@
       <div class="summary-container">
         <form-summary
           :schema="form"
-          :model="activeSearchObject"
+          :model="visualObject"
         >
         </form-summary>
       </div>
@@ -142,22 +143,45 @@
         dashboard: TestDashboard,
         form: TestForm,
 
+        // form
         searchString: '',
-        searchObject: {},
-        activeSearchObject: {},
+        formObject: {},
+        visualObject: {},
+
         advancedActive: false
       }
     },
     methods: {
-      advancedChanged (queryObject) {
 
-        let result = this.$refs.advancedSearchForm.getFormattedInputValues(FormService.visialFormFormatter)
-        this.activeSearchObject = result
-
-        // console.log(queryObject)
-
+      // advanced
+      advancedChanged () {
+        this.visualObject = this.$refs.advancedForm.getFormattedInputValues(FormService.visialFormFormatter)
       },
       advancedSubmit (queryObject) {
+
+        // set form object for persistence
+        this.formObject = queryObject
+
+        // set form search string
+        this.searchString = this.stringifySearch(
+          this.$refs.advancedForm.getFormattedInputValues(FormService.apiFormFormatter)
+        )
+
+        // close advanced search
+        this.advancedActive = false
+
+      },
+
+      // keyword
+      keywordSubmit (searchString) {
+        this.paramifySearch(searchString)
+      },
+      keywordChanged (searchString) {
+        this.searchString = searchString
+      },
+
+      // converting
+      stringifySearch (queryObject) {
 
         let searchString = SearchString.parse('')
 
@@ -165,12 +189,33 @@
           searchString.addEntry(key, queryObject[key], false)
         })
 
-        this.searchObject = queryObject
-        this.searchString = searchString.clone().toString()
-        this.advancedActive = false
+        return searchString.clone().toString()
+
       },
-      keywordSubmit (searchString) {
-        this.searchString = searchString
+      paramifySearch (searchString) {
+
+        let searchObject = SearchString.parse(searchString)
+
+        let result = {}
+
+        // correctly formatted
+        searchObject.conditionArray.forEach(item => {
+          result[item.keyword] = item.value
+        })
+
+        // random text segments
+        if (searchObject.textSegments.length) {
+
+          // if keyword exists add space, otherwise initialize
+          result['keyword'] = result.hasOwnProperty('keyword') ? `${result.keyword} ` : ''
+
+          // build up keyword
+          result.keyword += searchObject.textSegments.map(item => item.text).join(' ')
+
+        }
+
+        return searchObject
+
       }
     }
   }
@@ -203,7 +248,7 @@
     .summary-container {
       flex: 0 1 100%;
       max-width: 700px;
-      
+
       border-left: solid thin @grey2;
       padding: 0 3em;
     }

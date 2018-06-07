@@ -5,7 +5,7 @@
     <form
       class="input-form-group"
       :class="{'focus-active': focusActive}"
-      @submit.prevent="$updateValue($refs.input.value)"
+      @submit.prevent="$emit('submit', $refs.input.value)"
     >
 
       <div class="icon">
@@ -21,6 +21,7 @@
           type="text"
           placeholder="Search"
           autocomplete="off"
+          spellcheck="false"
 
           :value="inputValue"
           @input="event => $updateValue(event.target.value)"
