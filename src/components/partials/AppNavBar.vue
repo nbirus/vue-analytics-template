@@ -39,14 +39,20 @@
 
   .nav-bar {
     .horizontal-gradient(@nav-bg-color, darken(@nav-bg-color, 3%));
+    position: relative;
 
     .navigation {
+      position: absolute;
 
       .nav-items {
         display: flex;
         flex-direction: column;
 
+        position: fixed;
+        width: @nav-width;
+
         li {
+
           a {
             padding: 1.2rem 0 1rem;
             margin: 0;

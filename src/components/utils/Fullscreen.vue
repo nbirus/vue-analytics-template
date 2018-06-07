@@ -86,7 +86,6 @@
       position: fixed;
       top: 0; right: 0; bottom: 0; left: 0;
       background-color: fadeout(black, 83%);
-      z-index: 1;
     }
 
     .child {
@@ -94,18 +93,18 @@
     }
 
     &.expanded {
-      z-index: 1060;
+      z-index: 3;
+      position: relative;
 
       .child {
-        animation: expand .6s cubic-bezier(1,.05,.11,.99);
+        // animation: expand .6s cubic-bezier(1,.05,.11,.99);
 
         &.expanded {
           position: fixed;
           top: 3rem; left: 3rem;
-          z-index: 2;
           width: calc(~'100% - 6rem'); height: calc(~'100% - 6rem');
+          z-index: 5;
         }
-
       }
     }
   }
@@ -114,13 +113,15 @@
 
     0% {
       position: relative;
-      // transform: rotateY(0);
+      transform: rotateY(0);
       transform: scale(1);
+      width: 100%!important; height: 100%!important;
+      top: 0!important; left: 0!important;
 
       opacity: 1;
     }
     40% {
-      // transform: rotateY(180deg);
+      transform: rotateY(180deg);
       transform: scale(1.2);
       opacity: 0;
     }
@@ -128,15 +129,12 @@
       position: relative;
       transform: scale(1.2);
 
-      position: relative;
       width: 100%; height: 100%;
       top: initial; left: initial;
     }
     50% {
       transform: scale(.8);
       position: fixed;
-      top: 4rem; left: 4rem;
-      width: calc(~'100% - 8rem'); height: calc(~'100% - 8rem');
     }
     60% {
       transform: scale(.8);

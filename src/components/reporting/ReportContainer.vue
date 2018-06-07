@@ -8,7 +8,7 @@
 
         :loading="_state.loading"
         :error="_state.error"
-        :chartData="_response.analytics"
+        :chartData="[]"
 
         v-bind="reportProps"
 

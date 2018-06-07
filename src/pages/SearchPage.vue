@@ -15,6 +15,7 @@
             class="search-input"
             :inputValue="searchString"
             @submit="keywordSubmit"
+            @changed="keywordSubmit"
           >
           </search-input>
         </div>
@@ -26,11 +27,11 @@
     <!--tabs-->
     <tabs theme="cyan" pageHeader>
 
-      <!--<div slot="extra-options">-->
-        <!--<div class="extra-options">-->
-          <!--<a class="option" @click="advancedActive = true">Advanced Search</a>-->
-        <!--</div>-->
-      <!--</div>-->
+      <div slot="extra-options">
+        <div class="extra-options">
+          <a class="option" @click="advancedActive = true">Advanced Search</a>
+        </div>
+      </div>
 
       <tab name="Grid">
         <div class="page-body">
@@ -68,7 +69,6 @@
 
         </div>
       </tab>
-
     </tabs>
 
     <!--advanced search-->
@@ -153,8 +153,8 @@
         this.searchString = searchString.clone().toString()
         this.advancedActive = false
       },
-      keywordSubmit (query) {
-        console.log(query)
+      keywordSubmit (searchString) {
+        this.searchString = searchString
       }
     }
   }

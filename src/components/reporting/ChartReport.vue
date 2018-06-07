@@ -189,11 +189,11 @@
                 <div class="sidebar-body screen-shot">
 
                   <form-generator
-                    :inputs="screenShotForm"
+                    :schema="screenShotForm"
                     :initialValues.sync="initialScreenShotValues"
 
-                    @formSubmitted="createScreenShot"
-                    @formReset="screenShotActive = false"
+                    @formSubmit="createScreenShot"
+                    @formCancel="screenShotActive = false"
                   ></form-generator>
 
                 </div>

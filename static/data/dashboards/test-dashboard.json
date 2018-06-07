@@ -43,7 +43,7 @@
       "showTotal": true,
       "hasHeader": true,
       "hasActionBar": true,
-      "canExpand": false,
+      "canExpand": true,
       "hasLegend": true,
       "canExport": true,
       "canScreenshot": true

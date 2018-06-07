@@ -7,21 +7,8 @@
   },
   {
     "type": "text",
-    "id": "test",
-    "label": "Test",
-    "placeholder": "TEST"
-  },
-  {
-    "type": "select",
-    "id": "select-1",
-    "label": "Select Input Inline No Label",
-
-    "multiselect": true,
-    "optionSource": "props",
-    "options": [
-      "One",
-      "Two",
-      "Three"
-    ]
+    "id": "other",
+    "label": "Another Input",
+    "placeholder": "Another Input"
   }
 ]

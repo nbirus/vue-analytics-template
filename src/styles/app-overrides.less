@@ -93,3 +93,9 @@ hr {
 [tabindex="-1"]:focus {
   outline: none !important;
 }
+
+
+// hack to get fullscreen to work
+body.modal-open > #app > .content {
+  z-index: 4;
+}

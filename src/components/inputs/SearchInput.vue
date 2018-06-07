@@ -23,6 +23,7 @@
           autocomplete="off"
 
           :value="inputValue"
+          @input="event => $updateValue(event.target.value)"
           @focus="focusActive = true"
           @blur="focusActive = false"
         />

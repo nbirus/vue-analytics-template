@@ -61,7 +61,7 @@
   @import (reference) '../../styles/app-helper.less';
 
   .header {
-    padding: 0 1.3rem;
+    padding: .5rem 1.3rem;
     background-color: white;
 
     display: flex;
@@ -69,7 +69,6 @@
     align-items: center;
 
     .box-shadow(0 1px 4px fadeout(black, 80%));
-    z-index: 1;
 
     .identity {
       flex: 0 0 auto;

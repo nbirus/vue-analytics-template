@@ -1,13 +1,11 @@
 <template>
   <div id="app" :class="{'hide-nav': !hasNav}">
 
-    <app-header></app-header>
+    <!--bread crumbs-->
+    <!--<app-bread-crumbs v-if="showHeader"></app-bread-crumbs>-->
 
     <!-- nav bar -->
     <app-nav-bar></app-nav-bar>
-
-    <!--bread crumbs-->
-    <!--<app-bread-crumbs v-if="showHeader"></app-bread-crumbs>-->
 
     <!-- page content -->
     <div class="content">
@@ -22,6 +20,10 @@
 
     </div>
 
+    <!-- header -->
+    <app-header></app-header>
+
+    <!-- progress bar -->
     <vue-progress-bar></vue-progress-bar>
 
   </div>
