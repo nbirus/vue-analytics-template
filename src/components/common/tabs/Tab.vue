@@ -1,5 +1,5 @@
 <template>
-  <section v-if="isActive"
+  <section v-show="isActive"
            :aria-hidden="!isActive"
            :id="hash"
            role="tabpanel"

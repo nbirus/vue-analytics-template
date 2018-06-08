@@ -1,7 +1,6 @@
 'use strict'
 
 import axios from 'axios'
-import { cacheAdapterEnhancer, throttleAdapterEnhancer } from 'axios-extensions'
 
 let querystring = require('querystring')
 
@@ -35,9 +34,7 @@ let get = (config) => {
     endpoint: config.endpoint || defaultConfig.endpoint,
     headers: config.headers || setDefaultHeader(),
     responseType: config.responseType || '',
-    cancelToken: source.token,
-    adapter: throttleAdapterEnhancer(cacheAdapterEnhancer(axios.defaults.adapter, true)),
-    cache: true
+    cancelToken: source.token
   }
 
   // make request
@@ -70,8 +67,7 @@ let cancelPendingAPIRequests = () => {
 // if no header is passed in, replace it with the authorization header from localStorage
 function setDefaultHeader () {
   return {
-    'Cache-Control': 'no-cache'
-    // 'Authorization': 'Bearer ' + localStorage.getItem('id_token')
+    'Authorization': 'Bearer ' + ''
   }
 }
 

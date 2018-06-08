@@ -6,23 +6,23 @@
     "placeholder": "Search on anything"
   },
   {
-    "type": "text",
-    "id": "other",
-    "label": "Another Input",
-    "placeholder": "Another Input"
+    "type": "select",
+    "id": "current_trial_status",
+    "label": "Trial Status",
+    "optionSource": "file",
+    "optionPath": "trial_status",
+    "placeholder": "Select one or more statuses",
+    "hasLabel": true,
+    "multiselect": true
   },
   {
     "type": "select",
-    "id": "select",
-    "label": "Select",
-
+    "id": "study_source",
+    "label": "Study Source",
+    "optionSource": "file",
+    "optionPath": "study_source",
+    "placeholder": "Select one or more statuses",
     "hasLabel": true,
-    "multiselect": true,
-    "optionSource": "props",
-    "options": [
-      {"label": "One", "value": "one"},
-      {"label": "Two", "value": "two"},
-      {"label": "Three", "value": "three"}
-    ]
+    "multiselect": true
   }
 ]

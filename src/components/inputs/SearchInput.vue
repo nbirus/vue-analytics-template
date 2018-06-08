@@ -19,7 +19,6 @@
           id="search-input"
           class="form-control"
           type="text"
-          placeholder="Search"
           autocomplete="off"
           spellcheck="false"
 

@@ -3,8 +3,8 @@
 
     <!--header-->
     <app-page-header
-      title="Search"
-      subTitle="This is a search page to search stuff"
+      title="Trial Search"
+      subTitle="Search trials"
       theme="cyan"
       hasTabs
     >
@@ -36,15 +36,15 @@
 
       <tab name="Grid">
         <div class="page-body">
-          <local-grid
+          <elastic-grid
             class="grid"
-
             id="search-grid"
 
-            :rows="data"
             :columns="columns"
+            :apiConfig="apiConfig"
 
             :canSort="true"
+            :canExport="false"
             :canResizeColumns="true"
             :canMoveColumns="false"
             :paginate="true"
@@ -53,7 +53,6 @@
             :canToggleColumns="true"
             :canSelect="false"
             :canSelectMultiple="false"
-
             :showRowDetail="false"
           />
         </div>
@@ -65,6 +64,7 @@
 
           <report-generator
             :reports="dashboard"
+            :initialParams="reportsParams"
           >
           </report-generator>
 
@@ -107,14 +107,12 @@
 
 <script>
   import AppPageHeader from '@/components/partials/AppPageHeader'
-
   import SearchInput from '@/components/inputs/SearchInput'
   import ElasticGrid from '@/components/reporting/grid/ElasticGrid'
-  import LocalGrid from '@/components/reporting/grid/LocalGrid'
 
-  import TestData from '../../static/data/grid-headers/test-data2.json'
-  import TestColumns from '../../static/data/grid-headers/test-headers2.json'
-  import TestDashboard from '../../static/data/dashboards/test-dashboard.json'
+  import TrialHeaders from '../../static/data/grid-headers/trial-headers.json'
+  import Dashboard from '../../static/data/dashboards/strap-dashboard.json'
+
   import TestForm from '../../static/data/forms/sample-form.json'
 
   import SearchString from 'search-string'
@@ -124,31 +122,57 @@
   import FormSummary from '@/components/utils/FormSummary'
   import FormService from '@/services/FormService'
 
+  import { cloneDeep } from 'lodash'
+
   export default {
     name: 'search-page',
     components: {
       AppPageHeader,
       SearchInput,
       ElasticGrid,
-      LocalGrid,
       ReportGenerator,
       FormGenerator,
       FormSummary
     },
     data () {
       return {
-        data: TestData,
-        columns: TestColumns,
 
-        dashboard: TestDashboard,
+        // grid columns
+        columns: TrialHeaders,
+
+        dashboard: Dashboard,
         form: TestForm,
 
         // form
         searchString: '',
         formObject: {},
         visualObject: {},
+        apiObject: {},
 
         advancedActive: false
+      }
+    },
+    computed: {
+      apiConfig () {
+        return {
+          baseURL: 'http://localhost:3003/api/v2/',
+          endpoint: 'trials',
+          params: {
+            ...this.apiObject
+          }
+        }
+      },
+      reportsParams () {
+
+        let params = cloneDeep(this.apiConfig.params)
+
+        delete params['include']
+        delete params['from']
+        delete params['to']
+        delete params['sort']
+        delete params['order']
+
+        return params
       }
     },
     methods: {
@@ -160,7 +184,7 @@
       advancedSubmit (queryObject) {
 
         // set form object for persistence
-        this.formObject = queryObject
+        this.formObject = cloneDeep(queryObject)
 
         // set form search string
         this.searchString = this.stringifySearch(
@@ -170,11 +194,15 @@
         // close advanced search
         this.advancedActive = false
 
+        // run query
+        this.keywordSubmit(this.searchString)
+
+
       },
 
       // keyword
       keywordSubmit (searchString) {
-        this.paramifySearch(searchString)
+        this.apiObject = cloneDeep(this.paramifySearch(searchString))
       },
       keywordChanged (searchString) {
         this.searchString = searchString
@@ -195,28 +223,43 @@
       paramifySearch (searchString) {
 
         let searchObject = SearchString.parse(searchString)
-
         let result = {}
+
+        console.log(searchObject)
 
         // correctly formatted
         searchObject.conditionArray.forEach(item => {
-          result[item.keyword] = item.value
+
+          let value = item.value
+
+          try {
+            value = value.split(',')
+          }
+          catch (error) {
+            console.log(error)
+          }
+
+          result[item.keyword] = value
         })
 
         // random text segments
         if (searchObject.textSegments.length) {
 
           // if keyword exists add space, otherwise initialize
-          result['keyword'] = result.hasOwnProperty('keyword') ? `${result.keyword} ` : ''
+          result['_keyword'] = result.hasOwnProperty('_keyword') ? `${result._keyword} ` : ''
 
           // build up keyword
-          result.keyword += searchObject.textSegments.map(item => item.text).join(' ')
+          result._keyword += searchObject.textSegments.map(item => item.text).join(' ')
 
         }
 
-        return searchObject
+        console.log(result)
+
+
+        return result
 
       }
+
     }
   }
 
@@ -281,7 +324,7 @@
     /*overflow: hidden;*/
 
     & > .grid {
-      height: 80vh;
+      height: 90vh;
     }
   }
 

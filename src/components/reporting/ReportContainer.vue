@@ -1,5 +1,5 @@
 <template>
-  <data-wrapper :apiConfig="reportApiConfig">
+  <data-wrapper :apiConfig="activeConfig">
     <template slot-scope="{ _response, _state }">
 
       <!-- ------- chart report ------- -->
@@ -8,7 +8,7 @@
 
         :loading="_state.loading"
         :error="_state.error"
-        :chartData="[]"
+        :chartData="_response.analytics"
 
         v-bind="reportProps"
 
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+  import { cloneDeep, merge } from 'lodash'
   import ChartReport from '@/components/reporting/ChartReport'
   import CountWidget from '@/components/reporting/widgets/CountWidget'
   import ProgressWidget from '@/components/reporting/widgets/ProgressWidget'
@@ -55,6 +56,21 @@
       reportProps: {
         type: Object,
         required: true
+      },
+      initialParams: {
+        type: Object,
+        required: true
+      }
+    },
+    computed: {
+      activeConfig () {
+        return {
+          ...cloneDeep(this.reportApiConfig),
+          params: merge(
+            this.initialParams,
+            this.reportApiConfig.params
+          )
+        }
       }
     }
   }

@@ -1,109 +1,52 @@
-{
-  "settings": [],
-  "reports": [
-    {
-      "id": "total-trials",
-      "display": [
-        {
-          "order": 1,
-          "row": 2,
-          "col": 3
-        },
-        {
-          "order": 1,
-          "row": 1,
-          "col": 4
-        },
-        {
-          "order": 1,
-          "row": 1,
-          "col": 12
-        }
-      ],
-
-      "reportApiConfig": {
-
-        "endpoint": "analytics/trials",
-        "params": {
-          "chart": "trial_total"
-        }
+[
+  {
+    "id": "test-pie-chart",
+    "display": [
+      {
+        "order": 5,
+        "row": 7,
+        "col": 6
       },
-      "reportType": "count-widget",
-      "reportProps": {
-        "title": "Total Trials",
-        "theme": "inverse",
-        "icon": "book-open",
-        "size": "large"
+      {
+        "order": 1,
+        "row": 1,
+        "col": 4
+      },
+      {
+        "order": 1,
+        "row": 1,
+        "col": 12
+      }
+    ],
+
+    "reportApiConfig": {
+      "baseURL": "http://localhost:3009/api/v2/",
+      "endpoint": "analytics/trials",
+      "params": {
+        "chart": "phase"
       }
     },
-    {
-      "id": "total-trials",
-      "display": [
-        {
-          "order": 1,
-          "row": 2,
-          "col": 3
-        },
-        {
-          "order": 1,
-          "row": 1,
-          "col": 4
-        },
-        {
-          "order": 1,
-          "row": 1,
-          "col": 12
-        }
-      ],
+    "reportType": "chart",
+    "reportProps": {
 
-      "reportApiConfig": {
+      "id": "phase",
+      "chartType": "pie",
+      "chartTitle": "Test Chart",
+      "chartProps": {
 
-        "endpoint": "analytics/trials",
-        "params": {
-          "chart": "organization_total"
-        }
       },
-      "reportType": "count-widget",
-      "reportProps": {
-        "title": "Total Organizations",
-        "theme": "cyan",
-        "icon": "organization",
-        "size": "large"
-      }
-    },
-    {
-      "id": "total-trials",
-      "display": [
-        {
-          "order": 1,
-          "row": 2,
-          "col": 3
-        },
-        {
-          "order": 1,
-          "row": 1,
-          "col": 4
-        },
-        {
-          "order": 1,
-          "row": 1,
-          "col": 12
-        }
-      ],
 
-      "reportApiConfig": {
-
-        "endpoint": "analytics/trials",
-        "params": {
-          "chart": "person_total"
-        }
-      },
-      "reportType": "count-widget",
-      "reportProps": {
-        "title": "Total Persons",
-        "theme": "purple",
-        "icon": "user"
-      }
+      "title": "Test Pie",
+      "countType": "items",
+      "theme": "cyan",
+      "settings": [],
+      "showTotal": true,
+      "hasHeader": true,
+      "hasActionBar": true,
+      "canExpand": true,
+      "hasLegend": true,
+      "canExport": true,
+      "canScreenshot": true
     }
-  ]
-}
+  }
+]

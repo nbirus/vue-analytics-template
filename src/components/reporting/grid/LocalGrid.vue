@@ -7,6 +7,8 @@
     :pageSize="pageSize"
     :pageSort="pageSort"
 
+    :rowTotal="rows.length"
+
     :canExport="false"
 
     @sortChanged="changeSort"

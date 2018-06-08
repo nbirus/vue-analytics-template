@@ -11,6 +11,8 @@
       :reportApiConfig="report.reportApiConfig"
       :reportType="report.reportType"
       :reportProps="report.reportProps"
+
+      :initialParams="initialParams"
     >
     </report-container>
   </transition-group>
@@ -27,7 +29,7 @@
         type: Array,
         required: true
       },
-      initialProps: {
+      initialParams: {
         type: Object,
         default () { return {} }
       }

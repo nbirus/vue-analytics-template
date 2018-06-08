@@ -7,7 +7,8 @@
 
         :loading="_state.loading"
         :error="_state.error"
-        :rows="_response"
+        :rows="_response.data"
+        :rowTotal="_response.total"
 
         :pageNumber="pageNumber"
         :pageSize="pageSize"
@@ -22,7 +23,7 @@
 </template>
 
 <script>
-  import { merge } from 'lodash'
+  import { cloneDeep } from 'lodash'
   import Grid from './Grid'
   import GridMixin from '@/mixins/GridMixin'
 
@@ -38,28 +39,42 @@
     },
     computed: {
       activeConfig () {
-        return merge(
-          this.apiConfig
-        )
+        return {
+          ...cloneDeep(this.apiConfig),
+          params: this.activeParams
+        }
+      },
+      activeParams () {
+        return {
+          ...cloneDeep(this.apiConfig.params),
+          include: this.includes,
+          from: this.pageNumber * this.pageSize,
+          size: this.pageSize,
+          sort: this.pageSort.colId,
+          order: this.pageSort.sort
+        }
+      },
+      includes () {
+        return this.columns.map(column => column.field)
       }
     },
     methods: {
 
       // sort
       changeSort (model) {
-        console.log(model)
+        this.pageSort = model[0] || {}
         this.$saveGridState()
       },
 
       // page size
       changePageSize (pageSize) {
-        console.log(pageSize)
+        this.pageSize = pageSize
         this.$saveGridState()
       },
 
       // page number
       changePageNumber (pageNumber) {
-        console.log(pageNumber)
+        this.pageNumber = pageNumber
         this.$saveGridState()
       }
 

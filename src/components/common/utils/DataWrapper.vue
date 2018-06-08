@@ -6,7 +6,6 @@
 
 <script>
   import DataMixin from '@/mixins/DataMixin'
-  import TestData from '../../../../static/data/grid-headers/test-data2.json'
 
   export default {
     name: 'data-wrapper',
@@ -19,8 +18,7 @@
     },
     data () {
       return {
-        response: {},
-        TestData: TestData
+        response: {}
       }
     },
     mounted () {
@@ -28,16 +26,23 @@
     },
     methods: {
       async getData () {
+        console.log(this.apiConfig)
         try {
           this.state.loading = true
-          // this.response = await this.$get(this.apiConfig)
-          this.response = this.TestData
-
+          this.response = await this.$get(this.apiConfig)
           this.state.loading = false
         }
         catch (error) {
           this.$throwError(error)
         }
+      }
+    },
+    watch: {
+      apiConfig: {
+        handler () {
+          this.getData()
+        },
+        deep: true
       }
     }
   }

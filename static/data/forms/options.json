@@ -4,5 +4,34 @@
     { "label": "Label 2", "value": "label-2" },
     { "label": "Label 3", "value": "label-3" },
     { "label": "Label 4", "value": "label-4" }
+  ],
+  "trial_status": [
+    { "label": "Active", "value": "ACTIVE"},
+    { "label": "Available", "value": "AVAILABLE"},
+    { "label": "Approved for Marketing", "value": "APPROVED_FOR_MARKETING"},
+    { "label": "Approved", "value": "APPROVED"},
+    { "label": "Administratively Complete", "value": "ADMINISTRATIVELY_COMPLETE"},
+    { "label": "Closed to Accrual", "value": "CLOSED_TO_ACCRUAL"},
+    { "label": "Completed", "value": "COMPLETE"},
+    { "label": "Closed to Accrual and Intervention", "value": "CLOSED_TO_ACCRUAL_AND_INTERVENTION"},
+    { "label": "Enrolling by Invitation", "value": "ENROLLING_BY_INVITATION"},
+    { "label": "In Review", "value": "IN_REVIEW"},
+    { "label": "No Longer Available", "value": "NO_LONGER_AVAILABLE"},
+    { "label": "Temporarily Closed to Accrual", "value": "TEMPORARILY_CLOSED_TO_ACCRUAL"},
+    { "label": "Temporarily Closed to Accrual and Intervention", "value": "TEMPORARILY_CLOSED_TO_ACCRUAL_AND_INTERVENTION"},
+    { "label": "Temporarily not Available", "value": "TEMPORARILY_NOT_AVAILABLE"},
+    { "label": "Withdrawn", "value": "WITHDRAWN"},
+    { "label": "Unknown", "value": "UNKNOWN"}
+  ],
+  "trial_type": [
+    { "label": "All", "value": "all"},
+    { "label": "Interventional", "value": "true"},
+    { "label": "Non-interventional", "value": "false"}
+  ],
+  "study_source": [
+    { "label": "National", "value": "NATIONAL"},
+    { "label": "Institutional", "value": "INSTITUTIONAL"},
+    { "label": "Externally Peer Reviewed", "value": "EXTERNALLY_PEER_REVIEWED"},
+    { "label": "Industrial", "value": "INDUSTRIAL"}
   ]
 }

@@ -1,0 +1,168 @@
+[
+  {
+  "field": "nci_id",
+  "headerName": "NCI ID",
+  "link": "trial",
+  "show": true,
+  "suppressSizeToFit": true,
+  "source": "raw",
+  "width": 130
+  },
+  {
+  "field": "nct_id",
+  "headerName": "NCT ID",
+  "show": true,
+  "source": "raw",
+  "suppressSizeToFit": true,
+  "width": 120
+  },
+  {
+  "field": "lead_organization_id",
+  "headerName": "Lead Organization ID",
+  "show": false,
+  "suppressSorting": true,
+  "source": "raw",
+  "width": 150
+  },
+  {
+  "field": "ctep_id",
+  "headerName": "CTEP ID",
+  "show": false,
+  "source": "raw",
+  "suppressSizeToFit": true,
+  "width": 80
+  },
+  {
+  "field": "dcp_id",
+  "headerName": "DCP ID",
+  "show": false,
+  "source": "raw",
+  "suppressSizeToFit": true,
+  "width": 80
+  },
+  {
+  "field": "ccr_id",
+  "headerName": "CCR ID",
+  "show": false,
+  "source": "raw",
+  "suppressSizeToFit": true,
+  "width": 80
+  },
+  {
+  "field": "title",
+  "headerName": "Official Title",
+  "show": false,
+  "source": "raw",
+  "title": true,
+  "width": 600
+  },
+  {
+  "field": "public_title",
+  "headerName": "Brief Title",
+  "show": true,
+  "source": "raw",
+  "title": true,
+  "width": 600
+  },
+  {
+  "field": "phase",
+  "headerName": "Phase",
+  "show": false,
+  "source": "raw",
+  "width": 50
+  },
+  {
+  "field": "trial_type",
+  "headerName": "Trial Type",
+  "show": false,
+  "source": "raw",
+  "suppressSizeToFit": true,
+  "width": 110
+  },
+  {
+  "field": "primary_purpose",
+  "headerName": "Primary Purpose",
+  "show": false,
+  "source": "raw",
+  "suppressSizeToFit": true,
+  "titleCase": true,
+  "width": 110
+  },
+  {
+  "field": "study_source",
+  "headerName": "Study Source",
+  "show": false,
+  "source": "raw",
+  "suppressSizeToFit": true,
+  "titleCase": true,
+  "width": 110
+  },
+  {
+  "field": "current_trial_status",
+  "headerName": "Trial Status",
+  "show": true,
+  "sortable": false,
+  "source": "raw",
+  "width": 250,
+  "titleCase": true
+  },
+  {
+  "field": "current_trial_status_date",
+  "headerName": "Trial Status Date",
+  "show": false,
+  "sortable": false,
+  "source": "raw",
+  "width": 110,
+  "humanDate": true
+  },
+  {
+  "field": "principal_investigators",
+  "headerName": "Principal Investigators",
+  "suppressSorting": true,
+  "show": false,
+  "source": "raw",
+  "renderer": "person",
+  "width": 300
+  },
+  {
+  "field": "lead_organizations",
+  "headerName": "Lead Organizations",
+  "show": true,
+  "source": "raw",
+  "suppressSorting": true,
+  "renderer": "organization",
+  "width": 230
+  },
+  {
+  "field": "lead_diseases",
+  "headerName": "Lead Diseases",
+  "show": false,
+  "source": "raw",
+  "suppressSorting": true,
+  "array": "name",
+  "width": 300
+  },
+  {
+  "field": "min_target_accrual",
+  "headerName": "Target Enrollment",
+  "show": false,
+  "source": "raw",
+  "width": 75
+  },
+  {
+  "field": "record_verification_date",
+  "headerName": "Record Verification Date",
+  "show": false,
+  "source": "raw",
+  "width": 110,
+  "humanDate": true
+  },
+  {
+  "field": "va_associated",
+  "headerName": "VA",
+  "show": false,
+  "source": "raw",
+  "width": 40,
+  "convertBool": true
+  }
+]

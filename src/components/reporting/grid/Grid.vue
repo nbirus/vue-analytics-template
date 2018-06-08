@@ -56,12 +56,13 @@
           :options="pageSizeOptions"
           :allowEmpty="false"
 
+          :disabled="stateActive"
           :inputValue="displayPageSize"
           @changed="size => gridAction('pageSize', size.value)"
         >
         </select-input>
 
-        <span>of {{gridRows.length | localeString}} entries</span>
+        <span>of {{rowTotal | localeString}} entries</span>
       </div>
 
       <!--search-->
@@ -77,24 +78,21 @@
       <!--toggle columns-->
       <div class="action-buttons links">
 
-        <!-- refresh -->
-        <btn
-          v-if="canRefresh"
-          @click="() => {}">
-          <i class="fa fa-sync-alt"></i> Refresh
-        </btn>
-
         <!--toggle columns-->
         <btn
           v-if="canToggleColumns"
-          @click="toggleColumnsOpen = !toggleColumnsOpen">
+          @click="toggleColumnsOpen = !toggleColumnsOpen"
+          :disabled="stateActive"
+        >
           Toggle Columns
         </btn>
 
         <!--export-->
         <btn
           v-if="canExport"
-          @click="exportModal = true">
+          @click="exportModal = true"
+          :disabled="stateActive"
+        >
           Export Table
         </btn>
 
@@ -111,7 +109,6 @@
       <!--grid-->
       <ag-grid-vue
         ref="grid"
-        v-if="gridActive"
         class="grid ag-fresh"
         :gridOptions="gridOptions"
 
@@ -147,58 +144,55 @@
         <transition name="slide-in-from-right">
           <div class="column-toggle-container" v-if="toggleColumnsOpen">
 
-          <div class="header">
+            <div class="header">
 
-            <div class="input-row">
-              <input @click="toggleAllColumns" class="select-all" type="checkbox" :checked="allToggleColumnsSelected"/>
-              <text-input :inputValue.sync="toggleColumnSearchText" class="filter-input" placeholder="Type to filter.."></text-input>
+              <div class="input-row">
+                <input @click="toggleAllColumns" class="select-all" type="checkbox" :checked="allToggleColumnsSelected"/>
+                <text-input :inputValue.sync="toggleColumnSearchText" class="filter-input" placeholder="Type to filter.."></text-input>
+              </div>
+
+              <btn class="close-icon" flat theme="first"
+                   @click="toggleColumnsOpen = false"><i class="fa fa-chevron-right"></i>
+              </btn>
+
             </div>
 
-            <btn class="close-icon" flat theme="first"
-              @click="toggleColumnsOpen = false"><i class="fa fa-chevron-right"></i>
-            </btn>
+            <div class="body">
+              <ul class="header-list">
+                <li class="list-item"
+                    v-for="(column, index) in toggleColumns"
+                    :key="index"
+                    v-if="column.field !== 'checkbox'"
+                    @click="toggleColumn(column)">
+
+                  <input type="checkbox" :checked="column.show"/>
+                  <span>{{column.headerName}}</span>
+
+                </li>
+              </ul>
+            </div>
 
           </div>
-
-          <div class="body">
-            <ul class="header-list">
-              <li class="list-item"
-                  v-for="(column, index) in toggleColumns"
-                  :key="index"
-                  v-if="column.field !== 'checkbox'"
-                  @click="toggleColumn(column)">
-
-                <input type="checkbox" :checked="column.show"/>
-                <span>{{column.headerName}}</span>
-
-              </li>
-            </ul>
-          </div>
-
-        </div>
         </transition>
 
         <!-- state -->
-        <div class="state-container" v-if="stateOverlayActive">
+        <transition name="fade">
+          <div class="state-container" v-if="stateActive">
 
-          <!-- loading -->
-          <div class="action loading" v-if="loading">
-            <div class="icon-circle">
-              <i class="fa fa-sync-alt fa-spin"></i>
+            <div class="action loading" v-if="loading">
+              <i class="fa fa-sync-alt fa-spin"></i> Loading
             </div>
+
+            <div class="action error" v-else-if="error">
+              <i class="fa fa-exclamation"></i> {{error}}
+            </div>
+
+            <div class="action error" v-else-if="empty">
+              No Results
+            </div>
+
           </div>
-
-          <!-- error -->
-          <div class="action error" v-if="error">
-            <div class="icon-circle">
-              <i class="fa fa-exclamation"></i>
-            </div>
-            <div class="message">
-              {{error}}
-            </div>
-          </div>
-
-        </div>
+        </transition>
 
         <!-- active actions -->
         <transition name="slide-down">
@@ -216,7 +210,7 @@
 
             <!-- sort change -->
             <div class="action sort" v-if="actionType === 'sort'">
-              <span v-if="pageSort.id">Sort {{pageSort.id | replaceUnderscores | titleCase }} in {{pageSort.sort}} order</span>
+              <span v-if="pageSort.colId">Sort {{pageSort.colId | replaceUnderscores }} in {{pageSort.sort}} order</span>
               <span v-else>Clear Sort</span>
             </div>
 
@@ -233,6 +227,7 @@
       <paginiation-input
         :inputValue="pageNumber"
         :pageSize="pageTotal"
+        :disabled="stateActive"
         @changed="value => gridAction('pageNumber', value)"
       >
       </paginiation-input>
@@ -282,6 +277,10 @@
         type: Array,
         required: false,
         default: () => []
+      },
+      rowTotal: {
+        type: Number,
+        default: 0
       },
 
       pageNumber: {
@@ -383,6 +382,7 @@
           suppressAnimationFrame: true,
           rowDeselection: true,
           suppressCellSelection: true,
+          suppressNoRowsOverlay: true,
           suppressRowClickSelection: true
         },
         gridRows: [],
@@ -427,8 +427,9 @@
     },
     computed: {
 
-      gridActive () {
-        return !this.error && !!this.gridRows.length
+      // if grid state action is taking place
+      stateActive () {
+        return !!this.error || this.loading || this.empty
       },
 
       // columns passed to the grid
@@ -436,7 +437,7 @@
         return this.gridColumns.filter(column => !this.suppressedColumns.includes(column.field) && column.show)
       },
 
-      // toggle
+      // toggle columns
       toggleColumns () {
         return this.gridColumns.filter(column => {
           return (column.headerName.toLowerCase().indexOf(this.toggleColumnSearchText.toLowerCase()) > -1)
@@ -450,12 +451,12 @@
       overlayActive () {
         return this.toggleColumnsOpen
       },
-      stateOverlayActive () {
-        return this.error || this.loading
-      },
 
+      empty () {
+        return this.rowTotal === 0
+      },
       pageTotal () {
-        return Math.floor(this.gridRows.length / this.pageSize)
+        return Math.floor(this.rowTotal / this.pageSize)
       },
       displayPageSize () {
         return this.pageSizeOptions.find(option => option.value === this.pageSize)
@@ -478,13 +479,23 @@
       // data
       setHeader () {
 
-        // get passed in columns
         let columns = cloneDeep(this.columns)
 
-        // add checkbox row if grid selectable
+        // add checkbox row
         if (this.canSelect && columns[0].field !== 'checkbox') {
           columns.unshift(GridService.getCheckboxColumn())
         }
+
+        // modify and attach other functions
+        columns.map(column => {
+
+          // add filters
+          if (column.hasOwnProperty('filters')) {
+            column.valueFormatter = (row) => this.$options.filters.filterLoop(row.value, column.filters)
+          }
+
+        })
+
 
         this.gridColumns = columns
       },
@@ -494,7 +505,7 @@
 
       // grid actions
       gridAction (action, model) {
-        if (this.gridActive) {
+        if (!this.stateActive) {
           this.$emit(`${action}Changed`, model)
           this.showAction(action)
         }
@@ -573,6 +584,12 @@
 
     },
     watch: {
+      rows: {
+        handler () {
+          this.$nextTick(this.setRows)
+        },
+        deep: true
+      },
       gridRows () {
         this.$nextTick(this.resizeIfNotScrollable)
       }
@@ -588,7 +605,7 @@
   @import (reference) '../../../styles/app-helper.less';
 
   .grid-container {
-
+    height: 100%;
     display: flex;
     flex-direction: column;
 
@@ -759,28 +776,19 @@
           .stripe-gradient-transparent(black, 99%);
 
           .action {
-            .icon-circle {
-              font-size: 1.3rem;
-              color: white;
-              background-color: fadeout(black, 36%);
+            padding: .5rem 1rem;
+            border-radius: 2px;
+
+            width: auto;
+
+            font-size: 1rem;
+            color: white;
+            background-color: fadeout(black, 36%);
+
+            i {
+              margin-right: .3rem;
             }
 
-            &.error {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-
-              .icon-circle {
-                background-color: transparent;
-                border: none;
-                margin: 0;
-                color: @c-danger;
-              }
-
-              .message {
-                font-size: @font-size-lg;
-              }
-            }
           }
 
         }
