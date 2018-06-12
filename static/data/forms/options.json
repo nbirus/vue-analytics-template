@@ -33,5 +33,15 @@
     { "label": "Institutional", "value": "INSTITUTIONAL"},
     { "label": "Externally Peer Reviewed", "value": "EXTERNALLY_PEER_REVIEWED"},
     { "label": "Industrial", "value": "INDUSTRIAL"}
+  ],
+  "colors": [
+    { "label": "Cyan", "value": "cyan"},
+    { "label": "Red", "value": "red"}
+  ],
+  "charts": [
+    { "label": "Pie Chart", "value": "pie"},
+    { "label": "Horizontal Bar Chart", "value": "horizontal-bar"},
+    { "label": "Vertical Bar Chart", "value": "vertical-bar"},
+    { "label": "Line Chart", "value": "line"}
   ]
 }

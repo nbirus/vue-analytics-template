@@ -22,10 +22,12 @@ const inputModel = {
   'select': {
     default: undefined,
     visual: (result, schema, value) => {
-      result[schema.id] = value.map(item => (item.label)).join(', and ')
+      result[schema.id] = value.map(item => (item.label)).join(', ')
     },
     api: (result, schema, value) => {
-      result[schema.id] = value.map(item => (item.value)).join(',')
+      result[schema.id] = (Array.isArray(value))
+        ? value.map(item => (item.value))
+        : value.value
     }
   },
   'color-picker': {
@@ -40,14 +42,8 @@ function isInputEmpty (customIsEmpty, value) {
     : CommonUtils.isFalsey(value)
 }
 
-// get api model
-let apiFormFormatter = (...args) => formFormatter('api', ...args)
-
-// get visial model
-let visialFormFormatter = (...args) => formFormatter('visual', ...args)
-
 // main formatting function
-function formFormatter (formattingType, result, schema, value) {
+let formFormatter = (formattingType, result, schema, value) => {
 
   // get input modal and formatting func
   let model = inputModel[schema.type]
@@ -72,6 +68,5 @@ function formFormatter (formattingType, result, schema, value) {
 
 export default {
   inputModel,
-  apiFormFormatter,
-  visialFormFormatter
+  formFormatter
 }

@@ -12,7 +12,8 @@ export default {
       required: true
     },
     chartData: {
-      required: true
+      required: true,
+      default: () => []
     },
     expanded: {
       type: Boolean,
@@ -73,14 +74,18 @@ export default {
 
     $buildChart () {
 
-      // get colors
-      this.activeColors = this.colors.length ? this.colors : this.$generateColors()
+      if (this.verifyChartData()) {
 
-      // get data
-      this.formattedChartData = this.handleDataReturn(this.chartData)
+        // get colors
+        this.activeColors = this.colors.length ? this.colors : this.$generateColors()
 
-      // emit the render
-      this.$emit('chartRendered', this.filteredChartData)
+        // get data
+        this.formattedChartData = this.handleDataReturn(this.chartData)
+
+        // emit the render
+        this.$emit('chartRendered', this.filteredChartData, this.getDataLength())
+
+      }
 
     },
 
@@ -106,7 +111,7 @@ export default {
     },
 
     $emitClick (model) {
-      this.$emit('c', model)
+      this.$emit('chartClick', model)
     }
 
   },

@@ -92,6 +92,10 @@
         type: Boolean,
         default: true
       },
+      simpleSidebar: {
+        type: Boolean,
+        default: false
+      },
       theme: {
         type: String,
         default: 'inverse'
@@ -138,9 +142,11 @@
     },
     methods: {
       generateTabClasses () {
+
         return [
           (this.sidebar) ? 'sidebar' : 'topbar',
           {'page-header': this.pageHeader},
+          {'simple-sidebar': this.simpleSidebar},
           `tabs-${this.theme}`
         ]
       },
@@ -376,6 +382,56 @@
       .tabs-panels {
         flex: 1 1 100%;
         overflow: hidden;
+      }
+
+      // other layouts
+      &.simple-sidebar {
+
+        & > .tabs-list {
+          background-color: transparent;
+          border-right: 0;
+
+          // list items
+          .tabs-list-item {
+            width: 100%; height: auto;
+            position: relative;
+            transition: border .1s ease-in-out;
+
+            // list name
+            .tabs-list-item-name {
+              width: 100%; height: 100%;
+              display: block;
+
+              padding: .5em .8em;
+              margin: 0 0 .3em;
+              border-radius: 4px;
+
+              font-size: 1.1em;
+              line-height: initial;
+              color: fadeout(black, 65%);
+              text-decoration: none;
+              font-weight: bold;
+
+            }
+
+            &.active {
+              border: none!important;
+            }
+
+            // item disabled
+            &.disabled {
+
+            }
+
+            &:hover {
+              background-color: fadeout(black, 95%);
+            }
+          }
+        }
+
+        & > .tabs-panels {
+          overflow: visible;
+        }
       }
     }
   }

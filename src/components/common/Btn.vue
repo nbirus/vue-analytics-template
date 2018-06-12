@@ -225,7 +225,9 @@
         color: fadeout(white, 15%);
         background-color: @color;
         border-color: @color-dark;
-        .vertical-gradient(@color, darken(@color, 6%));
+        .vertical-gradient(@color, darken(@color, 4%));
+        // background: none;
+        // background-color: @color;
 
         .btn-shadow(@color-dark);
 
@@ -251,13 +253,11 @@
   };
   @btn-scope();
 
-  // ------------- helpers -------------
+  // helpers
   .btn-shadow(@color) {
     &:active {
       .box-shadow(inset 0px 1px 3px 1px fadeout(@color, 65%))
     }
   }
-
-  // ------------- edge cases -------------
 
 </style>

@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Basic Settings",
+    "schema": [
+      {
+        "type": "text",
+        "id": "keyword",
+        "label": "Keyword",
+        "placeholder": "Search on anything"
+      },
+      {
+        "type": "select",
+        "id": "current_trial_status",
+        "label": "Trial Status",
+        "optionSource": "file",
+        "optionPath": "trial_status",
+        "placeholder": "Select one or more statuses",
+        "hasLabel": true,
+        "multiselect": true
+      },
+      {
+        "type": "select",
+        "id": "study_source",
+        "label": "Study Source",
+        "optionSource": "file",
+        "optionPath": "study_source",
+        "placeholder": "Select one or more statuses",
+        "hasLabel": true,
+        "multiselect": true
+      }
+    ]
+  },
+  {
+    "name": "Disease",
+    "schema": [
+      {
+        "type": "text",
+        "id": "keyword",
+        "label": "Keyword",
+        "placeholder": "Search on anything"
+      }
+    ]
+  }
+]

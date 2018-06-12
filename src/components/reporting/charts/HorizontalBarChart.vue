@@ -96,6 +96,10 @@
     },
     methods: {
 
+      verifyChartData () {
+        return true
+      },
+
       // format data specific for this chart
       handleDataReturn (data) {
         return data.map((item, index) => {

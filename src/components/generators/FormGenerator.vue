@@ -15,7 +15,6 @@
         :is="`${input.type}-input`"
         v-bind="input"
 
-        :layout="formLayout"
         :required="isRequired(input)"
         :error="inputError(input.id)"
         :inputValue="inputValues[input.id]"
@@ -25,7 +24,7 @@
 
     </div>
 
-    <div class="form-actions-row">
+    <div class="form-actions-row" v-if="hasButtons">
       <btn type="reset">Cancel</btn>
       <btn type="submit" theme="success">Ok</btn>
     </div>
@@ -37,6 +36,7 @@
   import { isNil, has } from 'lodash'
   import { validationMixin } from 'vuelidate'
   import { validators, errors } from '@/services/ValidationService'
+  import FormService from '@/services/FormService'
 
   export default {
     name: 'form-generator',
@@ -51,9 +51,9 @@
         required: false,
         default () { return {} }
       },
-      formLayout: {
-        type: String,
-        default: 'vertical'
+      hasButtons: {
+        type: Boolean,
+        default: true
       }
     },
     data () {
@@ -151,13 +151,14 @@
       },
 
       // formatting
-      getFormattedInputValues (formattingFunction) {
+      getFormattedInputValues (type) {
 
         return Object
           .keys(this.inputValues)
           .reduce((result, key) => {
 
-            formattingFunction(
+            FormService.formFormatter(
+              type,
               result,
               this.schema.find(input => input.id === key), // find associated input
               this.inputValues[key] // pass value

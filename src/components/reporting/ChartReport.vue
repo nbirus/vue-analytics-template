@@ -6,17 +6,17 @@
     :onCollapse="collapseChart"
   >
     <div class="chart-report-panel" :class="chartStateClass">
-      <div class="panel" ref="report">
+      <div class="panel" :class="{'no-shadow': noShadow}" ref="report">
 
         <!--header-->
         <div class="panel-header chart-header">
 
           <div class="chart-title" v-if="hasHeader">
             <h4 :class="textColor">{{activeChartTitle}}</h4>
-            <h5 v-if="isChartReady && showTotal">{{totalCount | localeString}} {{countType}}</h5>
+            <h5 v-if="renderChart && showTotal">{{totalCount | localeString}} {{countType}}</h5>
           </div>
 
-          <div class="chart-actions" v-if="!hideActions && isChartReady">
+          <div class="chart-actions" v-if="showActions">
 
             <dropdown menu-right>
 
@@ -31,13 +31,15 @@
               <!--options-->
               <i v-if="hasOptions"
                  v-tooltip.unenterable="'Options'"
-                 :class="textColor" class="icons icon-options-vertical" data-role="trigger">
+                 :class="textColor" class="icons icon-options-vertical" data-role="trigger"
+              >
               </i>
 
               <!--toggle headers-->
               <i v-if="hasLegend"
                  v-tooltip.unenterable="'Toggle Headers'"
-                 :class="textColor" @click="toggleColumnActive = true" class="fa fa-chevron-left">
+                 :class="textColor" @click="toggleColumnActive = true" class="fa fa-chevron-left"
+              >
               </i>
 
               <!-- drop-down -->
@@ -67,7 +69,7 @@
         </div>
 
         <!--chart-->
-        <div class="panel-body chart-body" v-if="isChartReady">
+        <div class="panel-body chart-body" v-if="renderChart" v-show="showChart">
           <div class="panel-block">
 
             <!--
@@ -105,7 +107,7 @@
           </transition>
 
           <!-- error -->
-          <div class="error" v-if="error">
+          <div class="error" v-if="errorActive">
             <div class="icon-circle"><i class="fa fa-exclamation"></i></div>
             <h4 class="error-message">{{error}}</h4>
           </div>
@@ -303,6 +305,10 @@
       canScreenShot: {
         type: Boolean,
         default: true
+      },
+      noShadow: {
+        type: Boolean,
+        default: true
       }
 
     },
@@ -312,6 +318,7 @@
         // header data
         toggleColumnSearchText: '',
         chartHeaders: [],
+        chartTotal: 0,
         suppressedHeaders: [],
 
         // flags
@@ -332,8 +339,20 @@
     },
     computed: {
 
-      isChartReady () {
-        return !this.loading && !this.error && !!this.chartData
+      renderChart () {
+        return !this.loading && !this.error
+      },
+
+      showChart () {
+        return this.hasData
+      },
+
+      hasData () {
+        return this.chartTotal !== 0
+      },
+
+      errorActive () {
+        return !this.loading && !!this.error
       },
 
       activeChartTitle () {
@@ -372,8 +391,8 @@
         )
       },
 
-      hideActions () {
-        return this.screenShotActive
+      showActions () {
+        return !this.screenShotActive && this.renderChart
       },
 
       filteredHeaders () {
@@ -385,7 +404,7 @@
       chartStateClass () {
         return {
           'loading': this.loading,
-          'error': this.error,
+          'error': this.errorActive,
           'sidebar': this.sidebarActive,
           'expanded': this.expandActive,
           'screen-shot': this.screenShotActive
@@ -394,8 +413,8 @@
 
       textColor () {
         return [
-          (!this.error) ? 'text-' + this.theme : null,
-          (this.error) ? 'text-danger' : null
+          (!this.errorActive) ? 'text-' + this.theme : null,
+          (this.errorActive) ? 'text-danger' : null
         ]
       }
 
@@ -480,7 +499,8 @@
     // chart expanded
     &.expanded > .panel {
       transform: scale(1)!important;
-      font-size: 1.1em;
+      font-size: 1.3em;
+      background-color: white;
 
       .chart-header {
         text-align: center;
@@ -513,6 +533,7 @@
       overflow: hidden;
       transition: transform .4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
       font-size: @font-size;
+      background-color: transparent;
 
       // features
       .chart-header {
@@ -524,7 +545,7 @@
 
           h4 {
             color: @c-inverse;
-            font-size: 1.1em;
+            font-size: 1.2em;
           }
           h5 {
             color: @grey6;
@@ -617,7 +638,7 @@
         .overlay {
           top: 0; bottom: 0; right: 0; left: 0;
           position: absolute;
-          background-color: fadeout(black, 60%);
+          background-color: fadeout(black, 80%);
         }
 
         .sidebar {
@@ -625,7 +646,7 @@
           right: 0;
           position: absolute;
           background: @grey1;
-          border-left: solid thin @grey3;
+          border-left: solid thin @grey2;
           pointer-events: auto;
           z-index: 1;
 
@@ -635,8 +656,6 @@
             background-color: white;
             position: absolute;
             top: 0; bottom: 0; right: 0;
-
-            border-left: solid 1px @grey6;
 
             pointer-events: auto;
 

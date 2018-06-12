@@ -13,6 +13,9 @@
   export default {
     name: 'pie-chart',
     mixins: [ChartMixin],
+    props: {
+
+    },
     data () {
       return {
         defaultChartOptions: {
@@ -76,6 +79,21 @@
 
     },
     methods: {
+
+      verifyChartData () {
+
+        let valid = true
+        // let chartData = cloneDeep(this.chartData)
+
+        // check data length
+        valid = this.getDataLength() !== 0
+
+        // check data is in correct format
+
+
+        return valid
+
+      },
 
       // format data specific for this chart
       handleDataReturn (data) {

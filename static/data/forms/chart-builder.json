@@ -1,0 +1,37 @@
+[
+  {
+    "type": "select",
+    "id": "chartType",
+    "label": "Select a Chart Type",
+    "hasLabel": true,
+    "allowEmpty": true,
+    "optionSource": "file",
+    "optionPath": "charts",
+    "initialValue": {
+      "label": "Pie Chart", "value": "pie"
+    },
+    "validations": {
+      "required": true
+    }
+  },
+
+  {
+    "type": "text",
+    "id": "chartTitle",
+    "label": "Add a title",
+    "placeholder": "Title",
+    "validations": {
+      "maxLength": 255
+    },
+    "initialValue": "Chart Title"
+  },
+
+  {
+    "type": "select",
+    "id": "theme",
+    "label": "Select a color scheme",
+    "hasLabel": true,
+    "optionSource": "file",
+    "optionPath": "colors"
+  }
+]
