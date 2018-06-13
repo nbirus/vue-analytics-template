@@ -4,7 +4,7 @@
 
       v-for="(report, index) in reports" :key="index"
 
-      class="dashboard-item"
+      class="dashboard-item panel"
       :class="buildReportClass(report.display)"
       :id="'report-' + report.id"
 

@@ -21,6 +21,7 @@
           type="text"
           autocomplete="off"
           spellcheck="false"
+          placeholder="Search"
 
           :value="inputValue"
           @input="event => $updateValue(event.target.value)"

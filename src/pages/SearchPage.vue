@@ -6,6 +6,7 @@
       title="Trial Search"
       subTitle="Search trials"
       theme="cyan"
+      layout="search"
       hasTabs
     >
       <div slot="page-actions">
@@ -36,7 +37,7 @@
 
       <tab name="Grid">
         <div class="page-body">
-          <!-- <elastic-grid
+          <elastic-grid
             class="grid"
             id="search-grid"
 
@@ -54,18 +55,18 @@
             :canSelect="false"
             :canSelectMultiple="false"
             :showRowDetail="false"
-          /> -->
+          />
         </div>
       </tab>
 
       <tab name="Analytics">
         <div class="page-body">
 
-          <!-- <report-generator
+          <report-generator
             :reports="dashboard"
             :initialParams="reportsParams"
           >
-          </report-generator> -->
+          </report-generator>
 
         </div>
       </tab>
@@ -75,32 +76,30 @@
 
           <chart-builder></chart-builder>
 
-          <!-- <chart-builder
-            style='height: 900px; width: 1000px; margin-right: 10px; display: inline-block'
-            id='label'
-            chartTitle='Test Pie Chart'
-            chartType='pie'
-            :chartData='chartData'
-            :labelFilters="['upperCase', 'replaceUnderscores']"
-          >
-          </chart-builder> -->
-
         </div>
       </tab>
     </tabs>
 
-    <!--advanced search-->
-    <div class="advanced-search" v-if="advancedActive">
+    <!-- advanced search -->
+    <div class="page advanced-search" v-if="advancedActive">
 
-      <div class="header">
-        <h1>Advanced Search</h1>
-      </div>
+      <!--header-->
+      <app-page-header
+        title="Advanced Search"
+        layout="buttons"
+      >
+        <div slot="page-actions">
+          <btn @click="advancedCancel">Cancel</btn>
+          <btn theme="lime" @click="advancedSubmit">Search Trials</btn>
+        </div>
 
-      <div class="body">
+      </app-page-header>
 
+      <div class="page-body">
         <div class="form-group-container">
 
           <form-group-generator
+            class="form-group-generator"
             ref="advancedForm"
             :schemaGroups="form"
             :initialValues="formObject"
@@ -121,13 +120,9 @@
           >
           </form-summary>
 
-          <div class="footer">
-            <btn>Cancel</btn>
-            <btn theme="lime">Search</btn>
-          </div>
-
         </div>
       </div>
+
     </div>
 
   </div>
@@ -182,7 +177,7 @@
         visualObject: {},
         apiObject: {},
 
-        advancedActive: false
+        advancedActive: true
       }
     },
     computed: {
@@ -218,6 +213,9 @@
     methods: {
 
       // advanced
+      advancedCancel () {
+        this.advancedActive = false
+      },
       advancedChanged () {
         this.visualObject = this.$refs.advancedForm.getFormattedInputValues('visual')
       },
@@ -311,45 +309,31 @@
     background-color: white;
     position: absolute;
     top: 50px; right: 0; bottom: 0; left: @nav-width;
-    padding: @page-padding;
 
     .header {
       margin-bottom: 2em;
     }
 
-    .body {
+    .page-body {
       display: flex;
       align-items: flex-start;
-      max-width: 1200px;
+      justify-content: space-between;
+      max-width: 1400px;
+      margin: 0;
 
       .form-group-container {
-        flex: 0 0 70%;
+        flex: 0 1 100%;
+        .form-group-generator {
+          max-width: 800px;
+        }
       }
 
       .summary-container {
-        flex: 0 1 100%;
-        max-width: 700px;
+        flex: 0 0 400px;
+
         background-color: @grey1;
         border: solid thin @grey3;
         padding: 1rem;
-
-        .footer {
-          display: flex;
-          justify-content: flex-end;
-          background-color: white;
-          background-color: transparent;
-          margin-top: 1rem;
-
-
-          button {
-            flex: 0 1 auto;
-            margin-left: .5em;
-
-            &:first-child {
-              margin-left: 0;
-            }
-          }
-        }
       }
 
     }

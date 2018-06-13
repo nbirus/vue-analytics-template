@@ -388,6 +388,7 @@
       &.simple-sidebar {
 
         & > .tabs-list {
+          flex: 0 0 170px;
           background-color: transparent;
           border-right: 0;
 

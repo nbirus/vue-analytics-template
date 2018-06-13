@@ -1,5 +1,5 @@
 <template>
-  <div class="header" :class="{'has-tabs': hasTabs}">
+  <div class="header" :class="[{'has-tabs': hasTabs}, `${layout}-layout`]">
     <div class="page-header-content">
 
       <!-- title -->
@@ -9,7 +9,7 @@
       </div>
 
       <!-- actions -->
-      <div class="page-actions">
+      <div class="page-actions" v-if="this.$slots['page-actions']">
         <slot name="page-actions"/>
       </div>
 
@@ -39,6 +39,10 @@
       hasTabs: {
         type: Boolean,
         default: false
+      },
+      layout: {
+        type: String,
+        default: 'search'
       }
     }
   }
@@ -56,10 +60,9 @@
     border-bottom: solid 1px darken(@page-header-color, 5%);
     overflow: hidden;
 
+    // main
     .page-header-content {
       width: 100%; height: 100%;
-      //.max-page-width;
-
       padding: 0 @page-padding;
 
       .page-title-container {
@@ -81,6 +84,39 @@
       .page-actions {
         width: 100%; height: auto;
         padding: 1rem 0 1.3rem;
+      }
+    }
+
+    // layouts
+    &.search-layout {
+
+    }
+
+    &.buttons-layout {
+      // padding-top: .5rem;
+      // padding-bottom: .5rem;
+
+      .page-header-content {
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: .5em;
+        padding-bottom: .5em;
+
+        .page-title-container {
+          flex: 0 0 auto;
+        }
+
+        .page-actions {
+          flex: 0 1 auto;
+          width: auto;
+          padding: 0;
+
+          button {
+            margin-left: .5rem;
+          }
+        }
       }
     }
 
