@@ -136,19 +136,14 @@
 
   import TrialHeaders from '../../static/data/grid-headers/trial-headers.json'
   import Dashboard from '../../static/data/dashboards/strap-dashboard.json'
-
-  // import TestForm from '../../static/data/forms/sample-form.json'
   import TestForm from '../../static/data/forms/test-form-group.json'
 
-  import SearchString from 'search-string'
-
   import ReportGenerator from '@/components/generators/ReportGenerator'
-  // import FormGenerator from '@/components/generators/FormGenerator'
   import FormGroupGenerator from '@/components/generators/FormGroupGenerator'
   import FormSummary from '@/components/utils/FormSummary'
-  import FormService from '@/services/FormService'
 
   import { cloneDeep } from 'lodash'
+  import SearchString from 'search-string'
 
   export default {
     name: 'search-page',
@@ -177,7 +172,7 @@
         visualObject: {},
         apiObject: {},
 
-        advancedActive: true
+        advancedActive: false
       }
     },
     computed: {
@@ -226,7 +221,7 @@
 
         // set form search string
         this.searchString = this.stringifySearch(
-          this.$refs.advancedForm.getFormattedInputValues(FormService.apiFormFormatter)
+          this.$refs.advancedForm.getFormattedInputValues('api')
         )
 
         // close advanced search
@@ -269,7 +264,6 @@
 
           let value = item.value
 
-          // TODO: improve this
           try {
             value = value.split(',')
           }

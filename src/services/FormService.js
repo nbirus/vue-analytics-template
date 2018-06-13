@@ -22,24 +22,17 @@ const inputModel = {
   'select': {
     default: undefined,
     visual: (result, schema, value) => {
-      result[schema.id] = value.map(item => (item.label)).join(', ')
+      result[schema.id] = value.map(item => (getLabel(schema, item))).join(', ')
     },
     api: (result, schema, value) => {
       result[schema.id] = (Array.isArray(value))
-        ? value.map(item => (item.value))
-        : value.value
+        ? value.map(item => (getValue(schema, item)))
+        : getValue(schema, value)
     }
   },
   'color-picker': {
     default: ''
   }
-}
-
-// is input value empty
-function isInputEmpty (customIsEmpty, value) {
-  return (customIsEmpty)
-    ? customIsEmpty(value)
-    : CommonUtils.isFalsey(value)
 }
 
 // main formatting function
@@ -63,6 +56,21 @@ let formFormatter = (formattingType, result, schema, value) => {
     }
 
   }
+}
+
+// helpers
+function isInputEmpty (customIsEmpty, value) {
+  return (customIsEmpty)
+    ? customIsEmpty(value)
+    : CommonUtils.isFalsey(value)
+}
+
+function getLabel (schema, value) {
+  return schema.optionLabel ? value[schema.optionLabel] : value.label
+}
+
+function getValue (schema, value) {
+  return schema.optionValue ? value[schema.optionValue] : value.value
 }
 
 

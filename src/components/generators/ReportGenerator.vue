@@ -2,11 +2,11 @@
   <transition-group name="dashboard-list" appear mode="out-in" class="dashboard" tag="div">
     <report-container
 
-      v-for="(report, index) in reports" :key="index"
+      v-for="report in reports" :key="report.id"
 
       class="dashboard-item panel"
       :class="buildReportClass(report.display)"
-      :id="'report-' + report.id"
+      :id="`report-${report.id}`"
 
       :reportApiConfig="report.reportApiConfig"
       :reportType="report.reportType"
@@ -36,13 +36,12 @@
     },
     methods: {
       buildReportClass (display) {
-        if (display) {
-          let lg = `sr-lg-${display[0].row} sc-lg-${display[0].col} order-lg-${display[0].order} `
-          let md = `sr-md-${display[1].row} sc-md-${display[1].col} order-md-${display[1].order} `
-          let sm = `sr-sm-${display[2].row} sc-sm-${display[2].col} order-sm-${display[2].order}`
 
-          return lg + md + sm
-        }
+        let lg = `sr-lg-${display[0].row} sc-lg-${display[0].col} order-lg-${display[0].order} `
+        let md = `sr-md-${display[1].row} sc-md-${display[1].col} order-md-${display[1].order} `
+
+        return lg + md
+
       }
     }
   }
@@ -78,12 +77,6 @@
           &.order-md-@{value} { order: @value }
         }
 
-        // < 500px
-        // @media screen and (max-width: @bp-sm) {
-          // &.sc-sm-@{value} { grid-column: span @value }
-          // &.sr-sm-@{value} { grid-row: span @value }
-          // &.order-sm-@{value} { order: @value }
-        /*}*/
 
       }, 20);
 

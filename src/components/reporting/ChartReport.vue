@@ -78,10 +78,15 @@
               - $attrs: props specific to the underlying chart
             -->
 
+            <!--v-bind="[$props, $attrs]"-->
+
             <component
               :is="`${chartType}-chart`"
-              v-bind="[$props, $attrs]"
 
+              v-bind="[chartProps]"
+
+              :id="id"
+              :chartData="chartData"
               :theme="activeChartTheme"
               :suppressedHeaders="suppressedHeaders"
               :expanded="expandActive"
@@ -98,18 +103,21 @@
         <div class="panel-body chart-api-states">
 
           <!-- loading -->
-          <transition name="icon-circle" appear>
-            <div class="loading" v-if="loading">
-              <div class="icon-circle">
-                <i class="fa fa-sync-alt fa-spin"></i>
-              </div>
+          <div class="state loading" v-if="loading">
+            <div class="icon-circle">
+              <i class="fa fa-sync-alt fa-spin"></i>
             </div>
-          </transition>
+          </div>
 
           <!-- error -->
-          <div class="error" v-if="errorActive">
+          <div class="state error" v-else-if="errorActive">
             <div class="icon-circle"><i class="fa fa-exclamation"></i></div>
             <h4 class="error-message">{{error}}</h4>
+          </div>
+
+          <!-- no data -->
+          <div class="state no-data" v-else-if="!hasData">
+            <i class="fa fa-exclamation"></i><h4 class="error-message">No Data</h4>
           </div>
 
         </div>
@@ -256,6 +264,12 @@
         type: String,
         required: true
       },
+      chartProps: {
+        type: Object,
+        default () {
+          return {}
+        }
+      },
 
       // data
       chartTitle: {
@@ -273,12 +287,6 @@
       settings: {
         type: Array,
         default: () => []
-      },
-      initialParams: {
-        type: Object,
-        default () {
-          return {}
-        }
       },
 
       // flags
@@ -484,6 +492,7 @@
       }
 
     }
+
   }
 
 </script>
@@ -592,40 +601,35 @@
         align-items: center;
         position: absolute;
 
-        .error {
+        .state {
           display: flex;
-          flex-direction: column;
           align-items: center;
 
-          .icon-circle {
-            font-size: 1.2em;
+          padding: .5rem 1rem;
+          border-radius: 2px;
 
-            background-color: transparent;
-            border: none;
+          width: auto;
 
-            color: @c-danger;
-
-            i { font-size: 1.5em; }
-          }
-
-          .error-message {
-            font-weight: 900;
-            color: @c-danger;
-            font-size: 1em;
-            margin-top: .5em;
-          }
-        }
-
-        .loading > .icon-circle {
-          font-size: 1.5rem;
-
-          background-color: transparent;
-          border: none;
-          color: fadeout(black, 50%);
+          font-size: 1rem;
+          color: white;
+          background-color: fadeout(black, 36%);
 
           i {
-            font-size: 1em;
+            margin-right: .5rem;
           }
+
+          &.loading {
+
+          }
+
+          &.error {
+
+          }
+
+          &.no-data {
+
+          }
+
         }
       }
 

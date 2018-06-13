@@ -1,18 +1,18 @@
 <template>
   <div class="chart-builder">
 
-    <div class="header">
+    <!--<div class="header">-->
 
-      <div class="title">
-        <h2>Build Chart</h2>
-        <h4>Fill out the form on the left to create a chart</h4>
-      </div>
+      <!--<div class="title">-->
+        <!--<h2>Build Chart</h2>-->
+        <!--<h4>Fill out the form on the left to create a chart</h4>-->
+      <!--</div>-->
 
-      <div class="actions">
-        <btn>Reset Chart</btn>
-      </div>
+      <!--<div class="actions">-->
+        <!--<btn>Reset Chart</btn>-->
+      <!--</div>-->
 
-    </div>
+    <!--</div>-->
 
     <div class="builder">
 

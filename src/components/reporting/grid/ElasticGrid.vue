@@ -67,8 +67,13 @@
       },
 
       // page size
-      changePageSize (pageSize) {
+      changePageSize (pageSize, resetPageNumber = true) {
         this.pageSize = pageSize
+
+        if (resetPageNumber) {
+          this.changePageNumber(0)
+        }
+
         this.$saveGridState()
       },
 

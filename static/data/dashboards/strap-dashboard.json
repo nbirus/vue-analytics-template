@@ -1,6 +1,6 @@
 [
   {
-    "id": "test-pie-chart",
+    "id": "phase",
     "display": [
       {
         "order": 5,
@@ -11,11 +11,6 @@
         "order": 1,
         "row": 1,
         "col": 4
-      },
-      {
-        "order": 1,
-        "row": 1,
-        "col": 12
       }
     ],
 
@@ -26,18 +21,61 @@
         "chart": "phase"
       }
     },
-    "reportType": "chart",
+    "reportType": "chart-report",
     "reportProps": {
 
       "id": "phase",
       "chartType": "pie",
-      "chartTitle": "Test Chart",
+      "chartTitle": "Trials by Phase",
       "chartProps": {
 
       },
 
-      "title": "Test Pie",
       "countType": "items",
+      "theme": "cyan",
+      "settings": [],
+      "showTotal": true,
+      "hasHeader": true,
+      "hasActionBar": true,
+      "canExpand": true,
+      "hasLegend": true,
+      "canExport": true,
+      "canScreenshot": true
+    }
+  },
+  {
+    "id": "primary_purpose",
+    "display": [
+      {
+        "order": 5,
+        "row": 7,
+        "col": 10
+      },
+      {
+        "order": 1,
+        "row": 1,
+        "col": 4
+      }
+    ],
+
+    "reportApiConfig": {
+      "baseURL": "http://localhost:3009/api/v2/",
+      "endpoint": "analytics/trials",
+      "params": {
+        "chart": "primary_purpose"
+      }
+    },
+    "reportType": "chart-report",
+    "reportProps": {
+
+      "id": "primary_purpose",
+      "chartType": "horizontal-bar",
+      "chartTitle": "Primary Purpose",
+      "chartProps": {
+
+      },
+
+      "countType": "trials",
       "theme": "cyan",
       "settings": [],
       "showTotal": true,

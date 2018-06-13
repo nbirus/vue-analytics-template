@@ -32,12 +32,14 @@
         >
         </select-input>
 
+        <!--export buttons-->
         <div class="export-buttons">
           <btn theme="warning" @click="exportModal = false">Cancel</btn>
           <btn theme="success" @click="exportModal = false">Download</btn>
         </div>
 
       </div>
+
     </modal>
 
     <!-- ------ actions bar ------ -->
@@ -109,7 +111,7 @@
       <!--grid-->
       <ag-grid-vue
         ref="grid"
-        class="grid ag-fresh"
+        class="grid ag-fresh" :class="{'disabled': stateActive}"
         :gridOptions="gridOptions"
 
         :rowData="gridRows"
@@ -679,6 +681,10 @@
       flex: 0 1 100%;
       position: relative;
       border: solid thin @grey4;
+
+      .grid.disabled {
+        pointer-events: none;
+      }
 
       .grid-mask {
         width: 100%; height: 100%;

@@ -1,33 +1,16 @@
 <template>
   <data-wrapper :apiConfig="activeConfig">
     <template slot-scope="{ _response, _state }">
+      <component
+        :is="reportType"
 
-      <!-- ------- chart report ------- -->
-      <chart-report
-        v-if="reportType === 'chart'"
+        v-bind="[reportProps]"
 
         :loading="_state.loading"
         :error="_state.error"
         :chartData="_response.analytics"
-
-        v-bind="reportProps"
-
       >
-      </chart-report>
-
-      <!-- ------- number widget ------- -->
-      <count-widget
-        v-else-if="reportType === 'count'"
-
-        :loading="_state.loading"
-        :error="_state.error"
-        :count="_response.count"
-
-        v-bind="reportProps"
-      >
-      </count-widget>
-
-
+      </component>
     </template>
   </data-wrapper>
 </template>

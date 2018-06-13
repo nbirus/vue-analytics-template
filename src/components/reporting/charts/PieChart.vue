@@ -89,8 +89,6 @@
         valid = this.getDataLength() !== 0
 
         // check data is in correct format
-
-
         return valid
 
       },

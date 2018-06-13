@@ -31,7 +31,7 @@
 
 <script>
   export default {
-    name: 'search-summary',
+    name: 'form-summary',
     props: {
       schema: {
         type: Array,
