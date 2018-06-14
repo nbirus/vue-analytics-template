@@ -28,9 +28,7 @@
           @focus="focusActive = true"
           @blur="focusActive = false"
         />
-
       </div>
-
       <div class="submit">
         <btn
           class="button"
@@ -45,6 +43,7 @@
     </form>
 
   </div>
+
 
 </template>
 

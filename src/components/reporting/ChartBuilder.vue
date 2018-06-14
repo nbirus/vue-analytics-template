@@ -29,7 +29,6 @@
 
       <!-- theme -->
 
-
     </div>
 
     <div class="chart" v-if="renderChart">
